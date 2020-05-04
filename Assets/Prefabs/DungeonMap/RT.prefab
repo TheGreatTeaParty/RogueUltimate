@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 1
+  destroy_time: 4
 --- !u!1 &5200008988052915278
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 3
+  destroy_time: 4
 --- !u!1 &5450774320402640205
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7561047112162905766}
   - component: {fileID: 3558548866277065715}
+  - component: {fileID: 2522553773388168624}
   m_Layer: 0
   m_Name: RT
   m_TagString: Untagged
@@ -270,3 +273,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2522553773388168624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450774320402640205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542a42506d8c54f80b13d41d5db2a094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

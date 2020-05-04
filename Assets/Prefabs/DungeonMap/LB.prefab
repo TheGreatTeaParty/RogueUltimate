@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 4
+  destroy_time: 4
 --- !u!1 &2427187810992135289
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1033251780545637412}
   - component: {fileID: 5139637641811451507}
+  - component: {fileID: -523339040584034024}
   m_Layer: 0
   m_Name: LB
   m_TagString: Untagged
@@ -177,6 +179,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-523339040584034024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427187810992135289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542a42506d8c54f80b13d41d5db2a094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6294063004811473763
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,3 +284,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 2
+  destroy_time: 4

@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 2
+  destroy_time: 4
 --- !u!1 &1663990781696981698
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 4
+  destroy_time: 4
 --- !u!1 &2506565543547101011
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4812930667553742023}
   - component: {fileID: 6547195287213879843}
+  - component: {fileID: -278047096744370236}
   m_Layer: 0
   m_Name: X4
   m_TagString: Untagged
@@ -273,6 +276,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-278047096744370236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506565543547101011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542a42506d8c54f80b13d41d5db2a094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5182852996030864363
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 1
+  destroy_time: 4
 --- !u!1 &8256232863722263975
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 0
+  destroy_time: 4
 --- !u!1 &8358420746606871600
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,3 +569,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oppenning_direction: 3
+  destroy_time: 4

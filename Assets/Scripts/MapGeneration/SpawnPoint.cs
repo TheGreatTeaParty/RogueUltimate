@@ -10,6 +10,7 @@ public class SpawnPoint : MonoBehaviour
       4 - right
     */
     public int oppenning_direction;
+    public float destroy_time = 4f;
 
     private RoomTemplates templates;
     private int rand;
@@ -17,6 +18,7 @@ public class SpawnPoint : MonoBehaviour
 
     private void Start()
     {
+        Destroy(gameObject, destroy_time);
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         Invoke("Spawn", 0.1f);  //Call method spawn every 0.1 seconds
     }
@@ -56,6 +58,11 @@ public class SpawnPoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("SpawnPoint"))
-            Destroy(gameObject);
+            if(collision.GetComponent<SpawnPoint>().is_spawned == false && is_spawned == false)
+            {
+                Instantiate(templates.closed_room, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        is_spawned = true;
     }
 }
