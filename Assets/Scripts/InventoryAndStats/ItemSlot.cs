@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class ItemSlot : MonoBehaviour
     {
         if (image == null)
             image = GetComponent<Image>();
-    } 
+    }
+
+    // Need controller
     
 }
