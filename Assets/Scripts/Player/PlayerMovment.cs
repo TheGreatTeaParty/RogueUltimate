@@ -9,14 +9,16 @@ public class PlayerMovment : MonoBehaviour {
     [SerializeField] private float movement_speed = 10.0f;
     private Rigidbody2D rb2D;
     private Vector2 movement;
+    protected Joystick joystick;
 
     private void Start() {
         rb2D = this.GetComponent<Rigidbody2D>();
+        joystick = FindObjectOfType<Joystick>();
     }
 
     /*There we receive input information (WASD or arrows or mobile stick)*/
     void Update() {
-        movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        movement = new Vector2(joystick.Horizontal, joystick.Vertical);
     }
 
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
