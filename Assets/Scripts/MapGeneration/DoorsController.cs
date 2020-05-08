@@ -6,21 +6,21 @@ public class DoorsController : MonoBehaviour
 {
     [SerializeField] private GameObject[] doors;
 
-    private Collider2D collider;
-    private void Start()
+    public LayerMask whatIsEnemy;
+    public float width;
+
+
+    private void FixedUpdate()
     {
-        collider = GetComponent<Collider2D>();
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "Enemy")
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, width, whatIsEnemy);
+        if(enemies.Length > 0)
         {
             for (int i = 0; i < doors.Length; i++)
             {
                 doors[i].GetComponent<BoxCollider2D>().enabled = true;
             }
         }
-        else if(collision.tag == "Player")
+        else
         {
             for (int i = 0; i < doors.Length; i++)
             {
@@ -28,4 +28,9 @@ public class DoorsController : MonoBehaviour
             }
         }
     }
+    private void OnDrawGizmosSelected() 
+      {
+        Gizmos.color= Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(width, width, 0));
+      }
 }
