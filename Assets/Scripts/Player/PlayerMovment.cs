@@ -16,7 +16,7 @@ public class PlayerMovment : MonoBehaviour {
         joystick = FindObjectOfType<Joystick>();
     }
 
-    /*There we receive input information (WASD or arrows or mobile stick)*/
+    /*There we receive input information*/
     void Update() {
         movement = new Vector2(joystick.Horizontal, joystick.Vertical);
     }
