@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovment : MonoBehaviour {
+public class PlayerMovment : MonoBehaviour 
+{
 
     /*I've not understood exactly yet, but dudes with the big dicks in the Internet 
     said that it's better to use [SerializeField]*/ 
@@ -11,23 +12,27 @@ public class PlayerMovment : MonoBehaviour {
     private Vector2 movement;
     protected Joystick joystick;
 
-    private void Start() {
+    private void Start() 
+    {
         rb2D = this.GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>();
     }
 
     /*There we receive input information*/
-    void Update() {
+    void Update() 
+    {
         movement = new Vector2(joystick.Horizontal, joystick.Vertical);
     }
 
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
-    void FixedUpdate() {
+    void FixedUpdate() 
+    {
         moveCharacter(movement);
     }
     
     /*This is the main function which calculate Character's movement*/
-    void moveCharacter(Vector2 movement_direction){
+    void moveCharacter(Vector2 movement_direction)
+    {
         rb2D.MovePosition((Vector2)transform.position + 
                                     (movement_speed * 
                                     movement_direction * 
