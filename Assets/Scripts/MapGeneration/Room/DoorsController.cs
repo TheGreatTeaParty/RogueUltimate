@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class DoorsController : MonoBehaviour
@@ -9,6 +10,8 @@ public class DoorsController : MonoBehaviour
     public LayerMask whatIsEnemy;
     public float width;
 
+    public event EventHandler onDoorChanged;
+    private bool is_sended = false;
 
     private void FixedUpdate()
     {
@@ -18,6 +21,13 @@ public class DoorsController : MonoBehaviour
             for (int i = 0; i < doors.Length; i++)
             {
                 doors[i].GetComponent<BoxCollider2D>().enabled = true;
+
+                //Send info to change visualisation
+                if (!is_sended)
+                {
+                    onDoorChanged?.Invoke(this, EventArgs.Empty);
+                    is_sended = true;
+                }
             }
         }
         else
@@ -25,6 +35,12 @@ public class DoorsController : MonoBehaviour
             for (int i = 0; i < doors.Length; i++)
             {
                 doors[i].GetComponent<BoxCollider2D>().enabled = false;
+
+                if (is_sended)
+                {
+                    onDoorChanged?.Invoke(this, EventArgs.Empty);
+                    is_sended = false;
+                }
             }
         }
     }
