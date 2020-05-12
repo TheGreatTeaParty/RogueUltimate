@@ -13,6 +13,7 @@ public class RoomTemplates : MonoBehaviour
 
     public List<GameObject> rooms;
     public float wait_time = 2f;
+    public int max_rooms;
     public GameObject endpoint;
 
     private bool end_point_is_spawned = false;
@@ -27,6 +28,14 @@ public class RoomTemplates : MonoBehaviour
         else if(!end_point_is_spawned)
         {
             wait_time -= Time.deltaTime;
+        }
+        //Deleting rooms from the list if it has been distroyed
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if (rooms[i] == null)
+            {
+                rooms.Remove(rooms[i]);
+            }
         }
     }
 }
