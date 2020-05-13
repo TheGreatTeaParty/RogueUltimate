@@ -1,9 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] Inventory inventory;
     [SerializeField] EquipmentPanel equipmentPanel;
+
+    private void Awake()
+    {
+        inventory.onItemTouchedEvent += EquipFromInventory;
+    }
+
+    public void EquipFromInventory(Item item)
+    {
+        if (item is EquippableItem) 
+            Equip((EquippableItem)item);
+    }
 
     public void Equip(EquippableItem item)
     {
@@ -11,10 +23,11 @@ public class InventoryManager : MonoBehaviour
         {
             EquippableItem previousItem;
             if (equipmentPanel.AddItem(item, out previousItem))
+            {
                 if (previousItem != null)
                     inventory.AddItem(previousItem);
-                else
-                    inventory.AddItem(item);
+            }
+            else inventory.AddItem(item);
         }
     }
 

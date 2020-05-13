@@ -8,8 +8,15 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<Item> items;
     [SerializeField] Transform itemsParent;
     [SerializeField] ItemSlot[] itemSlots;
+    public event Action<Item> onItemTouchedEvent;
 
-    private void OnValidate()
+    public void Awake()
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].onTouchEvent += onItemTouchedEvent;
+    }
+
+    public void OnValidate()
     {
         if (itemsParent != null)
             itemSlots = itemsParent.GetComponentsInChildren<ItemSlot>();
