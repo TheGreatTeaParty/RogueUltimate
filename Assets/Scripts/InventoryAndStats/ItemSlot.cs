@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     private Item _item;
-    [SerializeField] Image image;
-
+    [SerializeField] Image image; 
+    public event Action<Item> onTouchEvent; 
+    
     public Item Item
     {
         get => _item;
@@ -23,12 +25,17 @@ public class ItemSlot : MonoBehaviour
         }
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData != null && eventData.clickCount > 0)
+            if (Item != null && onTouchEvent != null)
+                onTouchEvent(_item);
+    }
+
     protected virtual void OnValidate()
     {
         if (image == null)
             image = GetComponent<Image>();
     }
-
-    // Need controller
     
 }
