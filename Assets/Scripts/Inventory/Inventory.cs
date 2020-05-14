@@ -12,10 +12,12 @@ public class Inventory : MonoBehaviour
     public event Action<Item> onItemTouchedEvent;
 
     
-    public void Awake()
+    public void Start()
     {
         foreach (var itemSlot in itemSlots)
             itemSlot.onTouchEvent += onItemTouchedEvent;
+        
+        UpdateUi();
     }
 
     

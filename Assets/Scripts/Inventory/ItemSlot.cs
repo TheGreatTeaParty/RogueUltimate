@@ -34,11 +34,11 @@ public class ItemSlot : MonoBehaviour
     public void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(Click);
+        //button.onClick.AddListener(Click);
     }
 
     
-    private void Click()
+    public void Click()
     { 
         if (Item != null && onTouchEvent != null) 
             onTouchEvent(_item);

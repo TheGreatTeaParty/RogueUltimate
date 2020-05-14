@@ -9,7 +9,7 @@ public class EquipmentPanel : MonoBehaviour
     public event Action<Item> onItemTouchedEvent;
     
     
-    public void Awake()
+    public void Start()
     {
         foreach (var equipmentSlot in equipmentSlots)
             equipmentSlot.onTouchEvent += onItemTouchedEvent;
