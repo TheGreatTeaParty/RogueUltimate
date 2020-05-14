@@ -6,19 +6,29 @@ public class EquipmentPanel : MonoBehaviour
 {
     [SerializeField] private Transform equipmentSlotParent;
     [SerializeField] private EquipmentSlot[] equipmentSlots;
+    public event Action<Item> onItemTouchedEvent;
+    
+    
+    public void Awake()
+    {
+        foreach (var equipmentSlot in equipmentSlots)
+            equipmentSlot.onTouchEvent += onItemTouchedEvent;
+    }
+
 
     private void OnValidate()
     {
         equipmentSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlot>();
     }
+    
 
     public bool AddItem(EquippableItem item, out EquippableItem previousItem)
     {
-        for (int i = 0; i < equipmentSlots.Length; i++)
-            if (equipmentSlots[i].equipmentType == item.equipmentType)
+        foreach (var equipmentSlot in equipmentSlots)
+            if (equipmentSlot.equipmentType == item.equipmentType)
             {
-                previousItem = (EquippableItem)equipmentSlots[i].Item;
-                equipmentSlots[i].Item = item;
+                previousItem = (EquippableItem)equipmentSlot.Item;
+                equipmentSlot.Item = item;
                 return true;
             }
 
@@ -26,15 +36,17 @@ public class EquipmentPanel : MonoBehaviour
         return false;
     }
     
+    
     public bool RemoveItem(EquippableItem item)
     {
-        for (int i = 0; i < equipmentSlots.Length; i++)
-            if (equipmentSlots[i].Item == item)
+        foreach (var equipmentSlot in equipmentSlots)
+            if (equipmentSlot.Item == item)
             {
-                equipmentSlots[i].Item = null;
+                equipmentSlot.Item = null;
                 return true;
             }
 
         return false;
     }
+    
 }

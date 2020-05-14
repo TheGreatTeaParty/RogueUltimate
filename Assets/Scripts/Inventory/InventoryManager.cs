@@ -1,23 +1,37 @@
 ﻿using System;
 using UnityEngine;
 
+
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] Inventory inventory;
-    [SerializeField] EquipmentPanel equipmentPanel;
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private EquipmentPanel equipmentPanel;
+    [SerializeField] private GameObject panel;
 
+    
     private void Awake()
     {
         inventory.onItemTouchedEvent += EquipFromInventory;
+        equipmentPanel.onItemTouchedEvent += UnequipFromEquipmentPanel;
+        panel.SetActive(false);
     }
 
+    
     public void EquipFromInventory(Item item)
     {
         if (item is EquippableItem) 
             Equip((EquippableItem)item);
     }
 
-    public void Equip(EquippableItem item)
+
+    public void UnequipFromEquipmentPanel(Item item)
+    {
+        if (item is EquippableItem) 
+            Unequip((EquippableItem)item);
+    }
+
+
+    private void Equip(EquippableItem item)
     {
         if (inventory.RemoveItem(item))
         {
@@ -31,11 +45,11 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    
     public void Unequip(EquippableItem item)
     {
         if (!inventory.CheckFullness() && equipmentPanel.RemoveItem(item))
             inventory.AddItem(item);
     }
 }
-    
     

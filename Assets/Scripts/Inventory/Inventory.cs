@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Inventory : MonoBehaviour
 {
     [SerializeField] List<Item> items;
@@ -10,12 +11,14 @@ public class Inventory : MonoBehaviour
     [SerializeField] ItemSlot[] itemSlots;
     public event Action<Item> onItemTouchedEvent;
 
+    
     public void Awake()
     {
-        for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].onTouchEvent += onItemTouchedEvent;
+        foreach (var itemSlot in itemSlots)
+            itemSlot.onTouchEvent += onItemTouchedEvent;
     }
 
+    
     public void OnValidate()
     {
         if (itemsParent != null)
@@ -24,6 +27,7 @@ public class Inventory : MonoBehaviour
         UpdateUi();
     }
 
+    
     private void UpdateUi()
     {
         int i = 0;
@@ -39,6 +43,7 @@ public class Inventory : MonoBehaviour
         return items.Count >= itemSlots.Length;
     }
 
+    
     public bool AddItem(Item item)
     {
         if (CheckFullness())
@@ -49,6 +54,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    
     public bool RemoveItem(Item item)
     {
         if (items.Remove(item))
@@ -59,4 +65,5 @@ public class Inventory : MonoBehaviour
 
         return false;
     }
+    
 }

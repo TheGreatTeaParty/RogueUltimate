@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
+
 public class PanelOpener : MonoBehaviour
 {
     public GameObject panel;
 
+    
     public void OpenClose()
     {
         if (panel != null)
