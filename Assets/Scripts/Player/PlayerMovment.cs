@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour 
 {
-
-    /*I've not understood exactly yet, but dudes with the big dicks in the Internet 
-    said that it's better to use [SerializeField]*/ 
+ 
     [SerializeField] private float movement_speed = 10.0f;
-    private Rigidbody2D rb2D;
+    [SerializeField] private Rigidbody2D rb2D;
+    [SerializeField] private Animator animator; 
+    [SerializeField] protected Joystick joystick;
+    
     private Vector2 movement;
-    protected Joystick joystick;
 
-    private void Start() 
-    {
-        rb2D = this.GetComponent<Rigidbody2D>();
-        joystick = FindObjectOfType<Joystick>();
-    }
 
     /*There we receive input information*/
     void Update() 
     {
-        movement = new Vector2(joystick.Horizontal, joystick.Vertical);
+        movement.x = joystick.Horizontal;
+        movement.y = joystick.Vertical;
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
