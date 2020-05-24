@@ -9,7 +9,6 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
-    
     private Vector2 movement;
 
 
@@ -22,6 +21,7 @@ public class PlayerMovment : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
+
     }
 
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
@@ -37,6 +37,11 @@ public class PlayerMovment : MonoBehaviour
                                     (movement_speed * 
                                     movement_direction * 
                                         Time.deltaTime));
+    }
+
+    public void attackCharacter(){
+        animator.SetTrigger("Attack");
+
     }
 
 }
