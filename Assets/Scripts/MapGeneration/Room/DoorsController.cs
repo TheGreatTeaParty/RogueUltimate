@@ -29,6 +29,7 @@ public class DoorsController : MonoBehaviour
                     is_sended = true;
                 }
             }
+            Minimap.instance.HideMap();
         }
         else
         {
@@ -42,6 +43,7 @@ public class DoorsController : MonoBehaviour
                     is_sended = false;
                 }
             }
+            Minimap.instance.ShowMap();
         }
     }
     private void OnDrawGizmosSelected() 
