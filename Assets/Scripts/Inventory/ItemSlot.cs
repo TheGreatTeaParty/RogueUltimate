@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
-
+using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     private Item _item;
     [SerializeField] private Image image;
-    public event Action<Item> onTouchEvent; 
+    public event Action<Item> OnTouchEvent; 
     
     
     public Item Item
@@ -32,8 +29,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     { 
-        if (eventData != null && eventData.button == PointerEventData.InputButton.Right) 
-            onTouchEvent(_item);
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Left) 
+            if (Item != null && OnTouchEvent != null)
+                OnTouchEvent(_item);
     }
 
 

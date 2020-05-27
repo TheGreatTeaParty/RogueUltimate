@@ -6,13 +6,13 @@ public class EquipmentPanel : MonoBehaviour
 {
     [SerializeField] private Transform equipmentSlotParent;
     [SerializeField] private EquipmentSlot[] equipmentSlots;
-    public event Action<Item> onItemTouchedEvent;
+    public event Action<Item> OnItemTouchedEvent;
     
     
     public void Start()
     {
         foreach (var equipmentSlot in equipmentSlots)
-            equipmentSlot.onTouchEvent += onItemTouchedEvent;
+            equipmentSlot.OnTouchEvent += OnItemTouchedEvent;
     }
 
 

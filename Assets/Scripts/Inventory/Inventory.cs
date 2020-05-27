@@ -9,13 +9,13 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<Item> items;
     [SerializeField] Transform itemsParent;
     [SerializeField] ItemSlot[] itemSlots;
-    public event Action<Item> onItemTouchedEvent;
+    public event Action<Item> OnItemTouchedEvent;
 
     
     public void Start()
     {
         foreach (var itemSlot in itemSlots)
-            itemSlot.onTouchEvent += onItemTouchedEvent;
+            itemSlot.OnTouchEvent += OnItemTouchedEvent;
         
         UpdateUi();
     }

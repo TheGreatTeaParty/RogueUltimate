@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 public class PanelOpener : MonoBehaviour
-{
-    public GameObject panel;
-
+{ 
+    [SerializeField] private List<GameObject> panels;
+    
     
     public void OpenClose()
     {
-        if (panel != null)
-        {
-            bool isActive = panel.activeSelf;
-            panel.SetActive(!isActive);
-        }
+        foreach (var panel in panels)
+            if (panel != null)
+            {
+                bool isActive = panel.activeSelf;
+                panel.SetActive(!isActive);
+            }
     }
     
 }

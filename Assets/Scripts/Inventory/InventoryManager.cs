@@ -11,8 +11,8 @@ public class InventoryManager : MonoBehaviour
     
     private void Awake()
     {
-        inventory.onItemTouchedEvent += EquipFromInventory;
-        equipmentPanel.onItemTouchedEvent += UnequipFromEquipmentPanel;
+        inventory.OnItemTouchedEvent += EquipFromInventory;
+        equipmentPanel.OnItemTouchedEvent += UnequipFromEquipmentPanel;
         panel.SetActive(false);
     }
 
