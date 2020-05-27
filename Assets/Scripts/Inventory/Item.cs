@@ -1,9 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Unity;
+using UnityEngine;
+using UnityEngine.UI;
 
-[CreateAssetMenu] 
+
+[CreateAssetMenu(menuName = "Items/Item")]  
 public class Item : ScriptableObject
 {
-    public string itemName;
-    public Sprite icon;
+    public String itemName;
+    public Sprite itemIcon;
     
+    [Space] 
+    
+    public int stackSize;
+    public int price;
 }
+
