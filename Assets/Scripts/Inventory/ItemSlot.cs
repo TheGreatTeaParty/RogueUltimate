@@ -3,14 +3,13 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     private Item _item;
-    [SerializeField] Button button; 
+    [SerializeField] private Image image;
     public event Action<Item> onTouchEvent; 
     
     
@@ -21,34 +20,27 @@ public class ItemSlot : MonoBehaviour
         {
             _item = value;
             if (_item == null)
-                button.image.enabled = false;
+                image.enabled = false;
             else
             {
-                button.image.sprite = _item.icon;
-                button.image.enabled = true;
+                image.sprite = _item.icon;
+                image.enabled = true;
             }
         }
     }
 
 
-    public void Start()
-    {
-        button = GetComponent<Button>();
-        //button.onClick.AddListener(Click);
-    }
-
-    
-    public void Click()
+    public void OnPointerClick(PointerEventData eventData)
     { 
-        if (Item != null && onTouchEvent != null) 
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Right) 
             onTouchEvent(_item);
     }
 
 
     protected virtual void OnValidate()
     {
-        if (button.image == null)
-            button.image = GetComponent<Image>();
+        if (image == null)
+            image = GetComponent<Image>();
     }
     
 }
