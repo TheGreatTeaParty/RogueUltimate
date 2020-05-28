@@ -10,10 +10,16 @@ public class Item : ScriptableObject
 {
     public String itemName;
     public Sprite itemIcon;
+    public Sprite itemSprite;
     
     [Space] 
     
     public int stackSize;
     public int price;
+
+    public Sprite GetSprite()
+    {
+        return itemSprite;
+    }
 }
 
