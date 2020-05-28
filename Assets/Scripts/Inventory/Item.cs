@@ -21,5 +21,10 @@ public class Item : ScriptableObject
     {
         return itemSprite;
     }
+
+    public void Use()
+    {
+
+    }
 }
 
