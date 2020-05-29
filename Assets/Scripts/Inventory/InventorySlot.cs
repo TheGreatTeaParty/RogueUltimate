@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Button button;
     Image icon;
@@ -55,5 +56,10 @@ public class InventorySlot : MonoBehaviour
     {
         if (item != null)
             item.Use();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        UseItem();
     }
 }

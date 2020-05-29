@@ -22,9 +22,14 @@ public class Item : ScriptableObject
         return itemSprite;
     }
 
-    public void Use()
+    public virtual void Use()
     {
-
+        Debug.Log("Item has been used");
+    }
+    public void Drop()
+    {
+        Inventory.instance.Remove(this);
+        Inventory.instance.Drop(this);
     }
 }
 
