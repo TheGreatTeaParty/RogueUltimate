@@ -8,16 +8,14 @@ public class InvetoryUI : MonoBehaviour
     private bool _isUpdated = true;
     
     [SerializeField] private InventorySlot[] slots;
-    [SerializeField] private Inventory inventory;
+    private Inventory _inventory;
 
 
     void Start()
     {
-        inventory = Inventory.instance;
-
+        _inventory = Inventory.instance;
         //Make delegate function from Inventory be equal to UpdateUI fun
-        inventory.onItemChangedCallback += UpdateUI;
-
+        _inventory.onItemChangedCallback += UpdateUI;
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
@@ -25,10 +23,7 @@ public class InvetoryUI : MonoBehaviour
     //Have decited to make it with is updated in order to exlude extra caluclations in Update function
     private void Update()
     {
-        if (!_isUpdated)
-        {
-            UpdateUI();
-        }
+        UpdateUI();
     }
     
     
@@ -36,14 +31,14 @@ public class InvetoryUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (i < _inventory.items.Count)
             {
-                if (!slots[i].AddItem(inventory.items[i]))
+                if (!slots[i].AddItemToSlot(_inventory.items[i]))
                     _isUpdated = false;
             }
             else
             {
-                if (!slots[i].ClearSlot())
+                if (!slots[i].RemoveItemFromSlot())
                     _isUpdated = false;
             }
         }

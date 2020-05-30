@@ -6,58 +6,56 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
-    public Button button;
-    [SerializeField] private Image icon;
+    private Button _button;
+    private Image _image;
     [SerializeField] private Item item;
 
     
     private void Start()
     {
-        icon = GetComponent<Image>();
+        _image = GetComponent<Image>();
+        _button = GetComponent<Button>();
     }
     
     
-    public bool AddItem(Item newItem)
+    public bool AddItemToSlot(Item newItem)
     {
-        if (icon != null)
+        if (_image != null)
         {
             item = newItem;
-            icon.sprite = item.itemIcon;
-            icon.enabled = true;
-            //Fast fix, because I have only one button in slots to test
-            if(button!= null)
-                button.interactable = true;
+            _image.sprite = item.itemIcon;
+            _image.enabled = true;
+            //Fast fix, because I have only one _button in slots to test
+            if(_button != null)
+                _button.interactable = true;
+            
             return true;
         }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
     
     
-    public bool ClearSlot()
+    public bool RemoveItemFromSlot()
     {
-        if (icon != null)
+        if (_image != null)
         {
             item = null;
-            icon.sprite = null;
-            icon.enabled = false;
-            //Fast fix, because I have only one button in slots to test
-            if (button != null)
-                button.interactable = false;
+            _image.sprite = null;
+            _image.enabled = false;
+            //Fast fix, because I have only one _button in slots to test
+            if (_button != null)
+                _button.interactable = false;
             return true;
         }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
     
     
     public void OnRemoveButton()
     {
-        Inventory.instance.Remove(item);
+        Inventory.instance.RemoveItemFromInventory(item);
     }
     
     
