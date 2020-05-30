@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 
+[System.Serializable]
 public class Stat
 {
-    [SerializeField]
-    private int baseValue;
-    private List<int> modifiers = new List<int>();
+    [SerializeField] private int baseValue;
+    [SerializeField] private List<int> modifiers = new List<int>();
 
+    
     public int GetValue()
     {
         int finalValue = baseValue;
@@ -17,6 +17,7 @@ public class Stat
         return finalValue;
     }
 
+    
     public void AddModifier(int modifier)
     {
         if(modifier!= 0)
@@ -25,9 +26,12 @@ public class Stat
         }
     }
 
+    
     public void RemoveModifier(int modifier)
     {
         if (modifier != 0)
             modifiers.Remove(modifier);
     }
+    
+    
 }

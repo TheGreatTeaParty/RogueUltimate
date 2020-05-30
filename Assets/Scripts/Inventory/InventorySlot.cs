@@ -7,13 +7,16 @@ using UnityEngine;
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Button button;
-    Image icon;
-    Item item;
+    [SerializeField] private Image icon;
+    [SerializeField] private Item item;
 
+    
     private void Start()
     {
         icon = GetComponent<Image>();
     }
+    
+    
     public bool AddItem(Item newItem)
     {
         if (icon != null)
@@ -31,6 +34,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             return false;
         }
     }
+    
+    
     public bool ClearSlot()
     {
         if (icon != null)
@@ -48,18 +53,25 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             return false;
         }
     }
+    
+    
     public void OnRemoveButton()
     {
         Inventory.instance.Remove(item);
     }
+    
+    
     public void UseItem()
     {
         if (item != null)
             item.Use();
     }
+    
 
     public void OnPointerClick(PointerEventData eventData)
     {
         UseItem();
     }
+    
+    
 }

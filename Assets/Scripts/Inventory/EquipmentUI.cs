@@ -5,10 +5,11 @@ using UnityEngine;
 public class EquipmentUI : MonoBehaviour
 {
     public Transform itemsParent;
-
-    EquipmentSlot[] slots;
-    EquipmentManager equipment;
-    bool is_updated = true;
+    private bool _isUpdated = true;
+    
+    [SerializeField] private EquipmentSlot[] slots;
+    [SerializeField] private EquipmentManager equipment;
+    
 
     void Start()
     {
@@ -19,15 +20,16 @@ public class EquipmentUI : MonoBehaviour
 
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
     }
+    
 
     //Have decited to make it with is updated in order to exlude extra caluclations in Update function
     private void Update()
     {
-        if (!is_updated)
-        {
+        if (!_isUpdated)
             UpdateUI();
-        }
     }
+    
+    
     void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -35,13 +37,15 @@ public class EquipmentUI : MonoBehaviour
             if (equipment.currentEquipment[i] != null)
             {
                 if (!slots[i].AddItem(equipment.currentEquipment[i]))
-                    is_updated = false;
+                    _isUpdated = false;
             }
             else
             {
                 if (!slots[i].ClearSlot())
-                    is_updated = false;
+                    _isUpdated = false;
             }
         }
     }
+    
+    
 }

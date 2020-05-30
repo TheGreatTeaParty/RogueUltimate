@@ -9,33 +9,34 @@ public class EquipmentManager : MonoBehaviour
     void Awake()
     {
         if (instance != null)
-        {
             return;
-        }
+        
         instance = this;
     }
     #endregion
 
-    public Equipment[] currentEquipment;
+    public EquipmentItem[] currentEquipment;
 
     //Deligate for updating stats
-    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
+    public delegate void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem);
     public delegate void OnEquipmentCallback();
 
     //Deligate for updating UI
     public OnEquipmentChanged onEquipmentChanged;
     public OnEquipmentCallback onEquipmentCallback;
 
+    
     private void Start()
     {
         int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
-        currentEquipment = new Equipment[numSlots];
+        currentEquipment = new EquipmentItem[numSlots];
     }
 
-    public void Equip(Equipment newItem)
+    
+    public void Equip(EquipmentItem newItem)
     {
         int slotIndex = (int)newItem.equipmentType;
-        Equipment oldItem = null;
+        EquipmentItem oldItem = null;
 
         //If we already have equipment save in into old item and added into inventory
         if(currentEquipment[slotIndex]!= null)
@@ -53,11 +54,12 @@ public class EquipmentManager : MonoBehaviour
             onEquipmentCallback.Invoke();
     }
 
+    
     public void UnEquip(int slotIndex)
     {
         if (currentEquipment[slotIndex] != null)
         {
-            Equipment oldItem = currentEquipment[slotIndex];
+            EquipmentItem oldItem = currentEquipment[slotIndex];
 
             Inventory.instance.Add(oldItem);
 
@@ -70,4 +72,6 @@ public class EquipmentManager : MonoBehaviour
                 onEquipmentCallback.Invoke();
         }
     }
+    
+    
 }

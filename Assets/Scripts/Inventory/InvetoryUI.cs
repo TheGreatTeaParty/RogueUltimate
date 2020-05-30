@@ -5,10 +5,12 @@ using UnityEngine;
 public class InvetoryUI : MonoBehaviour
 {
     public Transform itemsParent;
+    private bool _isUpdated = true;
+    
+    [SerializeField] private InventorySlot[] slots;
+    [SerializeField] private Inventory inventory;
 
-    InventorySlot[] slots;
-    Inventory inventory;
-    bool is_updated = true;
+
     void Start()
     {
         inventory = Inventory.instance;
@@ -19,14 +21,17 @@ public class InvetoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
+    
     //Have decited to make it with is updated in order to exlude extra caluclations in Update function
     private void Update()
     {
-        if (!is_updated)
+        if (!_isUpdated)
         {
             UpdateUI();
         }
     }
+    
+    
     void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -34,13 +39,15 @@ public class InvetoryUI : MonoBehaviour
             if (i < inventory.items.Count)
             {
                 if (!slots[i].AddItem(inventory.items[i]))
-                    is_updated = false;
+                    _isUpdated = false;
             }
             else
             {
                 if (!slots[i].ClearSlot())
-                    is_updated = false;
+                    _isUpdated = false;
             }
         }
     }
+    
+    
 }

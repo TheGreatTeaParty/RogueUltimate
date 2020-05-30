@@ -9,9 +9,8 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
         if (instance != null)
-        {
             return;
-        }
+        
         instance = this;
     }
     #endregion
@@ -49,6 +48,6 @@ public class Inventory : MonoBehaviour
     {
         //Call spawn function on the player's position
         Vector3 new_pos = new Vector3(KeepOnScene.instance.transform.position.x + 1f, KeepOnScene.instance.transform.position.y, KeepOnScene.instance.transform.position.z);
-        Item_Scene.SpawnItemScene(new_pos, item);
+        ItemScene.SpawnItemScene(new_pos, item);
     }
 }

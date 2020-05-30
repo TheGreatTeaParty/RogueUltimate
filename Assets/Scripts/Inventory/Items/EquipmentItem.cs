@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Items/Equipment")]  
-public class Equipment : Item
+public enum EquipmentType { weapon, armor, ring, amulet }
+
+
+[CreateAssetMenu(menuName = "Items/EquipmentItem")]  
+public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
 
@@ -18,6 +21,6 @@ public class Equipment : Item
         EquipmentManager.instance.Equip(this);
         Inventory.instance.Remove(this);
     }
+    
+    
 }
-
-public enum EquipmentType { weapon, armor, ring, amulet }

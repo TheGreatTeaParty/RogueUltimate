@@ -10,19 +10,22 @@ public class PlayerStat:CharacterStat
         EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
-    //Recieve message of changing equipmnet, so change player modifiers
-    void OnEquipmentChanged(Equipment newEquipment, Equipment oldEquipment)
+    
+    //Receive message of changing equipment, so change player modifiers
+    void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
     {
-        if(newEquipment!= null)
+        if(newEquipmentItem!= null)
         {
-            armor.AddModifier(newEquipment.armorModifier);
-            damage.AddModifier(newEquipment.damageModifier);
+            armor.AddModifier(newEquipmentItem.armorModifier);
+            damage.AddModifier(newEquipmentItem.damageModifier);
         }
 
-        if (oldEquipment != null)
+        if (oldEquipmentItem != null)
         {
-            armor.RemoveModifier(oldEquipment.armorModifier);
-            damage.RemoveModifier(oldEquipment.damageModifier);
+            armor.RemoveModifier(oldEquipmentItem.armorModifier);
+            damage.RemoveModifier(oldEquipmentItem.damageModifier);
         }
     }
+    
+    
 }
