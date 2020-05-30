@@ -2,33 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvetoryUI : MonoBehaviour
+public class EquipmentUI : MonoBehaviour
 {
     public Transform itemsParent;
     private bool _isUpdated = true;
     
-    [SerializeField] private InventorySlot[] slots;
-    [SerializeField] private Inventory inventory;
-
+    [SerializeField] private EquipmentSlot[] slots;
+    [SerializeField] private EquipmentManager equipment;
+    
 
     void Start()
     {
-        inventory = Inventory.instance;
+        equipment = EquipmentManager.instance;
 
         //Make delegate function from Inventory be equal to UpdateUI fun
-        inventory.onItemChangedCallback += UpdateUI;
+        equipment.onEquipmentCallback += UpdateUI;
 
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
     }
-
     
+
     //Have decited to make it with is updated in order to exlude extra caluclations in Update function
     private void Update()
     {
         if (!_isUpdated)
-        {
             UpdateUI();
-        }
     }
     
     
@@ -36,9 +34,9 @@ public class InvetoryUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (equipment.currentEquipment[i] != null)
             {
-                if (!slots[i].AddItem(inventory.items[i]))
+                if (!slots[i].AddItem(equipment.currentEquipment[i]))
                     _isUpdated = false;
             }
             else

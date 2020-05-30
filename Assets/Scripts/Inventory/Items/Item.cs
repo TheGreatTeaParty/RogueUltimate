@@ -11,20 +11,29 @@ public class Item : ScriptableObject
     public String itemName;
     public Sprite itemIcon;
     public Sprite itemSprite;
-    
-    [Space] 
-    
+    [Space]
     public int stackSize;
     public int price;
 
+    
     public Sprite GetSprite()
     {
         return itemSprite;
     }
 
-    public void Use()
+    
+    public virtual void Use()
     {
-
+        Debug.Log("Item has been used");
     }
+    
+    
+    public void Drop()
+    {
+        Inventory.instance.Remove(this);
+        Inventory.instance.Drop(this);
+    }
+    
+    
 }
 
