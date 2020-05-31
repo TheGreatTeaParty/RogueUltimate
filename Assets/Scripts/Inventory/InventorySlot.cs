@@ -7,42 +7,21 @@ using UnityEngine;
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
-    [SerializeField] private Item item;
-
-
-    private void Start()
-    {
-        image = GetComponent<Image>();
-        if (image.sprite == null)
-            image.enabled = false;
-    }
+    private Item item;
     
-    
-    public bool AddItemToSlot(Item newItem)
+    public void AddItemToSlot(Item newItem)
     {
-        if (image != null)
-        {
             item = newItem;
             image.sprite = item.GetSprite();
             image.enabled = true;
-            return true;
-        }
-        
-        return false;
     }
     
     
-    public bool RemoveItemFromSlot()
+    public void RemoveItemFromSlot()
     {
-        if (image != null)
-        {
             item = null;
             image.sprite = null;
             image.enabled = false;
-            return true;
-        }
-        
-        return false;
     }
     
     
@@ -63,5 +42,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("damn raycast");
+        UseItem();
     }
 }

@@ -6,9 +6,29 @@ using UnityEngine;
 
 public class RangeWeapon : EquipmentItem
 {
+    [Space]
+    public float attackCD;
+    public float KnockBack;
+
+    [Space]
+    public Transform arrowPrefab;
+
     private void Awake()
     {
         equipmentType = EquipmentType.weapon;
     }
 
+    public override void Attack(int damage)
+    {
+        if (KeepOnScene.instance.GetComponent<PlayerAttack>().GetAttackCD() <= 0)
+        {
+
+            Debug.Log($"Damage done: {damage}"); ///For debug
+            Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
+            //Send mesage to Attack animation handler that we use mele weapon
+            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
+
+            KeepOnScene.instance.GetComponent<PlayerAttack>().SetAttackCD(attackCD);
+        }
+    }
 }

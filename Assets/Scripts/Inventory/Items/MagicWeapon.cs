@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class MagicWeapon : EquipmentItem
 {
+
     private void Awake()
     {
         equipmentType = EquipmentType.weapon;
