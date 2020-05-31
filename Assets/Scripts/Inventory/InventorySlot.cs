@@ -4,10 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
+
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
     private Item item;
+    
     
     public void AddItemToSlot(Item newItem)
     {
@@ -44,4 +46,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         Debug.Log("damn raycast");
         UseItem();
     }
+    
+    
 }

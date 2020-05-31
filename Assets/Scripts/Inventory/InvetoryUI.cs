@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class InvetoryUI : MonoBehaviour
 {
     [SerializeField] private InventorySlot[] slots;
@@ -18,20 +19,14 @@ public class InvetoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
+    
     void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < _inventory.items.Count)
-            {
-                slots[i].AddItemToSlot(_inventory.items[i]);
-            }
-            else
-            {
-                slots[i].RemoveItemFromSlot();
-            }
+            if (i < _inventory.items.Count) slots[i].AddItemToSlot(_inventory.items[i]);
+            else slots[i].RemoveItemFromSlot();
         }
-        //Debug.Log("Update() is working");
     }
     
 
