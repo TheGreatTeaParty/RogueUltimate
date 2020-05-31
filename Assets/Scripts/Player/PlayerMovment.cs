@@ -10,7 +10,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
     private Vector2 movement;
-
+    private Vector2 direction;
 
     public void Start()
     {
@@ -22,6 +22,10 @@ public class PlayerMovment : MonoBehaviour
     {
         movement.x = joystick.Horizontal;
         movement.y = joystick.Vertical;
+
+        //Save the direction of player movement
+        if (movement.x != 0 || movement.y != 0)
+            direction = movement;
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
@@ -46,10 +50,19 @@ public class PlayerMovment : MonoBehaviour
                                         Time.deltaTime));
     }
 
+    public void Push(Vector2 push_direction)
+    {
+        rb2D.AddForce(push_direction, ForceMode2D.Impulse);
+    }
     
     public void attackCharacter(){
+
         animator.SetTrigger("Attack");
 
+    }
+    public Vector3 GetDirection()
+    {
+        return direction;
     }
 
 }

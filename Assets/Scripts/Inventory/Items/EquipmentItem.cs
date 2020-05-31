@@ -6,7 +6,8 @@ using UnityEngine;
 public enum EquipmentType { weapon, armor, ring, amulet }
 
 
-[CreateAssetMenu(menuName = "Items/EquipmentItem")]  
+[CreateAssetMenu(menuName = "Items/EquipmentItem")]
+
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
@@ -21,6 +22,9 @@ public class EquipmentItem : Item
         EquipmentManager.instance.Equip(this);
         Inventory.instance.Remove(this);
     }
-    
+    public virtual void Attack(int damage)
+    {
+        //It is made to be called in the child class -> weapon
+    }
     
 }
