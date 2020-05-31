@@ -23,22 +23,21 @@ public class Inventory : MonoBehaviour
     public OnItemChanged onItemChangedCallback;
 
 
-    public bool Add(Item item)
+    public bool AddItemToInventory(Item item)
     {
         if (items.Count >= size)
-        {
             return false;
-        }
 
-        //Add item to the list and call update function in InventoryUI class
+        //AddItemToInventory item to the list and call update function in InventoryUI class
         items.Add(item);
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
+        
         return true;
     }
-    public void Remove(Item item)
+    public void RemoveItemFromInventory(Item item)
     {
-        //Remove from the inventory and call update function in InventoryUI class
+        //RemoveItemFromInventory from the inventory and call update function in InventoryUI class
         items.Remove(item);
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();

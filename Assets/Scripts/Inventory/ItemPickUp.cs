@@ -15,10 +15,10 @@ public class ItemPickUp : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            bool WasPickedUp = Inventory.instance.Add(itemOnScene.GetItem());
-            if (WasPickedUp)
+            bool wasPickedUp = Inventory.instance.AddItemToInventory(itemOnScene.GetItem());
+            if (wasPickedUp)
                 Destroy(gameObject);
         }
     }

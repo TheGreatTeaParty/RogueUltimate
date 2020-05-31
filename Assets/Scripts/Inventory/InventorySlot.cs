@@ -6,58 +6,50 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
-    public Button button;
-    [SerializeField] private Image icon;
+    public Image image;
     [SerializeField] private Item item;
 
-    
+
     private void Start()
     {
-        icon = GetComponent<Image>();
+        image = GetComponent<Image>();
+        if (image.sprite == null)
+            image.enabled = false;
     }
     
     
-    public bool AddItem(Item newItem)
+    public bool AddItemToSlot(Item newItem)
     {
-        if (icon != null)
+        if (image != null)
         {
             item = newItem;
-            icon.sprite = item.itemIcon;
-            icon.enabled = true;
-            //Fast fix, because I have only one button in slots to test
-            if(button!= null)
-                button.interactable = true;
+            image.sprite = item.GetSprite();
+            image.enabled = true;
             return true;
         }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
     
     
-    public bool ClearSlot()
+    public bool RemoveItemFromSlot()
     {
-        if (icon != null)
+        if (image != null)
         {
             item = null;
-            icon.sprite = null;
-            icon.enabled = false;
-            //Fast fix, because I have only one button in slots to test
-            if (button != null)
-                button.interactable = false;
+            image.sprite = null;
+            image.enabled = false;
             return true;
         }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
     
     
     public void OnRemoveButton()
     {
-        Inventory.instance.Remove(item);
+        Debug.Log("Button clicked");
+       // Inventory.instance.RemoveItemFromInventory(item);
     }
     
     
@@ -66,12 +58,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         if (item != null)
             item.Use();
     }
-    
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UseItem();
+        Debug.Log("damn raycast");
     }
-    
-    
 }
