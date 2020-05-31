@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class PanelOpener : MonoBehaviour
+public class PanelManager : MonoBehaviour
 { 
     [SerializeField] private List<GameObject> panels;
     

@@ -1,48 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InvetoryUI : MonoBehaviour
 {
-    public Transform itemsParent;
-    private bool _isUpdated = true;
-    
     [SerializeField] private InventorySlot[] slots;
     private Inventory _inventory;
+    private bool _isUpdated;
+    public Transform itemsParent;
 
-
+    
     void Start()
     {
         _inventory = Inventory.instance;
+        _isUpdated = false;
         //Make delegate function from Inventory be equal to UpdateUI fun
         _inventory.onItemChangedCallback += UpdateUI;
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    
-    //Have decited to make it with is updated in order to exlude extra caluclations in Update function
+
     private void Update()
     {
-        UpdateUI();
+        if (!_isUpdated)
+            UpdateUI();
     }
-    
-    
+
+
     void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (i < _inventory.items.Count)
-            {
-                if (!slots[i].AddItemToSlot(_inventory.items[i]))
-                    _isUpdated = false;
-            }
-            else
-            {
-                if (!slots[i].RemoveItemFromSlot())
-                    _isUpdated = false;
-            }
-        }
+        int i = 0;
+        for (; i < _inventory.items.Count; i++)
+            if (slots[i].AddItemToSlot(_inventory.items[i])) _isUpdated = slots[i].image.enabled;
+        
+        for (; i < slots.Length; i++)
+            if (slots[i].RemoveItemFromSlot()) _isUpdated = slots[i].image.enabled;
+        //Debug.Log("Update() is working");
     }
     
-    
+
 }
