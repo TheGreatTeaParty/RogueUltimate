@@ -29,9 +29,9 @@ public class MeleWeapon : EquipmentItem
 
         if (KeepOnScene.instance.GetComponent<PlayerAttack>().GetAttackCD() <= 0)
         {
-            //Push the player to the direction of the hit
+            /*Push the player to the direction of the hit
             Vector2 push_direction = new Vector2(direction.x * pushForce, direction.y * pushForce);
-            KeepOnScene.instance.GetComponent<PlayerMovment>().Push(push_direction);
+            KeepOnScene.instance.GetComponent<PlayerMovment>().Push(push_direction); */
 
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos, attackRange, whatIsEnemy);
 
@@ -51,6 +51,10 @@ public class MeleWeapon : EquipmentItem
 
             KeepOnScene.instance.GetComponent<PlayerAttack>().SetRange(attackRange);
         }
+    }
+    public override WeaponType Echo()
+    {
+        return WeaponType.mele;
     }
 }
 public enum WeaponType { mele, range, magic, nothing };

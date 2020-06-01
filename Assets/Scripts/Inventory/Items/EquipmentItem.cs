@@ -26,5 +26,8 @@ public class EquipmentItem : Item
     {
         //It is made to be called in the child class -> weapon
     }
-    
+    public virtual WeaponType Echo()
+    {
+        return WeaponType.nothing;
+    }
 }

@@ -9,8 +9,6 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] left_rooms;
     public GameObject[] right_rooms;
 
-    public GameObject closed_room;
-
     public List<GameObject> rooms;
     public float wait_time = 2f;
     public int max_rooms;

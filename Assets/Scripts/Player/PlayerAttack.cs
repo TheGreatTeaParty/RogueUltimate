@@ -54,9 +54,9 @@ public class PlayerAttack : MonoBehaviour
         {
             attackRange = fistRange;
 
-            //Push the player to the direction of the hit
+            /*Push the player to the direction of the hit
             Vector2 push_direction = new Vector2(direction.x * pushForce, direction.y * pushForce);
-            GetComponent<PlayerMovment>().Push(push_direction);
+            GetComponent<PlayerMovment>().Push(push_direction); */
 
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(transform.position + direction / 2, attackRange, whatIsEnemy);
 

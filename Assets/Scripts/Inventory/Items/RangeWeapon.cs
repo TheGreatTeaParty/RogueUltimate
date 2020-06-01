@@ -25,10 +25,15 @@ public class RangeWeapon : EquipmentItem
 
             Debug.Log($"Damage done: {damage}"); ///For debug
             Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
+
             //Send mesage to Attack animation handler that we use mele weapon
             KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
 
             KeepOnScene.instance.GetComponent<PlayerAttack>().SetAttackCD(attackCD);
         }
+    }
+    public override WeaponType Echo()
+    {
+        return WeaponType.range;
     }
 }
