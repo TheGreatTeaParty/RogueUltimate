@@ -4,19 +4,18 @@
 public class EquipmentManager : MonoBehaviour
 {
     #region Singleton
-    public static EquipmentManager instance;
+    public static EquipmentManager Instance;
 
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
             return;
         
-        instance = this;
+        Instance = this;
     }
     #endregion
 
     public EquipmentItem[] currentEquipment;
-
     //Deligate for updating stats
     public delegate void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem);
     public delegate void OnEquipmentCallback();
@@ -39,19 +38,16 @@ public class EquipmentManager : MonoBehaviour
         EquipmentItem oldItem = null;
 
         //If we already have equipment save in into old item and added into inventory
-        if(currentEquipment[slotIndex]!= null)
+        if (currentEquipment[slotIndex]!= null)
         {
             oldItem = currentEquipment[slotIndex];
-            Inventory.instance.AddItemToInventory(oldItem);
+            InventoryManager.Instance.AddItemToInventory(oldItem);
         }
 
         currentEquipment[slotIndex] = newItem;
 
-        if (onEquipmentChanged != null)
-            onEquipmentChanged.Invoke(newItem, oldItem);
-
-        if (onEquipmentCallback != null)
-            onEquipmentCallback.Invoke();
+        onEquipmentChanged?.Invoke(newItem, oldItem);
+        onEquipmentCallback?.Invoke();
     }
 
     
@@ -60,18 +56,20 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             EquipmentItem oldItem = currentEquipment[slotIndex];
-
-            Inventory.instance.AddItemToInventory(oldItem);
-
+            InventoryManager.Instance.AddItemToInventory(oldItem);
             currentEquipment[slotIndex] = null;
 
-            if (onEquipmentChanged != null)
-                onEquipmentChanged.Invoke(null, oldItem);
-
-            if (onEquipmentCallback != null)
-                onEquipmentCallback.Invoke();
+            onEquipmentChanged?.Invoke(null, oldItem);
+            onEquipmentCallback?.Invoke();
         }
     }
+
     
-    
+    public void Drop(EquipmentItem equipmentItem)
+    {
+        var position = KeepOnScene.instance.transform.position;
+        Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
+        ItemScene.SpawnItemScene(newPosition, equipmentItem);
+    }
+
 }

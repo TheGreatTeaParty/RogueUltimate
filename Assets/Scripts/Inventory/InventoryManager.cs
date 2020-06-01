@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     #region Singleton
-    public static Inventory instance;
+    public static InventoryManager Instance;
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
             return;
         
-        instance = this;
+        Instance = this;
     }
     #endregion
 
@@ -30,23 +30,27 @@ public class Inventory : MonoBehaviour
 
         //AddItemToInventory item to the list and call update function in InventoryUI class
         items.Add(item);
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
-        
+        onItemChangedCallback?.Invoke();
+
         return true;
     }
+    
+    
     public void RemoveItemFromInventory(Item item)
     {
         //RemoveItemFromInventory from the inventory and call update function in InventoryUI class
         items.Remove(item);
-        if (onItemChangedCallback != null)
-            onItemChangedCallback.Invoke();
+        onItemChangedCallback?.Invoke();
     }
 
+    
     public void Drop(Item item)
     {
         //Call spawn function on the player's position
-        Vector3 new_pos = new Vector3(KeepOnScene.instance.transform.position.x + 1f, KeepOnScene.instance.transform.position.y, KeepOnScene.instance.transform.position.z);
-        ItemScene.SpawnItemScene(new_pos, item);
+        var position = KeepOnScene.instance.transform.position;
+        Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
+        ItemScene.SpawnItemScene(newPosition, item);
     }
+    
+    
 }

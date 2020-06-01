@@ -7,7 +7,7 @@ public class PlayerStat:CharacterStat
 {
     private void Start()
     {
-        EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
     

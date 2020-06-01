@@ -15,47 +15,39 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     }
     
     
-    public bool AddItem(EquipmentItem newEquipmentItem)
+    public void AddItemToEquipmentSlot(EquipmentItem newEquipmentItem)
     {
-        if (icon != null)
-        {
-            _equipmentItem = newEquipmentItem;
-            icon.sprite = _equipmentItem.itemIcon;
-            icon.enabled = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _equipmentItem = newEquipmentItem; 
+        icon.sprite = _equipmentItem.itemIcon; 
+        icon.enabled = true;         
     }
     
     
-    public bool ClearSlot()
+    public void RemoveItemFromEquipmentSlot()
     {
-        if (icon != null)
-        {
-            _equipmentItem = null;
-            icon.sprite = null;
-            icon.enabled = false;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _equipmentItem = null; 
+        icon.sprite = null;
+        icon.enabled = false;
     }
     
     
     public void UnEquip()
     {
-        EquipmentManager.instance.UnEquip((int)_equipmentItem.equipmentType);
+        EquipmentManager.Instance.UnEquip((int)_equipmentItem.equipmentType);
+    }
+    
+    
+    public void OpenTooltip()
+    {
+        PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
+        tooltip.ShowTooltip(_equipmentItem, (int)_equipmentItem.equipmentType);
     }
     
     
     public void OnPointerClick(PointerEventData eventData)
     {
-       //
+        // UnEquip();
+        OpenTooltip();
     }
     
     
