@@ -14,11 +14,11 @@ public enum EquipmentType
 
 
 [CreateAssetMenu(menuName = "Items/EquipmentItem")]
-
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
-
+    public bool isEquiped;
+    
     //Modifiers
     public int armorModifier;
     public int damageModifier;
@@ -33,7 +33,8 @@ public class EquipmentItem : Item
 
     public override void Drop()
     {
-        base.Drop(); // override
+        if (isEquiped) EquipmentManager.Instance.DropFromEquipment(this);
+        else base.Drop(); // override
     }
 
 

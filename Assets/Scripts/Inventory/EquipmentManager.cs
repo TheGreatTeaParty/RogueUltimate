@@ -41,10 +41,12 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex]!= null)
         {
             oldItem = currentEquipment[slotIndex];
+            oldItem.isEquiped = false;
             InventoryManager.Instance.AddItemToInventory(oldItem);
         }
 
         currentEquipment[slotIndex] = newItem;
+        currentEquipment[slotIndex].isEquiped = true;
 
         onEquipmentChanged?.Invoke(newItem, oldItem);
         onEquipmentCallback?.Invoke();
@@ -57,6 +59,7 @@ public class EquipmentManager : MonoBehaviour
         {
             EquipmentItem oldItem = currentEquipment[slotIndex];
             InventoryManager.Instance.AddItemToInventory(oldItem);
+            oldItem.isEquiped = false;
             currentEquipment[slotIndex] = null;
 
             onEquipmentChanged?.Invoke(null, oldItem);
@@ -64,12 +67,14 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    
+
     public void DropFromEquipment(EquipmentItem equipmentItem)
     {
         var position = KeepOnScene.instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
-        ItemScene.SpawnItemScene(newPosition, equipmentItem);
+        ItemScene.SpawnItemScene(newPosition, currentEquipment[(int)equipmentItem.equipmentType]);
+        currentEquipment[(int)equipmentItem.equipmentType] = null;
+        onEquipmentCallback?.Invoke();
     }
 
 }
