@@ -1,53 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class InvetoryUI : MonoBehaviour
 {
+    [SerializeField] private InventorySlot[] inventorySlots;
+    private InventoryManager _inventoryManager;
     public Transform itemsParent;
-    private bool _isUpdated = true;
+
     
-    [SerializeField] private InventorySlot[] slots;
-    [SerializeField] private Inventory inventory;
-
-
     void Start()
     {
-        inventory = Inventory.instance;
-
-        //Make delegate function from Inventory be equal to UpdateUI fun
-        inventory.onItemChangedCallback += UpdateUI;
-
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        _inventoryManager = InventoryManager.Instance;
+        //Make delegate function from InventoryManager be equal to UpdateUI fun
+        _inventoryManager.onItemChangedCallback += UpdateUI;
+        inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    
-    //Have decited to make it with is updated in order to exlude extra caluclations in Update function
-    private void Update()
-    {
-        if (!_isUpdated)
-        {
-            UpdateUI();
-        }
-    }
-    
     
     void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (i < inventory.items.Count)
-            {
-                if (!slots[i].AddItem(inventory.items[i]))
-                    _isUpdated = false;
-            }
-            else
-            {
-                if (!slots[i].ClearSlot())
-                    _isUpdated = false;
-            }
+            if (i < _inventoryManager.items.Count) inventorySlots[i].AddItemToInventorySlot(_inventoryManager.items[i]);
+            else inventorySlots[i].RemoveItemFromInventorySlot();
         }
     }
     
-    
+
 }

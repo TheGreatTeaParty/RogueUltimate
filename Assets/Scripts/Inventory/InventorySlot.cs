@@ -4,73 +4,48 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
+
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
-    public Button button;
-    [SerializeField] private Image icon;
-    [SerializeField] private Item item;
+    public Image image;
+    private Item _item;
+    
+    
+    public void AddItemToInventorySlot(Item newItem)
+    {
+        _item = newItem;
+        image.sprite = _item.GetSprite();
+        image.enabled = true;
+    }
+    
+    
+    public void RemoveItemFromInventorySlot()
+    {
+        _item = null; 
+        image.sprite = null; 
+        image.enabled = false;
+    }
 
-    
-    private void Start()
-    {
-        icon = GetComponent<Image>();
-    }
-    
-    
-    public bool AddItem(Item newItem)
-    {
-        if (icon != null)
-        {
-            item = newItem;
-            icon.sprite = item.itemIcon;
-            icon.enabled = true;
-            //Fast fix, because I have only one button in slots to test
-            if(button!= null)
-                button.interactable = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    
-    public bool ClearSlot()
-    {
-        if (icon != null)
-        {
-            item = null;
-            icon.sprite = null;
-            icon.enabled = false;
-            //Fast fix, because I have only one button in slots to test
-            if (button != null)
-                button.interactable = false;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    
-    public void OnRemoveButton()
-    {
-        Inventory.instance.Remove(item);
-    }
-    
-    
+
     public void UseItem()
     {
-        if (item != null)
-            item.Use();
+        if (_item != null)
+            _item.Use();
     }
     
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UseItem();
+        if (_item != null)
+           ShowTooltip();
+    }
+
+
+    public void ShowTooltip()
+    {
+        PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
+        if (_item is EquipmentItem) tooltip.ShowTooltip((EquipmentItem)_item);
+        else tooltip.ShowTooltip(_item);
     }
     
     
