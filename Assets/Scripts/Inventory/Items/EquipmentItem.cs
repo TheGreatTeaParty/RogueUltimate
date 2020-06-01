@@ -37,11 +37,5 @@ public class EquipmentItem : Item
     {
         return WeaponType.nothing;
     }
-
-
-    public void Drop()
-    {
-        // Here
-    }
     
 }
