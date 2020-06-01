@@ -28,10 +28,10 @@ public class Item : ScriptableObject
     }
     
     
-    public void Drop()
+    public virtual void Drop()
     {
         InventoryManager.Instance.RemoveItemFromInventory(this);
-        InventoryManager.Instance.Drop(this);
+        InventoryManager.Instance.DropFromInventory(this);
     }
     
     

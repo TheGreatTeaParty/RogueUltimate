@@ -65,7 +65,7 @@ public class EquipmentManager : MonoBehaviour
     }
 
     
-    public void Drop(EquipmentItem equipmentItem)
+    public void DropFromEquipment(EquipmentItem equipmentItem)
     {
         var position = KeepOnScene.instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);

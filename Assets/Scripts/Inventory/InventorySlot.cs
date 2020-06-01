@@ -13,17 +13,17 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     
     public void AddItemToInventorySlot(Item newItem)
     {
-            _item = newItem;
-            image.sprite = _item.GetSprite();
-            image.enabled = true;
+        _item = newItem;
+        image.sprite = _item.GetSprite();
+        image.enabled = true;
     }
     
     
     public void RemoveItemFromInventorySlot()
     {
-            _item = null;
-            image.sprite = null;
-            image.enabled = false;
+        _item = null; 
+        image.sprite = null; 
+        image.enabled = false;
     }
 
 
@@ -36,15 +36,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-       // UseItem();
-       ShowTooltip();
+        if (_item != null)
+           ShowTooltip();
     }
 
 
     public void ShowTooltip()
     {
         PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
-        tooltip.ShowTooltip(_item);
+        if (_item is EquipmentItem) tooltip.ShowTooltip((EquipmentItem)_item);
+        else tooltip.ShowTooltip(_item);
     }
     
     

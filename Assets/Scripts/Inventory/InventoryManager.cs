@@ -44,7 +44,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     
-    public void Drop(Item item)
+    public void DropFromInventory(Item item)
     {
         //Call spawn function on the player's position
         var position = KeepOnScene.instance.transform.position;

@@ -29,13 +29,24 @@ public class EquipmentItem : Item
         EquipmentManager.Instance.Equip(this);
         InventoryManager.Instance.RemoveItemFromInventory(this);
     }
+
+
+    public override void Drop()
+    {
+        base.Drop(); // override
+    }
+
+
     public virtual void Attack(int damage)
     {
         //It is made to be called in the child class -> weapon
     }
+
+
     public virtual WeaponType Echo()
     {
         return WeaponType.nothing;
     }
-    
+
+
 }

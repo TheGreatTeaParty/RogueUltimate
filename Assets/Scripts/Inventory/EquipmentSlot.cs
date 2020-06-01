@@ -46,8 +46,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        // UnEquip();
-        OpenTooltip();
+        if (_equipmentItem != null)
+            OpenTooltip();
     }
     
     
