@@ -37,9 +37,17 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     }
     
     
+    public void OpenTooltip()
+    {
+        PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
+        tooltip.ShowTooltip(_equipmentItem, (int)_equipmentItem.equipmentType);
+    }
+    
+    
     public void OnPointerClick(PointerEventData eventData)
     {
-       UnEquip();
+        // UnEquip();
+        OpenTooltip();
     }
     
     

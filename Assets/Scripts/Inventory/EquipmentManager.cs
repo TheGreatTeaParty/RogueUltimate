@@ -63,6 +63,13 @@ public class EquipmentManager : MonoBehaviour
             onEquipmentCallback?.Invoke();
         }
     }
+
     
-    
+    public void Drop(EquipmentItem equipmentItem)
+    {
+        var position = KeepOnScene.instance.transform.position;
+        Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
+        ItemScene.SpawnItemScene(newPosition, equipmentItem);
+    }
+
 }

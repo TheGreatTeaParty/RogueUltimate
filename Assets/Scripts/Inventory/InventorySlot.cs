@@ -25,26 +25,26 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             image.sprite = null;
             image.enabled = false;
     }
-    
-    
-    public void OnRemoveButton()
-    {
-        Debug.Log("Button clicked");
-       // InventoryManager.Instance.RemoveItemFromInventory(_item);
-    }
-    
-    
+
+
     public void UseItem()
     {
         if (_item != null)
             _item.Use();
     }
-
+    
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("damn raycast");
-        UseItem();
+       // UseItem();
+       ShowTooltip();
+    }
+
+
+    public void ShowTooltip()
+    {
+        PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
+        tooltip.ShowTooltip(_item);
     }
     
     

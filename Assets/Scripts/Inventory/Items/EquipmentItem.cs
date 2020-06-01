@@ -33,5 +33,11 @@ public class EquipmentItem : Item
     {
         //It is made to be called in the child class -> weapon
     }
+
+
+    public void Drop()
+    {
+        // Here
+    }
     
 }
