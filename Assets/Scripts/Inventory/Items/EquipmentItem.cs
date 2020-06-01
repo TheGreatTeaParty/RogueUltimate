@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EquipmentType { weapon, armor, ring, amulet }
+public enum EquipmentType
+{
+    weapon, 
+    armor, 
+    ring, 
+    amulet 
+    
+}
 
 
 [CreateAssetMenu(menuName = "Items/EquipmentItem")]
@@ -19,8 +26,8 @@ public class EquipmentItem : Item
 
     public override void Use()
     {
-        EquipmentManager.instance.Equip(this);
-        Inventory.instance.RemoveItemFromInventory(this);
+        EquipmentManager.Instance.Equip(this);
+        InventoryManager.Instance.RemoveItemFromInventory(this);
     }
     public virtual void Attack(int damage)
     {

@@ -30,8 +30,8 @@ public class Item : ScriptableObject
     
     public void Drop()
     {
-        Inventory.instance.RemoveItemFromInventory(this);
-        Inventory.instance.Drop(this);
+        InventoryManager.Instance.RemoveItemFromInventory(this);
+        InventoryManager.Instance.Drop(this);
     }
     
     

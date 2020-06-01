@@ -6,26 +6,26 @@ using UnityEngine;
 
 public class InvetoryUI : MonoBehaviour
 {
-    [SerializeField] private InventorySlot[] slots;
-    private Inventory _inventory;
+    [SerializeField] private InventorySlot[] inventorySlots;
+    private InventoryManager _inventoryManager;
     public Transform itemsParent;
 
     
     void Start()
     {
-        _inventory = Inventory.instance;
-        //Make delegate function from Inventory be equal to UpdateUI fun
-        _inventory.onItemChangedCallback += UpdateUI;
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        _inventoryManager = InventoryManager.Instance;
+        //Make delegate function from InventoryManager be equal to UpdateUI fun
+        _inventoryManager.onItemChangedCallback += UpdateUI;
+        inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
     
     void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (i < _inventory.items.Count) slots[i].AddItemToSlot(_inventory.items[i]);
-            else slots[i].RemoveItemFromSlot();
+            if (i < _inventoryManager.items.Count) inventorySlots[i].AddItemToInventorySlot(_inventoryManager.items[i]);
+            else inventorySlots[i].RemoveItemFromInventorySlot();
         }
     }
     

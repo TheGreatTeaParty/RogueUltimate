@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Items/MeleWeapon")]
+[CreateAssetMenu(menuName = "Items/MeleeWeapon")]
 
-public class MeleWeapon : EquipmentItem
+public class MeleeWeapon : EquipmentItem
 {
     [Space]
     public float attackCD;

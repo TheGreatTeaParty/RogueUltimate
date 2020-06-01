@@ -8,20 +8,20 @@ using UnityEngine;
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Image image;
-    private Item item;
+    private Item _item;
     
     
-    public void AddItemToSlot(Item newItem)
+    public void AddItemToInventorySlot(Item newItem)
     {
-            item = newItem;
-            image.sprite = item.GetSprite();
+            _item = newItem;
+            image.sprite = _item.GetSprite();
             image.enabled = true;
     }
     
     
-    public void RemoveItemFromSlot()
+    public void RemoveItemFromInventorySlot()
     {
-            item = null;
+            _item = null;
             image.sprite = null;
             image.enabled = false;
     }
@@ -30,14 +30,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void OnRemoveButton()
     {
         Debug.Log("Button clicked");
-       // Inventory.instance.RemoveItemFromInventory(item);
+       // InventoryManager.Instance.RemoveItemFromInventory(_item);
     }
     
     
     public void UseItem()
     {
-        if (item != null)
-            item.Use();
+        if (_item != null)
+            _item.Use();
     }
 
 

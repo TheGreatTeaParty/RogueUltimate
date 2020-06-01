@@ -35,9 +35,9 @@ public class PlayerAttack : MonoBehaviour
     {
 
         //If there is any weapon call the function attack there
-        if (EquipmentManager.instance.currentEquipment[(int)EquipmentType.weapon] != null)
+        if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon] != null)
         {
-            EquipmentManager.instance.currentEquipment[(int)EquipmentType.weapon].Attack(GetComponent<PlayerStat>().damage.GetValue());
+            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon].Attack(GetComponent<PlayerStat>().damage.GetValue());
         }
 
         //if not, this is base fist attack

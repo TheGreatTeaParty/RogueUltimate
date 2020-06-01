@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     #region Singleton
-    public static Inventory instance;
+    public static InventoryManager Instance;
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
             return;
         
-        instance = this;
+        Instance = this;
     }
     #endregion
 
