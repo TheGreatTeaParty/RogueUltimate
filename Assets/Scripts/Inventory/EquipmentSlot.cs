@@ -29,15 +29,9 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         icon.sprite = null;
         icon.enabled = false;
     }
-    
-    
-    public void UnEquip()
-    {
-        EquipmentManager.Instance.UnEquip((int)_equipmentItem.equipmentType);
-    }
-    
-    
-    public void OpenTooltip()
+
+
+    private void OpenTooltip()
     {
         PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
         tooltip.ShowTooltip(_equipmentItem, (int)_equipmentItem.equipmentType);

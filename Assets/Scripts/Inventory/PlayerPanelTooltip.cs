@@ -19,12 +19,15 @@ public class PlayerPanelTooltip : MonoBehaviour
     }
     #endregion
     
-    private Item _item;
     private int _index;
-    private Image _image;
-    public Button dropButton;
-    public Button optionalButton;
-    public TextMeshProUGUI optionalButtonText;
+    [SerializeField] private Item item;
+    [SerializeField] private Image image;
+    [Space]
+    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] TextMeshProUGUI optionalButtonText;
+    [Space]
+    [SerializeField] private Button dropButton;
+    [SerializeField] private Button optionalButton;
 
 
     private void Start()
@@ -33,49 +36,54 @@ public class PlayerPanelTooltip : MonoBehaviour
     }
 
     
-    public void ShowTooltip(Item item)
+    public void ShowTooltip(Item reusableItem)
     {
-        _item = item;
-        _image.sprite = _item.GetSprite();
+        item = reusableItem;
+        itemName.SetText(item.itemName);
+        image.sprite = item.GetSprite();
         optionalButtonText.text = "Use";
         gameObject.SetActive(true);
     }
 
     public void ShowTooltip(EquipmentItem equipmentItem)
     {
-        _item = equipmentItem;
+        item = equipmentItem;
+        itemName.SetText(item.itemName);
+        image.sprite = item.GetSprite();
         optionalButtonText.text = "Equip";
         gameObject.SetActive(true);
     }
 
     public void ShowTooltip(EquipmentItem equipmentItem, int slotIndex)
     {
-        _item = equipmentItem;
+        item = equipmentItem;
+        itemName.SetText(item.itemName);
+        image.sprite = item.GetSprite();
         _index = slotIndex;
         optionalButtonText.text = "Unequip";
         gameObject.SetActive(true);
     }
 
 
-    public void HideTooltip()
+    private void HideTooltip()
     {
         gameObject.SetActive(false);
     }
     
     
-    public void DropButtonPress()
+    private void DropButtonPress()
     {
-        _item.Drop();
+        item.Drop();
         HideTooltip();
     }
 
 
-    public void OptionalButtonPress()
+    private void OptionalButtonPress()
     {
         if (optionalButtonText.text == "Equip" || optionalButtonText.text == "Use") 
-            _item.Use();
+            item.Use();
         else if (optionalButtonText.text == "Unequip") 
-            EquipmentManager.Instance.UnEquip(_index);
+            EquipmentManager.Instance.Unequip(_index);
 
         HideTooltip();
     }

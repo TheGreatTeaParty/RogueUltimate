@@ -53,7 +53,7 @@ public class EquipmentManager : MonoBehaviour
     }
 
     
-    public void UnEquip(int slotIndex)
+    public void Unequip(int slotIndex)
     {
         if (currentEquipment[slotIndex] != null)
         {

@@ -19,7 +19,7 @@ public class EquipmentUI : MonoBehaviour
     }
     
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         for (int i = 0; i < equipmentSlots.Length; i++)
         {
