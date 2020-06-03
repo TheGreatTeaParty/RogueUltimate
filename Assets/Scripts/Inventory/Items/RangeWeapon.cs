@@ -32,8 +32,12 @@ public class RangeWeapon : EquipmentItem
             KeepOnScene.instance.GetComponent<PlayerAttack>().SetAttackCD(attackCD);
         }
     }
+    
+    
     public override WeaponType Echo()
     {
         return WeaponType.range;
     }
+    
+    
 }

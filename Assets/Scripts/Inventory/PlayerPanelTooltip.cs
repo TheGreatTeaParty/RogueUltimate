@@ -21,19 +21,22 @@ public class PlayerPanelTooltip : MonoBehaviour
     
     private Item _item;
     private int _index;
+    private Image _image;
     public Button dropButton;
     public Button optionalButton;
     public TextMeshProUGUI optionalButtonText;
-    
-    
+
+
     private void Start()
     {
         gameObject.SetActive(false);    
     }
 
+    
     public void ShowTooltip(Item item)
     {
         _item = item;
+        _image.sprite = _item.GetSprite();
         optionalButtonText.text = "Use";
         gameObject.SetActive(true);
     }

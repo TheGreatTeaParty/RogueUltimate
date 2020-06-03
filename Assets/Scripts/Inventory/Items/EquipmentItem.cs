@@ -17,12 +17,12 @@ public enum EquipmentType
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
-    public bool isEquiped;
+    public bool isEquiped = false;
     
     //Modifiers
     public int armorModifier;
     public int damageModifier;
-
+    
 
     public override void Use()
     {
@@ -34,7 +34,7 @@ public class EquipmentItem : Item
     public override void Drop()
     {
         if (isEquiped) EquipmentManager.Instance.DropFromEquipment(this);
-        else base.Drop(); // override
+        else base.Drop(); 
     }
 
 
