@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
-        whatIsEnemy.value = LayerMask.NameToLayer("Enemy");
+        whatIsEnemy = LayerMask.GetMask("Enemy");
         fistRange = attackRange;
     }
 
@@ -58,11 +58,11 @@ public class PlayerAttack : MonoBehaviour
             Vector2 push_direction = new Vector2(direction.x * pushForce, direction.y * pushForce);
             GetComponent<PlayerMovment>().Push(push_direction); */
 
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(transform.position + direction / 2, attackRange, whatIsEnemy);
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(transform.position + direction / 2, attackRange, whatIsEnemy.value);
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
-                enemiesToDamage[i].GetComponent<CharacterStat>().TakeDamage(GetComponent<PlayerStat>().damage.GetValue());
+                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(GetComponent<PlayerStat>().damage.GetValue());
                 /*enemiesToDamage[i].GetComponent<EnemyStats>().AddForce(GetComponent<MoveScript>().ReturnDirection() * KnockBack);
                 This is to knock back the enemies
                 */
