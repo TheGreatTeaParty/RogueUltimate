@@ -20,17 +20,10 @@ public class RangeWeapon : EquipmentItem
 
     public override void Attack(int damage)
     {
-        if (KeepOnScene.instance.GetComponent<PlayerAttack>().GetAttackCD() <= 0)
-        {
+        Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
 
-            Debug.Log($"Damage done: {damage}"); ///For debug
-            Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
-
-            //Send mesage to Attack animation handler that we use mele weapon
-            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
-
-            KeepOnScene.instance.GetComponent<PlayerAttack>().SetAttackCD(attackCD);
-        }
+        //Send mesage to Attack animation handler that we use mele weapon
+        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
     }
     
     
@@ -38,6 +31,10 @@ public class RangeWeapon : EquipmentItem
     {
         return WeaponType.range;
     }
-    
-    
+
+    public override float GetAttackCD()
+    {
+        return attackCD;
+    }
+
 }

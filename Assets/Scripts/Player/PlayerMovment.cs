@@ -65,4 +65,8 @@ public class PlayerMovment : MonoBehaviour
         return direction;
     }
 
+    public void SlowDown(float percent)
+    {
+        movement_speed *= percent;
+    }
 }

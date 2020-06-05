@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     public float pushForce;
 
     private float StartattackCD;
+    private float weaponCD;
     private float fistRange;
     private LayerMask whatIsEnemy;
     private Vector3 direction;
@@ -24,11 +25,28 @@ public class PlayerAttack : MonoBehaviour
         fistRange = attackRange;
     }
 
+    private void Start()
+    {
+        EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
+    }
+
     private void Update()
     {
         if (StartattackCD > 0)
             StartattackCD -= Time.deltaTime;
         direction = GetComponent<PlayerMovment>().GetDirection();
+    }
+
+    private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
+    {
+        if (_new.equipmentType == EquipmentType.weapon)
+        {
+            
+            if (_new != null)
+            {
+                weaponCD = _new.GetAttackCD();
+            }
+        }
     }
 
     public void Attack()
@@ -38,6 +56,7 @@ public class PlayerAttack : MonoBehaviour
         if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon] != null)
         {
             EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon].Attack(GetComponent<PlayerStat>().damage.GetValue());
+            StartattackCD = weaponCD;
         }
 
         //if not, this is base fist attack
@@ -77,11 +96,10 @@ public class PlayerAttack : MonoBehaviour
         return StartattackCD;
     }
 
-    public void SetAttackCD(float _cd)
+    public float GetWeaponCD()
     {
-        StartattackCD = _cd;
+        return weaponCD;
     }
-
     public void SetRange(float range)
     {
         attackRange = range;

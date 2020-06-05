@@ -13,24 +13,27 @@ public class JoystickHandle : MonoBehaviour
     }
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if(_new == null)
+        if (_new.equipmentType == EquipmentType.weapon)
         {
-            joysticks[1].gameObject.SetActive(true);
-            joysticks[2].gameObject.SetActive(false);
-        }
-
-        else
-        {
-            if(_new.Echo() != WeaponType.mele && _new.Echo() != WeaponType.nothing)
+            if (_new == null)
             {
-                joysticks[1].gameObject.SetActive(false);
-                joysticks[2].gameObject.SetActive(true);
+                joysticks[1].gameObject.SetActive(true);
+                joysticks[2].gameObject.SetActive(false);
             }
 
             else
             {
-                joysticks[1].gameObject.SetActive(true);
-                joysticks[2].gameObject.SetActive(false);
+                if (_new.Echo() != WeaponType.mele && _new.Echo() != WeaponType.nothing)
+                {
+                    joysticks[1].gameObject.SetActive(false);
+                    joysticks[2].gameObject.SetActive(true);
+                }
+
+                else
+                {
+                    joysticks[1].gameObject.SetActive(true);
+                    joysticks[2].gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -43,6 +43,11 @@ public class EquipmentItem : Item
         //It is made to be called in the child class -> weapon
     }
 
+    public virtual float GetAttackCD()
+    {
+        return 0;
+    }
+
 
     public virtual WeaponType Echo()
     {
