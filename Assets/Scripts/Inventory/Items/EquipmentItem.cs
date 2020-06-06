@@ -20,9 +20,13 @@ public class EquipmentItem : Item
     public bool isEquiped = false;
     
     //Modifiers
-    public int armorModifier;
-    public int damageModifier;
-    
+    public int PhysicalArmorModifier;
+    public int MagicalArmorModifier;
+
+    [Space]
+    public int PhysiscalDamageModifier;
+    public int MagicalDamageModifier;
+
 
     public override void Use()
     {
@@ -38,7 +42,7 @@ public class EquipmentItem : Item
     }
 
 
-    public virtual void Attack(int damage)
+    public virtual void Attack(int ph_damage,int mg_damage)
     {
         //It is made to be called in the child class -> weapon
     }

@@ -16,7 +16,7 @@ public class MeleeWeapon : EquipmentItem
     private LayerMask whatIsEnemy;
     private Vector2 attackPos;
     
-    public override void Attack(int damage)
+    public override void Attack(int ph_damage, int mg_damage)
     {
         whatIsEnemy = LayerMask.GetMask("Enemy");
         Vector3 direction = KeepOnScene.instance.GetComponent<PlayerMovment>().GetDirection();
@@ -28,7 +28,8 @@ public class MeleeWeapon : EquipmentItem
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos, attackRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             { 
-                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(damage);
+                enemiesToDamage[i].GetComponent<Transform>().position += direction * KnockBack;
+                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(ph_damage, mg_damage);
             }
 
             //Send mesage to Attack animation handler that we use mele weapon

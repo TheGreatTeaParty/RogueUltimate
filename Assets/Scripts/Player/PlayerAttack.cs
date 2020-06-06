@@ -55,7 +55,7 @@ public class PlayerAttack : MonoBehaviour
         //If there is any weapon call the function attack there
         if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon] != null)
         {
-            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon].Attack(GetComponent<PlayerStat>().damage.GetValue());
+            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.weapon].Attack(GetComponent<PlayerStat>().ph_damage.GetValue(), GetComponent<PlayerStat>().mg_damage.GetValue());
             StartattackCD = weaponCD;
         }
 
@@ -81,7 +81,7 @@ public class PlayerAttack : MonoBehaviour
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
-                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(GetComponent<PlayerStat>().damage.GetValue());
+                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(GetComponent<PlayerStat>().ph_damage.GetValue(), GetComponent<PlayerStat>().mg_damage.GetValue());
                 /*enemiesToDamage[i].GetComponent<EnemyStats>().AddForce(GetComponent<MoveScript>().ReturnDirection() * KnockBack);
                 This is to knock back the enemies
                 */

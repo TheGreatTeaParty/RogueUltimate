@@ -16,14 +16,20 @@ public class PlayerStat:CharacterStat
     {
         if(newEquipmentItem!= null)
         {
-            armor.AddModifier(newEquipmentItem.armorModifier);
-            damage.AddModifier(newEquipmentItem.damageModifier);
+            ph_armor.AddModifier(newEquipmentItem.PhysicalArmorModifier);
+            mg_armor.AddModifier(newEquipmentItem.MagicalArmorModifier);
+
+            ph_damage.AddModifier(newEquipmentItem.PhysiscalDamageModifier);
+            mg_damage.AddModifier(newEquipmentItem.MagicalDamageModifier);
         }
 
         if (oldEquipmentItem != null)
         {
-            armor.RemoveModifier(oldEquipmentItem.armorModifier);
-            damage.RemoveModifier(oldEquipmentItem.damageModifier);
+            ph_armor.RemoveModifier(oldEquipmentItem.PhysicalArmorModifier);
+            mg_armor.RemoveModifier(oldEquipmentItem.MagicalArmorModifier);
+
+            ph_damage.RemoveModifier(oldEquipmentItem.PhysiscalDamageModifier);
+            mg_damage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
         }
     }
     

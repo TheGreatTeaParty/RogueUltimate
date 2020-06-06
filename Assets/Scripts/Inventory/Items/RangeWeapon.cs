@@ -18,10 +18,9 @@ public class RangeWeapon : EquipmentItem
         equipmentType = EquipmentType.weapon;
     }
 
-    public override void Attack(int damage)
+    public override void Attack(int ph_dmg, int mg_dmg)
     {
         Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
-
         //Send mesage to Attack animation handler that we use mele weapon
         KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
     }

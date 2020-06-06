@@ -6,14 +6,16 @@ public class FlyingObject : MonoBehaviour
 {
     public float speed;
 
-    private int damage;
+    private int ph_damage;
+    private int mg_damage;
     private Rigidbody2D rb;
     private Vector2 direction;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        damage = KeepOnScene.instance.GetComponent<PlayerStat>().damage.GetValue();
+        ph_damage = KeepOnScene.instance.GetComponent<PlayerStat>().ph_damage.GetValue();
+        mg_damage = KeepOnScene.instance.GetComponent<PlayerStat>().mg_damage.GetValue();
         direction = InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection();
         rb.velocity = speed * direction;
 
@@ -25,7 +27,7 @@ public class FlyingObject : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<EnemyStat>().TakeDamage(damage);
+            collision.GetComponent<EnemyStat>().TakeDamage(ph_damage,mg_damage);
             Destroy(this.gameObject);
         }
 

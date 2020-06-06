@@ -2,14 +2,17 @@
 
 public class CharacterStat : MonoBehaviour
 {
-    public Stat damage;
-    public Stat armor;
+    public Stat ph_damage;
+    public Stat mg_damage;
+    public Stat ph_armor;
+    public Stat mg_armor;
     [Space]
     public int MaxHealth = 100;
 
     protected int currenthealth { get; set; }
-    protected int damage_recieved { get; set; }
-    
+    protected int ph_damage_recieved { get; set; }
+    protected int mg_damage_recieved { get; set; }
+
     // This is base class for all NPS, Player, Enemy so on
     // all damage counting, damage intake should be written here
     private void Awake()
@@ -18,10 +21,11 @@ public class CharacterStat : MonoBehaviour
     }
 
     
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int ph_damage,int mg_damage)
     {
-        damage_recieved = (int)(damage * (100 / (100 + (float)armor.GetValue())));
-        currenthealth -= damage_recieved;
+        ph_damage_recieved = (int)(ph_damage * (100 / (100 + (float)ph_armor.GetValue())));
+        mg_damage_recieved = (int)(mg_damage * (100 / (100 + (float)mg_armor.GetValue())));
+        currenthealth -= (ph_damage_recieved + mg_damage_recieved);
         if (currenthealth <= 0)
             Die();
     }

@@ -8,11 +8,13 @@ public class JoystickAttack : MonoBehaviour
 
     private Vector2 movement;
     private bool _isShooting;
+    private bool _isSlowed;
     private float timer = 0;
 
     public void Start()
     {
         _isShooting = false;
+        _isSlowed = false;
         joystick = GetComponent<Joystick>();
     }
 
@@ -30,9 +32,11 @@ public class JoystickAttack : MonoBehaviour
 
             if (_isShooting)
                 timer += Time.deltaTime;
-            if (_isShooting)
+            if (_isShooting && !_isSlowed)
+            {
                 KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(0.5f);
-
+                _isSlowed = true;
+            }
             if (_isShooting && timer > KeepOnScene.instance.GetComponent<PlayerAttack>().GetWeaponCD())
             {
                 if (movement.x != 0 || movement.y != 0)
@@ -45,10 +49,11 @@ public class JoystickAttack : MonoBehaviour
                 timer = 0;
             }
         }
-        else if (_isShooting && movement.x == 0 && movement.y == 0)
+        else if (_isShooting && movement.x == 0 && movement.y == 0 && _isSlowed)
         {
             timer = 0;
-            KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(1f);
+            KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(2f);
+            _isSlowed = false;
         }
     }
 
