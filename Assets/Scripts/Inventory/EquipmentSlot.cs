@@ -18,7 +18,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public void AddItemToEquipmentSlot(EquipmentItem newEquipmentItem)
     {
         equipmentItem = newEquipmentItem; 
-        icon.sprite = equipmentItem.itemIcon; 
+        icon.sprite = equipmentItem.Sprite; 
         icon.enabled = true;         
     }
     

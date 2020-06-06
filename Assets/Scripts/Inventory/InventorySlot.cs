@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void AddItemToInventorySlot(Item newItem)
     {
         _item = newItem;
-        image.sprite = _item.GetSprite();
+        image.sprite = _item.Sprite;
         image.enabled = true;
     }
     

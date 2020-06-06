@@ -39,8 +39,8 @@ public class PlayerPanelTooltip : MonoBehaviour
     public void ShowTooltip(Item reusableItem)
     {
         item = reusableItem;
-        itemName.SetText(item.itemName);
-        image.sprite = item.GetSprite();
+        itemName.SetText(item.Name);
+        image.sprite = item.Sprite;
         optionalButtonText.text = "Use";
         gameObject.SetActive(true);
     }
@@ -48,8 +48,8 @@ public class PlayerPanelTooltip : MonoBehaviour
     public void ShowTooltip(EquipmentItem equipmentItem)
     {
         item = equipmentItem;
-        itemName.SetText(item.itemName);
-        image.sprite = item.GetSprite();
+        itemName.SetText(item.Name);
+        image.sprite = item.Sprite;
         optionalButtonText.text = "Equip";
         gameObject.SetActive(true);
     }
@@ -57,8 +57,8 @@ public class PlayerPanelTooltip : MonoBehaviour
     public void ShowTooltip(EquipmentItem equipmentItem, int slotIndex)
     {
         item = equipmentItem;
-        itemName.SetText(item.itemName);
-        image.sprite = item.GetSprite();
+        itemName.SetText(item.Name);
+        image.sprite = item.Sprite;
         _index = slotIndex;
         optionalButtonText.text = "Unequip";
         gameObject.SetActive(true);

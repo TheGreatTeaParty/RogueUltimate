@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using Unity;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 
 [CreateAssetMenu(menuName = "Items/Item")]  
 public class Item : ScriptableObject
 {
-    public String itemName;
-    public Sprite itemIcon;
-    public Sprite itemSprite;
+    [SerializeField] protected String name;
+    [SerializeField] protected Sprite sprite;
     [Space]
-    public int stackSize;
-    public int price;
+    [SerializeField] protected int stackSize;
+    [SerializeField] protected int price;
 
+    public String Name => name;
+    public Sprite Sprite => sprite;
     
-    public Sprite GetSprite()
-    {
-        return itemSprite;
-    }
-
     
     public virtual void Use()
     {

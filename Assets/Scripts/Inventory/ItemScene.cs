@@ -28,7 +28,7 @@ public class ItemScene : MonoBehaviour
     public void SetItem(Item item)
     {
         _item = item;
-        _spriteRenderer.sprite = item.GetSprite();
+        _spriteRenderer.sprite = item.Sprite;
     }
 
     
