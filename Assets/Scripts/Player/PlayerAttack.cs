@@ -39,14 +39,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new.equipmentType == EquipmentType.weapon)
-        {
-            
-            if (_new != null)
-            {
+        if (_new != null) 
+            if (_new.equipmentType == EquipmentType.weapon)
                 weaponCD = _new.GetAttackCD();
-            }
-        }
     }
 
     public void Attack()
@@ -62,7 +57,6 @@ public class PlayerAttack : MonoBehaviour
         //if not, this is base fist attack
         else
         {
-
             FistAttack();
         }
     }

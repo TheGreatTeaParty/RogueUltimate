@@ -76,6 +76,8 @@ public class EquipmentManager : MonoBehaviour
         
         currentEquipment[(int)equipmentItem.equipmentType].isEquiped = false;
         currentEquipment[(int)equipmentItem.equipmentType] = null;
+
+        onEquipmentChanged?.Invoke(null, equipmentItem);
         onEquipmentCallback?.Invoke();
     }
 
