@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public enum EquipmentType
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
-    public bool isEquiped = false;
+    public bool isEquiped;
     
     //Modifiers
     public int PhysicalArmorModifier;
@@ -33,7 +34,7 @@ public class EquipmentItem : Item
         EquipmentManager.Instance.Equip(this);
         InventoryManager.Instance.RemoveItemFromInventory(this);
     }
-
+    
 
     public override void Drop()
     {
