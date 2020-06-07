@@ -6,28 +6,31 @@ using UnityEngine.UI;
 public class PlayerStatUI : MonoBehaviour
 {
     private PlayerStat _playerStat;
-    
-    private Stat physicalDamagePoints;
+
+    [SerializeField] private TextMeshProUGUI healthPointsText;
+    [Space]
     [SerializeField] private TextMeshProUGUI physicalDamagePointsText;
+    [SerializeField] private TextMeshProUGUI physicalProtectionPointsText;
+    [SerializeField] private TextMeshProUGUI magicDamagePointsText;
+    [SerializeField] private TextMeshProUGUI magicProtectionPointsText;
 
 
     private void Start()
     {
-        EquipmentManager.Instance.onEquipmentCallback += UpdateUI;
-        
-        if (physicalDamagePointsText == null) 
-            Debug.Log("damageStat doesn't find itself textMeshPro");
-        
         _playerStat = PlayerStat.Instance;
-        physicalDamagePoints = _playerStat.physicalDamage;
         
+        EquipmentManager.Instance.onEquipmentCallback += UpdateUI;   
         UpdateUI();
     }
 
 
     private void UpdateUI()
     {
-        physicalDamagePointsText.SetText("" + physicalDamagePoints.GetValue());
+        healthPointsText.SetText("" + _playerStat.CurrentHealth + " / " + _playerStat.maxHealth);
+        physicalDamagePointsText.SetText("" + _playerStat.physicalDamage.GetValue());
+        physicalProtectionPointsText.SetText("" + _playerStat.physicalProtection.GetValue());
+        magicDamagePointsText.SetText("" + _playerStat.magicDamage.GetValue());
+        magicProtectionPointsText.SetText("" + _playerStat.magicProtection.GetValue());
     }
 
 }

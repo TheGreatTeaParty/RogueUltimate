@@ -8,12 +8,15 @@ public class CharacterStat : MonoBehaviour
     public Stat magicProtection;
     [Space]
     public int maxHealth = 100;
-
-    protected int currentHealth { get; set; }
+    
+    // ???
+    protected int currentHealth;
     protected int physicalDamageReceived { get; set; }
     protected int magicDamageReceived { get; set; }
-    
-    
+
+    public int CurrentHealth => currentHealth;
+
+
     // This is base class for all NPS, Player, Enemy so on
     // all damage counting, damage intake should be written here
     private void Awake()
