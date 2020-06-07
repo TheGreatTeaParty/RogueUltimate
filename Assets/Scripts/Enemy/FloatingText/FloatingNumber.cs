@@ -6,17 +6,18 @@ using TMPro;
 public class FloatingNumber : MonoBehaviour
 {
     [SerializeField] private Transform textPb;
-    private int damage;
+    private int _damage;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        GetComponent<EnemyStat>().onRecievedDamage += RecieveDamage;
+        GetComponent<EnemyStat>().onReceivedDamage += ReceiveDamage;
     }
 
-    private void RecieveDamage(int damage,bool type)
+    
+    private void ReceiveDamage(int damage, bool type)
     {
-        this.damage = damage;
+        this._damage = damage;
         textPb.GetComponent<TextMeshPro>().text = damage.ToString();
 
         if (type)
@@ -30,8 +31,12 @@ public class FloatingNumber : MonoBehaviour
             Instantiate(textPb, new Vector3(transform.position.x + 0.4f, transform.position.y + 1, transform.position.z), Quaternion.identity);
         }
     }
+    
+    
     public int GetDamage()
     {
-        return damage;
+        return _damage;
     }
+    
+    
 }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class EnemyStat : CharacterStat
 {
-    public delegate void OnRecievedDamage(int damage, bool type);
-    public OnRecievedDamage onRecievedDamage;
+    public delegate void OnReceivedDamage(int damage, bool type);
+    public OnReceivedDamage onReceivedDamage;
 
-    public override void TakeDamage(int ph_damage, int mg_damage)
+    public override void TakeDamage(int _physicalDamage, int _magicDamage)
     {
-        base.TakeDamage(ph_damage, mg_damage);
-
-        if(ph_damage_recieved!= 0)
-            onRecievedDamage?.Invoke(ph_damage_recieved,true);
-        if(mg_damage_recieved!= 0)
-            onRecievedDamage?.Invoke(mg_damage_recieved,false);
+        base.TakeDamage(_physicalDamage, _magicDamage);
+        if (physicalDamageReceived != 0)
+            onReceivedDamage?.Invoke(physicalDamageReceived,true);
+        
+        if (magicDamageReceived != 0)
+            onReceivedDamage?.Invoke(magicDamageReceived,false);
     }
 
 }

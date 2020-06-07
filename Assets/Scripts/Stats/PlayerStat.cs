@@ -3,8 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat:CharacterStat
+public class PlayerStat : CharacterStat
 {
+    #region Singleton
+
+    public static PlayerStat Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+            return;
+
+        Instance = this;
+    }
+
+    #endregion
+    
+    
     private void Start()
     {
         EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -14,22 +29,22 @@ public class PlayerStat:CharacterStat
     //Receive message of changing equipment, so change player modifiers
     void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
     {
-        if(newEquipmentItem!= null)
+        if (newEquipmentItem != null)
         {
-            ph_armor.AddModifier(newEquipmentItem.PhysicalArmorModifier);
-            mg_armor.AddModifier(newEquipmentItem.MagicalArmorModifier);
+            physicalProtection.AddModifier(newEquipmentItem.PhysicalArmorModifier);
+            magicProtection.AddModifier(newEquipmentItem.MagicalArmorModifier);
 
-            ph_damage.AddModifier(newEquipmentItem.PhysiscalDamageModifier);
-            mg_damage.AddModifier(newEquipmentItem.MagicalDamageModifier);
+            physicalDamage.AddModifier(newEquipmentItem.PhysiscalDamageModifier);
+            magicDamage.AddModifier(newEquipmentItem.MagicalDamageModifier);
         }
 
         if (oldEquipmentItem != null)
         {
-            ph_armor.RemoveModifier(oldEquipmentItem.PhysicalArmorModifier);
-            mg_armor.RemoveModifier(oldEquipmentItem.MagicalArmorModifier);
+            physicalProtection.RemoveModifier(oldEquipmentItem.PhysicalArmorModifier);
+            magicProtection.RemoveModifier(oldEquipmentItem.MagicalArmorModifier);
 
-            ph_damage.RemoveModifier(oldEquipmentItem.PhysiscalDamageModifier);
-            mg_damage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
+            physicalDamage.RemoveModifier(oldEquipmentItem.PhysiscalDamageModifier);
+            magicDamage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
         }
     }
     

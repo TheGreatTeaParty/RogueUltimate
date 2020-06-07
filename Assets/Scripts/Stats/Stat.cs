@@ -20,7 +20,7 @@ public class Stat
     
     public void AddModifier(int modifier)
     {
-        if(modifier!= 0)
+        if (modifier != 0)
         {
             modifiers.Add(modifier);
         }
