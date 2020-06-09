@@ -25,7 +25,13 @@ public class PlayerStat : CharacterStat
         EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
-    
+
+    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    {
+        
+    }
+
+
     //Receive message of changing equipment, so change player modifiers
     void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
     {

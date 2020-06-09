@@ -17,10 +17,10 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case WeaponType.nothing: { animator.SetTrigger("Attack"); break; }
-            case WeaponType.mele: { /*Animation for mele attack*/ break; }
-            case WeaponType.range: { /*Animation for range attack*/ break; }
-            case WeaponType.magic: { /*Animation for magic attack*/ break; }
+            case WeaponType.None: { animator.SetTrigger("Attack"); break; }
+            case WeaponType.Melee: { /*Animation for Melee attack*/ break; }
+            case WeaponType.Range: { /*Animation for Range attack*/ break; }
+            case WeaponType.Magic: { /*Animation for Magic attack*/ break; }
 
         }
     }

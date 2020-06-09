@@ -15,18 +15,18 @@ public class MagicWeapon : EquipmentItem
 
     private void Awake()
     {
-        equipmentType = EquipmentType.weapon;
+        equipmentType = EquipmentType.Weapon;
     }
 
     public override void Attack(int ph_dmg,int mg_dmg)
     {
         Instantiate(Prefab, KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position, Quaternion.identity);
-        //Send mesage to Attack animation handler that we use mele weapon
-        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.magic);
+        //Send mesage to Attack animation handler that we use Melee Weapon
+        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Magic);
     }
     public override WeaponType Echo()
     {
-        return WeaponType.magic;
+        return WeaponType.Magic;
     }
 
     public override float GetAttackCD()

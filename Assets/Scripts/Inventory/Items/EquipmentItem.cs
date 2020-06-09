@@ -6,10 +6,10 @@ using UnityEngine;
 
 public enum EquipmentType
 {
-    weapon, 
-    armor, 
-    ring, 
-    amulet 
+    Weapon, 
+    Armor, 
+    Ring, 
+    Amulet 
     
 }
 
@@ -45,7 +45,7 @@ public class EquipmentItem : Item
 
     public virtual void Attack(int ph_damage,int mg_damage)
     {
-        //It is made to be called in the child class -> weapon
+        //It is made to be called in the child class -> Weapon
     }
 
     public virtual float GetAttackCD()
@@ -56,7 +56,7 @@ public class EquipmentItem : Item
 
     public virtual WeaponType Echo()
     {
-        return WeaponType.nothing;
+        return WeaponType.None;
     }
 
 

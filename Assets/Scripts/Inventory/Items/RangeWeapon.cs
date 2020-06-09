@@ -15,20 +15,20 @@ public class RangeWeapon : EquipmentItem
 
     private void Awake()
     {
-        equipmentType = EquipmentType.weapon;
+        equipmentType = EquipmentType.Weapon;
     }
 
     public override void Attack(int ph_dmg, int mg_dmg)
     {
         Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
-        //Send mesage to Attack animation handler that we use mele weapon
-        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.range);
+        //Send mesage to Attack animation handler that we use Melee Weapon
+        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range);
     }
     
     
     public override WeaponType Echo()
     {
-        return WeaponType.range;
+        return WeaponType.Range;
     }
 
     public override float GetAttackCD()
