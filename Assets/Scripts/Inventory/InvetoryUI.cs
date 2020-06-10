@@ -11,7 +11,7 @@ public class InvetoryUI : MonoBehaviour
     public Transform itemsParent;
 
     
-    void Start()
+    private void Start()
     {
         _inventoryManager = InventoryManager.Instance;
         //Make delegate function from InventoryManager be equal to UpdateUI fun
@@ -20,7 +20,7 @@ public class InvetoryUI : MonoBehaviour
     }
 
     
-    void UpdateUI()
+    private void UpdateUI()
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {

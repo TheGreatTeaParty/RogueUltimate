@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void AddItemToInventorySlot(Item newItem)
     {
         _item = newItem;
-        image.sprite = _item.GetSprite();
+        image.sprite = _item.Sprite;
         image.enabled = true;
     }
     
@@ -32,20 +32,20 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         if (_item != null)
             _item.Use();
     }
-    
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (_item != null)
-           ShowTooltip();
-    }
 
 
-    public void ShowTooltip()
+    private void ShowTooltip()
     {
         PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
         if (_item is EquipmentItem) tooltip.ShowTooltip((EquipmentItem)_item);
         else tooltip.ShowTooltip(_item);
+    }
+    
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_item != null)
+            ShowTooltip();
     }
     
     

@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77da48f186c134af4b86d0d3406c9899, type: 3}
   m_Name: test_Bow
   m_EditorClassIdentifier: 
-  itemName: Simple Bow
-  itemIcon: {fileID: 21300000, guid: 0cc53f2f728409342a040d6c0711440a, type: 3}
-  itemSprite: {fileID: 21300000, guid: 0cc53f2f728409342a040d6c0711440a, type: 3}
+  name: Bow
+  sprite: {fileID: 21300000, guid: be4c73df2d2955842b090dae4a706cf0, type: 3}
   stackSize: 1
   price: 1
   equipmentType: 0
-  armorModifier: 0
-  damageModifier: 2
+  isEquiped: 0
+  PhysicalArmorModifier: 0
+  MagicalArmorModifier: 0
+  PhysiscalDamageModifier: 10
+  MagicalDamageModifier: 5
   attackCD: 2
   KnockBack: 0
   arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,

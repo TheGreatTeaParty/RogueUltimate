@@ -6,24 +6,32 @@ public class FlyingObject : MonoBehaviour
 {
     public float speed;
 
-    private int damage;
-    private Rigidbody2D rb;
-    private Vector2 direction;
+    private int _physicalDamage;
+    private int _magicDamage;
+    private Rigidbody2D _rb;
+    private Vector2 _direction;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        damage = KeepOnScene.instance.GetComponent<PlayerStat>().damage.GetValue();
-        direction = InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection();
-        rb.velocity = speed * direction;
+        _rb = GetComponent<Rigidbody2D>();
+        _physicalDamage = KeepOnScene.instance.GetComponent<PlayerStat>().physicalDamage.GetValue();
+        _magicDamage = KeepOnScene.instance.GetComponent<PlayerStat>().magicDamage.GetValue();
+        _direction = InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection();
+        _rb.velocity = speed * _direction;
 
         //Change the rotation of the object according to the vector;
-        transform.rotation = Quaternion.FromToRotation(Vector3.right, direction);
+        transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag != "Player")
+        if (collision.CompareTag("Enemy"))
+        {
+            collision.GetComponent<EnemyStat>().TakeDamage(_physicalDamage,_magicDamage);
+            Destroy(this.gameObject);
+        }
+
+        else if (!collision.CompareTag("Player"))
             Destroy(this.gameObject);
     }
 }

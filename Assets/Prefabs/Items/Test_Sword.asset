@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a45a9f308cf74f189069df1ee980f1c, type: 3}
   m_Name: Test_Sword
   m_EditorClassIdentifier: 
-  itemName: Sword
-  itemIcon: {fileID: 21300000, guid: 87e825d378e2dbb44bea26c5a7cf01f9, type: 3}
-  itemSprite: {fileID: 21300000, guid: 87e825d378e2dbb44bea26c5a7cf01f9, type: 3}
+  name: Sword
+  sprite: {fileID: 21300000, guid: 87e825d378e2dbb44bea26c5a7cf01f9, type: 3}
   stackSize: 1
   price: 0
   equipmentType: 0
-  armorModifier: 0
-  damageModifier: 1
+  isEquiped: 0
+  PhysicalArmorModifier: 0
+  MagicalArmorModifier: 0
+  PhysiscalDamageModifier: 12
+  MagicalDamageModifier: 0
   attackCD: 2
   attackRange: 1
   KnockBack: 1

@@ -2,35 +2,38 @@
 
 public class CharacterStat : MonoBehaviour
 {
-    public Stat damage;
-    public Stat armor;
+    public Stat physicalDamage;
+    public Stat magicDamage;
+    public Stat physicalProtection;
+    public Stat magicProtection;
     [Space]
-    public int MaxHealth = 100;
-
-    private int currenthealth { get; set; }
-
+    public int maxHealth = 100;
     
+    // ???
+    protected int currentHealth;
+    protected int physicalDamageReceived { get; set; }
+    protected int magicDamageReceived { get; set; }
+
+    public int CurrentHealth => currentHealth;
+
+
     // This is base class for all NPS, Player, Enemy so on
     // all damage counting, damage intake should be written here
     private void Awake()
     {
-        currenthealth = MaxHealth;
+        currentHealth = maxHealth;
     }
 
     
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int _physicalDamage,int _magicDamage)
     {
-        currenthealth -= damage;
-        if (currenthealth <= 0)
+        physicalDamageReceived = (int)(_physicalDamage * (100 / (100 + (float)physicalProtection.GetValue())));
+        magicDamageReceived = (int)(_magicDamage * (100 / (100 + (float)magicProtection.GetValue())));
+        currentHealth -= (physicalDamageReceived + magicDamageReceived);
+        if (currentHealth <= 0)
             Die();
     }
     
-
-    public void ToDamage()
-    {
-        Debug.Log($"Damage Done: {damage.GetValue()}");
-    }
-
     
     public virtual void Die()
     {
