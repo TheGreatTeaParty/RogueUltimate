@@ -28,10 +28,10 @@ public class FlyingObject : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<EnemyStat>().TakeDamage(_physicalDamage,_magicDamage);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
-        else if (!collision.CompareTag("Player"))
-            Destroy(this.gameObject);
+        else if (!collision.CompareTag("Player") && !collision.CompareTag("EditorOnly"))
+            Destroy(gameObject);
     }
 }

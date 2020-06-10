@@ -32,11 +32,13 @@ public class JoystickAttack : MonoBehaviour
 
             if (_isShooting)
                 timer += Time.deltaTime;
+
             if (_isShooting && !_isSlowed)
             {
                 KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(0.5f);
                 _isSlowed = true;
             }
+
             if (_isShooting && timer > KeepOnScene.instance.GetComponent<PlayerAttack>().GetWeaponCD())
             {
                 if (movement.x != 0 || movement.y != 0)
