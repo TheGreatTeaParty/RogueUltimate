@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour 
 {
-    [SerializeField] private float movement_speed = 10.0f;
+    public float movementSpeed;
+    public float BASE_MOVEMENT_SPEED;
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
-    private Vector2 movement;
+    private Vector2 movementDirection;
     private Vector2 direction;
 
     public void Start()
@@ -20,16 +21,16 @@ public class PlayerMovment : MonoBehaviour
     /*There we receive input information*/
     void Update() 
     {
-        movement.x = joystick.Horizontal;
-        movement.y = joystick.Vertical;
+        ProcessInputs();
 
         //Save the direction of player movement
-        if (movement.x != 0 || movement.y != 0)
-            direction = movement;
+        if (movementDirection.x != 0 || movementDirection.y != 0)
+        {
+            animator.SetFloat("Horizontal", movementDirection.x);
+            animator.SetFloat("Vertical", movementDirection.y);
 
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
+        }
+        animator.SetFloat("Speed", movementSpeed);
 
     }
     
@@ -37,17 +38,23 @@ public class PlayerMovment : MonoBehaviour
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
     void FixedUpdate() 
     {
-        moveCharacter(movement);
+        moveCharacter();
     }
     
+    void ProcessInputs()
+    {
+        movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+        movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
+        movementDirection.Normalize();
+
+    }
     
     /*This is the main function which calculate Character's movement*/
-    void moveCharacter(Vector2 movement_direction)
+    void moveCharacter()
     {
         rb2D.MovePosition((Vector2)transform.position + 
-                                    (movement_speed * 
-                                    movement_direction * 
-                                        Time.deltaTime));
+                            (movementSpeed * BASE_MOVEMENT_SPEED * 
+                                movementDirection * Time.deltaTime));
     }
 
     public void Push(Vector2 push_direction)
@@ -67,6 +74,6 @@ public class PlayerMovment : MonoBehaviour
 
     public void SlowDown(float percent)
     {
-        movement_speed *= percent;
+        movementSpeed *= percent;
     }
 }

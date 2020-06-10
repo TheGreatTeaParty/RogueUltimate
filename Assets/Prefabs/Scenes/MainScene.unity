@@ -431,18 +431,6 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7771391765743787350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &324895609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2375205716676908629, guid: 0557eadfef5504236a24aad841ce388b,
-    type: 3}
-  m_PrefabInstance: {fileID: 599161738155899236}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61541314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &611505483 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3788510816236147428, guid: 0557eadfef5504236a24aad841ce388b,
@@ -511,6 +499,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1087149679 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7771391765174333825, guid: d6a248e98ccd246c18de9b65eb508aae,
+    type: 3}
+  m_PrefabInstance: {fileID: 7771391765743787350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1241566681
 GameObject:
   m_ObjectHideFlags: 0
@@ -9970,7 +9964,22 @@ PrefabInstance:
         type: 3}
       propertyPath: joystick
       value: 
-      objectReference: {fileID: 324895609}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771391765174333836, guid: d6a248e98ccd246c18de9b65eb508aae,
+        type: 3}
+      propertyPath: BASE_MOVEMENT_SPEED
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771391765174333836, guid: d6a248e98ccd246c18de9b65eb508aae,
+        type: 3}
+      propertyPath: rb2D
+      value: 
+      objectReference: {fileID: 1087149679}
+    - target: {fileID: 7771391765174333836, guid: d6a248e98ccd246c18de9b65eb508aae,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 304746976}
     - target: {fileID: 7771391765174333839, guid: d6a248e98ccd246c18de9b65eb508aae,
         type: 3}
       propertyPath: m_LocalPosition.x
