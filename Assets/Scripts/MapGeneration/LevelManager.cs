@@ -8,6 +8,7 @@ public static class LevelManager
     public enum Scenes
     {
         Hub = 0,
+        Tavern,
         DB1,
         DB2,
         DB3,

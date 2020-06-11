@@ -321,7 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e8ac839bbf14e85bff0ead9f4e59e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement_speed: 5
+  movementSpeed: 0
+  BASE_MOVEMENT_SPEED: 5
   rb2D: {fileID: 7771391765174333825}
   animator: {fileID: 304746976}
   joystick: {fileID: 0}
@@ -337,13 +338,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfdbfbccf29f0541ad8e6a93f4dbea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage:
-    baseValue: 5
-    modifiers: 
-  armor:
+  physicalDamage:
     baseValue: 0
     modifiers: 
-  MaxHealth: 100
+  magicDamage:
+    baseValue: 0
+    modifiers: 
+  physicalProtection:
+    baseValue: 0
+    modifiers: 
+  magicProtection:
+    baseValue: 0
+    modifiers: 
+  maxHealth: 100
 --- !u!114 &9134001256983752150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,9 +363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4757bece64f0147b9b8a3635fb86144f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCD: 2
+  attackCoolDown: 0
   attackRange: 1
-  KnockBack: 1
+  knockBack: 0
   pushForce: 1
 --- !u!114 &1094610556330234598
 MonoBehaviour:
