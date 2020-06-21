@@ -11,7 +11,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         Pathfinding pathfinding = GetComponentInParent<SceneGrid>().GetPathfinding();
         Transform NPC = Instantiate(enemy, transform.position, Quaternion.identity);
-        NPC.GetComponent<AI>().SetPathfinding(pathfinding);
+        NPC.GetComponent<NPCPathfindingMovement>().SetPathfinding(pathfinding);
         Destroy(gameObject);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStat : CharacterStat
+public class EnemyStat : CharacterStat,IDamaged
 {
     public delegate void OnReceivedDamage(int damage, bool type);
     public OnReceivedDamage onReceivedDamage;

@@ -10,14 +10,16 @@ public class Pathfinding
 
     public static Pathfinding Instance { get; private set; }
 
+    private float grid_size;
     private Grid<PathNode> grid;
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
-    public Pathfinding(int width, int height, Vector3 position, Vector3 offSet)
+    public Pathfinding(int width, int height, Vector3 position, Vector3 offSet, float gridSize)
     {
         Instance = this;
-        grid = new Grid<PathNode>(width, height, 1f, position + offSet, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
+        grid_size = gridSize;
+        grid = new Grid<PathNode>(width, height, gridSize, position + offSet, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
     }
 
     public Grid<PathNode> GetGrid()
@@ -192,7 +194,7 @@ public class Pathfinding
             for (int j = 0; j < grid.GetHeight(); j++)
             {
                 Vector3 nodeWorldPosition = grid.GetWorldPosition(i, j);
-                Collider2D[] walls = Physics2D.OverlapCircleAll(nodeWorldPosition, 0.2f, LayerMask.GetMask("Wall"));
+                Collider2D[] walls = Physics2D.OverlapCircleAll(nodeWorldPosition, grid_size/2, LayerMask.GetMask("Wall"));
                 for (int z = 0; z < walls.Length; z++)
                 {
                   grid.GetGridObject(i, j).SetIsWalkable(false);

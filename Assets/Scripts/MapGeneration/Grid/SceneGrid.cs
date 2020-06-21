@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class SceneGrid : MonoBehaviour
 {
+    public float GridSize;
+    public int x;
+    public int y;
+    [Space]
+    public int XOffSet;
+    public int YOffSet;
+
     private Pathfinding pathfinding;
 
     // Start is called before the first frame update
     void Awake()
     {
-        pathfinding = new Pathfinding(18, 18,transform.position, new Vector3(-9, -9, 0));
+        pathfinding = new Pathfinding(x, y,transform.position, new Vector3(XOffSet, YOffSet, 0),GridSize);
         pathfinding.RaycastWalkable();
     }
 

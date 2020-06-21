@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2969126813485017433}
   - component: {fileID: 2969126813485017446}
   - component: {fileID: 2969126813485017447}
-  - component: {fileID: 2969126813485017434}
-  - component: {fileID: 5434342811994690751}
+  - component: {fileID: -4581605393924109744}
   - component: {fileID: 5545629754667429072}
   - component: {fileID: 4452840553849684515}
+  - component: {fileID: 2969126813485017434}
   m_Layer: 8
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -126,28 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPb: {fileID: 6372921867528987916, guid: c7ea45bd1f9124dc6a403fd71c569d6f, type: 3}
---- !u!50 &2969126813485017434
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969126813485017444}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &5434342811994690751
+--- !u!114 &-4581605393924109744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,17 +135,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2969126813485017444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38b72ca7ce9f4d18a920a30f1d67f14, type: 3}
+  m_Script: {fileID: 11500000, guid: e194131ab442a48e38ccdbc68f91cb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  range: 1
+  range: 5
+  detectionRange: 5
+  followRange: 8
   waitTime: 2
-  points:
-  - {x: -4, y: 5, z: 0}
-  - {x: -1, y: -5, z: 0}
-  - {x: 4, y: -2, z: 0}
-  state: 0
+  attackCoolDown: 1.2
+  KnockBack: 1
+  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
+    type: 3}
 --- !u!114 &5545629754667429072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,3 +175,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.02}
   m_Size: {x: 0.1, y: 0.12}
   m_Direction: 0
+--- !u!50 &2969126813485017434
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969126813485017444}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
