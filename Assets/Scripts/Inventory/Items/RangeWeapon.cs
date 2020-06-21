@@ -20,8 +20,9 @@ public class RangeWeapon : EquipmentItem
 
     public override void Attack(int ph_dmg, int mg_dmg)
     {
-        Transform arrow = Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position,Quaternion.identity);
-        arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection());
+        Vector3 direction = new Vector3(InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
+        Transform arrow = Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
+        arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
         KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range);
     }

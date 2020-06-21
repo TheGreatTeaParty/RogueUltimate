@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Archer : AI
 {
-    
+    public Transform arrowPrefab;
+
+    private EnemyStat archerStat;
+
     public override void Start()
     {
         base.Start();
+        archerStat = GetComponent<EnemyStat>();
     }
 
     public override void Update()
@@ -32,7 +36,7 @@ public class Archer : AI
                 }
 
             case NPCstate.attacking:
-                {
+                { 
                     StateAttack();
                     break;
                 }
@@ -43,7 +47,6 @@ public class Archer : AI
     {
         Transform arrow = Instantiate(arrowPrefab, transform.position + (target.transform.position - transform.position).normalized, Quaternion.identity);
 
-        arrow.GetComponent<FlyingObject>().SetData(10, 1, (target.transform.position - transform.position).normalized);
-        startAttackCoolDown = attackCoolDown;
+        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.GetValue(),archerStat.magicDamage.GetValue(), (target.transform.position - transform.position).normalized);
     }
 }

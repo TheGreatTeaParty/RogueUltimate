@@ -13,8 +13,6 @@ public class AI : MonoBehaviour
     public float attackCoolDown = 1.2f;
     public float KnockBack = 1f;
 
-    public Transform arrowPrefab;
-
     protected float startAttackCoolDown;
     protected Vector3[] points;
     protected NPCstate state;
@@ -81,6 +79,7 @@ public class AI : MonoBehaviour
         if (startAttackCoolDown <= 0)
         {
             Attack();
+            startAttackCoolDown = attackCoolDown;
         }
     }
 
@@ -100,7 +99,7 @@ public class AI : MonoBehaviour
             }
             else
             {
-                StartCoroutine(waiter());
+                StartCoroutine(Waiter());
             }
 
             EnemyTrigger();
@@ -171,7 +170,7 @@ public class AI : MonoBehaviour
         }
     }
 
-    IEnumerator waiter()
+    IEnumerator Waiter()
     {
         yield return new WaitForSeconds(waitTime);
         _isStanding = false;

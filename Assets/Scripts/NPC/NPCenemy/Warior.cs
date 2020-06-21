@@ -2,17 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Warior : MonoBehaviour
+public class Warior : AI
 {
-    // Start is called before the first frame update
-    void Start()
+    public float AttachRange;
+
+    private LayerMask whatIsEnemy;
+    private Vector2 attackPosition;
+    private Vector3 direction;
+
+    private EnemyStat WariorStat;
+
+    public override void Start()
     {
-        
+        base.Start();
+        WariorStat = GetComponent<EnemyStat>();
+        whatIsEnemy = LayerMask.GetMask("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
+    }
+
+    void FixedUpdate()
+    {
+        switch (state)
+        {
+            case NPCstate.chasing:
+                {
+                    StateChasing();
+                    break;
+                }
+
+            case NPCstate.hanging:
+                {
+                    StateHanging();
+                    break;
+                }
+
+            case NPCstate.attacking:
+                {
+                    StateAttack();
+                    break;
+                }
+        }
+    }
+
+    public override void Attack()
+    {
+        direction = NPCmovement.GetLastMoveDir();
+        attackPosition = transform.position + direction;
+
+        if (startAttackCoolDown <= 0)
+        {
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttachRange, whatIsEnemy);
+            for (int i = 0; i < enemiesToDamage.Length; i++)
+            {
+                enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * 10 * KnockBack,ForceMode2D.Impulse);
+                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
+            }
+            startAttackCoolDown = attackCoolDown;
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + direction, AttachRange);
     }
 }

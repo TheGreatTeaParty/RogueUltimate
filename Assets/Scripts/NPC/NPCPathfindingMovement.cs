@@ -35,7 +35,7 @@ public class NPCPathfindingMovement : MonoBehaviour {
         {
             Vector3 targetPosition = pathVectorList[currentPathIndex];
           
-            if (Vector3.Distance(GetPosition(), targetPosition) > 1f)
+            if (Vector3.Distance(GetPosition(), targetPosition) > 0.4f)
             {
                 moveDir = (targetPosition - GetPosition()).normalized;
                 lastMoveDir = moveDir;

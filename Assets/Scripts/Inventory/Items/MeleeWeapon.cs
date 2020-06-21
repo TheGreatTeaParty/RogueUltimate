@@ -27,7 +27,7 @@ public class MeleeWeapon : EquipmentItem
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, attackRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             { 
-                enemiesToDamage[i].GetComponent<Transform>().position += direction * KnockBack;
+                enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * KnockBack,ForceMode2D.Impulse);
                 enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(ph_damage, mg_damage);
             }
 

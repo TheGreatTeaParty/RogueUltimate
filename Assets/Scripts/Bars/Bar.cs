@@ -8,7 +8,7 @@ public class Bar : MonoBehaviour
     [SerializeField] private Slider slider;
 
 
-    protected void SetCurrentHealth(int value)
+    public void SetCurrentHealth(int value)
     {
         slider.value = value;
     }

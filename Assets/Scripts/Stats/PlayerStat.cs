@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerStat : CharacterStat
+public class PlayerStat : CharacterStat,IDamaged
 {
     #region Singleton
 
@@ -22,13 +22,16 @@ public class PlayerStat : CharacterStat
     
     private void Start()
     {
+        currentHealth = maxHealth;
         EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
 
     public override void TakeDamage(int _physicalDamage, int _magicDamage)
     {
-        
+        //Should be changed in the future!
+        base.TakeDamage(_physicalDamage, _magicDamage);
+        InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetCurrentHealth(currentHealth);
     }
 
 
@@ -53,6 +56,4 @@ public class PlayerStat : CharacterStat
             magicDamage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
         }
     }
-    
-    
 }

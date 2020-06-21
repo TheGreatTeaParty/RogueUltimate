@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2969126813485017433}
   - component: {fileID: 2969126813485017446}
   - component: {fileID: 2969126813485017447}
-  - component: {fileID: -4581605393924109744}
   - component: {fileID: 5545629754667429072}
   - component: {fileID: 4452840553849684515}
   - component: {fileID: 2969126813485017434}
+  - component: {fileID: 7008089830817396999}
   m_Layer: 8
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 4822352255682796854, guid: b998b14445da46a4aa90e9ed5a1cbc09,
     type: 3}
-  m_Color: {r: 0.9339623, g: 0.45633468, b: 0.2951673, a: 1}
+  m_Color: {r: 0.075909615, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physicalDamage:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   magicDamage:
     baseValue: 0
@@ -126,27 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPb: {fileID: 6372921867528987916, guid: c7ea45bd1f9124dc6a403fd71c569d6f, type: 3}
---- !u!114 &-4581605393924109744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969126813485017444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e194131ab442a48e38ccdbc68f91cb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  range: 5
-  detectionRange: 5
-  followRange: 8
-  waitTime: 2
-  attackCoolDown: 1.2
-  KnockBack: 1
-  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
-    type: 3}
 --- !u!114 &5545629754667429072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +175,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7008089830817396999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969126813485017444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32849f1f7d5914e079ee35a628b95e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  range: 0.7
+  detectionRange: 7
+  followRange: 10
+  waitTime: 2
+  attackCoolDown: 2
+  KnockBack: 5
+  AttachRange: 0.7
