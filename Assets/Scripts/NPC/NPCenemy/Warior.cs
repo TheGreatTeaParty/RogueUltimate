@@ -52,18 +52,14 @@ public class Warior : AI
     {
         direction = NPCmovement.GetLastMoveDir();
         attackPosition = transform.position + direction;
-
-        if (startAttackCoolDown <= 0)
-        {
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttachRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
                 enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * 10 * KnockBack,ForceMode2D.Impulse);
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
             }
-            startAttackCoolDown = attackCoolDown;
-        }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
