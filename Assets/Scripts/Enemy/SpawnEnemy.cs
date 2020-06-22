@@ -6,6 +6,7 @@ public class SpawnEnemy : MonoBehaviour
 {
     private Transform enemy;
 
+
     public void SpawnAnEnemy()
     {
         enemy = EnemyTierList.Instance.GenerateEnemy();
