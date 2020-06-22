@@ -16,7 +16,10 @@ public class EnemyTierList : MonoBehaviour
         Instance = this;
     }
     #endregion
-
+    /// <summary>
+    /// Some chnges in this script bla-bla-bla
+    /// </summary>
+    /// <returns></returns>
     public Transform GenerateEnemy()
     {
         return Enemies[Random.Range(0, Enemies.Length)];
