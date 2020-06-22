@@ -17,4 +17,8 @@ public class EnemyStat : CharacterStat,IDamaged
             onReceivedDamage?.Invoke(magicDamageReceived,false);
     }
 
+    public override void Die()
+    {
+        Destroy(gameObject);
+    }
 }
