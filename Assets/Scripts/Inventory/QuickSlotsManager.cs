@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class QuickSlotsManager : MonoBehaviour 
@@ -19,6 +20,15 @@ public class QuickSlotsManager : MonoBehaviour
 
     #endregion
 
-    public List<QuickSlot> slots;
+    [SerializeField] private UsableItem[] items;
+    [SerializeField] private Button[] slots;
+    private int _index = 0;
+    
 
+    public void AddItemToQuickSlot(UsableItem usableItem)
+    {
+        items[_index] = usableItem;
+    }
+    
+    
 }

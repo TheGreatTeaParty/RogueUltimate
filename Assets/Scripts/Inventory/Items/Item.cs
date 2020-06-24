@@ -30,6 +30,12 @@ public class Item : ScriptableObject
         InventoryManager.Instance.RemoveItemFromInventory(this);
         InventoryManager.Instance.DropFromInventory(this);
     }
+
+
+    public virtual void MoveToQuickAccess()
+    {
+        
+    }
     
     
 }

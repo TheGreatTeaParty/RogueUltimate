@@ -24,33 +24,39 @@ public class PlayerPanelTooltip : MonoBehaviour
     [SerializeField] private Image image;
     [Space]
     [SerializeField] private TextMeshProUGUI itemName;
-    [SerializeField] TextMeshProUGUI optionalButtonText;
+    [SerializeField] private TextMeshProUGUI optionalButtonText;
     [Space]
     [SerializeField] private Button dropButton;
     [SerializeField] private Button optionalButton;
+    [SerializeField] private Button quickAccessButton;
 
 
     private void Start()
     {
-        gameObject.SetActive(false);    
+        gameObject.SetActive(false);
     }
 
     
-    public void ShowTooltip(Item reusableItem)
+    public void ShowTooltip(Item pureItem)
     {
-        item = reusableItem;
+        item = pureItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
-        optionalButtonText.text = "Use";
+        optionalButton.enabled = false;
+        quickAccessButton.enabled = false;
         gameObject.SetActive(true);
     }
-
+    
     public void ShowTooltip(EquipmentItem equipmentItem)
     {
         item = equipmentItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
+
+        quickAccessButton.enabled = false;
+        optionalButton.enabled = true;
         optionalButtonText.text = "Equip";
+        
         gameObject.SetActive(true);
     }
 
@@ -60,17 +66,24 @@ public class PlayerPanelTooltip : MonoBehaviour
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
         _index = slotIndex;
+
+        quickAccessButton.enabled = false;
+        optionalButton.enabled = true;
         optionalButtonText.text = "Unequip";
+        
         gameObject.SetActive(true);
     }
-    
     
     public void ShowTooltip(UsableItem usableItem)
     {
         item = usableItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
+
+        quickAccessButton.enabled = true;
+        optionalButton.enabled = true;
         optionalButtonText.text = "Use";
+        
         gameObject.SetActive(true);
     }
 
@@ -97,6 +110,12 @@ public class PlayerPanelTooltip : MonoBehaviour
 
         HideTooltip();
     }
-    
 
+
+    private void QuickButtonPress()
+    {
+        item.MoveToQuickAccess();
+    }
+    
+    
 }

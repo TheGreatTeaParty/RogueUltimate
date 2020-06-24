@@ -8,7 +8,11 @@ public class UsableItem : Item
         base.Use();
         
     }
-    
-    
-    
+
+
+    public override void MoveToQuickAccess()
+    {
+        base.MoveToQuickAccess();
+        InventoryManager.Instance.AddItemToQuickAccessSlot(this);
+    }
 }
