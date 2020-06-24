@@ -63,6 +63,16 @@ public class PlayerPanelTooltip : MonoBehaviour
         optionalButtonText.text = "Unequip";
         gameObject.SetActive(true);
     }
+    
+    
+    public void ShowTooltip(UsableItem usableItem)
+    {
+        item = usableItem;
+        itemName.SetText(item.Name);
+        image.sprite = item.Sprite;
+        optionalButtonText.text = "Use";
+        gameObject.SetActive(true);
+    }
 
 
     private void HideTooltip()
