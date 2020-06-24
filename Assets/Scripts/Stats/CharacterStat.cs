@@ -14,8 +14,11 @@ public class CharacterStat : MonoBehaviour
     protected int physicalDamageReceived { get; set; }
     protected int magicDamageReceived { get; set; }
 
-    public int CurrentHealth => currentHealth;
-
+    public int CurrentHealth
+    {
+        get => currentHealth;
+        set => currentHealth = value;
+    }
 
     // This is base class for all NPS, Player, Enemy so on
     // all damage counting, damage intake should be written here

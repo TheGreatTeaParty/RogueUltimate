@@ -54,10 +54,4 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void AddItemToQuickAccessSlot(UsableItem usableItem)
-    {
-        QuickSlotsManager.Instance.AddItemToQuickSlot(usableItem);
-    }
-    
-    
 }

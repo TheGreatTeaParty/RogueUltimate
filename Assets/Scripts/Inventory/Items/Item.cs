@@ -13,15 +13,21 @@ public class Item : ScriptableObject
     [SerializeField] protected Sprite sprite;
     [Space]
     [SerializeField] protected int stackSize;
+    [SerializeField] protected int currentCount;
     [SerializeField] protected int price;
 
     public String Name => name;
     public Sprite Sprite => sprite;
-    
-    
+    public int CurrentCount
+    {
+        get => currentCount;
+        set => currentCount = value;
+    }
+
+
     public virtual void Use()
     {
-        Debug.Log("Item has been used");
+        
     }
     
     

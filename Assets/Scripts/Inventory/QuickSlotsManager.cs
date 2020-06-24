@@ -20,14 +20,41 @@ public class QuickSlotsManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private UsableItem[] items;
-    [SerializeField] private Button[] slots;
-    private int _index = 0;
-    
+    [SerializeField] private List<UsableItem> items;
+    [SerializeField] private QuickSlot[] slots;
+
+
+    private void Start()
+    {
+        UpdateUI();
+    }
+
 
     public void AddItemToQuickSlot(UsableItem usableItem)
     {
-        items[_index] = usableItem;
+        items.Add(usableItem);
+        UpdateUI();
+    }
+
+
+    public void UseItem(UsableItem usableItem)
+    {
+        if (usableItem != null)
+        {
+            usableItem.Use();
+            items.Remove(usableItem);
+            UpdateUI();
+        }
+    }
+    
+    
+    private void UpdateUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (i < items.Count) slots[i].AddItemToQuickAccessSlot(items[i]);
+            else slots[i].RemoveItemFromQuickAccessSlot();
+        }
     }
     
     

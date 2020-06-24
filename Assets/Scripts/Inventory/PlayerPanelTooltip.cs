@@ -112,7 +112,7 @@ public class PlayerPanelTooltip : MonoBehaviour
     }
 
 
-    private void QuickButtonPress()
+    public void QuickButtonPress()
     {
         item.MoveToQuickAccess();
     }

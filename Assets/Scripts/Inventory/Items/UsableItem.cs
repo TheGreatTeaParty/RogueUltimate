@@ -7,12 +7,23 @@ public class UsableItem : Item
     {
         base.Use();
         
+        ModifyStats();
+        InventoryManager.Instance.RemoveItemFromInventory(this);
     }
 
+
+    // Use this function 
+    public virtual void ModifyStats()
+    {
+        
+    }
+    
 
     public override void MoveToQuickAccess()
     {
         base.MoveToQuickAccess();
-        InventoryManager.Instance.AddItemToQuickAccessSlot(this);
+        QuickSlotsManager.Instance.AddItemToQuickSlot(this);
     }
+    
+    
 }
