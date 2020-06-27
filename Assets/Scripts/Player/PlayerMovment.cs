@@ -38,7 +38,7 @@ public class PlayerMovment : MonoBehaviour
     /*I called func. moveCharacter there, because FixedUpdate is better for physic detection*/
     void FixedUpdate() 
     {
-        moveCharacter();
+        MoveCharacter();
     }
     
     void ProcessInputs()
@@ -49,8 +49,8 @@ public class PlayerMovment : MonoBehaviour
 
     }
     
-    /*This is the main function which calculate Character's movement*/
-    void moveCharacter()
+    /*This is the main function which calculates Character's movement*/
+    void MoveCharacter()
     {
         rb2D.MovePosition((Vector2)transform.position + 
                             (movementSpeed * BASE_MOVEMENT_SPEED * 

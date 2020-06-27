@@ -52,6 +52,6 @@ public class InventoryManager : MonoBehaviour
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
         ItemScene.SpawnItemScene(newPosition, item);
     }
-    
-    
+
+
 }

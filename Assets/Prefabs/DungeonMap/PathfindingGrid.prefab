@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7783349556658700901}
   - component: {fileID: 7783349556658700902}
+  - component: {fileID: 7626084204012368293}
+  - component: {fileID: 6165083305634287435}
   m_Layer: 0
   m_Name: PathfindingGrid
   m_TagString: Untagged
@@ -42,6 +44,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d15aa7ca687264c38997535b18fb786a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridSize: 0
+  x: 0
+  y: 0
+  XOffSet: 0
+  YOffSet: 0
+--- !u!61 &7626084204012368293
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783349556658700903}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 16, y: 16}
+  m_EdgeRadius: 0
+--- !u!114 &6165083305634287435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783349556658700903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0952e977a7114c3faf8caaf35d0f768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7783349558170628692
@@ -87,4 +132,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b2a4d71757c4c77a37aec743b121e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 2969126813485017432, guid: d9a7140faa9ea4e69b4be30f45e15e2a, type: 3}

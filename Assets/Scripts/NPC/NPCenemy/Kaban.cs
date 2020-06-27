@@ -5,23 +5,34 @@ using UnityEngine;
 public class Kaban : AI
 {
     public float rage_speed;
+    public float timeBeforeTheRage;
 
-    private Vector2 finalPos;
+    private Rigidbody2D Rb;
+    private Vector2 position;
+    private Vector3 finalPos;
+    private bool _isRage;
+    private float saveTime = 3f;
+
     [SerializeField] private GameObject kabanDamageArea;
 
     public override void Start()
     {
         base.Start();
+        Rb = GetComponent<Rigidbody2D>();
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (Vector2.Distance(transform.position, finalPos) < 0.2f)
+        if (_isRage)
+            Rb.MovePosition(Rb.position + position* rage_speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, finalPos) < 0.5f || !_isRage)
         {
+            NPCmovement.Enable();
             kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = false;
-            NPCmovement.SetSpeed(speed);
+            _isRage = false;
         }
     }
 
@@ -51,11 +62,27 @@ public class Kaban : AI
 
     public override void Attack()
     {
-        NPCmovement.StopMoving();
-        finalPos = target.transform.position;
-        NPCmovement.SetSpeed(rage_speed);
-        NPCmovement.MoveTo(finalPos);
-        kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
+        if (!_isRage)
+        {
+            NPCmovement.Disable();
+            StartCoroutine(Waiter());
+            finalPos = target.transform.position;
+            position = finalPos - transform.position;
+            kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
+            _isRage = true;
+            StartCoroutine(Check());
+        }
+    }
+
+    IEnumerator Waiter()
+    {
+        yield return new WaitForSeconds(timeBeforeTheRage);
+    }
+
+    IEnumerator Check()
+    {
+        yield return new WaitForSeconds(saveTime);
+        _isRage = false;
     }
 
 }

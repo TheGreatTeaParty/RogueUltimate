@@ -27,18 +27,15 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void UseItem()
-    {
-        if (_item != null)
-            _item.Use();
-    }
-
-
     private void ShowTooltip()
     {
         PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
-        if (_item is EquipmentItem) tooltip.ShowTooltip((EquipmentItem)_item);
-        else tooltip.ShowTooltip(_item);
+        if (_item is EquipmentItem) 
+            tooltip.ShowTooltip((EquipmentItem)_item);
+        else if (_item is UsableItem) 
+            tooltip.ShowTooltip((UsableItem)_item);
+        else 
+            tooltip.ShowTooltip(_item);
     }
     
     

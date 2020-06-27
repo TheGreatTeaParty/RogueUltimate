@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
-    public Transform enemy;
+    private Transform enemy;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void SpawnAnEnemy()
     {
+        enemy = EnemyTierList.Instance.GenerateEnemy();
         Pathfinding pathfinding = GetComponentInParent<SceneGrid>().GetPathfinding();
         Transform NPC = Instantiate(enemy, transform.position, Quaternion.identity);
         NPC.GetComponent<NPCPathfindingMovement>().SetPathfinding(pathfinding);
