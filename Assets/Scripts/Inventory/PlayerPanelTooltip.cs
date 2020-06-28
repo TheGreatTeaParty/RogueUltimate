@@ -26,9 +26,9 @@ public class PlayerPanelTooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI optionalButtonText;
     [Space]
-    [SerializeField] private Button dropButton;
-    [SerializeField] private Button optionalButton;
-    [SerializeField] private Button quickAccessButton;
+    [SerializeField] private GameObject dropButton;
+    [SerializeField] private GameObject optionalButton;
+    [SerializeField] private GameObject quickAccessButton;
 
 
     private void Start()
@@ -39,22 +39,27 @@ public class PlayerPanelTooltip : MonoBehaviour
     
     public void ShowTooltip(Item pureItem)
     {
+        gameObject.SetActive(false);
+        
         item = pureItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
-        optionalButton.enabled = false;
-        quickAccessButton.enabled = false;
+        optionalButton.SetActive(false);
+        quickAccessButton.SetActive(false);
+        
         gameObject.SetActive(true);
     }
     
     public void ShowTooltip(EquipmentItem equipmentItem)
     {
+        gameObject.SetActive(false);
+        
         item = equipmentItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
 
-        quickAccessButton.enabled = false;
-        optionalButton.enabled = true;
+        quickAccessButton.SetActive(false);
+        optionalButton.SetActive(true);
         optionalButtonText.text = "Equip";
         
         gameObject.SetActive(true);
@@ -62,13 +67,15 @@ public class PlayerPanelTooltip : MonoBehaviour
 
     public void ShowTooltip(EquipmentItem equipmentItem, int slotIndex)
     {
+        gameObject.SetActive(false);
+        
         item = equipmentItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
         _index = slotIndex;
 
-        quickAccessButton.enabled = false;
-        optionalButton.enabled = true;
+        quickAccessButton.SetActive(false);
+        optionalButton.SetActive(true);
         optionalButtonText.text = "Unequip";
         
         gameObject.SetActive(true);
@@ -76,12 +83,13 @@ public class PlayerPanelTooltip : MonoBehaviour
     
     public void ShowTooltip(UsableItem usableItem)
     {
+        gameObject.SetActive(false);
         item = usableItem;
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
 
-        quickAccessButton.enabled = true;
-        optionalButton.enabled = true;
+        quickAccessButton.SetActive(true);
+        optionalButton.SetActive(true);
         optionalButtonText.text = "Use";
         
         gameObject.SetActive(true);
@@ -115,7 +123,9 @@ public class PlayerPanelTooltip : MonoBehaviour
     public void QuickButtonPress()
     {
         item.MoveToQuickAccess();
+        HideTooltip();
     }
+    
     
     
 }

@@ -9,10 +9,9 @@ public class CharacterStat : MonoBehaviour
     [Space]
     public int maxHealth = 100;
     
-    // ???
     protected int currentHealth;
-    protected int physicalDamageReceived { get; set; }
-    protected int magicDamageReceived { get; set; }
+    protected int physicalDamageReceived;
+    protected int magicDamageReceived;
 
     public int CurrentHealth
     {

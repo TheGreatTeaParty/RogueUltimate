@@ -3,7 +3,5 @@
 
 public class ManaBar : Bar
 {
-    
-        
-    
+
 }

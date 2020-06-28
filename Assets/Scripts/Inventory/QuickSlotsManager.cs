@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,7 @@ public class QuickSlotsManager : MonoBehaviour
     }
 
 
-    public void AddItemToQuickSlot(UsableItem usableItem)
+    public void AddItemToQuickAccessSlot(UsableItem usableItem)
     {
         items.Add(usableItem);
         UpdateUI();
@@ -54,6 +55,19 @@ public class QuickSlotsManager : MonoBehaviour
         {
             if (i < items.Count) slots[i].AddItemToQuickAccessSlot(items[i]);
             else slots[i].RemoveItemFromQuickAccessSlot();
+        }
+    }
+
+
+    public void Request(UsableItem usableItem)
+    {
+        foreach (var item in items.ToList()) // ToList() prevents InvalidOperationException
+        {
+            if (usableItem == item)
+            {
+                items.Remove(usableItem);
+                UpdateUI();
+            }
         }
     }
     

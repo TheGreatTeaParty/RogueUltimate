@@ -3,10 +3,12 @@ using UnityEngine;
 
 
 public class PanelManager : MonoBehaviour
-{ 
+{
     [SerializeField] private List<GameObject> panels;
+    [SerializeField] private GameObject tooltip;
+    [SerializeField] private GameObject playerPanel;
     
-    
+
     private void OpenClose()
     {
         foreach (var panel in panels)
@@ -15,6 +17,11 @@ public class PanelManager : MonoBehaviour
                 bool isActive = panel.activeSelf;
                 panel.SetActive(!isActive);
             }
+
+        if (tooltip != null && playerPanel != null)
+            if (!playerPanel.activeSelf)
+                tooltip.SetActive(false);
+        
     }
     
     

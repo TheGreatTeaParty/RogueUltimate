@@ -9,6 +9,7 @@ public class UsableItem : Item
         
         ModifyStats();
         InventoryManager.Instance.RemoveItemFromInventory(this);
+        QuickSlotsManager.Instance.Request(this);
     }
 
 
@@ -22,7 +23,7 @@ public class UsableItem : Item
     public override void MoveToQuickAccess()
     {
         base.MoveToQuickAccess();
-        QuickSlotsManager.Instance.AddItemToQuickSlot(this);
+        QuickSlotsManager.Instance.AddItemToQuickAccessSlot(this);
     }
     
     

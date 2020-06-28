@@ -19,7 +19,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
     #endregion
     
-    
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -31,7 +31,7 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         //Should be changed in the future!
         base.TakeDamage(_physicalDamage, _magicDamage);
-        InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetCurrentHealth(currentHealth);
+        //_healthBar.SetCurrentValue(currentHealth);
     }
 
 
