@@ -28,7 +28,7 @@ public class MeleeWeapon : EquipmentItem
         
         whatIsEnemy = LayerMask.GetMask("Enemy");
         Vector3 direction = KeepOnScene.instance.GetComponent<PlayerMovment>().GetDirection();
-        attackPosition = KeepOnScene.instance.transform.position + direction / 2;
+        attackPosition = KeepOnScene.instance.transform.position + direction;
 
         if (KeepOnScene.instance.GetComponent<PlayerAttack>().GetAttackCD() <= 0)
         {

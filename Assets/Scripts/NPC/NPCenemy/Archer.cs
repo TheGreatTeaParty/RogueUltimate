@@ -7,7 +7,9 @@ public class Archer : AI
     public Transform arrowPrefab;
 
     private EnemyStat archerStat;
-
+    public Vector3 c;
+    public Vector3 e;
+    public Vector3 dir;
     public override void Start()
     {
         base.Start();
@@ -17,6 +19,9 @@ public class Archer : AI
     public override void Update()
     {
         base.Update();
+        c = transform.position;
+        e = target.transform.position;
+        dir = (target.transform.position - transform.position)/ (target.transform.position - transform.position).magnitude;
     }
 
     void FixedUpdate()
@@ -45,8 +50,8 @@ public class Archer : AI
 
     public override void Attack()
     {
-        Transform arrow = Instantiate(arrowPrefab, transform.position + (target.transform.position - transform.position).normalized, Quaternion.identity);
+        Transform arrow = Instantiate(arrowPrefab, transform.position + dir, Quaternion.identity);
 
-        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.GetValue(),archerStat.magicDamage.GetValue(), (target.transform.position - transform.position).normalized);
+        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.GetValue(),archerStat.magicDamage.GetValue(),dir);
     }
 }

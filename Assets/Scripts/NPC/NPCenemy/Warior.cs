@@ -22,6 +22,7 @@ public class Warior : AI
     public override void Update()
     {
         base.Update();
+        attackPosition = transform.position + direction;
     }
 
     void FixedUpdate()
@@ -51,7 +52,6 @@ public class Warior : AI
     public override void Attack()
     {
         direction = NPCmovement.GetLastMoveDir();
-        attackPosition = transform.position + direction;
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttachRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
@@ -63,6 +63,6 @@ public class Warior : AI
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + direction, AttachRange);
+        Gizmos.DrawWireSphere(attackPosition, AttachRange);
     }
 }
