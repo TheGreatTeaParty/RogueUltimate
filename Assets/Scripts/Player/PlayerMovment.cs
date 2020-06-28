@@ -28,7 +28,7 @@ public class PlayerMovment : MonoBehaviour
         {
             animator.SetFloat("Horizontal", movementDirection.x);
             animator.SetFloat("Vertical", movementDirection.y);
-
+            direction = movementDirection;
         }
         animator.SetFloat("Speed", movementSpeed);
 
