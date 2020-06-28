@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
-
 
 public class PlayerStat : CharacterStat, IDamaged
 {
@@ -19,24 +18,40 @@ public class PlayerStat : CharacterStat, IDamaged
 
     #endregion
     
+    private float _regenerationCoolDown;
+    [SerializeField] private float regenerationSpeed;
+
+    public int maxMana = 100;
+    public int maxStamina = 100;
+    
+    public int currentMana;
+    public int currentStamina;
+
 
     private void Start()
     {
+        _regenerationCoolDown = 0;
+        regenerationSpeed = 1;
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
+        currentMana = maxMana;
+        
         EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
 
-    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    private void Update()
     {
-        //Should be changed in the future!
-        base.TakeDamage(_physicalDamage, _magicDamage);
-        //_healthBar.SetCurrentValue(currentHealth);
+        _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
+        if (_regenerationCoolDown > 1)
+        {
+            ModifyStamina(5);
+            _regenerationCoolDown = 0;
+        }
     }
 
-
     //Receive message of changing equipment, so change player modifiers
-    void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
+    private void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
     {
         if (newEquipmentItem != null)
         {
@@ -56,4 +71,46 @@ public class PlayerStat : CharacterStat, IDamaged
             magicDamage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
         }
     }
+
+    public bool ModifyHealth(int value)
+    {
+        if (currentHealth + value < 0)
+            return false;
+        
+        currentHealth += value;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        return true;
+    }
+    
+    public bool ModifyStamina(int value)
+    {
+        if (currentStamina + value < 0)
+            return false;
+     
+        currentStamina += value;
+        if (currentStamina > maxStamina)
+            currentStamina = maxStamina;
+
+        return true;
+    }
+    
+    public bool ModifyMana(int value)
+    {
+        if (currentMana + value < 0)
+            return false;
+        
+        currentStamina += value;
+        if (currentMana > maxMana)
+            currentMana = maxMana;
+        
+        return true;
+    }
+
+    public void RegenerateStamina()
+    {
+        currentStamina += Mathf.RoundToInt(Time.deltaTime);
+    }
+    
 }

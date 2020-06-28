@@ -12,12 +12,20 @@ public class MeleeWeapon : EquipmentItem
     public float attackRange;
     public float KnockBack;
     public float pushForce;
+    
+    [Space]
+    [SerializeField] private int requiredStamina;
 
     private LayerMask whatIsEnemy;
     private Vector2 attackPosition;
     
+    
     public override void Attack(int ph_damage, int mg_damage)
     {
+        // Checks if current stamina is less than required. If not - continues attack.
+        if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
+            return;
+        
         whatIsEnemy = LayerMask.GetMask("Enemy");
         Vector3 direction = KeepOnScene.instance.GetComponent<PlayerMovment>().GetDirection();
         attackPosition = KeepOnScene.instance.transform.position + direction / 2;
@@ -35,6 +43,7 @@ public class MeleeWeapon : EquipmentItem
             KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Melee);
             KeepOnScene.instance.GetComponent<PlayerAttack>().SetRange(attackRange);
         }
+        
     }
     
 
@@ -48,6 +57,7 @@ public class MeleeWeapon : EquipmentItem
     {
         return attackCoolDown;
     }
+    
 }
 
 

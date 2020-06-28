@@ -11,8 +11,12 @@ public class RangeWeapon : EquipmentItem
     public float KnockBack;
 
     [Space]
+    [SerializeField] private int requiredStamina;
+    
+    [Space]
     public Transform arrowPrefab;
 
+    
     private void Awake()
     {
         equipmentType = EquipmentType.Weapon;
@@ -20,6 +24,10 @@ public class RangeWeapon : EquipmentItem
 
     public override void Attack(int ph_dmg, int mg_dmg)
     {
+        // Checks if current stamina is less than required. If not - continues attack.
+        if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
+            return;
+            
         Vector3 direction = new Vector3(InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);

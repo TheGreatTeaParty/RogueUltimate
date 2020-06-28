@@ -59,14 +59,14 @@ public class GolemBoss : MonoBehaviour
         if (startAttackCoolDown > 0)
             startAttackCoolDown -= Time.deltaTime;
 
-        if (golemStat.CurrentHealth <= StageTwoHealth && !StageChanged)
+        if (golemStat.currentHealth <= StageTwoHealth && !StageChanged)
         {
             SwitchStage();
         }
         //Should be changed in the inherited EnemyStat class
-        BossFightPortal.Instance.SetBossHealth(golemStat.CurrentHealth);
+        BossFightPortal.Instance.SetBossHealth(golemStat.currentHealth);
 
-        if(golemStat.CurrentHealth <=0)
+        if(golemStat.currentHealth <=0)
         {
             BossFightPortal.Instance.HealthBar(false);
             BossFightPortal.Instance.TurnThePortal();

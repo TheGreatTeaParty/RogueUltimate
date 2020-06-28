@@ -26,7 +26,7 @@ public class PlayerStatUI : MonoBehaviour
 
     private void UpdateUI()
     {
-        healthPointsText.SetText("" + _playerStat.CurrentHealth + " / " + _playerStat.maxHealth);
+        healthPointsText.SetText("" + _playerStat.currentHealth + " / " + _playerStat.maxHealth);
         physicalDamagePointsText.SetText("" + _playerStat.physicalDamage.GetValue());
         physicalProtectionPointsText.SetText("" + _playerStat.physicalProtection.GetValue());
         magicDamagePointsText.SetText("" + _playerStat.magicDamage.GetValue());
