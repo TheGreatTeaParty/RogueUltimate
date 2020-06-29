@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Unity;
 using UnityEngine;
-using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 
 [CreateAssetMenu(menuName = "Items/Item")]  
