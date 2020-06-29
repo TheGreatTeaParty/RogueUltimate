@@ -7,8 +7,6 @@ public class Archer : AI
     public Transform arrowPrefab;
 
     private EnemyStat archerStat;
-    public Vector3 c;
-    public Vector3 e;
     public Vector3 dir;
     public override void Start()
     {
@@ -19,9 +17,7 @@ public class Archer : AI
     public override void Update()
     {
         base.Update();
-        c = transform.position;
-        e = target.transform.position;
-        dir = (target.transform.position - transform.position)/ (target.transform.position - transform.position).magnitude;
+        dir = (target.transform.position - transform.position).normalized;
     }
 
     void FixedUpdate()

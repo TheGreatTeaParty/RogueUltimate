@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TavernKeeper : MonoBehaviour
+public class TavernKeeper : MonoBehaviour,IInteractable
 {
 
     #region Singleton
@@ -40,7 +40,7 @@ public class TavernKeeper : MonoBehaviour
 
     void Start()
     {
-        _isCalled = false;
+        _isCalled = true;
         NPCmovement = GetComponent<NPCPathfindingMovement>();
         NPCmovement.SetSpeed(speed);
         startPosition = transform.position;
@@ -49,7 +49,7 @@ public class TavernKeeper : MonoBehaviour
 
     private void Update()
     {
-        if (state == NPCstate.hanging && Vector2.Distance(transform.position, startPosition) < 0.4f)
+        if (state == NPCstate.hanging && Vector2.Distance(transform.position, startPosition) < 0.2f)
             state = NPCstate.standing;
     }
     void FixedUpdate()
@@ -62,7 +62,7 @@ public class TavernKeeper : MonoBehaviour
                     if (WaitForCall())
                         break;
 
-                    if (currentHangingIndex < points.Length && Vector2.Distance(transform.position, points[currentHangingIndex]) < 0.5f)
+                    if (currentHangingIndex < points.Length && Vector2.Distance(transform.position, points[currentHangingIndex]) < 0.2f)
                         _isStanding = true;
 
                     if (!_isStanding)
@@ -105,7 +105,7 @@ public class TavernKeeper : MonoBehaviour
             currentHangingIndex = 0;
         }
 
-        if (Vector3.Distance(transform.position, pathPoints[currentHangingIndex]) > 0.5f)
+        if (Vector3.Distance(transform.position, pathPoints[currentHangingIndex]) > 0.2f)
         {
             NPCmovement.MoveToTimer(pathPoints[currentHangingIndex]);
         }
@@ -126,5 +126,11 @@ public class TavernKeeper : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         state = NPCstate.hanging;
+    }
+
+    public void Interact()
+    {
+        if(_isCalled)
+            Debug.Log("Dialog: Bla-Bla");
     }
 }

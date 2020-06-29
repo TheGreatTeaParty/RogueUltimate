@@ -22,6 +22,7 @@ public class Warior : AI
     public override void Update()
     {
         base.Update();
+        direction = NPCmovement.GetLastMoveDir();
         attackPosition = transform.position + direction;
     }
 
@@ -51,7 +52,6 @@ public class Warior : AI
 
     public override void Attack()
     {
-        direction = NPCmovement.GetLastMoveDir();
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttachRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {

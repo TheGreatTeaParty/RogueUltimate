@@ -18,4 +18,8 @@ public class ItemsAsset : MonoBehaviour
     public Item[] items;
     public Transform Item_prefab;
 
+    public Item GenerateItem()
+    {
+        return items[Random.Range(0, items.Length)];
+    }
 }
