@@ -101,7 +101,7 @@ public class PlayerStat : CharacterStat, IDamaged
         if (currentMana + value < 0)
             return false;
         
-        currentStamina += value;
+        currentMana += value;
         if (currentMana > maxMana)
             currentMana = maxMana;
         

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[CreateAssetMenu(menuName = "Items/Potions/Stamina potion")]﻿
 public class StaminaPotion : UsableItem
 {
     [SerializeField] private int staminaBonus;
