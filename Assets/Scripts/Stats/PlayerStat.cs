@@ -1,6 +1,5 @@
-﻿using System;
-using UnityEditor.UIElements;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 public class PlayerStat : CharacterStat, IDamaged
 {
