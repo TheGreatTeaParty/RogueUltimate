@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
 
 public class RoomTemplates : MonoBehaviour
 {
@@ -27,6 +27,7 @@ public class RoomTemplates : MonoBehaviour
         {
             wait_time -= Time.deltaTime;
         }
+        
         //Deleting rooms from the list if it has been distroyed
         for (int i = 0; i < rooms.Count; i++)
         {

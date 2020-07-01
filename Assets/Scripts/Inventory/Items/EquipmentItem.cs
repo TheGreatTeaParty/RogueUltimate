@@ -28,8 +28,6 @@ public class EquipmentItem : Item
 
     public override void Use()
     {
-        currentCount = 1;
-        stackSize = 1;
         EquipmentManager.Instance.Equip(this);
         InventoryManager.Instance.RemoveItemFromInventory(this);
     }
