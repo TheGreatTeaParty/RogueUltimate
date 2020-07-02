@@ -25,8 +25,8 @@ public class QuickSlotsManager : MonoBehaviour
 
 
     private void Start()
-    {
-        // UpdateUI();
+    { 
+        UpdateUI();
     }
 
 

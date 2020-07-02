@@ -11,6 +11,7 @@ public class QuickSlot : MonoBehaviour
     private void Start()
     {
         button.image.enabled = false;
+        button.enabled = false;
     }
 
 
@@ -19,13 +20,16 @@ public class QuickSlot : MonoBehaviour
         item = usableItem;
         button.image.sprite = item.Sprite;
         button.image.enabled = true;
+        button.enabled = true;
     }
 
 
     public void RemoveItemFromQuickAccessSlot()
     {
+        item = null;
         button.image.sprite = null;
         button.image.enabled = false;
+        button.enabled = false;
     }
     
     
