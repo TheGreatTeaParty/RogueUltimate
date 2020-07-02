@@ -32,10 +32,22 @@ public class Item : ScriptableObject
     }
     
     
-    public virtual void Drop()
+    public void Drop(string place)
     {
-        InventoryManager.Instance.RemoveItemFromInventory(this);
-        InventoryManager.Instance.DropFromInventory(this);
+        if (place == "Inventory")
+        {
+            InventoryManager.Instance.RemoveItemFromInventory(this);
+            InventoryManager.Instance.DropFromInventory(this);
+            return;
+        }
+
+        if (place == "Equipment")
+        {
+            EquipmentManager.Instance.DropFromEquipment((EquipmentItem)this);
+            return;
+        }
+        
+        Debug.Log("There is no place selected");
     }
 
 

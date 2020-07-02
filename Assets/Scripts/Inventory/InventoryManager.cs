@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     public int size = 8;
-    public List<Item> items = new List<Item>();
+    public List<Item> items;
 
     //Creating deligate to send update message when something has been changed;
     public delegate void OnItemChanged();

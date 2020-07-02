@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] private EquipmentType equipmentType;
     [SerializeField] private Image icon;
     [SerializeField] private EquipmentItem equipmentItem;
 
@@ -12,6 +13,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         icon = GetComponent<Image>();
+        gameObject.name = equipmentType.ToString() + " Slot";
     }
     
     

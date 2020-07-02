@@ -15,8 +15,7 @@ public enum EquipmentType
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
-    public bool isEquiped;
-    
+
     //Modifiers
     public int PhysicalArmorModifier;
     public int MagicalArmorModifier;
@@ -30,13 +29,6 @@ public class EquipmentItem : Item
     {
         EquipmentManager.Instance.Equip(this);
         InventoryManager.Instance.RemoveItemFromInventory(this);
-    }
-    
-
-    public override void Drop()
-    {
-        if (isEquiped) EquipmentManager.Instance.DropFromEquipment(this);
-        else base.Drop(); 
     }
 
 

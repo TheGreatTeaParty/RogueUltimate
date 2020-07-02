@@ -17,6 +17,7 @@ public class PlayerPanelTooltip : MonoBehaviour
     #endregion
     
     private int _index;
+    private string _place;
     [SerializeField] private Item item;
     [SerializeField] private Image image;
     [Space]
@@ -39,6 +40,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         gameObject.SetActive(false);
         
         item = pureItem;
+        _place = "Inventory";
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
         optionalButton.SetActive(false);
@@ -52,6 +54,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         gameObject.SetActive(false);
         
         item = equipmentItem;
+        _place = "Inventory";
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
 
@@ -67,6 +70,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         gameObject.SetActive(false);
         
         item = equipmentItem;
+        _place = "Equipment";
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
         _index = slotIndex;
@@ -81,14 +85,16 @@ public class PlayerPanelTooltip : MonoBehaviour
     public void ShowTooltip(UsableItem usableItem)
     {
         gameObject.SetActive(false);
+        
         item = usableItem;
+        _place = "Inventory";
         itemName.SetText(item.Name);
         image.sprite = item.Sprite;
 
         quickAccessButton.SetActive(true);
         optionalButton.SetActive(true);
         optionalButtonText.text = "Use";
-        
+
         gameObject.SetActive(true);
     }
 
@@ -97,11 +103,11 @@ public class PlayerPanelTooltip : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
-    
+
+
     private void DropButtonPress()
     {
-        item.Drop();
+        item.Drop(_place);
         HideTooltip();
     }
 
