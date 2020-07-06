@@ -2,6 +2,9 @@
 
 public class CharacterStat : MonoBehaviour
 {
+    public string Name;
+
+    [Space]
     public Stat physicalDamage;
     public Stat magicDamage;
     public Stat physicalProtection;
