@@ -35,7 +35,7 @@ public class PlayerStat : CharacterStat, IDamaged
         currentStamina = maxStamina;
         currentMana = maxMana;
 
-        if(EquipmentManager.Instance !=null)
+        if (EquipmentManager.Instance !=null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
