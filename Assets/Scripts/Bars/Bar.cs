@@ -14,7 +14,7 @@ public class Bar : MonoBehaviour
     }
 
 
-    protected void SetMaxValue(int value)
+    public void SetMaxValue(int value)
     {
         slider.maxValue = value;
     }

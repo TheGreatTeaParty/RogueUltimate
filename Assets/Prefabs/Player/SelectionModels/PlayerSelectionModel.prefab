@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 229172201387071975}
   - component: {fileID: 229172201387071974}
-  - component: {fileID: 1668436898221158222}
   - component: {fileID: 5811768746077300048}
   - component: {fileID: 7563700217298860424}
   m_Layer: 12
@@ -85,38 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1668436898221158222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229172201387071976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bfdbfbccf29f0541ad8e6a93f4dbea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: NEZachar
-  physicalDamage:
-    baseValue: 5
-    modifiers: 
-  magicDamage:
-    baseValue: 0
-    modifiers: 
-  physicalProtection:
-    baseValue: 0
-    modifiers: 
-  magicProtection:
-    baseValue: 0
-    modifiers: 
-  maxHealth: 50
-  currentHealth: 0
-  regenerationSpeed: 0
-  maxMana: 150
-  maxStamina: 80
-  currentMana: 0
-  currentStamina: 0
 --- !u!70 &5811768746077300048
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

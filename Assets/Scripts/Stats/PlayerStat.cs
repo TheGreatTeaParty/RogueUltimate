@@ -35,6 +35,11 @@ public class PlayerStat : CharacterStat, IDamaged
         currentStamina = maxStamina;
         currentMana = maxMana;
 
+        //Set max health
+        InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
+        InterfaceOnScene.instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
+        InterfaceOnScene.instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
+
         if (EquipmentManager.Instance !=null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
