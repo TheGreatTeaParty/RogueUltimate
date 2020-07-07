@@ -70,11 +70,7 @@ public class CharacterSelection : MonoBehaviour
         PlayerStat.Instance.currentHealth = (int)healthStat.value;
         PlayerStat.Instance.currentStamina = (int)staminaStat.value;
         PlayerStat.Instance.currentMana = (int)manaStat.value;
-        
-        healthStat.maxValue = PlayerStat.Instance.maxHealth;
-        staminaStat.maxValue = PlayerStat.Instance.maxStamina;
-        manaStat.maxValue = PlayerStat.Instance.maxMana;
-        
+
         Instantiate(prefabs[Index], options[Index].transform.position, Quaternion.identity);
         Destroy(options[Index]);
         Interface.SetActive(true);
