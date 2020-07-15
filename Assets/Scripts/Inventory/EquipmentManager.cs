@@ -31,7 +31,6 @@ public class EquipmentManager : MonoBehaviour
         int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
         currentEquipment = new EquipmentItem[numSlots];
     }
-
     
     public void Equip(EquipmentItem newItem)
     {
@@ -51,20 +50,18 @@ public class EquipmentManager : MonoBehaviour
         onEquipmentCallback?.Invoke();
     }
 
-    
     public void Unequip(int slotIndex)
     {
-        if (currentEquipment[slotIndex] != null)
-        {
-            EquipmentItem oldItem = currentEquipment[slotIndex];
-            InventoryManager.Instance.AddItemToInventory(oldItem);
-            currentEquipment[slotIndex] = null;
+        if (currentEquipment[slotIndex] == null || InventoryManager.Instance.CheckOverflow() is true) 
+            return;
+        
+        var oldItem = currentEquipment[slotIndex];
+        InventoryManager.Instance.AddItemToInventory(oldItem);
+        currentEquipment[slotIndex] = null;
 
-            onEquipmentChanged?.Invoke(null, oldItem);
-            onEquipmentCallback?.Invoke();
-        }
+        onEquipmentChanged?.Invoke(null, oldItem);
+        onEquipmentCallback?.Invoke();
     }
-
 
     public void DropFromEquipment(EquipmentItem equipmentItem)
     {
@@ -78,7 +75,6 @@ public class EquipmentManager : MonoBehaviour
         onEquipmentCallback?.Invoke();
     }
 
-    
     public bool Request(EquipmentItem equipmentItem)
     {
         foreach (var item in currentEquipment.ToList()) // ToList() prevents InvalidOperationException
