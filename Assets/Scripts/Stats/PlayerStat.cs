@@ -29,7 +29,11 @@ public class PlayerStat : CharacterStat, IDamaged
     public int currentMana;
     public int currentStamina;
 
-
+    
+    public delegate void OnChangeCallback();
+    public OnChangeCallback onChangeCallback;
+    
+    
     private void Start()
     {
         _regenerationCoolDown = 0;
@@ -91,6 +95,7 @@ public class PlayerStat : CharacterStat, IDamaged
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
 
+        onChangeCallback?.Invoke();
         return true;
     }
     
@@ -103,6 +108,7 @@ public class PlayerStat : CharacterStat, IDamaged
         if (currentStamina > maxStamina)
             currentStamina = maxStamina;
 
+        onChangeCallback?.Invoke();
         return true;
     }
     
@@ -114,13 +120,15 @@ public class PlayerStat : CharacterStat, IDamaged
         currentMana += value;
         if (currentMana > maxMana)
             currentMana = maxMana;
-        
+
+        onChangeCallback?.Invoke();
         return true;
     }
 
     public void RegenerateStamina()
     {
         currentStamina += Mathf.RoundToInt(Time.deltaTime);
+        onChangeCallback?.Invoke();
     }
 
     public override void TakeDamage(int _physicalDamage, int _magicDamage)

@@ -6,8 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     [SerializeField] protected string id;
-    public string ID => id;
-    
+    [SerializeField] protected int price;
     [Space]
     [SerializeField] protected String name;
     [SerializeField] protected Sprite sprite;
@@ -15,8 +14,9 @@ public class Item : ScriptableObject
     [Space]
     [SerializeField] protected int stackSize;
     [SerializeField] protected int amount;
-    [SerializeField] protected int price;
 
+    public string ID => id;
+    public int Price => price;
     public String Name => name;
     public Sprite Sprite => sprite;
     public int Amount

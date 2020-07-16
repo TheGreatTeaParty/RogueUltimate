@@ -19,7 +19,8 @@ public class PlayerStatUI : MonoBehaviour
     {
         _playerStat = PlayerStat.Instance;
         
-        EquipmentManager.Instance.onEquipmentCallback += UpdateUI;   
+        EquipmentManager.Instance.onEquipmentCallback += UpdateUI;
+        PlayerStat.Instance.onChangeCallback += UpdateUI;
         UpdateUI();
     }
 
