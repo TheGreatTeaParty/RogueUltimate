@@ -30,5 +30,12 @@ public class TradeSlot : MonoBehaviour
         _image.sprite = null;
         _image.enabled = false; // should try without it
     }
+
+    public void ShowTooltip()
+    {
+        var tooltip = TradeTooltip.Instance;
+        
+        tooltip.Show(_item);
+    }
     
 } 

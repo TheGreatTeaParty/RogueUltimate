@@ -18,14 +18,16 @@ public class TradeManager : MonoBehaviour
     
     [SerializeField] private InventoryNPC inventoryNpc;
     [SerializeField] private InventoryManager inventoryPl;
-
+    [SerializeField] private TradeTooltip tooltip;
+    // !!! NEED A CALL SetTradeInventory() FROM ANY NPC INVENTORY BEFORE WORKING
 
     private void Start()
     {
         inventoryPl = InventoryManager.Instance;
+        tooltip = TradeTooltip.Instance;
     }
 
-    private void Buy(Item item)
+    public void Buy(Item item)
     {
         if (item == null) return;
         
@@ -33,10 +35,12 @@ public class TradeManager : MonoBehaviour
             inventoryPl.BuyItem(item);
     }
 
-    private void Sell(Item item)
+    public void Sell(Item item)
     {
-        if (item != null && inventoryNpc.CheckOverflow() is false)
-            inventoryPl.SellItem(item, inventoryNpc);
+        if (item == null || inventoryNpc.CheckOverflow() is true) return;
+        
+        tooltip.Erase();
+        inventoryPl.SellItem(item, inventoryNpc);
     }
     
     public void SetNpcInventory(InventoryNPC inventory)
