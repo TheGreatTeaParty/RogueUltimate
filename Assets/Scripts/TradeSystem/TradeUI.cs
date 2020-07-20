@@ -24,15 +24,15 @@ public class TradeUI : MonoBehaviour
     private void UpdateUI()
     {
         var i = 0;
-        for (; i < tradeManager.npcPanel.npcInventory.items.Count; i++)
-            npcSlots[i].Image.sprite = tradeManager.npcPanel.npcInventory.items[i].Sprite;
+        for (; i < tradeManager.npcInventory.items.Count; i++)
+            npcSlots[i].Image.sprite = tradeManager.npcInventory.items[i].Sprite;
 
         for (; i < npcSlots.Length; i++)
             npcSlots[i].Image.sprite = null;
 
         var j = 0;
-        for (; j < tradeManager.npcPanel.npcInventory.items.Count; j++)
-            playerSlots[j].Image.sprite = tradeManager.playerPanel.playerInventory.items[j].Sprite;
+        for (; j < tradeManager.npcInventory.items.Count; j++)
+            playerSlots[j].Image.sprite = tradeManager.playerInventory.items[j].Sprite;
 
         for (; j < npcSlots.Length; j++)
             playerSlots[j].Image.sprite = null;

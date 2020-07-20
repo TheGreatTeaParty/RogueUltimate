@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-// Need setters and getters for panels 
+// Need setters and getters for inventories (?)
 public class TradeManager : MonoBehaviour
 {
     #region Singleton
@@ -18,22 +18,17 @@ public class TradeManager : MonoBehaviour
 
     #endregion
 
-    public TradeNpcPanel npcPanel;
-    public TradePlayerPanel playerPanel;
+    public InventoryManager playerInventory;
+    public NPCInventory npcInventory;
+
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
-
-    private void Start()
-    {
-        npcPanel = GetComponentInChildren<TradeNpcPanel>();
-        playerPanel = GetComponentInChildren<TradePlayerPanel>();
-    }
-
+    
     public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
     {
-        playerPanel.playerInventory = playerInventory;
-        npcPanel.npcInventory = npcInventory;
+        this.playerInventory = playerInventory;
+        this.npcInventory = npcInventory;
     }
     
 } 
