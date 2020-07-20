@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8981110619606535422}
   - component: {fileID: 8981110619606535361}
   - component: {fileID: 8981110619606535360}
-  - component: {fileID: 1828792936003242359}
   - component: {fileID: 7520043229355730820}
   - component: {fileID: 8981110619606535421}
   - component: {fileID: 2786036599304009140}
+  - component: {fileID: 1683021117319414664}
   m_Layer: 8
   m_Name: TestArcher
   m_TagString: Enemy
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
   physicalDamage:
     baseValue: 10
     modifiers: 
@@ -113,6 +114,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth: 100
+  currentHealth: 0
 --- !u!114 &8981110619606535360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,18 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPb: {fileID: 6372921867528987916, guid: c7ea45bd1f9124dc6a403fd71c569d6f, type: 3}
---- !u!114 &1828792936003242359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8981110619606535363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c06561638fbac043be1167532367cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &7520043229355730820
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,12 +177,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e194131ab442a48e38ccdbc68f91cb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  range: 6
-  detectionRange: 7
-  followRange: 10
+  nextWayPointDistance: 1
+  Speed: 4
+  AttackRange: 5
+  DetectionRange: 7
+  FollowRange: 10
   waitTime: 2
   attackCoolDown: 1.6
-  KnockBack: 1
   arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
     type: 3}
+  dir: {x: 0, y: 0, z: 0}
+--- !u!114 &1683021117319414664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981110619606535363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
