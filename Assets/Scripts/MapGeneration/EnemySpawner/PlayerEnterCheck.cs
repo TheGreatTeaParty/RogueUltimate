@@ -20,7 +20,10 @@ public class PlayerEnterCheck : MonoBehaviour
             {
                 _isSpawned = true;
                 for (int i = 0; i < SpawnEnemyPoints.Length; i++)
+                {
+                    SpawnEnemyPoints[i].SetEnemy(EnemyTierList.Instance.GenerateEnemy());
                     SpawnEnemyPoints[i].SpawnAnEnemy();
+                }
             }
         }
 

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7783349556658700901}
-  - component: {fileID: 7783349556658700902}
   - component: {fileID: 7626084204012368293}
   - component: {fileID: 6165083305634287435}
   m_Layer: 0
@@ -34,23 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7783349556658700902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7783349556658700903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d15aa7ca687264c38997535b18fb786a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GridSize: 0
-  x: 0
-  y: 0
-  XOffSet: 0
-  YOffSet: 0
 --- !u!61 &7626084204012368293
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -98,7 +80,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7783349558170628691}
-  - component: {fileID: 7783349558170628690}
+  - component: {fileID: 2026104240758282555}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -120,7 +102,7 @@ Transform:
   m_Father: {fileID: 7783349556658700901}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7783349558170628690
+--- !u!114 &2026104240758282555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,6 +111,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7783349558170628692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b2a4d71757c4c77a37aec743b121e9, type: 3}
+  m_Script: {fileID: 11500000, guid: fb26a8ed6cc704f9d947f6a791d3a419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

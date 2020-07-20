@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class PlayerStat : CharacterStat, IDamaged
@@ -19,6 +21,7 @@ public class PlayerStat : CharacterStat, IDamaged
     
     private float _regenerationCoolDown;
     [SerializeField] private float regenerationSpeed;
+    [SerializeField] private Animator animator;
 
     public int maxMana = 100;
     public int maxStamina = 100;
@@ -39,6 +42,8 @@ public class PlayerStat : CharacterStat, IDamaged
         currentStamina = maxStamina;
         currentMana = maxMana;
 
+        
+
         //Set max health
         InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
         InterfaceOnScene.instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
@@ -50,7 +55,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
 
     private void Update()
-    {
+    {   
         _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
         if (_regenerationCoolDown > 1)
         {
@@ -124,6 +129,29 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         currentStamina += Mathf.RoundToInt(Time.deltaTime);
         onChangeCallback?.Invoke();
+    }
+
+    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    {
+        base.TakeDamage(_physicalDamage, _magicDamage);
+        animator.SetTrigger("Taking Dmg");
+        
+        
+        
+    }
+
+    public override void Die()
+    {
+        //animator.SetTrigger("Die");
+        //Opens Window with a decision |Adverb to continue| or |Humility|
+        //transform.position = new Vector2(100, 100);
+        //Destroys or set Active(faulse)
+        
+        //InterfaceOnScene.instance.gameObject.SetActive(false);
+        Destroy(gameObject);
+        Destroy(InterfaceOnScene.instance.gameObject);
+        SceneManager.LoadScene("Menu");
+
     }
     
 }
