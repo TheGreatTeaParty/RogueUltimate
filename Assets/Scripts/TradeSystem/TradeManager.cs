@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
+// Need setters and getters for panels 
 public class TradeManager : MonoBehaviour
 {
     #region Singleton
 
     public static TradeManager Instance;
+
     private void Awake()
     {
         if (Instance != null)
@@ -15,38 +17,23 @@ public class TradeManager : MonoBehaviour
     }
 
     #endregion
-    
-    [SerializeField] private InventoryNPC inventoryNpc;
-    [SerializeField] private InventoryManager inventoryPl;
-    [SerializeField] private TradeTooltip tooltip;
-    // !!! NEED A CALL SetTradeInventory() FROM ANY NPC INVENTORY BEFORE WORKING
+
+    public TradeNpcPanel npcPanel;
+    public TradePlayerPanel playerPanel;
+
+    public delegate void OnChangeCallback();
+    public OnChangeCallback onChangeCallback;
 
     private void Start()
     {
-        inventoryPl = InventoryManager.Instance;
-        tooltip = TradeTooltip.Instance;
+        npcPanel = GetComponentInChildren<TradeNpcPanel>();
+        playerPanel = GetComponentInChildren<TradePlayerPanel>();
     }
 
-    public void Buy(Item item)
+    public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
     {
-        if (item == null) return;
-        
-        if (inventoryPl.CheckOverflow() is false)
-            inventoryPl.BuyItem(item);
-    }
-
-    public void Sell(Item item)
-    {
-        if (item == null || inventoryNpc.CheckOverflow() is true) return;
-        
-        tooltip.Erase();
-        inventoryPl.SellItem(item, inventoryNpc);
+        playerPanel.playerInventory = playerInventory;
+        npcPanel.npcInventory = npcInventory;
     }
     
-    public void SetNpcInventory(InventoryNPC inventory)
-    {
-        if (inventory == null) return;
-        inventoryNpc = inventory;
-    }
-
 } 

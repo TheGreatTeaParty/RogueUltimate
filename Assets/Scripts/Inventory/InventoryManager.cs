@@ -63,15 +63,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void SellItem(Item item, InventoryNPC inventory)
-    {
-        if (item == null || inventory == null) return;
-        
-        RemoveItemFromInventory(item);
-        inventory.AddItemToInventory(item);
-        AddCoins(item.Price);
-    }
-
     public bool CheckOverflow()
     {
         return items.Count >= Size;
