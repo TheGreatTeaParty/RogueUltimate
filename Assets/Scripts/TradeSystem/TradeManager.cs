@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
+// Need setters and getters for inventories (?)
 public class TradeManager : MonoBehaviour
 {
     #region Singleton
 
     public static TradeManager Instance;
+
     private void Awake()
     {
         if (Instance != null)
@@ -15,38 +17,18 @@ public class TradeManager : MonoBehaviour
     }
 
     #endregion
+
+    public InventoryManager playerInventory;
+    public NPCInventory npcInventory;
+
+
+    public delegate void OnChangeCallback();
+    public OnChangeCallback onChangeCallback;
     
-    [SerializeField] private InventoryNPC inventoryNpc;
-    [SerializeField] private InventoryManager inventoryPl;
-    [SerializeField] private TradeTooltip tooltip;
-    // !!! NEED A CALL SetTradeInventory() FROM ANY NPC INVENTORY BEFORE WORKING
-
-    private void Start()
+    public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
     {
-        inventoryPl = InventoryManager.Instance;
-        tooltip = TradeTooltip.Instance;
-    }
-
-    public void Buy(Item item)
-    {
-        if (item == null) return;
-        
-        if (inventoryPl.CheckOverflow() is false)
-            inventoryPl.BuyItem(item);
-    }
-
-    public void Sell(Item item)
-    {
-        if (item == null || inventoryNpc.CheckOverflow() is true) return;
-        
-        tooltip.Erase();
-        inventoryPl.SellItem(item, inventoryNpc);
+        this.playerInventory = playerInventory;
+        this.npcInventory = npcInventory;
     }
     
-    public void SetNpcInventory(InventoryNPC inventory)
-    {
-        if (inventory == null) return;
-        inventoryNpc = inventory;
-    }
-
 } 
