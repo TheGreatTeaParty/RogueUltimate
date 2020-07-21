@@ -22,9 +22,9 @@ public class AI : MonoBehaviour
     protected Vector2 dir;
     protected GameObject target;
 
-    private Path path;
-    private Seeker seeker;
-    private Rigidbody2D Rb;
+    protected Path path;
+    protected Seeker seeker;
+    protected Rigidbody2D Rb;
 
 
     // Start is called before the first frame update

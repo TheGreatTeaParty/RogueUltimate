@@ -21,9 +21,16 @@ public class Chest : MonoBehaviour,IInteractable
             _isDropped = true;
         }
     }
+
     void Spawn()
     {
         ItemScene.SpawnItemScene(transform.position + new Vector3(0,-0.8f), itemToDrop);
         _isDropped = true;
+        Destroy(this);
+    }
+
+    public string GetActionName()
+    {
+        return "Open";
     }
 }
