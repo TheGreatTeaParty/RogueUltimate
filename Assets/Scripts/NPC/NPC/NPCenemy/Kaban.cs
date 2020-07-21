@@ -7,7 +7,6 @@ public class Kaban : AI
     public float rage_speed;
     public float timeBeforeTheRage;
 
-    private Rigidbody2D Rb;
     private Vector2 position;
     private Vector3 finalPos;
     private bool _isRage;

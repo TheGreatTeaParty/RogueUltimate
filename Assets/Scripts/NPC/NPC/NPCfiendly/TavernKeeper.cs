@@ -130,7 +130,13 @@ public class TavernKeeper : MonoBehaviour,IInteractable
 
     public void Interact()
     {
+        //Trade System
         if(_isCalled)
             Debug.Log("Dialog: Bla-Bla");
+    }
+
+    public string GetActionName()
+    {
+        return "Trade";
     }
 }
