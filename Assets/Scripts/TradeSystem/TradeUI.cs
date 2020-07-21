@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 
@@ -7,9 +8,13 @@ public class TradeUI : MonoBehaviour
     private TradeSlot[] playerSlots;
     private TradeSlot[] npcSlots;
 
+    [SerializeField] private TextMeshProUGUI gold;
+    [SerializeField] private TextMeshProUGUI relation;
+    [Space]
     [SerializeField] private TradeManager tradeManager;
     [SerializeField] private Transform playerSlotsParent;
     [SerializeField] private Transform npcSlotsParent;
+
 
     private void Start()
     {
@@ -19,23 +24,30 @@ public class TradeUI : MonoBehaviour
 
         playerSlots = GetComponentsInChildren<TradeSlot>(playerSlotsParent);
         npcSlots = GetComponentsInChildren<TradeSlot>(npcSlotsParent);
+
+        tradeManager.onChangeCallback += UpdateUI;
     }
 
     private void UpdateUI()
     {
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
-            npcSlots[i].Image.sprite = tradeManager.npcInventory.items[i].Sprite;
+            npcSlots[i].AddItemToTradeSlot(tradeManager.npcInventory.items[i]);
 
         for (; i < npcSlots.Length; i++)
-            npcSlots[i].Image.sprite = null;
+            npcSlots[i].RemoveItemFromTradeSlot();
 
+        
         var j = 0;
         for (; j < tradeManager.npcInventory.items.Count; j++)
-            playerSlots[j].Image.sprite = tradeManager.playerInventory.items[j].Sprite;
+            playerSlots[j].AddItemToTradeSlot(tradeManager.playerInventory.items[j]);
 
         for (; j < npcSlots.Length; j++)
-            playerSlots[j].Image.sprite = null;
+            playerSlots[j].RemoveItemFromTradeSlot();
+
+
+        gold.SetText(tradeManager.gold.ToString());       
+        relation.SetText(tradeManager.relation.ToString());
     }
     
 } 

@@ -13,16 +13,17 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
     #endregion
+        
     
-    public const int Size = 8;
+    [SerializeField] private int gold = 10;
+    [Space]
+    public int size = 8;
     public List<Item> items;
+    
 
     //Creating deligate to send update message when something has been changed;
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
-
-    private int _coins = 10;
-    
 
     public bool AddItemToInventory(Item item)
     {
@@ -52,25 +53,24 @@ public class InventoryManager : MonoBehaviour
         ItemScene.SpawnItemScene(newPosition, item);
     }
 
-    public void BuyItem(Item item)
-    {
-        if (item == null) return;
-
-        if (item.Price < _coins && CheckOverflow() is false)
-        {
-            AddItemToInventory(item);
-            AddCoins(-item.Price);
-        }
-    }
-
     public bool CheckOverflow()
     {
-        return items.Count >= Size;
+        return items.Count >= size;
     }
 
-    public void AddCoins(int value)
+    public void AddGold(int value)
     {
-        _coins += value;
+        gold += value;
+    }
+
+    public void SetGold(int value)
+    {
+        gold = value;
+    }
+
+    public int GetGold()
+    {
+        return gold;
     }
 
 }
