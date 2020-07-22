@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TavernKeeper : MonoBehaviour,IInteractable
+public class TavernKeeper : AI,IInteractable
 {
 
     #region Singleton
@@ -18,12 +18,10 @@ public class TavernKeeper : MonoBehaviour,IInteractable
 
     public float speed = 2f;
     public float pointStandingTime = 2f;
-    public float waitTime = 10f;
 
     [Space]
 
-    public Vector3[] points;
-    public NPCstate state;
+    public GameObject[] HangingPoints;
 
     //private NPCPathfindingMovement NPCmovement;
 
@@ -31,14 +29,15 @@ public class TavernKeeper : MonoBehaviour,IInteractable
     private int currentHangingIndex = 0;
     private bool _isStanding = false;
     private bool _isCalled;
+    private TaverKeeperState STATE;
 
-    public enum NPCstate
+    public enum TaverKeeperState
     {
-        hanging = 0,
-        standing,
-    }
+        standing = 0,
+        hanging,
+    };
 
-    void Start()
+    override public void Start()
     {
         _isCalled = true;
        // NPCmovement = GetComponent<NPCPathfindingMovement>();
@@ -47,16 +46,16 @@ public class TavernKeeper : MonoBehaviour,IInteractable
     }
 
 
-    private void Update()
+    override public void Update()
     {
-        if (state == NPCstate.hanging && Vector2.Distance(transform.position, startPosition) < 0.2f)
-            state = NPCstate.standing;
+        if (STATE == TaverKeeperState.hanging && Vector2.Distance(transform.position, startPosition) < 0.2f)
+            STATE = TaverKeeperState.standing;
     }
-    void FixedUpdate()
+    override public void FixedUpdate()
     {
-        switch (state)
+        switch (STATE)
         {
-            case NPCstate.hanging:
+            case TaverKeeperState.hanging:
                 {
 
                     if (WaitForCall())
@@ -66,7 +65,7 @@ public class TavernKeeper : MonoBehaviour,IInteractable
                         _isStanding = true;
 
                     if (!_isStanding)
-                        HangOut(points);
+                        HangOut(HangingPoints);
                     else
                     {
                         StartCoroutine(waiter());
@@ -75,7 +74,7 @@ public class TavernKeeper : MonoBehaviour,IInteractable
                     break;
                 }
 
-            case NPCstate.standing:
+            case TaverKeeperState.standing:
                 {
                     StartCoroutine(Stand());
                     break;
@@ -92,22 +91,21 @@ public class TavernKeeper : MonoBehaviour,IInteractable
     {
         if (_isCalled)
         {
-            //NPCmovement.MoveToTimer(startPosition);
             return true;
         }
         return false;
     }
 
-    private void HangOut(Vector3[] pathPoints)
+    private void HangOut(GameObject[] pathPoints)
     {
         if (currentHangingIndex >= pathPoints.Length)
         {
             currentHangingIndex = 0;
         }
 
-        if (Vector3.Distance(transform.position, pathPoints[currentHangingIndex]) > 0.2f)
+        if (Vector3.Distance(transform.position, pathPoints[currentHangingIndex].transform.position) > 0.2f)
         {
-            //NPCmovement.MoveToTimer(pathPoints[currentHangingIndex]);
+           // (pathPoints[currentHangingIndex]);
         }
         else
         {
@@ -117,10 +115,10 @@ public class TavernKeeper : MonoBehaviour,IInteractable
 
     IEnumerator waiter()
     {
-        //NPCmovement.StopMoving();
+        
         yield return new WaitForSeconds(pointStandingTime);
         _isStanding = false;
-        HangOut(points);
+        HangOut(HangingPoints);
     }
     IEnumerator Stand()
     {
