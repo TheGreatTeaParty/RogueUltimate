@@ -24,6 +24,7 @@ public class TradeManager : MonoBehaviour
     public InventoryManager playerInventory;
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
+    public GameObject UI;
     [Space]
     public int gold;
     public int relation;
@@ -89,8 +90,7 @@ public class TradeManager : MonoBehaviour
         
         gold += currentItem.Price;
         playerInventory.RemoveItemFromInventory(currentItem);
-        
-        CloseTooltip();
+
         currentItem = null;
         
         onChangeCallback?.Invoke();
@@ -106,7 +106,7 @@ public class TradeManager : MonoBehaviour
         
         this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
-
+        UI.SetActive(true);
         onChangeCallback?.Invoke();
     }
     

@@ -4,18 +4,8 @@ using UnityEngine;
 // Change it on Interface
 public class TradeAction : MonoBehaviour
 {
-    public void Bind()
-    {
-        var playerInventory = InventoryManager.Instance;
-        var npcInventory = GetComponent<NPCInventory>();
-        var tradeManager = TradeManager.Instance;
-        
-        tradeManager.Bind(playerInventory, npcInventory);
-        
-        tradeManager.gold = playerInventory.GetGold();
-        tradeManager.relation = npcInventory.relation;
-    }
-    
+    //Bind Function removed to TavernKeeper.Interact()
+
     // true - buy, false - sell
     public void Trade()
     {
@@ -30,8 +20,9 @@ public class TradeAction : MonoBehaviour
     public void Close()
     {
         var tradeManager = TradeManager.Instance;
-        
+
         tradeManager.CloseTooltip();
+        tradeManager.UI.SetActive(false);
         tradeManager.currentItem = null;
     }
 

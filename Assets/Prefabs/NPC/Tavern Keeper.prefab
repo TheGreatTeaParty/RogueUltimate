@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 9096455669997638437}
   - component: {fileID: 9096455669997638447}
   - component: {fileID: 9096455669997638433}
+  - component: {fileID: 6681453941935188931}
   m_Layer: 0
   m_Name: Tavern Keeper
   m_TagString: Untagged
@@ -185,12 +186,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac7d17ab3e3b4c9d98aed1dd209c40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextWayPointDistance: 1
+  Speed: 4
+  AttackRange: 0.5
+  DetectionRange: 7
+  FollowRange: 10
+  waitTime: 15
+  attackCoolDown: 1.2
   speed: 1.3
   pointStandingTime: 3
-  waitTime: 15
-  points:
-  - {x: -10, y: 6, z: 0}
-  - {x: -1, y: 5, z: 0}
-  - {x: 1, y: -1, z: 0}
-  - {x: -5, y: -1, z: 0}
-  state: 1
+  HangingPoints: []
+--- !u!114 &6681453941935188931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096455669997638438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723ce230b261443a806ca359d6d164f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 100
+  relation: 2
+  items: []

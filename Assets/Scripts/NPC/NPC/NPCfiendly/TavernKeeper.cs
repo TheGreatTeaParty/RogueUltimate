@@ -128,9 +128,15 @@ public class TavernKeeper : AI,IInteractable
 
     public void Interact()
     {
-        //Trade System
-        if(_isCalled)
-            Debug.Log("Dialog: Bla-Bla");
+        ///Bind the info for TradeManager
+        var playerInventory = InventoryManager.Instance;
+        var npcInventory = GetComponent<NPCInventory>();
+        var tradeManager = TradeManager.Instance;
+
+        tradeManager.Bind(playerInventory, npcInventory);
+
+        tradeManager.gold = playerInventory.GetGold();
+        tradeManager.relation = npcInventory.relation;
     }
 
     public string GetActionName()
