@@ -96,7 +96,7 @@ public class TradeManager : MonoBehaviour
         onChangeCallback?.Invoke();
     }
 
-    public void Bind(InventoryManager playerInventory, NPCInventory npcInventory, TradeTooltip tradeTooltip)
+    public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
     {
         if (playerInventory == null || npcInventory == null || tradeTooltip == null)
         {
@@ -106,8 +106,7 @@ public class TradeManager : MonoBehaviour
         
         this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
-        this.tradeTooltip = tradeTooltip;
-        
+
         onChangeCallback?.Invoke();
     }
     

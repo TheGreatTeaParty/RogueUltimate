@@ -8,10 +8,9 @@ public class TradeAction : MonoBehaviour
     {
         var playerInventory = InventoryManager.Instance;
         var npcInventory = GetComponent<NPCInventory>();
-        var tradeTooltip = GetComponent<TradeTooltip>();
         var tradeManager = TradeManager.Instance;
         
-        tradeManager.Bind(playerInventory, npcInventory, tradeTooltip);
+        tradeManager.Bind(playerInventory, npcInventory);
         
         tradeManager.gold = playerInventory.GetGold();
         tradeManager.relation = npcInventory.relation;
