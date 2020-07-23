@@ -9,20 +9,31 @@ public class TradeAction : MonoBehaviour
         var playerInventory = InventoryManager.Instance;
         var npcInventory = GetComponent<NPCInventory>();
         var tradeTooltip = GetComponent<TradeTooltip>();
+        var tradeManager = TradeManager.Instance;
         
-        TradeManager.Instance.Bind(playerInventory, npcInventory, tradeTooltip);
+        tradeManager.Bind(playerInventory, npcInventory, tradeTooltip);
         
-        TradeManager.Instance.gold = playerInventory.GetGold();
-        TradeManager.Instance.relation = npcInventory.relation;
-
-        TradeManager.Instance.enabled = true;
+        tradeManager.gold = playerInventory.GetGold();
+        tradeManager.relation = npcInventory.relation;
+    }
+    
+    // true - buy, false - sell
+    public void Trade()
+    {
+        var tradeManager = TradeManager.Instance;
+        
+        if (tradeManager.State && tradeManager.currentItem != null)
+            tradeManager.Buy();
+        else
+            tradeManager.Sell();
     }
 
     public void Close()
     {
-        TradeManager.Instance.CloseTooltip();
-        TradeManager.Instance.currentItem = null;
-        TradeManager.Instance.enabled = false;
+        var tradeManager = TradeManager.Instance;
+        
+        tradeManager.CloseTooltip();
+        tradeManager.currentItem = null;
     }
 
 } 

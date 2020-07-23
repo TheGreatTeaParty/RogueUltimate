@@ -9,8 +9,8 @@ public class Item : ScriptableObject
     [SerializeField] protected int price;
     [Space]
     [SerializeField] protected String name;
+    [SerializeField] protected String description;
     [SerializeField] protected Sprite sprite;
-    
     [Space]
     [SerializeField] protected int stackSize;
     [SerializeField] protected int amount;
@@ -19,6 +19,7 @@ public class Item : ScriptableObject
     public int Price => price;
     public String Name => name;
     public Sprite Sprite => sprite;
+    public string Description => description;
     public int Amount
     {
         get => amount;

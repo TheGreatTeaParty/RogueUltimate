@@ -7,8 +7,6 @@ public class TradeSlot : MonoBehaviour, IPointerClickHandler
     private Item _item;
     private Image _image;
 
-    public Image Image => _image;
-    
 
     public void AddItemToTradeSlot(Item item)
     {
@@ -32,8 +30,15 @@ public class TradeSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        TradeManager.Instance.currentItem = _item;
-        TradeManager.Instance.OpenTooltip();
+        var tradeManager = TradeManager.Instance;
+        tradeManager.currentItem = _item;
+        tradeManager.OpenTooltip();
+
+        // true - buy, false - sell
+        if (gameObject.CompareTag("NPCTradeSlot"))
+            tradeManager.SetState(true);
+        else tradeManager.SetState(false);
+
     }
     
 } 

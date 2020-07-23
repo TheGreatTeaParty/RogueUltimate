@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class TradeTooltip : MonoBehaviour
 {
-    private TextMeshProUGUI name;
-    private TextMeshProUGUI description;
-    private TextMeshProUGUI price;
-    private Image image;
-    [SerializeField] private Image goldImage;
-
+    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI price;
+    [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] private Image image;
 
     public void SetName(String name)
     {
@@ -37,14 +36,14 @@ public class TradeTooltip : MonoBehaviour
     {
         if (sprite == null)
         {
-            goldImage.enabled = false;
+            priceText.enabled = false;
             image.enabled = false;
             return;
         }
         
         image.sprite = sprite;
         image.enabled = true;
-        goldImage.enabled = true;
+        priceText.enabled = true;
     }
     
 } 

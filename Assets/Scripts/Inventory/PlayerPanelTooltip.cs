@@ -17,7 +17,7 @@ public class PlayerPanelTooltip : MonoBehaviour
     #endregion
     
     private int _index;
-    private string _place;
+    private string _place; // needed for dropping equipment items
     [SerializeField] private Item item;
     [SerializeField] private Image image;
     [Space]
