@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 7715506744423685274}
   - component: {fileID: 9218063037527209955}
   - component: {fileID: 2174676988750736054}
+  - component: {fileID: 8782258219250690107}
   m_Layer: 8
   m_Name: TestKaban
   m_TagString: Enemy
@@ -237,13 +238,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4c6fdbd1ed94c10b556f2d60c74beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  range: 6
-  detectionRange: 7
-  followRange: 10
+  nextWayPointDistance: 1
+  Speed: 4
+  AttackRange: 5
+  DetectionRange: 7
+  FollowRange: 10
   waitTime: 1.5
   attackCoolDown: 4
-  KnockBack: 1
   rage_speed: 6
   timeBeforeTheRage: 1.5
   kabanDamageArea: {fileID: 2708465002988155395}
+--- !u!114 &8782258219250690107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9218063037527209949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1

@@ -9,9 +9,4 @@ public class TavernKeeperCall : MonoBehaviour
         if (collision.CompareTag("Player"))
             TavernKeeper.Instance.Call(true);
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-            TavernKeeper.Instance.Call(false);
-    }
 }

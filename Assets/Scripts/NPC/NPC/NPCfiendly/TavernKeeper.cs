@@ -16,59 +16,59 @@ public class TavernKeeper : AI,IInteractable
     }
     #endregion
 
-    public float speed = 2f;
     public float pointStandingTime = 2f;
 
     [Space]
 
     public GameObject[] HangingPoints;
+    public GameObject BarPosition;
 
     //private NPCPathfindingMovement NPCmovement;
 
-    private Vector3 startPosition;
     private int currentHangingIndex = 0;
     private bool _isStanding = false;
-    private bool _isCalled;
+    private bool courantineHasStarted = false;
     private TaverKeeperState STATE;
 
     public enum TaverKeeperState
     {
         standing = 0,
         hanging,
+        goingBack,
+
     };
 
     override public void Start()
     {
-        _isCalled = true;
-       // NPCmovement = GetComponent<NPCPathfindingMovement>();
-        //NPCmovement.SetSpeed(speed);
-        startPosition = transform.position;
+        base.Start();
+        target = BarPosition;
     }
 
 
     override public void Update()
     {
-        if (STATE == TaverKeeperState.hanging && Vector2.Distance(transform.position, startPosition) < 0.2f)
-            STATE = TaverKeeperState.standing;
+        base.Update();
     }
+
     override public void FixedUpdate()
     {
         switch (STATE)
         {
             case TaverKeeperState.hanging:
                 {
-
-                    if (WaitForCall())
-                        break;
-
-                    if (currentHangingIndex < points.Length && Vector2.Distance(transform.position, points[currentHangingIndex]) < 0.2f)
+                    
+                    if (Vector2.Distance(transform.position, HangingPoints[currentHangingIndex].transform.position) < 0.2f)
                         _isStanding = true;
 
                     if (!_isStanding)
-                        HangOut(HangingPoints);
+                    {
+                        Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
+                    }
                     else
                     {
-                        StartCoroutine(waiter());
+
+                        if(!courantineHasStarted)
+                            StartCoroutine(waiter());
                     }
 
                     break;
@@ -76,7 +76,15 @@ public class TavernKeeper : AI,IInteractable
 
             case TaverKeeperState.standing:
                 {
-                    StartCoroutine(Stand());
+                    if (!courantineHasStarted)
+                        StartCoroutine(Stand());
+                    break;
+                }
+            case TaverKeeperState.goingBack:
+                {
+                    Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
+                    if (Vector2.Distance(transform.position,BarPosition.transform.position) < 0.2f)
+                        STATE = TaverKeeperState.standing;
                     break;
                 }
         }
@@ -84,46 +92,39 @@ public class TavernKeeper : AI,IInteractable
 
     public void Call(bool option)
     {
-        _isCalled = option;
-    }
-
-    private bool WaitForCall()
-    {
-        if (_isCalled)
+        if (option)
         {
-            return true;
+            STATE = TaverKeeperState.goingBack;
+            target = BarPosition;
         }
-        return false;
     }
 
-    private void HangOut(GameObject[] pathPoints)
+
+    IEnumerator waiter()
     {
-        if (currentHangingIndex >= pathPoints.Length)
+        courantineHasStarted = true;
+        yield return new WaitForSeconds(pointStandingTime);
+        _isStanding = false;
+
+        //Move to another point
+        if (currentHangingIndex == HangingPoints.Length - 1)
         {
             currentHangingIndex = 0;
-        }
-
-        if (Vector3.Distance(transform.position, pathPoints[currentHangingIndex].transform.position) > 0.2f)
-        {
-           // (pathPoints[currentHangingIndex]);
         }
         else
         {
             currentHangingIndex++;
         }
-    }
-
-    IEnumerator waiter()
-    {
-        
-        yield return new WaitForSeconds(pointStandingTime);
-        _isStanding = false;
-        HangOut(HangingPoints);
+        target = HangingPoints[currentHangingIndex];
+        courantineHasStarted = false;
     }
     IEnumerator Stand()
     {
+        courantineHasStarted = true;
         yield return new WaitForSeconds(waitTime);
-        state = NPCstate.hanging;
+        STATE = TaverKeeperState.hanging;
+        target = HangingPoints[currentHangingIndex];
+        courantineHasStarted = false;
     }
 
     public void Interact()

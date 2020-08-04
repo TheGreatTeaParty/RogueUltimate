@@ -10,7 +10,7 @@ public class UpdateScan : MonoBehaviour
     void Start()
     {
         astarPath = GetComponent<AstarPath>();
-        Invoke("Scanner", 1f);
+        Invoke("Scanner", 2f);
     }
 
    

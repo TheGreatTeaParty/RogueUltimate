@@ -24,7 +24,7 @@ public class Kaban : AI
 
         if (Vector2.Distance(transform.position, finalPos) < 0.5f || !_isRage)
         {
-           // NPCmovement.Enable();
+            StartMoving();
             kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = false;
             _isRage = false;
         }
@@ -34,7 +34,7 @@ public class Kaban : AI
     {
         if (!_isRage)
         {
-            //NPCmovement.Disable();
+            StopMoving();
             StartCoroutine(Waiter());
             finalPos = target.transform.position;
             position = finalPos - transform.position;
