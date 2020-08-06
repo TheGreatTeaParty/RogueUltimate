@@ -8,7 +8,8 @@ public class SpawnEnemy : MonoBehaviour
 
     public void SpawnAnEnemy()
     {
-        Instantiate(enemy, transform.position, Quaternion.identity);
+        
+        Instantiate(enemy,transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
     public void SetEnemy(Transform _enemy)

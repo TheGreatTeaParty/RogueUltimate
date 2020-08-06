@@ -61,6 +61,6 @@ public class JoystickAttack : MonoBehaviour
 
     public Vector2 GetDirection()
     {
-        return movement;
+        return movement.normalized;
     }
 }
