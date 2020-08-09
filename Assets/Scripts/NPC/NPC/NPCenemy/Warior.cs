@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Warior : AI
 {
-    public float AttachRange;
-
     private LayerMask whatIsEnemy;
     private Vector2 attackPosition;
     private Vector3 direction;
@@ -22,13 +20,13 @@ public class Warior : AI
     public override void Update()
     {
         base.Update();
-       // direction = NPCmovement.GetLastMoveDir();
+        direction = last_dir;
         attackPosition = transform.position + direction;
     }
 
     public override void Attack()
     {
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttachRange, whatIsEnemy);
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttackRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
@@ -38,6 +36,6 @@ public class Warior : AI
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPosition, AttachRange);
+        Gizmos.DrawWireSphere(attackPosition, AttackRange);
     }
 }

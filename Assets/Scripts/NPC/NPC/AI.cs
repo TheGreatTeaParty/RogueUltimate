@@ -20,11 +20,13 @@ public class AI : MonoBehaviour
     protected int currentPathpoint = 0;
     protected bool reachedEnd = false;
     protected Vector2 dir;
+    protected Vector2 last_dir;
     protected GameObject target;
 
     protected Path path;
     protected Seeker seeker;
     protected Rigidbody2D Rb;
+    private bool _stopped = false;
 
 
     // Start is called before the first frame update
@@ -58,6 +60,11 @@ public class AI : MonoBehaviour
         }
 
         dir = (path.vectorPath[currentPathpoint] - transform.position).normalized;
+
+        if (dir != Vector2.zero)
+        {
+            last_dir = dir;
+        }
 
         if(Vector2.Distance(Rb.position, path.vectorPath[currentPathpoint]) < nextWayPointDistance)
         {
@@ -148,7 +155,8 @@ public class AI : MonoBehaviour
              }
             else
             {
-                Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
+                if(!_stopped)
+                    Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
             }
              Relax();
          }
@@ -169,4 +177,13 @@ public class AI : MonoBehaviour
         attacking,
     }
 
+    public void StopMoving()
+    {
+        _stopped = true;
+    }
+
+    public void StartMoving()
+    {
+        _stopped = false;
+    }
 }

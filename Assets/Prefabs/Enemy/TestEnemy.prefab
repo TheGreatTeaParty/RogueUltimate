@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4452840553849684515}
   - component: {fileID: 2969126813485017434}
   - component: {fileID: 7008089830817396999}
+  - component: {fileID: -244161455613779257}
   m_Layer: 8
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -29,13 +30,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2969126813485017444}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 3.55, y: -3.68, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2969126813485017433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -176,11 +177,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32849f1f7d5914e079ee35a628b95e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  range: 0.7
-  detectionRange: 7
-  followRange: 10
+  nextWayPointDistance: 1
+  Speed: 4
+  AttackRange: 1.5
+  DetectionRange: 7
+  FollowRange: 10
   waitTime: 2
   attackCoolDown: 2
-  KnockBack: 5
-  AttachRange: 0.7
+--- !u!114 &-244161455613779257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969126813485017444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1

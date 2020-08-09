@@ -49,8 +49,14 @@ public class InventoryManager : MonoBehaviour
         
         //Call spawn function on the player's position
         var position = KeepOnScene.instance.transform.position;
-        Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
-        ItemScene.SpawnItemScene(newPosition, item);
+        Vector3 newPosition = new Vector3(position.x + 1f, position.y, 0f);
+        Collider2D checkWall = Physics2D.OverlapCircle(newPosition, 0.25f, LayerMask.GetMask("Wall"));
+        if(checkWall == null)
+            ItemScene.SpawnItemScene(newPosition, item);
+        else
+        {
+            ItemScene.SpawnItemScene(new Vector3(position.x-1f,position.y,0f), item);
+        }
     }
 
     public bool CheckOverflow()

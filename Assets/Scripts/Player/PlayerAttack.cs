@@ -73,18 +73,13 @@ public class PlayerAttack : MonoBehaviour
         {
             attackRange = fistRange;
 
-            /*Push the player to the direction of the hit
-            Vector2 push_direction = new Vector2(direction.x * pushForce, direction.y * pushForce);
-            GetComponent<PlayerMovment>().Push(push_direction); */
+           
 
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(transform.position + direction / 2, attackRange, whatIsEnemy.value);
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
-                /*enemiesToDamage[i].GetComponent<EnemyStats>().AddForce(GetComponent<MoveScript>().ReturnDirection() * knockBack);
-                This is to knock back the enemies
-                */
             }
             startAttackCoolDown = attackCoolDown;
             onAttacked?.Invoke(WeaponType.None);
