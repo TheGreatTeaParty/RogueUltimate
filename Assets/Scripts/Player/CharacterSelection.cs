@@ -18,6 +18,7 @@ public class CharacterSelection : MonoBehaviour
 
     private bool _isChanged = false;
 
+
     void Update()
     { 
         for (int i = 0; i < options.Length; i++)
@@ -49,6 +50,7 @@ public class CharacterSelection : MonoBehaviour
         {
             Index = 0;
         }
+        
         _isChanged = false;
     }
 
@@ -72,4 +74,5 @@ public class CharacterSelection : MonoBehaviour
         Interface.SetActive(true);
         Destroy(gameObject);
     }
+
 }

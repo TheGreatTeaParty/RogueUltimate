@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+
 
 public static class LevelManager
 {
@@ -25,4 +27,16 @@ public static class LevelManager
             player.transform.position = new Vector3(0f, 0f, 0f);
         }
     }
+    
+    public static void LoadScene(String scenes)
+    {
+        SceneManager.LoadScene(scenes);
+
+        //Tries to find player and move him to the 0 position
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) 
+            player.transform.position = new Vector3(0f, 0f, 0f);
+        
+    }
+
 }

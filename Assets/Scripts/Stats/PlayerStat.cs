@@ -142,15 +142,17 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public override void Die()
     {
-        //animator.SetTrigger("Die");
+        //Sets player's tag to playerIsDead
+        animator.SetTrigger("Die");
         //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroys or set Active(faulse)
+        //Deleate all player's data
         
-        //InterfaceOnScene.instance.gameObject.SetActive(false);
-        Destroy(gameObject);
-        Destroy(InterfaceOnScene.instance.gameObject);
-        SceneManager.LoadScene("Menu");
+        InterfaceOnScene.instance.gameObject.SetActive(false);
+        //Destroy(gameObject);
+        //Destroy(InterfaceOnScene.instance.gameObject);
+        //SceneManager.LoadScene("Menu");
 
     }
     
