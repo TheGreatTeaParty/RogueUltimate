@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour {
 
         Debug.Log("U are trying to load scene " + data.scene);
         Debug.Log("gameObject's name is " + data.gameObjectName);
-        Debug.Log("gameObject's HP = " + data.HP);
+        Debug.Log("gameObject's HP = " + data.currentHP);
          
         foreach(GameObject pref in characterPrefabs)
         {
@@ -34,9 +34,12 @@ public class MainMenu : MonoBehaviour {
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
                 Instantiate(playerInterface);
-                PlayerStat.Instance.currentHealth = data.HP;
-                PlayerStat.Instance.currentMana = data.MP;
-                PlayerStat.Instance.currentStamina = data.SP;
+                PlayerStat.Instance.currentHealth = data.currentHP;
+                PlayerStat.Instance.currentMana = data.currentMP;
+                PlayerStat.Instance.currentStamina = data.currentSP;
+                PlayerStat.Instance.maxHealth = data.maxHP;
+                PlayerStat.Instance.maxMana = data.maxMP;
+                PlayerStat.Instance.maxStamina = data.maxSP;
 
                 break;
             }

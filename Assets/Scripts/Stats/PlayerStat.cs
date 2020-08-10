@@ -144,6 +144,8 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         //Sets player's tag to playerIsDead
         animator.SetTrigger("Die");
+        PlayerStat.Instance.gameObject.layer = 2;
+        PlayerStat.Instance.gameObject.tag = "Untagged";
         //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroys or set Active(faulse)
