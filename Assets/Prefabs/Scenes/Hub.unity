@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 56433718}
   - component: {fileID: 56433720}
   - component: {fileID: 56433719}
+  - component: {fileID: 56433721}
   m_Layer: 0
   m_Name: TorchLight (4)
   m_TagString: Untagged
@@ -343,7 +344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56433717}
   m_LocalRotation: {x: -0, y: -0, z: 0.11184284, w: 0.99372596}
-  m_LocalPosition: {x: -15.740339, y: 17.529755, z: 0}
+  m_LocalPosition: {x: -14.975, y: 17.704, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 20987458}
@@ -427,6 +428,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &56433721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56433717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &75084994
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +933,7 @@ GameObject:
   - component: {fileID: 185139450}
   - component: {fileID: 185139452}
   - component: {fileID: 185139451}
+  - component: {fileID: 185139453}
   m_Layer: 0
   m_Name: TorchLight
   m_TagString: Untagged
@@ -1016,6 +1033,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &185139453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185139449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.7
+  runOnlyOnce: 1
 --- !u!1 &249176400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 252448717}
   - component: {fileID: 252448718}
+  - component: {fileID: 252448719}
   m_Layer: 0
   m_Name: Building2 (1)
   m_TagString: Untagged
@@ -1181,6 +1214,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &252448719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252448716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &295816131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,6 +1404,7 @@ GameObject:
   - component: {fileID: 325540658}
   - component: {fileID: 325540660}
   - component: {fileID: 325540659}
+  - component: {fileID: 325540661}
   m_Layer: 0
   m_Name: Box (3)
   m_TagString: Untagged
@@ -1454,6 +1503,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &325540661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325540657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &334747066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1529,7 @@ GameObject:
   - component: {fileID: 334747067}
   - component: {fileID: 334747069}
   - component: {fileID: 334747068}
+  - component: {fileID: 334747070}
   m_Layer: 0
   m_Name: TorchLight (7)
   m_TagString: Untagged
@@ -1480,7 +1545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334747066}
   m_LocalRotation: {x: -0, y: -0, z: 0.11184284, w: 0.99372596}
-  m_LocalPosition: {x: 2.7557325, y: -2.099986, z: 0}
+  m_LocalPosition: {x: 1.89, y: -2.297, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1656391156}
@@ -1564,6 +1629,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &334747070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334747066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &342644930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1655,7 @@ GameObject:
   - component: {fileID: 342644931}
   - component: {fileID: 342644933}
   - component: {fileID: 342644932}
+  - component: {fileID: 342644934}
   m_Layer: 0
   m_Name: TorchLight (3)
   m_TagString: Untagged
@@ -1590,7 +1671,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342644930}
   m_LocalRotation: {x: -0, y: -0, z: 0.11184284, w: 0.99372596}
-  m_LocalPosition: {x: -2.743678, y: 5.2412534, z: 0}
+  m_LocalPosition: {x: -2.27, y: 5.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 725937275}
@@ -1674,6 +1755,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &342644934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342644930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &360269325
 GameObject:
   m_ObjectHideFlags: 0
@@ -7897,6 +7993,7 @@ GameObject:
   - component: {fileID: 516384701}
   - component: {fileID: 516384703}
   - component: {fileID: 516384702}
+  - component: {fileID: 516384704}
   m_Layer: 0
   m_Name: Box (1)
   m_TagString: Untagged
@@ -7995,6 +8092,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &516384704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516384700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &572546199
 GameObject:
   m_ObjectHideFlags: 0
@@ -8041,6 +8153,7 @@ GameObject:
   - component: {fileID: 621999133}
   - component: {fileID: 621999135}
   - component: {fileID: 621999134}
+  - component: {fileID: 621999136}
   m_Layer: 0
   m_Name: TorchLight (5)
   m_TagString: Untagged
@@ -8140,6 +8253,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &621999136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621999132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &673997940
 GameObject:
   m_ObjectHideFlags: 0
@@ -8486,6 +8614,7 @@ GameObject:
   - component: {fileID: 738188261}
   - component: {fileID: 738188263}
   - component: {fileID: 738188262}
+  - component: {fileID: 738188264}
   m_Layer: 0
   m_Name: TorchLight (6)
   m_TagString: Untagged
@@ -8585,6 +8714,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &738188264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738188260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &753460868
 GameObject:
   m_ObjectHideFlags: 0
@@ -8705,6 +8849,7 @@ GameObject:
   - component: {fileID: 808592122}
   - component: {fileID: 808592124}
   - component: {fileID: 808592123}
+  - component: {fileID: 808592125}
   m_Layer: 0
   m_Name: Box (2)
   m_TagString: Untagged
@@ -8803,6 +8948,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &808592125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808592121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &826755046
 GameObject:
   m_ObjectHideFlags: 0
@@ -8814,6 +8974,7 @@ GameObject:
   - component: {fileID: 826755047}
   - component: {fileID: 826755049}
   - component: {fileID: 826755048}
+  - component: {fileID: 826755050}
   m_Layer: 0
   m_Name: Builings2_1
   m_TagString: Untagged
@@ -8912,6 +9073,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &826755050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826755046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: -1.4
+  runOnlyOnce: 1
 --- !u!1 &835484427
 GameObject:
   m_ObjectHideFlags: 0
@@ -8923,6 +9099,7 @@ GameObject:
   - component: {fileID: 835484428}
   - component: {fileID: 835484430}
   - component: {fileID: 835484429}
+  - component: {fileID: 835484431}
   m_Layer: 0
   m_Name: Object_1
   m_TagString: Untagged
@@ -9021,6 +9198,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &835484431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835484427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.6
+  runOnlyOnce: 1
 --- !u!1 &892319480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9156,6 +9348,7 @@ GameObject:
   - component: {fileID: 926399246}
   - component: {fileID: 926399248}
   - component: {fileID: 926399247}
+  - component: {fileID: 926399249}
   m_Layer: 0
   m_Name: Box (6)
   m_TagString: Untagged
@@ -9254,6 +9447,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &926399249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926399245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &980257556
 GameObject:
   m_ObjectHideFlags: 0
@@ -9265,6 +9473,7 @@ GameObject:
   - component: {fileID: 980257557}
   - component: {fileID: 980257559}
   - component: {fileID: 980257558}
+  - component: {fileID: 980257560}
   m_Layer: 0
   m_Name: Sign (3)
   m_TagString: Untagged
@@ -9363,6 +9572,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &980257560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980257556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.8
+  runOnlyOnce: 1
 --- !u!1 &1039691082
 GameObject:
   m_ObjectHideFlags: 0
@@ -9742,6 +9966,7 @@ GameObject:
   - component: {fileID: 1222375790}
   - component: {fileID: 1222375792}
   - component: {fileID: 1222375791}
+  - component: {fileID: 1222375793}
   m_Layer: 0
   m_Name: Object_2
   m_TagString: Untagged
@@ -9840,6 +10065,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1222375793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222375789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &1256003047
 GameObject:
   m_ObjectHideFlags: 0
@@ -10405,6 +10645,7 @@ GameObject:
   - component: {fileID: 1415937561}
   - component: {fileID: 1415937563}
   - component: {fileID: 1415937562}
+  - component: {fileID: 1415937564}
   m_Layer: 0
   m_Name: Box (5)
   m_TagString: Untagged
@@ -10503,6 +10744,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1415937564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415937560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &1430703170
 GameObject:
   m_ObjectHideFlags: 0
@@ -10596,6 +10852,7 @@ GameObject:
   - component: {fileID: 1439710062}
   - component: {fileID: 1439710064}
   - component: {fileID: 1439710063}
+  - component: {fileID: 1439710065}
   m_Layer: 0
   m_Name: Houses-0001_0
   m_TagString: Untagged
@@ -10695,6 +10952,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1439710065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439710061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &1442740552
 GameObject:
   m_ObjectHideFlags: 0
@@ -10932,6 +11204,7 @@ GameObject:
   - component: {fileID: 1481487604}
   - component: {fileID: 1481487606}
   - component: {fileID: 1481487605}
+  - component: {fileID: 1481487607}
   m_Layer: 0
   m_Name: TorchLight (1)
   m_TagString: Untagged
@@ -11031,6 +11304,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1481487607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481487603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &1484413336
 GameObject:
   m_ObjectHideFlags: 0
@@ -11042,6 +11330,7 @@ GameObject:
   - component: {fileID: 1484413337}
   - component: {fileID: 1484413339}
   - component: {fileID: 1484413338}
+  - component: {fileID: 1484413340}
   m_Layer: 0
   m_Name: Sign
   m_TagString: Untagged
@@ -11140,6 +11429,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1484413340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484413336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.7
+  runOnlyOnce: 1
 --- !u!1 &1497172460
 GameObject:
   m_ObjectHideFlags: 0
@@ -11223,6 +11527,7 @@ GameObject:
   - component: {fileID: 1542810803}
   - component: {fileID: 1542810805}
   - component: {fileID: 1542810804}
+  - component: {fileID: 1542810806}
   m_Layer: 0
   m_Name: Sign (2)
   m_TagString: Untagged
@@ -11321,6 +11626,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1542810806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542810802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.7
+  runOnlyOnce: 1
 --- !u!1 &1567936906
 GameObject:
   m_ObjectHideFlags: 0
@@ -11332,13 +11652,14 @@ GameObject:
   - component: {fileID: 1567936907}
   - component: {fileID: 1567936909}
   - component: {fileID: 1567936908}
+  - component: {fileID: 1567936910}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1567936907
 Transform:
   m_ObjectHideFlags: 0
@@ -11431,6 +11752,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1567936910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567936906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 0
 --- !u!1 &1569081032
 GameObject:
   m_ObjectHideFlags: 0
@@ -11660,6 +11996,7 @@ GameObject:
   - component: {fileID: 1595928714}
   - component: {fileID: 1595928716}
   - component: {fileID: 1595928715}
+  - component: {fileID: 1595928717}
   m_Layer: 0
   m_Name: Tavern
   m_TagString: Untagged
@@ -11759,6 +12096,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1595928717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595928713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: -3
+  runOnlyOnce: 1
 --- !u!1 &1602894125
 GameObject:
   m_ObjectHideFlags: 0
@@ -11842,6 +12194,7 @@ GameObject:
   - component: {fileID: 1627133875}
   - component: {fileID: 1627133877}
   - component: {fileID: 1627133876}
+  - component: {fileID: 1627133878}
   m_Layer: 0
   m_Name: TorchLight (9)
   m_TagString: Untagged
@@ -11857,7 +12210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627133874}
   m_LocalRotation: {x: -0, y: -0, z: 0.11184284, w: 0.99372596}
-  m_LocalPosition: {x: 3.48, y: 18.06, z: 0}
+  m_LocalPosition: {x: 2.637, y: 17.868, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1376680879}
@@ -11941,6 +12294,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1627133878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627133874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &1656391155
 GameObject:
   m_ObjectHideFlags: 0
@@ -12023,6 +12391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1676983866}
   - component: {fileID: 1676983867}
+  - component: {fileID: 1676983868}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -12095,6 +12464,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1676983868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676983865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
 --- !u!1 &1697487600
 GameObject:
   m_ObjectHideFlags: 0
@@ -12106,6 +12490,7 @@ GameObject:
   - component: {fileID: 1697487601}
   - component: {fileID: 1697487603}
   - component: {fileID: 1697487602}
+  - component: {fileID: 1697487604}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -12205,6 +12590,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1697487604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697487600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: -4
+  runOnlyOnce: 0
 --- !u!1 &1764591041
 GameObject:
   m_ObjectHideFlags: 0
@@ -12372,6 +12772,7 @@ GameObject:
   - component: {fileID: 1819021637}
   - component: {fileID: 1819021639}
   - component: {fileID: 1819021638}
+  - component: {fileID: 1819021640}
   m_Layer: 0
   m_Name: Object_3
   m_TagString: Untagged
@@ -12466,6 +12867,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1819021640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819021636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.8
+  runOnlyOnce: 1
 --- !u!1 &1831267236
 GameObject:
   m_ObjectHideFlags: 0
@@ -12477,6 +12893,7 @@ GameObject:
   - component: {fileID: 1831267237}
   - component: {fileID: 1831267239}
   - component: {fileID: 1831267238}
+  - component: {fileID: 1831267240}
   m_Layer: 0
   m_Name: Sign (1)
   m_TagString: Untagged
@@ -12575,6 +12992,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1831267240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831267236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.7
+  runOnlyOnce: 1
 --- !u!1 &1872623348
 GameObject:
   m_ObjectHideFlags: 0
@@ -12693,6 +13125,7 @@ GameObject:
   - component: {fileID: 1964557652}
   - component: {fileID: 1964557654}
   - component: {fileID: 1964557653}
+  - component: {fileID: 1964557655}
   m_Layer: 0
   m_Name: TorchLight (10)
   m_TagString: Untagged
@@ -12792,6 +13225,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1964557655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964557651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &1989199287
 GameObject:
   m_ObjectHideFlags: 0
@@ -12957,6 +13405,7 @@ GameObject:
   - component: {fileID: 2116848681}
   - component: {fileID: 2116848683}
   - component: {fileID: 2116848682}
+  - component: {fileID: 2116848684}
   m_Layer: 0
   m_Name: TorchLight (8)
   m_TagString: Untagged
@@ -12972,7 +13421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116848680}
   m_LocalRotation: {x: -0, y: -0, z: 0.11184284, w: 0.99372596}
-  m_LocalPosition: {x: -0.17617059, y: 10.760031, z: 0}
+  m_LocalPosition: {x: -0.287, y: 10.735, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1105634411}
@@ -13056,6 +13505,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2116848684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116848680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 1
 --- !u!1 &2124563326
 GameObject:
   m_ObjectHideFlags: 0
@@ -13149,6 +13613,7 @@ GameObject:
   - component: {fileID: 2134780872}
   - component: {fileID: 2134780874}
   - component: {fileID: 2134780873}
+  - component: {fileID: 2134780875}
   m_Layer: 0
   m_Name: Box (4)
   m_TagString: Untagged
@@ -13247,3 +13712,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2134780875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134780871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.3
+  runOnlyOnce: 1
