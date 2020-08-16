@@ -142,14 +142,14 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public override void Die()
     {
-        //Sets player's tag to playerIsDead
         animator.SetTrigger("Die");
         PlayerStat.Instance.gameObject.layer = 2;
         PlayerStat.Instance.gameObject.tag = "Untagged";
+        SaveSystem.DeletePlayer(); //Deleate all player's data
         //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
-        //Destroys or set Active(faulse)
-        //Deleate all player's data
+        //Destroy or set Active(faulse)
+
         
         InterfaceOnScene.instance.gameObject.SetActive(false);
         //Destroy(gameObject);
