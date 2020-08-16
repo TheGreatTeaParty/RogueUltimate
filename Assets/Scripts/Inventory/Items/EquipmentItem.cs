@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEditor.Animations;
 
 public enum EquipmentType
 {
@@ -15,7 +15,8 @@ public enum EquipmentType
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
-
+    public AnimatorController EquipmentAnimations;
+    [Space]
     //Modifiers
     public int PhysicalArmorModifier;
     public int MagicalArmorModifier;

@@ -12,7 +12,7 @@ public class MeleeWeapon : EquipmentItem
     public float attackRange;
     public float KnockBack;
     public float pushForce;
-    
+
     [Space]
     [SerializeField] private int requiredStamina;
 
