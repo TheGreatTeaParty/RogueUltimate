@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 
 public class MainMenu : MonoBehaviour {
@@ -11,11 +12,20 @@ public class MainMenu : MonoBehaviour {
     private GameObject [] characterPrefabs;
     [SerializeField]
     private GameObject playerInterface;
+    [SerializeField]
+    private Button resumeButton;
 
+    
+    private void Start()
+    {
+        string path = Application.persistentDataPath + "/player.gay";
+        if (File.Exists(path)) resumeButton.interactable = true;
+    }
 
     public void NewGame()
     {
         LevelManager.LoadScene("StartTavern");
+        SaveSystem.DeletePlayer();
     }
 
     public void ResumeGame()

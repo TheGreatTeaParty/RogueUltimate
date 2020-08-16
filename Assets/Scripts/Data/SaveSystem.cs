@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
+
 
 public static class SaveSystem
 {
@@ -31,9 +33,17 @@ public static class SaveSystem
         } else
         {
             Debug.LogError("There is no save file in " + path);
-            //Sets button resume unactive
+            //Sets button resume non interactable
             return null;
         }
+    }
+
+    public static void DeletePlayer()
+    {
+        string path = Application.persistentDataPath + "/player.gay";
+        UnityEditor.FileUtil.DeleteFileOrDirectory(path);
+        AssetDatabase.Refresh();
+
     }
 
 }
