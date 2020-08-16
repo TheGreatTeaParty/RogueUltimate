@@ -7,9 +7,6 @@ public class GolemBoss : AI
     public float speed = 6f;
     public float meleRange = 0.5f;
     public float rockRange = 7f;
-    public float detectionRange = 7f;
-    public float followRange = 10f;
-
     [Space]
     public int StageTwoHealth = 180;
     public float StageCharacteristicMult = 1.4f;
@@ -21,7 +18,6 @@ public class GolemBoss : AI
     private BossStage stage;
     private EnemyStat golemStat;
 
-   // private NPCPathfindingMovement NPCmovement;
     private bool StageChanged = false;
 
 
@@ -33,25 +29,25 @@ public class GolemBoss : AI
     
     public override void Start()
     {
-       // NPCmovement = GetComponent<NPCPathfindingMovement>();
-        //NPCmovement.SetSpeed(speed);
+        base.Start();
         golemStat = GetComponent<EnemyStat>();
         stage = BossStage.first;
 
         target = GameObject.FindGameObjectWithTag("Player");
         startAttackCoolDown = attackCoolDown;
         BossFightPortal.Instance.HealthBar(true);
+        state = NPCstate.chasing;
     }
 
     public override void Update()
     {
-        if (startAttackCoolDown > 0)
-            startAttackCoolDown -= Time.deltaTime;
+        base.Update();
 
         if (golemStat.currentHealth <= StageTwoHealth && !StageChanged)
         {
             SwitchStage();
         }
+
         //Should be changed in the inherited EnemyStat class
         BossFightPortal.Instance.SetBossHealth(golemStat.currentHealth);
 
@@ -106,6 +102,7 @@ public class GolemBoss : AI
         stage = BossStage.second;
         speed *= StageCharacteristicMult;
         attackCoolDown -= .2f;
+        GetComponent<SpriteRenderer>().color = Color.red;
         StageChanged = true;
     }
 

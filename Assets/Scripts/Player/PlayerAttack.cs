@@ -53,16 +53,19 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        //If there is any Weapon call the function attack there
-        if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
+        if (startAttackCoolDown <= 0)
         {
-            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
-            startAttackCoolDown = weaponCoolDown;
-        }
-        //if not, this is base fist attack
-        else
-        {
-            FistAttack();
+            //If there is any Weapon call the function attack there
+            if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
+            {
+                EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
+                startAttackCoolDown = weaponCoolDown;
+            }
+            //if not, this is base fist attack
+            else
+            {
+                FistAttack();
+            }
         }
     }
 

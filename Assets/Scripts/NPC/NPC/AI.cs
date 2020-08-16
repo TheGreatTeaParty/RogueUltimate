@@ -82,12 +82,6 @@ public class AI : MonoBehaviour
                     break;
                 }
 
-            case NPCstate.hanging:
-                {
-                    StateHanging();
-                    break;
-                }
-
             case NPCstate.attacking:
                 {
                     StateAttack();
@@ -158,22 +152,13 @@ public class AI : MonoBehaviour
                 if(!_stopped)
                     Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
             }
-             Relax();
          }
     }
 
-    private void Relax()
-    {
-        if (Vector2.Distance(transform.position, target.transform.position) > FollowRange)
-        {
-            state = NPCstate.hanging;
-        }
-    }
-
+   
     public enum NPCstate
     {
-        hanging = 0,
-        chasing,
+        chasing = 0,
         attacking,
     }
 

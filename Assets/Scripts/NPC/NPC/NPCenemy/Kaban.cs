@@ -12,6 +12,8 @@ public class Kaban : AI
     private bool _isRage;
     private float saveTime = 3f;
 
+    private bool _preparing = false;
+
     [SerializeField] private GameObject kabanDamageArea;
 
     
@@ -35,18 +37,21 @@ public class Kaban : AI
         if (!_isRage)
         {
             StopMoving();
-            StartCoroutine(Waiter());
-            finalPos = target.transform.position;
-            position = finalPos - transform.position;
-            kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
-            _isRage = true;
-            StartCoroutine(Check());
+            if(!_preparing)
+                StartCoroutine(Waiter());
         }
     }
 
     IEnumerator Waiter()
     {
+        _preparing = true;
         yield return new WaitForSeconds(timeBeforeTheRage);
+        finalPos = target.transform.position;
+        position = finalPos - transform.position;
+        kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
+        _isRage = true;
+        StartCoroutine(Check());
+        _preparing = false;
     }
 
     IEnumerator Check()
