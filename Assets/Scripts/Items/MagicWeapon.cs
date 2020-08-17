@@ -32,7 +32,7 @@ public class MagicWeapon : EquipmentItem
         Transform magic = Instantiate(Prefab, KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
         magic.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
-        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Magic);
+        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Magic,0);
     }
     
     public override WeaponType Echo()

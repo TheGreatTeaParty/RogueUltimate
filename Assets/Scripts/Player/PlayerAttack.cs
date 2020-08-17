@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 direction;
 
     //Deligate to trigger animation
-    public delegate void OnAttacked(WeaponType type);
+    public delegate void OnAttacked(WeaponType type,int set);
     public OnAttacked onAttacked;
 
     
@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
             }
             startAttackCoolDown = attackCoolDown;
-            onAttacked?.Invoke(WeaponType.None);
+            onAttacked?.Invoke(WeaponType.None,0);
         }
     }
 

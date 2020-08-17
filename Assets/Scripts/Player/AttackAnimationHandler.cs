@@ -13,12 +13,12 @@ public class AttackAnimationHandler : MonoBehaviour
         GetComponent<PlayerAttack>().onAttacked += AttackAnimation;
     }
 
-    private void AttackAnimation(WeaponType type)
+    private void AttackAnimation(WeaponType type,int set)
     {
         switch (type)
         {
             case WeaponType.None: { animator.SetTrigger("Attack"); break; }
-            case WeaponType.Melee: { /*Animation for Melee attack*/ break; }
+            case WeaponType.Melee: { animator.SetTrigger("SwordAttack"); animator.SetInteger("Type", set); break; }
             case WeaponType.Range: { /*Animation for Range attack*/ break; }
             case WeaponType.Magic: { /*Animation for Magic attack*/ break; }
 

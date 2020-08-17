@@ -63,11 +63,19 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
         if (_new != null)
+        {
             if (_new.equipmentType == EquipmentType.Weapon)
             {
                 WeaponController = _new.EquipmentAnimations;
                 WeaponAnim.runtimeAnimatorController = WeaponController as RuntimeAnimatorController;
             }
+        }
+        //If we drop the weapon, clear the animation controller
+        else
+        {
+            WeaponAnim.runtimeAnimatorController = null as RuntimeAnimatorController;
+            WeaponController = null;
+        }
     }
 
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
@@ -81,12 +89,12 @@ public class EquipmentAnimationHandler : MonoBehaviour
     }
 
     //When attack, trigger the Attack animation
-    private void AttackAnimation(WeaponType type)
+    private void AttackAnimation(WeaponType type,int set)
     {
         if (WeaponController != null)
         {
             WeaponAnim.SetTrigger("Attack");
-            WeaponAnim.SetInteger("Random", Random.Range(0, 2));
+            WeaponAnim.SetInteger("Set", set);
         }
         if(EquipmentController != null)
             EquipmentAnim.SetTrigger("Attack");
