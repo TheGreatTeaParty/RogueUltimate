@@ -12,7 +12,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private AnimatorController EquipmentController;
     private Vector2 direction;
     private PlayerMovment playerMovment;
-
+  
     private void Start()
     {
         playerMovment = KeepOnScene.instance.GetComponent<PlayerMovment>();
@@ -22,15 +22,39 @@ public class EquipmentAnimationHandler : MonoBehaviour
 
         if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         direction = playerMovment.GetDirection();
-        //WeaponAnim.SetFloat("Horizontal", direction.x);
-        //WeaponAnim.SetFloat("Vertical", direction.y);
+        if (WeaponController != null)
+        {
+            int x = 0;
+            int y = 0;
 
+            if (direction.x > 0.5f)
+            {
+                x = 1;
+                y = 0;
+                WeaponAnim.SetFloat("Horizontal", x);
+                WeaponAnim.SetFloat("Vertical", y);
+            }
+            else if (direction.x < -0.5f)
+            {
+                x = -1;
+                y = 0;
+                WeaponAnim.SetFloat("Horizontal", x);
+                WeaponAnim.SetFloat("Vertical", y);
+            }
+            else
+            {
+                WeaponAnim.SetFloat("Horizontal", direction.x);
+                WeaponAnim.SetFloat("Vertical", direction.y);
+            }
+        }
+ 
         //EquipmentAnim.SetFloat("Horizontal", direction.x);
         //EquipmentAnim.SetFloat("Vertical", direction.y);
     }
@@ -59,9 +83,12 @@ public class EquipmentAnimationHandler : MonoBehaviour
     //When attack, trigger the Attack animation
     private void AttackAnimation(WeaponType type)
     {
-        if(WeaponAnim != null)
+        if (WeaponController != null)
+        {
             WeaponAnim.SetTrigger("Attack");
-        if(EquipmentAnim != null)
+            WeaponAnim.SetInteger("Random", Random.Range(0, 2));
+        }
+        if(EquipmentController != null)
             EquipmentAnim.SetTrigger("Attack");
     }
 }
