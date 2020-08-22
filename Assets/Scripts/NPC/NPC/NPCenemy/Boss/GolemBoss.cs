@@ -34,7 +34,6 @@ public class GolemBoss : AI
         stage = BossStage.first;
 
         target = GameObject.FindGameObjectWithTag("Player");
-        startAttackCoolDown = attackCoolDown;
         BossFightPortal.Instance.HealthBar(true);
         state = NPCstate.chasing;
     }

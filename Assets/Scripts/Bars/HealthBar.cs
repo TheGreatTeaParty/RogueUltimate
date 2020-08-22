@@ -6,7 +6,7 @@ public class HealthBar : Bar
 {
     private void Update()
     {
-        SetCurrentValue(PlayerStat.Instance.currentHealth);
+        SetCurrentValue(PlayerStat.Instance.GetCurrentHealth());
     }
     
 }

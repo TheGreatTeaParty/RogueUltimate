@@ -13,8 +13,8 @@ public class AI : MonoBehaviour
     public float waitTime = 2f;
     [Space]
     public float attackCoolDown = 1.2f;
+    public float attackDuration = 0.5f;
 
-    protected float startAttackCoolDown;
     protected Vector3[] points;
     protected NPCstate state;
     protected int currentPathpoint = 0;
@@ -26,8 +26,13 @@ public class AI : MonoBehaviour
     protected Path path;
     protected Seeker seeker;
     protected Rigidbody2D Rb;
-    private bool _stopped = false;
 
+    private EnemyStat NPCstat;
+    private bool _stopped = false;
+    private bool _attack = false;
+
+    public delegate void OnAttacked();
+    public OnAttacked onAttacked;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -35,16 +40,16 @@ public class AI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         Rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
-        startAttackCoolDown = attackCoolDown;
+
+        NPCstat = GetComponent<EnemyStat>();
+        NPCstat.onDie += Die;
+
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (startAttackCoolDown > 0)
-            startAttackCoolDown -= Time.deltaTime;
-
         if (path == null) //Change it!
             return;
 
@@ -110,12 +115,8 @@ public class AI : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, target.transform.position) > AttackRange)
             state = NPCstate.chasing;
-
-        if (startAttackCoolDown <= 0)
-        {
-            Attack();
-            startAttackCoolDown = attackCoolDown;
-        }
+        if (!_attack)
+            StartCoroutine(AttackWait());
     }
 
     protected void StateHanging()
@@ -150,7 +151,7 @@ public class AI : MonoBehaviour
             else
             {
                 if(!_stopped)
-                    Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
+                    Rb.MovePosition(transform.position + (Vector3)dir * Speed * Time.deltaTime);
             }
          }
     }
@@ -170,5 +171,41 @@ public class AI : MonoBehaviour
     public void StartMoving()
     {
         _stopped = false;
+    }
+
+    public Vector2 GetDirection()
+    {
+      
+        return dir;
+
+    }
+    public Vector2 GetVelocity()
+    {
+        if (_stopped)
+        {
+            return new Vector2(0f, 0f);
+        }
+        else
+        {
+            return dir;
+        }
+    }
+
+    IEnumerator AttackWait()
+    {
+        _attack = true;
+        StopMoving();
+        yield return new WaitForSeconds(attackCoolDown);
+        onAttacked?.Invoke();
+        yield return new WaitForSeconds(attackDuration);
+        _attack = true;
+        Attack();
+        StartMoving();
+        _attack = false;
+    }
+
+    void Die()
+    {
+        Destroy(this);
     }
 }

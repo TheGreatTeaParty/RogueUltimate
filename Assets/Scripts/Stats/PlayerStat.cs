@@ -18,22 +18,22 @@ public class PlayerStat : CharacterStat, IDamaged
     }
 
     #endregion
-    
+
     private float _regenerationCoolDown;
     [SerializeField] private float regenerationSpeed;
     [SerializeField] private Animator animator;
 
     public int maxMana = 100;
     public int maxStamina = 100;
-    
-    public int currentMana;
-    public int currentStamina;
 
-    
+    private int currentMana;
+    private int currentStamina;
+
+
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
-    
-    
+
+
     private void Start()
     {
         _regenerationCoolDown = 0;
@@ -42,20 +42,20 @@ public class PlayerStat : CharacterStat, IDamaged
         currentStamina = maxStamina;
         currentMana = maxMana;
 
-        
+
 
         //Set max health
         InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
         InterfaceOnScene.instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
         InterfaceOnScene.instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
 
-        if (EquipmentManager.Instance !=null)
+        if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
 
     private void Update()
-    {   
+    {
         _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
         if (_regenerationCoolDown > 1)
         {
@@ -90,7 +90,7 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         if (currentHealth + value < 0)
             return false;
-        
+
         currentHealth += value;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
@@ -98,12 +98,12 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
-    
+
     public bool ModifyStamina(int value)
     {
         if (currentStamina + value < 0)
             return false;
-     
+
         currentStamina += value;
         if (currentStamina > maxStamina)
             currentStamina = maxStamina;
@@ -111,12 +111,12 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
-    
+
     public bool ModifyMana(int value)
     {
         if (currentMana + value < 0)
             return false;
-        
+
         currentMana += value;
         if (currentMana > maxMana)
             currentMana = maxMana;
@@ -124,6 +124,30 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
+
+    public int GetCurrentMana()
+    {
+        return currentMana;
+    }
+
+    public int GetCurrentStamina()
+    {
+        return currentStamina;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+    public void SetCurrentMana(int mana)
+    {
+        currentMana = mana;
+    }
+    public void SetCurrentStamina(int stamina)
+    {
+        currentStamina = stamina;
+    }
+
 
     public void RegenerateStamina()
     {

@@ -19,6 +19,7 @@ public class BossFightPortal : MonoBehaviour
         Instance = this;
     }
     #endregion
+
     public void SetBossHealth(int health)
     {
         bosshealthSlider.value = health;
@@ -29,6 +30,7 @@ public class BossFightPortal : MonoBehaviour
     {
         portal.SetActive(true);
     }
+
     public void HealthBar(bool value)
     {
         healthbar.SetActive(value);

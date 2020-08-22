@@ -26,6 +26,7 @@ public class Warior : AI
 
     public override void Attack()
     {
+            
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttackRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
