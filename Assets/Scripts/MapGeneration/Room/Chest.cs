@@ -19,9 +19,9 @@ public class Chest : MonoBehaviour,IInteractable
     {
         if (!_isDropped)
         {
-            Spawn();
             _isDropped = true;
             animator.SetTrigger("_isOpen");
+            StartCoroutine(ChestAnimationWait());
         }
     }
 
@@ -35,5 +35,11 @@ public class Chest : MonoBehaviour,IInteractable
     public string GetActionName()
     {
         return "Open";
+    }
+
+    IEnumerator ChestAnimationWait()
+    {
+        yield return new WaitForSeconds(0.58f);
+        Spawn();
     }
 }

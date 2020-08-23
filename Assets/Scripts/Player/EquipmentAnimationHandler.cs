@@ -12,7 +12,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private AnimatorController EquipmentController;
     private Vector2 direction;
     private PlayerMovment playerMovment;
-
+  
     private void Start()
     {
         playerMovment = KeepOnScene.instance.GetComponent<PlayerMovment>();
@@ -22,15 +22,39 @@ public class EquipmentAnimationHandler : MonoBehaviour
 
         if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         direction = playerMovment.GetDirection();
-        //WeaponAnim.SetFloat("Horizontal", direction.x);
-        //WeaponAnim.SetFloat("Vertical", direction.y);
+        if (WeaponController != null)
+        {
+            int x = 0;
+            int y = 0;
 
+            if (direction.x > 0.5f)
+            {
+                x = 1;
+                y = 0;
+                WeaponAnim.SetFloat("Horizontal", x);
+                WeaponAnim.SetFloat("Vertical", y);
+            }
+            else if (direction.x < -0.5f)
+            {
+                x = -1;
+                y = 0;
+                WeaponAnim.SetFloat("Horizontal", x);
+                WeaponAnim.SetFloat("Vertical", y);
+            }
+            else
+            {
+                WeaponAnim.SetFloat("Horizontal", direction.x);
+                WeaponAnim.SetFloat("Vertical", direction.y);
+            }
+        }
+ 
         //EquipmentAnim.SetFloat("Horizontal", direction.x);
         //EquipmentAnim.SetFloat("Vertical", direction.y);
     }
@@ -39,11 +63,19 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
         if (_new != null)
+        {
             if (_new.equipmentType == EquipmentType.Weapon)
             {
                 WeaponController = _new.EquipmentAnimations;
                 WeaponAnim.runtimeAnimatorController = WeaponController as RuntimeAnimatorController;
             }
+        }
+        //If we drop the weapon, clear the animation controller
+        else
+        {
+            WeaponAnim.runtimeAnimatorController = null as RuntimeAnimatorController;
+            WeaponController = null;
+        }
     }
 
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
@@ -57,11 +89,14 @@ public class EquipmentAnimationHandler : MonoBehaviour
     }
 
     //When attack, trigger the Attack animation
-    private void AttackAnimation(WeaponType type)
+    private void AttackAnimation(WeaponType type,int set)
     {
-        if(WeaponAnim != null)
+        if (WeaponController != null)
+        {
             WeaponAnim.SetTrigger("Attack");
-        if(EquipmentAnim != null)
+            WeaponAnim.SetInteger("Set", set);
+        }
+        if(EquipmentController != null)
             EquipmentAnim.SetTrigger("Attack");
     }
 }

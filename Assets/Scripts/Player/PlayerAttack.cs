@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 direction;
 
     //Deligate to trigger animation
-    public delegate void OnAttacked(WeaponType type);
+    public delegate void OnAttacked(WeaponType type,int set);
     public OnAttacked onAttacked;
 
     
@@ -53,16 +53,19 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        //If there is any Weapon call the function attack there
-        if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
+        if (startAttackCoolDown <= 0)
         {
-            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
-            startAttackCoolDown = weaponCoolDown;
-        }
-        //if not, this is base fist attack
-        else
-        {
-            FistAttack();
+            //If there is any Weapon call the function attack there
+            if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
+            {
+                EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
+                startAttackCoolDown = weaponCoolDown;
+            }
+            //if not, this is base fist attack
+            else
+            {
+                FistAttack();
+            }
         }
     }
 
@@ -82,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
             }
             startAttackCoolDown = attackCoolDown;
-            onAttacked?.Invoke(WeaponType.None);
+            onAttacked?.Invoke(WeaponType.None,0);
         }
     }
 

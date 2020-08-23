@@ -5,7 +5,7 @@ public class StaminaBar : Bar
 {
     private void Update()
     {
-        SetCurrentValue(PlayerStat.Instance.currentStamina);
+        SetCurrentValue(PlayerStat.Instance.GetCurrentStamina());
     }
     
 }

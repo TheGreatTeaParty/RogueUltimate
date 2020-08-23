@@ -40,7 +40,7 @@ public class MeleeWeapon : EquipmentItem
             }
 
             //Send mesage to Attack animation handler that we use Melee Weapon
-            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Melee);
+            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Melee, Random.Range(0, 2));
             KeepOnScene.instance.GetComponent<PlayerAttack>().SetRange(attackRange);
         }
         
