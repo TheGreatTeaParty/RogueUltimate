@@ -3,7 +3,7 @@
 public class CharacterStat : MonoBehaviour
 {
     public string Name;
-
+    public int level;
     [Space]
     public Stat physicalDamage;
     public Stat magicDamage;
@@ -23,7 +23,6 @@ public class CharacterStat : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-
     
     public virtual void TakeDamage(int _physicalDamage,int _magicDamage)
     {
@@ -33,7 +32,6 @@ public class CharacterStat : MonoBehaviour
         if (currentHealth <= 0)
             Die();
     }
-    
     
     public virtual void Die()
     {

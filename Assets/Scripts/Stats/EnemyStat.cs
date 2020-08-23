@@ -33,4 +33,5 @@ public class EnemyStat : CharacterStat,IDamaged
         GetComponent<FloatingNumber>().enabled = false;
         Destroy(this);
     }
+    
 }

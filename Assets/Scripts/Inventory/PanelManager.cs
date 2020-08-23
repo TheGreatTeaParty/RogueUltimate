@@ -9,7 +9,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private GameObject playerPanel;
     
 
-    private void OpenClose()
+    public void OpenClose()
     {
         foreach (var panel in panels)
             if (panel != null)
