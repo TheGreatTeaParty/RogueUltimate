@@ -17,8 +17,9 @@ public class TradeManager : MonoBehaviour
     }
 
     #endregion
-
-    private bool _state;
+    
+    // State: true - buy, false - sell
+    public bool state;
     public Item currentItem;
     [Space]
     public InventoryManager playerInventory;
@@ -28,20 +29,13 @@ public class TradeManager : MonoBehaviour
     [Space]
     public int gold;
     public int relation;
-    public bool State => _state;
 
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
-
-
-    // true - buy, false - sell
-    public void SetState(bool state)
-    {
-        _state = state;
-    }
     
-    public void OpenTooltip()
+
+    public void DrawTooltip()
     {
         if (currentItem == null)
         {
@@ -55,12 +49,21 @@ public class TradeManager : MonoBehaviour
         tradeTooltip.SetPrice(currentItem.Price);
     }
 
-    public void CloseTooltip()
+    public void EraseTooltip()
     {
         tradeTooltip.SetName("");
         tradeTooltip.SetDescription("");
         tradeTooltip.SetSprite(null);
         tradeTooltip.SetPrice(-1);
+    }
+
+    public void Trade()
+    {
+        // State: true - buy, false - sell
+        if (state && currentItem != null)
+            Buy();
+        else
+            Sell();
     }
     
     public void Buy()
@@ -106,8 +109,19 @@ public class TradeManager : MonoBehaviour
         
         this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
-        UI.SetActive(true);
         onChangeCallback?.Invoke();
+    }
+
+    public void Open()
+    {
+        UI.SetActive(true);
+    }
+
+    public void Close()
+    {
+        EraseTooltip();
+        UI.SetActive(false);
+        currentItem = null;
     }
     
 } 

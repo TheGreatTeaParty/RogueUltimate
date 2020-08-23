@@ -11,7 +11,7 @@ public class TradeAction : MonoBehaviour
     {
         var tradeManager = TradeManager.Instance;
         
-        if (tradeManager.State && tradeManager.currentItem != null)
+        if (tradeManager.state && tradeManager.currentItem != null)
             tradeManager.Buy();
         else
             tradeManager.Sell();
@@ -21,7 +21,7 @@ public class TradeAction : MonoBehaviour
     {
         var tradeManager = TradeManager.Instance;
 
-        tradeManager.CloseTooltip();
+        tradeManager.EraseTooltip();
         tradeManager.UI.SetActive(false);
         tradeManager.currentItem = null;
     }
