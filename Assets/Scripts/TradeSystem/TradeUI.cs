@@ -30,6 +30,12 @@ public class TradeUI : MonoBehaviour
 
     private void UpdateUI()
     {
+        if (tradeManager == null)
+        {
+            Debug.Log("NullPointer in UpdateUI");
+            return;
+        }
+        
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
             npcSlots[i].AddItemToTradeSlot(tradeManager.npcInventory.items[i]);
@@ -39,10 +45,10 @@ public class TradeUI : MonoBehaviour
 
         
         var j = 0;
-        for (; j < tradeManager.npcInventory.items.Count; j++)
+        for (; j < tradeManager.playerInventory.items.Count; j++)
             playerSlots[j].AddItemToTradeSlot(tradeManager.playerInventory.items[j]);
 
-        for (; j < npcSlots.Length; j++)
+        for (; j < playerSlots.Length; j++)
             playerSlots[j].RemoveItemFromTradeSlot();
 
 
