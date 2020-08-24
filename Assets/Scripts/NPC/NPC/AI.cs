@@ -204,7 +204,7 @@ public class AI : MonoBehaviour
         _attack = false;
     }
 
-    void Die()
+    public virtual void Die()
     {
         Destroy(this);
     }

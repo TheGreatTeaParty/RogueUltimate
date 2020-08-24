@@ -42,6 +42,12 @@ public class Kaban : AI
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
+        PlayerStat.Instance.GainXP(100);
+    }
+
     IEnumerator Waiter()
     {
         _preparing = true;

@@ -39,4 +39,10 @@ public class Warior : AI
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPosition, AttackRange);
     }
+
+    public override void Die()
+    {
+        base.Die();
+        PlayerStat.Instance.GainXP(100);
+    }
 }

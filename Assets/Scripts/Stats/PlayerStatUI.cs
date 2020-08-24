@@ -7,6 +7,7 @@ public class PlayerStatUI : MonoBehaviour
 {
     private PlayerStat _playerStat;
 
+    [SerializeField] private TextMeshProUGUI experiencePointsText;
     [SerializeField] private TextMeshProUGUI healthPointsText;
     [Space]
     [SerializeField] private TextMeshProUGUI physicalDamagePointsText;
