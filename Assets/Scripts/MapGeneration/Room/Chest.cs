@@ -7,6 +7,7 @@ public class Chest : MonoBehaviour,IInteractable
     private Item itemToDrop;
     private bool _isDropped = false;
     private Animator animator;
+    [SerializeField] private ParticleSystem openEffect;
 
     void Start()
     {
@@ -39,7 +40,9 @@ public class Chest : MonoBehaviour,IInteractable
 
     IEnumerator ChestAnimationWait()
     {
-        yield return new WaitForSeconds(0.58f);
+        yield return new WaitForSeconds(0.34f);
+        openEffect.Play();
+        yield return new WaitForSeconds(0.24f);
         Spawn();
     }
 }

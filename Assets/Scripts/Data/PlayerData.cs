@@ -19,7 +19,7 @@ public class PlayerData
         currentHP = PlayerStat.Instance.GetCurrentHealth();
         currentMP = PlayerStat.Instance.GetCurrentMana();
         currentSP = PlayerStat.Instance.GetCurrentStamina();
-        maxHP = PlayerStat.Instance.maxHealth;
+        maxHP = PlayerStat.Instance.GetCurrentHealth();
         maxMP = PlayerStat.Instance.maxMana;
         maxSP = PlayerStat.Instance.maxStamina;
 

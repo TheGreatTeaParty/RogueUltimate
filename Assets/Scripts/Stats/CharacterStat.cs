@@ -2,7 +2,7 @@
 
 public class CharacterStat : MonoBehaviour
 {
-    public string Name;
+    [SerializeField] public string Name;
 
     [Space]
     public Stat physicalDamage;
@@ -10,7 +10,8 @@ public class CharacterStat : MonoBehaviour
     public Stat physicalProtection;
     public Stat magicProtection;
     [Space]
-    public int maxHealth = 100;
+
+    [SerializeField] public int maxHealth = 100;
     public int currentHealth;
     
     protected int physicalDamageReceived;
@@ -38,6 +39,26 @@ public class CharacterStat : MonoBehaviour
     public virtual void Die()
     {
      
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public string GetName()
+    {
+        return Name;
+    }
+
+    public void SetMaxHealth(int health)
+    {
+        maxHealth = health;
     }
     
 

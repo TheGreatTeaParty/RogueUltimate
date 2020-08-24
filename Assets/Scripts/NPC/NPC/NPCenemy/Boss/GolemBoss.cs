@@ -42,15 +42,15 @@ public class GolemBoss : AI
     {
         base.Update();
 
-        if (golemStat.currentHealth <= StageTwoHealth && !StageChanged)
+        if (golemStat.GetCurrentHealth() <= StageTwoHealth && !StageChanged)
         {
             SwitchStage();
         }
 
         //Should be changed in the inherited EnemyStat class
-        BossFightPortal.Instance.SetBossHealth(golemStat.currentHealth);
+        BossFightPortal.Instance.SetBossHealth(golemStat.GetCurrentHealth());
 
-        if(golemStat.currentHealth <=0)
+        if(golemStat.GetCurrentHealth() <= 0)
         {
             BossFightPortal.Instance.HealthBar(false);
             BossFightPortal.Instance.TurnThePortal();

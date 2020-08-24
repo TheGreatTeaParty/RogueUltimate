@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+using UnityEngine.Animations;
 using UnityEngine;
 
 public class EquipmentAnimationHandler : MonoBehaviour
@@ -8,8 +8,8 @@ public class EquipmentAnimationHandler : MonoBehaviour
     public Animator WeaponAnim;
     public Animator EquipmentAnim;
 
-    private AnimatorController WeaponController;
-    private AnimatorController EquipmentController;
+    private RuntimeAnimatorController WeaponController;
+    private RuntimeAnimatorController EquipmentController;
     private Vector2 direction;
     private PlayerMovment playerMovment;
   

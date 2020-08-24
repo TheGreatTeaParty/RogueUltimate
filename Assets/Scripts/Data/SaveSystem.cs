@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEditor;
+//using UnityEditor;
 
 
 public static class SaveSystem
@@ -41,8 +41,8 @@ public static class SaveSystem
     public static void DeletePlayer()
     {
         string path = Application.persistentDataPath + "/player.gay";
-        UnityEditor.FileUtil.DeleteFileOrDirectory(path);
-        AssetDatabase.Refresh();
+        //FileUtil.DeleteFileOrDirectory(path);
+       // AssetDatabase.Refresh();
 
     }
 

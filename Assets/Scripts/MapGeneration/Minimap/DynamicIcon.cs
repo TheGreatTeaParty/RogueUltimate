@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class DynamicIcon : MonoBehaviour
 {
+    [SerializeField] bool TurnOff = true;
     private SpriteRenderer sprite;
 
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        sprite.enabled = false;
+
+        if (TurnOff)
+        {
+            sprite.enabled = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

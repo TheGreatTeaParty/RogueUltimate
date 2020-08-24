@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStat : CharacterStat,IDamaged
 {
-    public delegate void OnReceivedDamage(int damage, bool type);
+    public delegate void OnReceivedDamage(int damage);
     public OnReceivedDamage onReceivedDamage;
 
     public delegate void OnDamaged();
@@ -16,11 +16,8 @@ public class EnemyStat : CharacterStat,IDamaged
     public override void TakeDamage(int _physicalDamage, int _magicDamage)
     {
         base.TakeDamage(_physicalDamage, _magicDamage);
-        if (physicalDamageReceived != 0)
-            onReceivedDamage?.Invoke(physicalDamageReceived,true);
-        
-        if (magicDamageReceived != 0)
-            onReceivedDamage?.Invoke(magicDamageReceived,false);
+     
+        onReceivedDamage?.Invoke(magicDamageReceived+physicalDamageReceived);
 
         onDamaged?.Invoke();
     }

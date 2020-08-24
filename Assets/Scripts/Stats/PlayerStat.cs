@@ -135,10 +135,6 @@ public class PlayerStat : CharacterStat, IDamaged
         return currentStamina;
     }
 
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
     public void SetCurrentMana(int mana)
     {
         currentMana = mana;
