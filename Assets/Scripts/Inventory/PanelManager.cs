@@ -7,9 +7,13 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private List<GameObject> panels;
     [SerializeField] private GameObject tooltip;
     [SerializeField] private GameObject playerPanel;
-    
 
-    public void OpenClose()
+    private void Start()
+    {
+        KeepOnScene.instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenClose;
+    }
+
+    private void OpenClose()
     {
         foreach (var panel in panels)
             if (panel != null)
