@@ -22,7 +22,7 @@ public class EnemyHealthBar : MonoBehaviour
         SliderHealth.value = SliderHealth.maxValue;
         Name.text = enemyStat.GetName();
         Shadow.text = Name.text;
-        //Set Level
+        LvL.text = (enemyStat.level).ToString();
     }
 
     void ChangeHealth(int damage)

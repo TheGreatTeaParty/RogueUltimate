@@ -16,4 +16,9 @@ public class SpawnEnemy : MonoBehaviour
     {
         enemy = _enemy;
     }
+
+    public void SetlLvL(int lvl)
+    {
+        enemy.GetComponent<EnemyStat>().level = lvl;
+    }
 }

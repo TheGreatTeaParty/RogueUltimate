@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyTierList : MonoBehaviour
 {
+    [SerializeField] private int Enemies_Level;
+    [Space]
+
     [SerializeField] private Transform[] Enemies;
 
     #region Singleton
@@ -23,5 +26,10 @@ public class EnemyTierList : MonoBehaviour
     public Transform GenerateEnemy()
     {
         return Enemies[Random.Range(0, Enemies.Length)];
+    }
+
+    public int GetEnemieslvl()
+    {
+        return Enemies_Level;
     }
 }

@@ -23,6 +23,7 @@ public class PlayerEnterCheck : MonoBehaviour
                 for (int i = 0; i < SpawnEnemyPoints.Length; i++)
                 {
                     SpawnEnemyPoints[i].SetEnemy(EnemyTierList.Instance.GenerateEnemy());
+                    SpawnEnemyPoints[i].SetlLvL(EnemyTierList.Instance.GetEnemieslvl());
                     SpawnEnemyPoints[i].SpawnAnEnemy();
                 }
             }
