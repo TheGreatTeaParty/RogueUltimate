@@ -49,6 +49,8 @@ public class DialogSystem : MonoBehaviour
 
     public void EndDiolog()
     {
+        //This is needed to give information to AI that he can move
+        GetComponentInParent<Citizen>().Talk(false);
         dialogWindow.gameObject.SetActive(false);
         InterfaceOnScene.instance.gameObject.SetActive(true);
         Debug.Log("End of diolog ");

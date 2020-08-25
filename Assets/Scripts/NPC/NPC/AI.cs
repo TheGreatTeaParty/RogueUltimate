@@ -41,8 +41,11 @@ public class AI : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
 
-        NPCstat = GetComponent<EnemyStat>();
-        NPCstat.onDie += Die;
+        if (GetComponent<EnemyStat>() != null)
+        {
+            NPCstat = GetComponent<EnemyStat>();
+            NPCstat.onDie += Die;
+        }
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
@@ -90,6 +93,11 @@ public class AI : MonoBehaviour
             case NPCstate.attacking:
                 {
                     StateAttack();
+                    break;
+                }
+            case NPCstate.hanging:
+                {
+                    StateHanging();
                     break;
                 }
         }
@@ -161,6 +169,7 @@ public class AI : MonoBehaviour
     {
         chasing = 0,
         attacking,
+        hanging
     }
 
     public void StopMoving()
