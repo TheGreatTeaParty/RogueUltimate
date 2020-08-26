@@ -18,4 +18,5 @@ public class InterfaceOnScene : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
 }

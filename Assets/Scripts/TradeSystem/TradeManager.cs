@@ -25,7 +25,7 @@ public class TradeManager : MonoBehaviour
     public InventoryManager playerInventory;
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
-    public GameObject UI;
+    public GameObject tradeWindow;
     [Space]
     public int gold;
     public int relation;
@@ -114,13 +114,19 @@ public class TradeManager : MonoBehaviour
 
     public void Open()
     {
-        UI.SetActive(true);
+        var UI = InterfaceOnScene.instance;
+        
+        
+        tradeWindow.SetActive(true);
     }
 
     public void Close()
     {
+        var UI = InterfaceOnScene.instance;
+        
         EraseTooltip();
-        UI.SetActive(false);
+        tradeWindow.SetActive(false);
+        UI.enabled = true;
         currentItem = null;
     }
     
