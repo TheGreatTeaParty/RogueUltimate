@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+
+public enum NPCstate
+{
+    chasing = 0,
+    attacking,
+    hanging
+}
+
+
 public class AI : MonoBehaviour
 {
     public float nextWayPointDistance = 1f;
@@ -34,6 +43,7 @@ public class AI : MonoBehaviour
     public delegate void OnAttacked();
     public OnAttacked onAttacked;
 
+    
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -41,8 +51,12 @@ public class AI : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
 
-        NPCstat = GetComponent<EnemyStat>();
-        NPCstat.onDie += Die;
+        // So only enemies can die
+        if (GetComponent<EnemyStat>() != null)
+        {
+            NPCstat = GetComponent<EnemyStat>();
+            NPCstat.onDie += Die;
+        }
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
@@ -90,6 +104,11 @@ public class AI : MonoBehaviour
             case NPCstate.attacking:
                 {
                     StateAttack();
+                    break;
+                }
+            case NPCstate.hanging:
+                {
+                    StateHanging();
                     break;
                 }
         }
@@ -156,13 +175,6 @@ public class AI : MonoBehaviour
          }
     }
 
-   
-    public enum NPCstate
-    {
-        chasing = 0,
-        attacking,
-    }
-
     public void StopMoving()
     {
         _stopped = true;
@@ -191,6 +203,13 @@ public class AI : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        Destroy(this);
+        PlayerStat.Instance.GainXP(NPCstat.level);
+    }
+
+    
     IEnumerator AttackWait()
     {
         _attack = true;
@@ -203,9 +222,5 @@ public class AI : MonoBehaviour
         StartMoving();
         _attack = false;
     }
-
-    public virtual void Die()
-    {
-        Destroy(this);
-    }
+    
 }

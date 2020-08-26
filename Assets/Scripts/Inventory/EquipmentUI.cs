@@ -4,7 +4,7 @@
 public class EquipmentUI : MonoBehaviour
 {
     [SerializeField] private EquipmentSlot[] equipmentSlots;
-    [SerializeField] private EquipmentManager equipmentManager;
+    private EquipmentManager equipmentManager;
     public Transform itemsParent;   
 
     

@@ -5,23 +5,34 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
-    public Image image;
+    private Image _image;
     private Item _item;
-    
+
+
+    public void Awake()
+    {
+        _image = GetComponent<Image>();
+        if (_image == null)
+        {
+            Debug.Log("Null Reference in InventorySlot");
+            return;
+        }
+        
+    }
     
     public void AddItemToInventorySlot(Item newItem)
     {
         _item = newItem;
-        image.sprite = _item.Sprite;
-        image.enabled = true;
+        _image.enabled = true;
+        _image.sprite = _item.Sprite;
     }
     
     
     public void RemoveItemFromInventorySlot()
     {
         _item = null; 
-        image.sprite = null; 
-        image.enabled = false;
+        _image.sprite = null; 
+        _image.enabled = false;
     }
 
 

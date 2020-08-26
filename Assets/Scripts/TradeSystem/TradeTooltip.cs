@@ -1,11 +1,12 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TradeTooltip : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI priceText;
@@ -13,7 +14,7 @@ public class TradeTooltip : MonoBehaviour
 
     public void SetName(String name)
     {
-        this.name.SetText(name);
+        this.itemName.SetText(name);
     }
 
     public void SetDescription(String description)

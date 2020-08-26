@@ -41,9 +41,7 @@ public class PlayerStat : CharacterStat, IDamaged
         currentHealth = maxHealth;
         _currentStamina = maxStamina;
         _currentMana = maxMana;
-
-
-
+        
         //Set max health
         InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
         InterfaceOnScene.instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);

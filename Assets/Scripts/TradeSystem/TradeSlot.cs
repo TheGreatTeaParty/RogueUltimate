@@ -8,6 +8,16 @@ public class TradeSlot : MonoBehaviour, IPointerClickHandler
     private Image _image;
 
     
+    public void Awake()
+    {
+        _image = GetComponent<Image>();
+        if (_image == null)
+        {
+            Debug.Log("Null Reference in TradeSlot");
+            return;
+        }
+    }
+    
     public void AddItemToTradeSlot(Item item)
     {
         if (item == null)
@@ -15,23 +25,19 @@ public class TradeSlot : MonoBehaviour, IPointerClickHandler
             Debug.Log("Null reference in TradeSlot.cs");
             return;
         }
+        
+        if (_image == null) Debug.Log("There");
+        _item = item;
+        _image.enabled = true;
+        _image.sprite = _item.Sprite;
 
-        if (_image != null)
-        {
-            _item = item;
-            _image.sprite = _item.Sprite;
-            _image.enabled = true;
-        }
     }
 
     public void RemoveItemFromTradeSlot()
     {
-        if (_image != null)
-        {
-            _image.sprite = null;
-            _image.enabled = false;
-            _item = null;
-        }
+        _image.sprite = null;
+        _image.enabled = false; 
+        _item = null;
     }
 
     public void OnPointerClick(PointerEventData eventData)

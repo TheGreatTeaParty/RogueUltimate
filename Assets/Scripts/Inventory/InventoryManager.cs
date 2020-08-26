@@ -25,6 +25,7 @@ public class InventoryManager : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
+    
     public bool AddItemToInventory(Item item)
     {
         if (CheckOverflow() is true)
