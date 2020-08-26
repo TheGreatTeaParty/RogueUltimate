@@ -27,11 +27,5 @@ public class Archer : AI
 
         arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.GetValue(),archerStat.magicDamage.GetValue(),ShootDir);
     }
-    
-    public override void Die()
-    {
-        base.Die();
-        PlayerStat.Instance.GainXP(100);
-    }
-    
+
 }

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+
+public enum NPCstate
+{
+    chasing = 0,
+    attacking,
+    hanging
+}
+
+
 public class AI : MonoBehaviour
 {
     public float nextWayPointDistance = 1f;
@@ -34,6 +43,7 @@ public class AI : MonoBehaviour
     public delegate void OnAttacked();
     public OnAttacked onAttacked;
 
+    
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -41,6 +51,7 @@ public class AI : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
 
+        // So only enemies can die
         if (GetComponent<EnemyStat>() != null)
         {
             NPCstat = GetComponent<EnemyStat>();
@@ -164,14 +175,6 @@ public class AI : MonoBehaviour
          }
     }
 
-   
-    public enum NPCstate
-    {
-        chasing = 0,
-        attacking,
-        hanging
-    }
-
     public void StopMoving()
     {
         _stopped = true;
@@ -200,6 +203,13 @@ public class AI : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        Destroy(this);
+        PlayerStat.Instance.GainXP(NPCstat.level);
+    }
+
+    
     IEnumerator AttackWait()
     {
         _attack = true;
@@ -212,9 +222,5 @@ public class AI : MonoBehaviour
         StartMoving();
         _attack = false;
     }
-
-    public virtual void Die()
-    {
-        Destroy(this);
-    }
+    
 }

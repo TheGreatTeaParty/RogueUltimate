@@ -41,12 +41,7 @@ public class Kaban : AI
                 StartCoroutine(Waiter());
         }
     }
-
-    public override void Die()
-    {
-        base.Die();
-        PlayerStat.Instance.GainXP(100);
-    }
+    
 
     IEnumerator Waiter()
     {
