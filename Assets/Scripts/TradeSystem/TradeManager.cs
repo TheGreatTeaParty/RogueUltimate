@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using UnityEngine;
 
 // Need setters and getters (?)
@@ -33,7 +34,14 @@ public class TradeManager : MonoBehaviour
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
-    
+
+
+    public void Start()
+    {
+        tradeWindow.SetActive(true);
+        EraseTooltip();
+        tradeWindow.SetActive(false);
+    }
 
     public void DrawTooltip()
     {
@@ -93,9 +101,7 @@ public class TradeManager : MonoBehaviour
         
         gold += currentItem.Price;
         playerInventory.RemoveItemFromInventory(currentItem);
-
         currentItem = null;
-        
         onChangeCallback?.Invoke();
     }
 
@@ -109,6 +115,10 @@ public class TradeManager : MonoBehaviour
         
         this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
+
+        gold = this.playerInventory.GetGold();
+        relation = this.npcInventory.GetRelation();
+        
         onChangeCallback?.Invoke();
     }
 
@@ -116,14 +126,12 @@ public class TradeManager : MonoBehaviour
     {
         var UI = InterfaceOnScene.instance;
         UI.Hide();
-        
         tradeWindow.SetActive(true);
     }
 
     public void Close()
     {
         var UI = InterfaceOnScene.instance;
-        
         EraseTooltip();
         tradeWindow.SetActive(false);
         UI.Show();

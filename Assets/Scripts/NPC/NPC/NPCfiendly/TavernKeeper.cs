@@ -135,10 +135,6 @@ public class TavernKeeper : AI,IInteractable
         var tradeManager = TradeManager.Instance;
 
         tradeManager.Bind(playerInventory, npcInventory);
-
-        tradeManager.gold = playerInventory.GetGold();
-        tradeManager.relation = npcInventory.GetRelation();
-        
         tradeManager.Open();
     }
 
