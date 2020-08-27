@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2463,7 +2463,8 @@ MonoBehaviour:
   healthStat: {fileID: 1115639694}
   staminaStat: {fileID: 274812289}
   manaStat: {fileID: 1755644942}
-  camera: {fileID: 857022277}
+  selectionCamera: {fileID: 857022277}
+  speed: 16
   prefabs:
   - {fileID: 7771391765174333839, guid: d6a248e98ccd246c18de9b65eb508aae, type: 3}
   - {fileID: 5573504965047378231, guid: 910a1399fa5a441c9baf6d41de793dfe, type: 3}
@@ -3581,7 +3582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8b0c19699cdf820448e15d2ded66adfc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8aded63adfc66d4ea49c41e1bae088b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5814,7 +5815,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e2782c7e7529774ab6c573b040e1323, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a38171f70009bd74f99c2c7c25e539e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7414,7 +7415,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3496dd7fd4df1c844bd7c1ee676a4e6b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e5d28d0e52cebd4499a055ea78d9ec0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8371,7 +8372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3fb278fc9bc187148a10822a55fc9500, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 869fa5b2837a16b49a1bb80201ef393d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

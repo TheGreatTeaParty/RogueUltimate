@@ -19,7 +19,6 @@ public class Citizen : AI, IInteractable
     [SerializeField] private float PointStandingTime = 3f;
 
     private int currentHangingIndex = 0;
-    private bool _isStanding = false;
     private bool courantineHasStarted = false;
     private CitizenState STATE;
 
@@ -50,10 +49,10 @@ public class Citizen : AI, IInteractable
                 {
                     //If the NPC reach the point
                     if (Vector2.Distance(transform.position, HangingPoints[currentHangingIndex].transform.position) < 0.2f)
-                        _isStanding = true;
+                         _stopped = true;
 
                     //If not, move it till the next point
-                    if (!_isStanding)
+                    if (!_stopped)
                     {
                         Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
                     }
@@ -96,7 +95,7 @@ public class Citizen : AI, IInteractable
     {
         courantineHasStarted = true;
         yield return new WaitForSeconds(PointStandingTime);
-        _isStanding = false;
+        _stopped = false;
 
         //Move to another point
         if (currentHangingIndex == HangingPoints.Length - 1)

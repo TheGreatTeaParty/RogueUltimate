@@ -27,9 +27,6 @@ public class TradeManager : MonoBehaviour
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
     public GameObject tradeWindow;
-    [Space]
-    public int gold;
-    public int relation;
 
 
     public delegate void OnChangeCallback();
@@ -67,8 +64,10 @@ public class TradeManager : MonoBehaviour
 
     public void Trade()
     {
+        if (currentItem == null) return;
+     
         // State: true - buy, false - sell
-        if (state && currentItem != null)
+        if (state)
             Buy();
         else
             Sell();
@@ -82,9 +81,9 @@ public class TradeManager : MonoBehaviour
             return;
         }
 
-        if (playerInventory.items.Count < playerInventory.size && gold >= currentItem.Price)
+        if (playerInventory.items.Count < playerInventory.size && playerInventory.GetGold() >= currentItem.Price)
         {
-            gold -= currentItem.Price;
+            playerInventory.ChangeGold(-currentItem.Price);
             playerInventory.AddItemToInventory(currentItem);
         }
         
@@ -99,9 +98,13 @@ public class TradeManager : MonoBehaviour
             return;
         }
         
-        gold += currentItem.Price;
+        playerInventory.ChangeGold(currentItem.Price);
         playerInventory.RemoveItemFromInventory(currentItem);
+        // Do an item check in inventory
+        
         currentItem = null;
+        EraseTooltip();
+        
         onChangeCallback?.Invoke();
     }
 
@@ -116,9 +119,6 @@ public class TradeManager : MonoBehaviour
         this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
 
-        gold = this.playerInventory.GetGold();
-        relation = this.npcInventory.GetRelation();
-        
         onChangeCallback?.Invoke();
     }
 
@@ -127,6 +127,8 @@ public class TradeManager : MonoBehaviour
         var UI = InterfaceOnScene.instance;
         UI.Hide();
         tradeWindow.SetActive(true);
+        
+        onChangeCallback.Invoke();
     }
 
     public void Close()
@@ -137,5 +139,5 @@ public class TradeManager : MonoBehaviour
         UI.Show();
         currentItem = null;
     }
-    
+
 } 

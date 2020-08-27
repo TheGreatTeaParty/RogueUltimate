@@ -26,15 +26,16 @@ public class TavernKeeper : AI,IInteractable
     //private NPCPathfindingMovement NPCmovement;
 
     private int currentHangingIndex = 0;
-    private bool _isStanding = false;
     private bool courantineHasStarted = false;
     private TaverKeeperState STATE;
+
 
     public enum TaverKeeperState
     {
         standing = 0,
         hanging,
         goingBack,
+        talking
 
     };
 
@@ -58,9 +59,9 @@ public class TavernKeeper : AI,IInteractable
                 {
                     
                     if (Vector2.Distance(transform.position, HangingPoints[currentHangingIndex].transform.position) < 0.2f)
-                        _isStanding = true;
+                        _stopped = true;
 
-                    if (!_isStanding)
+                    if (!_stopped)
                     {
                         Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
                     }
@@ -87,6 +88,11 @@ public class TavernKeeper : AI,IInteractable
                         STATE = TaverKeeperState.standing;
                     break;
                 }
+
+            case TaverKeeperState.talking:
+                {
+                    break;
+                }
         }
     }
 
@@ -104,7 +110,7 @@ public class TavernKeeper : AI,IInteractable
     {
         courantineHasStarted = true;
         yield return new WaitForSeconds(pointStandingTime);
-        _isStanding = false;
+        _stopped = false;
 
         //Move to another point
         if (currentHangingIndex == HangingPoints.Length - 1)
@@ -121,10 +127,27 @@ public class TavernKeeper : AI,IInteractable
     IEnumerator Stand()
     {
         courantineHasStarted = true;
+        _stopped = true;
         yield return new WaitForSeconds(waitTime);
         STATE = TaverKeeperState.hanging;
+        _stopped = false;
         target = HangingPoints[currentHangingIndex];
         courantineHasStarted = false;
+    }
+
+    public void Talk(bool option)
+    {
+        //If we talk, change to the standing
+        if (option)
+        {
+            STATE = TaverKeeperState.talking;
+        }
+
+        //If not, change to the hanging
+        else
+        {
+            STATE = TaverKeeperState.hanging;
+        }
     }
 
     public void Interact()
@@ -136,6 +159,7 @@ public class TavernKeeper : AI,IInteractable
 
         tradeManager.Bind(playerInventory, npcInventory);
         tradeManager.Open();
+        Talk(true);
     }
 
     public string GetActionName()

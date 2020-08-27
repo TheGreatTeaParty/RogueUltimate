@@ -11,7 +11,9 @@ public class TradeTooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private Image image;
+    [SerializeField] private Image border;
 
+    
     public void SetName(String name)
     {
         this.itemName.SetText(name);
@@ -29,7 +31,8 @@ public class TradeTooltip : MonoBehaviour
             this.price.enabled = false;
             return;
         }
-        
+
+        this.price.enabled = true;
         this.price.SetText(price.ToString());
     }
 
@@ -39,11 +42,13 @@ public class TradeTooltip : MonoBehaviour
         {
             priceText.enabled = false;
             image.enabled = false;
+            border.enabled = false;
             return;
         }
         
         image.sprite = sprite;
         image.enabled = true;
+        border.enabled = true;
         priceText.enabled = true;
     }
     

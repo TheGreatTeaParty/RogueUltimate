@@ -10,6 +10,8 @@ public class TradeUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI relation;
+    [SerializeField] private TextMeshProUGUI action;
+    [SerializeField] private TextMeshProUGUI price;
     [Space]
     [SerializeField] private TradeManager tradeManager;
     [SerializeField] private Transform playerSlotsParent;
@@ -22,8 +24,8 @@ public class TradeUI : MonoBehaviour
         if (playerSlotsParent == null || npcSlotsParent == null) 
             Debug.Log("Null pointer in TradeUI");
         
-        npcSlots = GetComponentsInChildren<TradeSlot>(npcSlotsParent);
-        playerSlots = GetComponentsInChildren<TradeSlot>(playerSlotsParent);
+        npcSlots = npcSlotsParent.GetComponentsInChildren<TradeSlot>();
+        playerSlots = playerSlotsParent.GetComponentsInChildren<TradeSlot>();
         
         tradeManager.onChangeCallback += UpdateUI;
     }
@@ -52,8 +54,11 @@ public class TradeUI : MonoBehaviour
             playerSlots[j].RemoveItemFromTradeSlot();
 
 
-        gold.SetText(tradeManager.gold.ToString());       
-        relation.SetText(tradeManager.relation.ToString());
+        gold.SetText(tradeManager.playerInventory.GetGold().ToString());
+        relation.SetText(tradeManager.npcInventory.GetRelation().ToString());
+        action.SetText(tradeManager.state is true ? "Buy" : "Sell");
+        if (tradeManager.currentItem != null) price.SetText(tradeManager.currentItem.Price.ToString());
+        
     }
     
 } 

@@ -35,9 +35,9 @@ public class AI : MonoBehaviour
     protected Path path;
     protected Seeker seeker;
     protected Rigidbody2D Rb;
+    protected bool _stopped = false;
 
     private EnemyStat NPCstat;
-    private bool _stopped = false;
     private bool _attack = false;
 
     public delegate void OnAttacked();
@@ -206,7 +206,7 @@ public class AI : MonoBehaviour
     public void Die()
     {
         Destroy(this);
-        PlayerStat.Instance.GainXP(NPCstat.level);
+        PlayerStat.Instance.GainXP(250);
     }
 
     

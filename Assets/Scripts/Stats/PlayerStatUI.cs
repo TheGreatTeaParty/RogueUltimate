@@ -7,7 +7,9 @@ public class PlayerStatUI : MonoBehaviour
 {
     private PlayerStat _playerStat;
 
+    [SerializeField] private TextMeshProUGUI levelPointsText;
     [SerializeField] private TextMeshProUGUI experiencePointsText;
+    [Space]
     [SerializeField] private TextMeshProUGUI healthPointsText;
     [Space]
     [SerializeField] private TextMeshProUGUI physicalDamagePointsText;
@@ -28,11 +30,13 @@ public class PlayerStatUI : MonoBehaviour
 
     private void UpdateUI()
     {
+        levelPointsText.SetText(_playerStat.level.ToString());
+        experiencePointsText.SetText(_playerStat.GetXP().ToString());
         healthPointsText.SetText("" + _playerStat.currentHealth + " / " + _playerStat.maxHealth);
-        physicalDamagePointsText.SetText("" + _playerStat.physicalDamage.GetValue());
-        physicalProtectionPointsText.SetText("" + _playerStat.physicalProtection.GetValue());
-        magicDamagePointsText.SetText("" + _playerStat.magicDamage.GetValue());
-        magicProtectionPointsText.SetText("" + _playerStat.magicProtection.GetValue());
+        physicalDamagePointsText.SetText(_playerStat.physicalDamage.GetValue().ToString());
+        physicalProtectionPointsText.SetText(_playerStat.physicalProtection.GetValue().ToString());
+        magicDamagePointsText.SetText(_playerStat.magicDamage.GetValue().ToString());
+        magicProtectionPointsText.SetText(_playerStat.magicProtection.GetValue().ToString());
     }
 
 }

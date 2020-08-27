@@ -65,7 +65,7 @@ public class InventoryManager : MonoBehaviour
         return items.Count >= size;
     }
 
-    public void AddGold(int value)
+    public void ChangeGold(int value)
     {
         gold += value;
     }

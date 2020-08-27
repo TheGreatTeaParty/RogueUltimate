@@ -11,13 +11,14 @@ public class CharacterSelection : MonoBehaviour
     public Slider healthStat;
     public Slider staminaStat;
     public Slider manaStat;
-    public Camera camera;
+    public Camera selectionCamera;
+    public float speed = 1.5f;
     public Transform[] prefabs;
     public GameObject[] options;
     int Index;
 
     private bool _isChanged = false;
-
+    private Vector3 dir = Vector3.zero;
 
     void Update()
     { 
@@ -27,8 +28,6 @@ public class CharacterSelection : MonoBehaviour
             {
                 if (!_isChanged)
                 {
-                    camera.transform.position = options[i].transform.position + new Vector3(0.8f, 0f, -1f);
-
                     //Change slider value (We can chane options to prefabs later, when we will create more characters)
                     NameText.text = prefabs[i].GetComponent<PlayerStat>().Name;
                     healthStat.value = prefabs[i].GetComponent<PlayerStat>().maxHealth;
@@ -38,6 +37,15 @@ public class CharacterSelection : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        dir = ((options[Index].transform.position + new Vector3(0.8f,0)) - selectionCamera.transform.position).normalized;
+        dir.z = 0f;
+
+        if (Vector3.Distance(selectionCamera.transform.position,options[Index].transform.position) > 0.8f)
+            selectionCamera.transform.position += dir * speed * Time.deltaTime;
     }
 
     public void SwapRight()
