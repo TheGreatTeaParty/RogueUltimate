@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
-    private Image _image;
+    [SerializeField] private Image _image;
     private Item _item;
 
 
-    public void Awake()
+    public void Start()
     {
         _image = GetComponent<Image>();
         if (_image == null)
