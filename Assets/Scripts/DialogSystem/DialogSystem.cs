@@ -27,7 +27,7 @@ public class DialogSystem : MonoBehaviour
 
         sentences.Clear();
 
-        foreach(string sentence in dialog.sentences)
+        foreach (string sentence in dialog.sentences)
         {
             sentences.Enqueue(sentence);
         }

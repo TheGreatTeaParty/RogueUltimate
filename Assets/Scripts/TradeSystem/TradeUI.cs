@@ -21,10 +21,10 @@ public class TradeUI : MonoBehaviour
         tradeManager = TradeManager.Instance;
         if (playerSlotsParent == null || npcSlotsParent == null) 
             Debug.Log("Null pointer in TradeUI");
-
-        playerSlots = GetComponentsInChildren<TradeSlot>(playerSlotsParent);
+        
         npcSlots = GetComponentsInChildren<TradeSlot>(npcSlotsParent);
-
+        playerSlots = GetComponentsInChildren<TradeSlot>(playerSlotsParent);
+        
         tradeManager.onChangeCallback += UpdateUI;
     }
 

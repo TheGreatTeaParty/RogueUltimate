@@ -8,17 +8,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image _image;
     private Item _item;
 
-
-    public void Start()
-    {
-        _image = GetComponent<Image>();
-        if (_image == null)
-        {
-            Debug.Log("Null Reference in InventorySlot");
-            return;
-        }
-        
-    }
     
     public void AddItemToInventorySlot(Item newItem)
     {
