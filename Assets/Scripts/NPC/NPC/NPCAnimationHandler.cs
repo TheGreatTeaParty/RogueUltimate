@@ -10,17 +10,24 @@ public class NPCAnimationHandler : MonoBehaviour
     private Vector2 dir;
     private Vector2 velocity;
     private float movementSpeed;
+    [SerializeField] private bool isEnemy = true;
     
 
     // Start is called before the first frame update
     void Start()
     {
         NPC = GetComponent<AI>();
-        NPC.onAttacked += Attack;
 
-        NPCstat = GetComponent<EnemyStat>();
-        NPCstat.onDamaged += GetDamage;
-        NPCstat.onDie += Die;
+        //Only enemies has attack,die,damage animations, as well as stats
+        if (isEnemy)
+        {
+
+            NPC.onAttacked += Attack;
+
+            NPCstat = GetComponent<EnemyStat>();
+            NPCstat.onDamaged += GetDamage;
+            NPCstat.onDie += Die;
+        }
 
         animator = GetComponent<Animator>();
         InvokeRepeating("UpdateDirection", 0f, 0.3f); //Call this method every 0.3 seconds
