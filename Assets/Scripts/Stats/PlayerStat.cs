@@ -106,6 +106,7 @@ public class PlayerStat : CharacterStat, IDamaged
                 break;
         }
         
+        onChangeCallback.Invoke();
     }
     
     private void LevelUp()
@@ -177,6 +178,11 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         _currentStamina += Mathf.RoundToInt(Time.deltaTime);
         onChangeCallback?.Invoke();
+    }
+
+    public int GetXP()
+    {
+        return _xp;
     }
 
     public override void TakeDamage(int _physicalDamage, int _magicDamage)

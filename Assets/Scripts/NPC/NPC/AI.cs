@@ -206,7 +206,7 @@ public class AI : MonoBehaviour
     public void Die()
     {
         Destroy(this);
-        PlayerStat.Instance.GainXP(NPCstat.level);
+        PlayerStat.Instance.GainXP(250);
     }
 
     
