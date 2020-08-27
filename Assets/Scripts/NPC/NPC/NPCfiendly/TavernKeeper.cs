@@ -29,6 +29,7 @@ public class TavernKeeper : AI,IInteractable
     private bool courantineHasStarted = false;
     private TaverKeeperState STATE;
 
+
     public enum TaverKeeperState
     {
         standing = 0,

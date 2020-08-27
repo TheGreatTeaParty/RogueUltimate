@@ -37,6 +37,7 @@ public class TradeSlot : MonoBehaviour, IPointerClickHandler
 
         // State: true - buy, false - sell
         tradeManager.state = gameObject.CompareTag("NPCTradeSlot");
+        tradeManager.onChangeCallback();
     }
     
 } 
