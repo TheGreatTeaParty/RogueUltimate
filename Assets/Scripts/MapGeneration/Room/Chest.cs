@@ -7,6 +7,7 @@ public class Chest : MonoBehaviour,IInteractable
     private Item itemToDrop;
     private bool _isDropped = false;
     private Animator animator;
+    private AudioSource OpenAudio;
     [SerializeField] private ParticleSystem openEffect;
 
     void Start()
@@ -14,6 +15,7 @@ public class Chest : MonoBehaviour,IInteractable
         itemToDrop = ItemsAsset.instance.GenerateItem();
         _isDropped = false;
         animator = GetComponent<Animator>();
+        OpenAudio = GetComponent<AudioSource>();
     }
 
     void IInteractable.Interact()
@@ -22,6 +24,7 @@ public class Chest : MonoBehaviour,IInteractable
         {
             _isDropped = true;
             animator.SetTrigger("_isOpen");
+            OpenAudio.Play();
             StartCoroutine(ChestAnimationWait());
         }
     }

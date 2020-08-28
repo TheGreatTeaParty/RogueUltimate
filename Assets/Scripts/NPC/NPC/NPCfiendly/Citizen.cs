@@ -31,7 +31,7 @@ public class Citizen : AI, IInteractable
     override public void Start()
     {
         base.Start();
-        currentHangingIndex = Random.Range(0, 3);
+        currentHangingIndex = Random.Range(0, HangingPoints.Length);
         target = HangingPoints[currentHangingIndex];
     }
 

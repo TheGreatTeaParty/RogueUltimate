@@ -13,6 +13,10 @@ GameObject:
   - component: {fileID: 1787982233019885457}
   - component: {fileID: 1787982233019885456}
   - component: {fileID: 1787982233019885468}
+  - component: {fileID: 5995633807853373683}
+  - component: {fileID: 1907518956473794626}
+  - component: {fileID: 8450257105870885416}
+  - component: {fileID: 7726190537592066904}
   m_Layer: 0
   m_Name: Elisa
   m_TagString: Untagged
@@ -87,7 +91,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -110,8 +114,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 78d572287dc493c47aac71cca2d23db1, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: -4923239865367998040, guid: 78d572287dc493c47aac71cca2d23db1,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,6 +139,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa87c2305ec8da4dbc9baac5a246231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextWayPointDistance: 1
+  Speed: 1.5
+  AttackRange: 0.5
+  DetectionRange: 7
+  FollowRange: 10
+  waitTime: 2
+  attackCoolDown: 1.2
+  attackDuration: 0.5
   dialogSystem: {fileID: 5610303572346991186}
   dialogWindow: {fileID: 1787982233554279038}
   buttonContinue: {fileID: 1787982232754780609}
@@ -144,6 +157,86 @@ MonoBehaviour:
     - My name is Elisa, i'm a daughter of there's blacksmith.
     - I'm a citizen of that city and it was realy beatiful beafore all that heppened.
     - See you next time !
+  HangingPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  PointStandingTime: 6
+--- !u!95 &5995633807853373683
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787982233019885463}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7cf2475933a714f7abcadceb19d5d413, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1907518956473794626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787982233019885463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a1426b0d8954768888e62e441d7e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+--- !u!114 &8450257105870885416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787982233019885463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0
+  runOnlyOnce: 0
+--- !u!114 &7726190537592066904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787982233019885463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1001 &8355080953073991899
 PrefabInstance:
   m_ObjectHideFlags: 0
