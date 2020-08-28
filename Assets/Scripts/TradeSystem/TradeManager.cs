@@ -138,6 +138,9 @@ public class TradeManager : MonoBehaviour
         tradeWindow.SetActive(false);
         UI.Show();
         currentItem = null;
+        //No Idea How to make it normal(without null check)
+        if (TavernKeeper.Instance != null)
+            TavernKeeper.Instance.Talk(false);
     }
 
 } 
