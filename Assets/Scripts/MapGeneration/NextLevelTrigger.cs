@@ -29,4 +29,8 @@ public class NextLevelTrigger : MonoBehaviour
         LevelManager.LoadScene(nextLevel);
     }
 
+    public void SetNextLevel(LevelManager.Scenes next)
+    {
+        nextLevel = next;
+    }
 }
