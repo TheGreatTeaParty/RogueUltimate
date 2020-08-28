@@ -14,15 +14,30 @@ public class RoomTemplates : MonoBehaviour
     public float wait_time = 2f;
     public int max_rooms;
     public GameObject endpoint;
+    public LevelManager.Scenes scenes;
+
+    [Space]
+    [SerializeField] private bool SpawnDwarf = false;
+    [SerializeField] private GameObject DwarfSeller;
 
     private bool end_point_is_spawned = false;
+    private GameObject Portal;
 
     private void Update()
     {
         if(wait_time <= 0 && !end_point_is_spawned)
         {
-            Instantiate(endpoint, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
+            Portal = Instantiate(endpoint, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
+            Portal.GetComponent<NextLevelTrigger>().SetNextLevel(scenes);
+            rooms[rooms.Count - 1].GetComponentInChildren<PlayerEnterCheck>().gameObject.SetActive(false);
             end_point_is_spawned = true;
+
+            if (SpawnDwarf)
+            {
+                int number = Random.Range(0, rooms.Count - 1);
+                Instantiate(DwarfSeller, rooms[number].transform.position, Quaternion.identity);
+                rooms[number].GetComponentInChildren<PlayerEnterCheck>().gameObject.SetActive(false);
+            }
         }
         else if(!end_point_is_spawned)
         {

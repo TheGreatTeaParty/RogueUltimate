@@ -81,12 +81,14 @@ public class Citizen : AI, IInteractable
         if (option)
         {
             STATE = CitizenState.standing;
+            _stopped = true;
         }
 
         //If not, change to the hanging
         else
         {
             STATE = CitizenState.hanging;
+            _stopped = false;
         }
     }
 
