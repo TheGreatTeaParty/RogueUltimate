@@ -126,7 +126,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316110010745616646}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -2295,7 +2295,7 @@ GameObject:
   - component: {fileID: 8699929389057949997}
   - component: {fileID: 1595176007346581937}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonResurrect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2317,7 +2317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155.25, y: -244.53}
+  m_AnchoredPosition: {x: -155.25, y: -230}
   m_SizeDelta: {x: 262.5, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9088746577639926961
@@ -2347,7 +2347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4331849829665928538, guid: 822523909a8b59243838a2e82ea22ea5,
+  m_Sprite: {fileID: -3085635798926346388, guid: 822523909a8b59243838a2e82ea22ea5,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -2971,7 +2971,7 @@ GameObject:
   - component: {fileID: 6700366879399116467}
   - component: {fileID: 2601837768431135716}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ButtonDie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2993,7 +2993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 155.25, y: -244.53}
+  m_AnchoredPosition: {x: 155.25, y: -230}
   m_SizeDelta: {x: 262.5, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &90991705325007822
@@ -3023,7 +3023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3341821493477967250, guid: 822523909a8b59243838a2e82ea22ea5,
+  m_Sprite: {fileID: 5219332785165633450, guid: 822523909a8b59243838a2e82ea22ea5,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -8780,13 +8780,14 @@ GameObject:
   - component: {fileID: 3323150049698072686}
   - component: {fileID: 4618592635999908861}
   - component: {fileID: 7519087900044353478}
+  - component: {fileID: 4576772332389918735}
   m_Layer: 5
   m_Name: DiePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3323150049698072686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8846,6 +8847,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4576772332389918735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053979631322585065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cbc789cbc47a4468f079d486cf5dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diePanel: {fileID: 7053979631322585065}
 --- !u!1 &7060413128345354702
 GameObject:
   m_ObjectHideFlags: 0
@@ -10632,15 +10646,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!1 &2375205716185614848 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 599161738404871155}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2375205716185614849 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252,
+    type: 3}
+  m_PrefabInstance: {fileID: 599161738404871155}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2375205716185614848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773939, guid: aaa2c939c0359ac4dbce3f49e8b90252,
     type: 3}
   m_PrefabInstance: {fileID: 599161738404871155}
   m_PrefabAsset: {fileID: 0}
