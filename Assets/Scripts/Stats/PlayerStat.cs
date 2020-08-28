@@ -23,8 +23,10 @@ public class PlayerStat : CharacterStat, IDamaged
     private int _xp;
     private int _currentMana;
     private int _currentStamina;
-    [SerializeField] private float regenerationSpeed;
-    [SerializeField] private Animator animator;
+    [SerializeField] 
+    private float regenerationSpeed;
+    [SerializeField] 
+    private Animator animator;
 
     public int maxMana = 100;
     public int maxStamina = 100;
@@ -199,13 +201,12 @@ public class PlayerStat : CharacterStat, IDamaged
         animator.SetTrigger("Die");
         PlayerStat.Instance.gameObject.layer = 2;
         PlayerStat.Instance.gameObject.tag = "Untagged";
-        SaveSystem.DeletePlayer(); //Deleate all player's data
-        //Opens Window with a decision |Adverb to continue| or |Humility|
+        InterfaceOnScene.instance.Hide();
+        InterfaceOnScene.instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroy or set Active(faulse)
 
-        
-        InterfaceOnScene.instance.gameObject.SetActive(false);
+
         //Destroy(gameObject);
         //Destroy(InterfaceOnScene.instance.gameObject);
         //SceneManager.LoadScene("Menu");
