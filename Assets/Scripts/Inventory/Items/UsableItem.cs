@@ -23,6 +23,7 @@ public class UsableItem : Item
     public override void MoveToQuickAccess()
     {
         base.MoveToQuickAccess();
+        AudioManager.Instance.Play("Click");
         QuickSlotsManager.Instance.AddItemToQuickAccessSlot(this);
     }
     

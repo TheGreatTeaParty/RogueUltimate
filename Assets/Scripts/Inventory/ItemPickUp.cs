@@ -17,7 +17,10 @@ public class ItemPickUp : MonoBehaviour
         {
             bool wasPickedUp = InventoryManager.Instance.AddItemToInventory(itemOnScene.GetItem());
             if (wasPickedUp)
+            {
+                AudioManager.Instance.Play("Collect");
                 Destroy(gameObject);
+            }
         }
     }
     

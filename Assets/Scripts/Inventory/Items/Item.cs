@@ -39,12 +39,14 @@ public class Item : ScriptableObject
         {
             InventoryManager.Instance.RemoveItemFromInventory(this);
             InventoryManager.Instance.DropFromInventory(this);
+            AudioManager.Instance.Play("DropItem");
             return;
         }
 
         if (place == "Equipment")
         {
             EquipmentManager.Instance.DropFromEquipment((EquipmentItem)this);
+            AudioManager.Instance.Play("DropItem");
             return;
         }
         

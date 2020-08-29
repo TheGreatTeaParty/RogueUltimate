@@ -27,6 +27,8 @@ public class PlayerStat : CharacterStat, IDamaged
     private float regenerationSpeed;
     [SerializeField] 
     private Animator animator;
+    [SerializeField]
+    private Transform LevelUpEffect;
 
     public int maxMana = 100;
     public int maxStamina = 100;
@@ -113,6 +115,10 @@ public class PlayerStat : CharacterStat, IDamaged
     
     private void LevelUp()
     {
+        //Sound + LevelUpFX
+        AudioManager.Instance.Play("LevelUp");
+        KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(LevelUpEffect);
+
         level++;
         _xp = 0;
     }
