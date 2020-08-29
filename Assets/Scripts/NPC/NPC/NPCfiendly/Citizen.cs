@@ -114,7 +114,7 @@ public class Citizen : AI, IInteractable
 
     void IInteractable.Interact()
     {
-        InterfaceOnScene.instance.gameObject.SetActive(false);
+        InterfaceOnScene.Instance.gameObject.SetActive(false);
         dialogWindow.SetActive(true);
         buttonContinue.SetActive(true);
         dialogSystem.StartDialog(dialog);

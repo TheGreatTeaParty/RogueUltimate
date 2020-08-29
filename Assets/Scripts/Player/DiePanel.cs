@@ -35,7 +35,7 @@ public class DiePanel : MonoBehaviour
         PlayerStat.Instance.gameObject.tag = "Player";
         diePanel.SetActive(false);
         Time.timeScale = 1f;
-        InterfaceOnScene.instance.Show();
+        InterfaceOnScene.Instance.Show();
         Debug.Log("There will be an adv : ");
     }
 

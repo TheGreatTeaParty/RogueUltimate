@@ -124,7 +124,7 @@ public class TradeManager : MonoBehaviour
 
     public void Open()
     {
-        var UI = InterfaceOnScene.instance;
+        var UI = InterfaceOnScene.Instance;
         UI.Hide();
         tradeWindow.SetActive(true);
         
@@ -133,7 +133,7 @@ public class TradeManager : MonoBehaviour
 
     public void Close()
     {
-        var UI = InterfaceOnScene.instance;
+        var UI = InterfaceOnScene.Instance;
         EraseTooltip();
         tradeWindow.SetActive(false);
         UI.Show();

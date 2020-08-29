@@ -28,7 +28,7 @@ public class RangeWeapon : EquipmentItem
         if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
             return;
             
-        Vector3 direction = new Vector3(InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
+        Vector3 direction = new Vector3(InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
