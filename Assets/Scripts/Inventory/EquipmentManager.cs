@@ -46,6 +46,7 @@ public class EquipmentManager : MonoBehaviour
 
         currentEquipment[slotIndex] = newItem;
 
+        AudioManager.Instance.Play("Equip");
         onEquipmentChanged?.Invoke(newItem, oldItem);
         onEquipmentCallback?.Invoke();
     }
@@ -59,6 +60,7 @@ public class EquipmentManager : MonoBehaviour
         InventoryManager.Instance.AddItemToInventory(oldItem);
         currentEquipment[slotIndex] = null;
 
+        AudioManager.Instance.Play("Unequip");
         onEquipmentChanged?.Invoke(null, oldItem);
         onEquipmentCallback?.Invoke();
     }

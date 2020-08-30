@@ -27,6 +27,8 @@ public class PlayerStat : CharacterStat, IDamaged
     private float regenerationSpeed;
     [SerializeField] 
     private Animator animator;
+    [SerializeField]
+    private Transform LevelUpEffect;
 
     public int maxMana = 100;
     public int maxStamina = 100;
@@ -45,9 +47,9 @@ public class PlayerStat : CharacterStat, IDamaged
         _currentMana = maxMana;
         
         //Set max health
-        InterfaceOnScene.instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
-        InterfaceOnScene.instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
-        InterfaceOnScene.instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
+        InterfaceOnScene.Instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
+        InterfaceOnScene.Instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
+        InterfaceOnScene.Instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
 
         if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
@@ -113,6 +115,10 @@ public class PlayerStat : CharacterStat, IDamaged
     
     private void LevelUp()
     {
+        //Sound + LevelUpFX
+        AudioManager.Instance.Play("LevelUp");
+        KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(LevelUpEffect);
+
         level++;
         _xp = 0;
     }
@@ -201,14 +207,14 @@ public class PlayerStat : CharacterStat, IDamaged
         animator.SetTrigger("Die");
         PlayerStat.Instance.gameObject.layer = 2;
         PlayerStat.Instance.gameObject.tag = "Untagged";
-        InterfaceOnScene.instance.Hide();
-        InterfaceOnScene.instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
+        InterfaceOnScene.Instance.Hide();
+        InterfaceOnScene.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroy or set Active(faulse) 
 
 
         //Destroy(gameObject);
-        //Destroy(InterfaceOnScene.instance.gameObject);
+        //Destroy(InterfaceOnScene.Instance.gameObject);
         //SceneManager.LoadScene("Menu");
 
     }

@@ -2,8 +2,6 @@
 using UnityEngine.Audio;
 
 
-namespace Audio
-{
 
     [System.Serializable]
     public class Sound
@@ -20,6 +18,3 @@ namespace Audio
         [HideInInspector]
         public AudioSource source;
     }
-
-
-}

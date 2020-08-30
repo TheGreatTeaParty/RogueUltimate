@@ -43,7 +43,10 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (equipmentItem != null)
+        {
+            AudioManager.Instance.Play("Click");
             OpenTooltip();
+        }
     }
     
     

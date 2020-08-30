@@ -4903,6 +4903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8391793214224961618}
   - component: {fileID: 8391793214224961617}
+  - component: {fileID: 4480830655473174480}
   - component: {fileID: 8391793214224961616}
   - component: {fileID: 8391793214224961623}
   - component: {fileID: 1005217393145973173}
@@ -4943,6 +4944,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openEffect: {fileID: 3837816914387298392}
+--- !u!114 &4480830655473174480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391793214224961622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96866d20f23d4b84b827f158ff8fb33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  open_sound: {fileID: 8300000, guid: d3726fd42bc064669aa1c2bd179e3477, type: 3}
+  money_sound: {fileID: 8300000, guid: 76befb8ad21a64e5aab15946431fe4cf, type: 3}
 --- !u!212 &8391793214224961616
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5051,13 +5066,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e2a5816e9e0ce4d78897e1e20d53fb67, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
-  m_Pitch: 1
+  m_Volume: 0.2
+  m_Pitch: 0.9
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 64
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

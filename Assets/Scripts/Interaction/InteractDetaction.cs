@@ -11,7 +11,7 @@ public class InteractDetaction : MonoBehaviour
 
     private void Start()
     {
-        interactionUI = InterfaceOnScene.instance.GetComponentInChildren<InteractionUI>();
+        interactionUI = InterfaceOnScene.Instance.GetComponentInChildren<InteractionUI>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

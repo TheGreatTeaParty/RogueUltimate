@@ -15,7 +15,7 @@ public class PlayerMovment : MonoBehaviour
 
     public void Start()
     {
-        joystick = InterfaceOnScene.instance.GetComponentInChildren<Joystick>();
+        joystick = InterfaceOnScene.Instance.GetComponentInChildren<Joystick>();
     }
 
     /*There we receive input information*/

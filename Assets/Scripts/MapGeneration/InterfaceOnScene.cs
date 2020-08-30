@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class InterfaceOnScene : MonoBehaviour
 {
-    public static InterfaceOnScene instance;
+    public static InterfaceOnScene Instance;
     [SerializeField] private GameObject[] interfaceElements;
     
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(this);
         }
         else

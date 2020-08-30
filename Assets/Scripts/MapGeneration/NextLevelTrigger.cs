@@ -6,7 +6,13 @@ public class NextLevelTrigger : MonoBehaviour
 {
     [SerializeField] private LevelManager.Scenes nextLevel;
     [SerializeField] private Animator transition;
-    
+    [SerializeField] private Type type;
+
+    public enum Type
+    {
+        portal = 0,
+        stairs,
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,6 +30,16 @@ public class NextLevelTrigger : MonoBehaviour
     private IEnumerator LoadLevelAnimation()
     {
         transition.SetTrigger("Start");
+
+        if(type == Type.portal)
+        {
+            AudioManager.Instance.Play("Teleport");
+        }
+        else
+        {
+
+        }
+
         yield return new WaitForSeconds(1f);
         
         LevelManager.LoadScene(nextLevel);

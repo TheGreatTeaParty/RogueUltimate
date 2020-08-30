@@ -41,7 +41,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_item != null)
+        {
             ShowTooltip();
+            AudioManager.Instance.Play("Click");
+        }
+
     }
     
     

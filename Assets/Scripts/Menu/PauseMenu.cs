@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Quitting game...");  
         SceneManager.LoadScene("Menu");
         Destroy(PlayerStat.Instance.gameObject);
-        Destroy(InterfaceOnScene.instance.gameObject);
+        Destroy(InterfaceOnScene.Instance.gameObject);
 
     }
 
