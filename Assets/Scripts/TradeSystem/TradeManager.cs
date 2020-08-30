@@ -88,6 +88,7 @@ public class TradeManager : MonoBehaviour
         }
         
         onChangeCallback?.Invoke();
+        AudioManager.Instance.Play("Buy");
     }
 
     public void Sell()
@@ -106,6 +107,7 @@ public class TradeManager : MonoBehaviour
         EraseTooltip();
         
         onChangeCallback?.Invoke();
+        AudioManager.Instance.Play("Sell");
     }
 
     public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
@@ -129,6 +131,7 @@ public class TradeManager : MonoBehaviour
         tradeWindow.SetActive(true);
         
         onChangeCallback.Invoke();
+        AudioManager.Instance.Play("TradeOpen");
     }
 
     public void Close()
@@ -138,6 +141,8 @@ public class TradeManager : MonoBehaviour
         tradeWindow.SetActive(false);
         UI.Show();
         currentItem = null;
+        AudioManager.Instance.Play("TradeClose");
+
         //No Idea How to make it normal(without null check)
         if (TavernKeeper.Instance != null)
             TavernKeeper.Instance.Talk(false);

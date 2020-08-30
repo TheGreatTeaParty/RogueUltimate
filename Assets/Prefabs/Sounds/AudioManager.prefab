@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8297732361817351781}
   - component: {fileID: 8297732361817351778}
-  - component: {fileID: 3957677161169949742}
+  - component: {fileID: 613857656}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -80,7 +80,32 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
---- !u!81 &3957677161169949742
+  - name: UIclick
+    clip: {fileID: 8300000, guid: d5d724927b8284147a3fce19ac07638e, type: 3}
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
+  - name: Buy
+    clip: {fileID: 8300000, guid: 76befb8ad21a64e5aab15946431fe4cf, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: Sell
+    clip: {fileID: 8300000, guid: af85cdf4e085e40c28eb33ef57e1d4d0, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: TradeOpen
+    clip: {fileID: 8300000, guid: 24d61d189ad8445cdadc8c464c29e14d, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - name: TradeClose
+    clip: {fileID: 8300000, guid: d479a8f23673140e39812eb12efc7263, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+--- !u!81 &613857656
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
