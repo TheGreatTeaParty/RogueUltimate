@@ -204,7 +204,7 @@ public class PlayerStat : CharacterStat, IDamaged
         InterfaceOnScene.instance.Hide();
         InterfaceOnScene.instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
-        //Destroy or set Active(faulse)
+        //Destroy or set Active(faulse) 
 
 
         //Destroy(gameObject);

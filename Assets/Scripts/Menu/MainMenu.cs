@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
-
+using System.Text;
 
 public class MainMenu : MonoBehaviour {
 
@@ -39,8 +39,11 @@ public class MainMenu : MonoBehaviour {
          
         foreach(GameObject pref in characterPrefabs)
         {
+            StringBuilder sb = new StringBuilder(pref.name);
+            sb.Append("(Clone)");
+
             Debug.Log(pref.name + "(Clone)");
-            if (pref.name + "(Clone)" == data.gameObjectName)
+            if (sb.ToString() == data.gameObjectName)
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
                 Instantiate(playerInterface);

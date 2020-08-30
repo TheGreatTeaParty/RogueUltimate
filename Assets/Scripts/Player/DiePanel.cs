@@ -20,6 +20,7 @@ public class DiePanel : MonoBehaviour
 
     public void DieButton()
     {
+        Destroy(PlayerStat.Instance.gameObject);
         SaveSystem.DeletePlayer();
         diePanel.SetActive(false);
         LevelManager.LoadScene("Menu");
