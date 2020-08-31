@@ -14,6 +14,7 @@ public enum NPCstate
 
 public class AI : MonoBehaviour
 {
+    [Space]
     public float nextWayPointDistance = 1f;
     public float Speed = 4f;
     public float AttackRange = 0.5f;
@@ -36,9 +37,10 @@ public class AI : MonoBehaviour
     protected Seeker seeker;
     protected Rigidbody2D Rb;
     protected bool _stopped = false;
+    protected bool _attack = false;
 
     private EnemyStat NPCstat;
-    private bool _attack = false;
+    
 
     public delegate void OnAttacked();
     public OnAttacked onAttacked;
@@ -93,6 +95,9 @@ public class AI : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
+        if (Vector2.Distance(transform.position, target.transform.position) > AttackRange && !_attack)
+            state = NPCstate.chasing;
+
         switch (state)
         {
             case NPCstate.chasing:
@@ -132,8 +137,6 @@ public class AI : MonoBehaviour
 
     protected void StateAttack()
     {
-        if (Vector2.Distance(transform.position, target.transform.position) > AttackRange)
-            state = NPCstate.chasing;
         if (!_attack)
             StartCoroutine(AttackWait());
     }
@@ -185,7 +188,7 @@ public class AI : MonoBehaviour
         _stopped = false;
     }
 
-    public Vector2 GetDirection()
+    public  virtual Vector2 GetDirection()
     {
       
         return dir;
@@ -206,7 +209,6 @@ public class AI : MonoBehaviour
     public void Die()
     {
         Destroy(this);
-        PlayerStat.Instance.GainXP(250);
     }
 
     
@@ -217,10 +219,8 @@ public class AI : MonoBehaviour
         yield return new WaitForSeconds(attackCoolDown);
         onAttacked?.Invoke();
         yield return new WaitForSeconds(attackDuration);
-        _attack = true;
         Attack();
         StartMoving();
-        _attack = false;
     }
     
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyStat : CharacterStat,IDamaged
 {
+    [Space] public int XP = 250;
+
     public delegate void OnReceivedDamage(int damage);
     public OnReceivedDamage onReceivedDamage;
 
@@ -25,6 +27,7 @@ public class EnemyStat : CharacterStat,IDamaged
 
     public override void Die()
     {
+        PlayerStat.Instance.GainXP(XP);
         onDie?.Invoke();
         GetComponent<Rigidbody2D>().Sleep();
         GetComponent<CapsuleCollider2D>().enabled = false;

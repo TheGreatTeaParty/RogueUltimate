@@ -5,14 +5,15 @@ using UnityEngine;
 public class Kaban : AI
 {
     public float rage_speed;
-    public float timeBeforeTheRage;
+    public float StunTime = 2.5f;
 
     private Vector2 position;
     private Vector3 finalPos;
     private bool _isRage;
-    private float saveTime = 3f;
 
     private bool _preparing = false;
+    private bool hit = false;
+    private bool hit_player = false;
 
     [SerializeField] private GameObject kabanDamageArea;
 
@@ -20,45 +21,67 @@ public class Kaban : AI
     public override void Update()
     {
         base.Update();
-
+       
         if (_isRage)
             Rb.MovePosition(Rb.position + position* rage_speed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, finalPos) < 0.5f || !_isRage)
+        if (hit)
         {
-            StartMoving();
             kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = false;
             _isRage = false;
+            hit = false;
+            if (!hit_player)
+            {
+                StartCoroutine(Stun());
+            }
+
+            else
+            {
+                _attack = false;
+            }
         }
     }
 
     public override void Attack()
     {
+       
         if (!_isRage)
         {
-            StopMoving();
-            if(!_preparing)
-                StartCoroutine(Waiter());
+            if (!_preparing)
+            {
+                _preparing = true;
+                finalPos = target.transform.position;
+                position = (finalPos - transform.position).normalized;
+                kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
+                _isRage = true;
+                _preparing = false;
+            }
+
         }
     }
-    
-
-    IEnumerator Waiter()
+    public override Vector2 GetDirection()
     {
-        _preparing = true;
-        yield return new WaitForSeconds(timeBeforeTheRage);
-        finalPos = target.transform.position;
-        position = finalPos - transform.position;
-        kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
-        _isRage = true;
-        StartCoroutine(Check());
-        _preparing = false;
+        if (_isRage)
+        {
+            return position;
+        }
+        else
+        {
+            return dir;
+        }
     }
 
-    IEnumerator Check()
+    public void SetHit(bool _hit_player)
     {
-        yield return new WaitForSeconds(saveTime);
-        _isRage = false;
+        hit = true;
+        hit_player = _hit_player;
     }
 
+    IEnumerator Stun()
+    {
+        GetComponent<Animator>().SetBool("Stunned", true);
+        yield return new WaitForSeconds(StunTime);
+        _attack = false;
+        GetComponent<Animator>().SetBool("Stunned", false);
+    }
 }
