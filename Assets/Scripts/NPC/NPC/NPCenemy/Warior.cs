@@ -32,6 +32,7 @@ public class Warior : AI
             {
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
             }
+        _attack = false;
     }
 
     private void OnDrawGizmosSelected()
