@@ -5,7 +5,8 @@ using UnityEngine;
 public class InterfaceOnScene : MonoBehaviour
 {
     public static InterfaceOnScene Instance;
-    [SerializeField] private GameObject[] interfaceElements;
+    [SerializeField] private GameObject[] mainElements;
+    [SerializeField] private GameObject[] panels;
     
     private void Awake()
     {
@@ -16,20 +17,29 @@ public class InterfaceOnScene : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
-    public void Hide()
+    public void HideMainElements()
     {
-        foreach (var e in interfaceElements)
+        foreach (var e in mainElements)
             e.SetActive(false);
     }
     
-    public void Show()
+    public void ShowMainElements()
     {
-        foreach (var e in interfaceElements)
+        foreach (var e in mainElements)
             e.SetActive(true);
     }
-    
+
+    public void HideAll()
+    {
+        foreach (var p in panels)
+            p.SetActive(false);
+       
+        foreach (var e in mainElements)
+            e.SetActive(false);
+    }
+
 }

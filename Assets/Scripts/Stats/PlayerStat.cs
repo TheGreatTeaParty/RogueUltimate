@@ -18,9 +18,28 @@ public class PlayerStat : CharacterStat, IDamaged
     }
 
     #endregion
-
+    
     private float _regenerationCoolDown;
+    
     private int _xp;
+    private int[] _xpToNextLevel = 
+    {
+        220, // 1
+        440, // 2
+        700, // 3
+        980, // 4
+        1300, // 5 
+        1640, // 6
+        2020, // 7
+        2460, // 8
+        2920, // 9
+        3440, // 10
+        4000, // 11
+        4640, // 12
+        5340, // 13
+        
+    };
+
     private int _currentMana;
     private int _currentStamina;
     [SerializeField] 
@@ -45,7 +64,7 @@ public class PlayerStat : CharacterStat, IDamaged
         currentHealth = maxHealth;
         _currentStamina = maxStamina;
         _currentMana = maxMana;
-        
+
         //Set max health
         InterfaceOnScene.Instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
         InterfaceOnScene.Instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
@@ -89,25 +108,13 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public void GainXP(int gainedXP)
     {
+        if (level >= 20) return; // max level
+        
         _xp += gainedXP;
-        switch (level)
+        while (_xp > _xpToNextLevel[level - 1]) 
         {
-            // * 2
-            case 1 when _xp >= 220:
-            case 2 when _xp >= 440:
-            case 3 when _xp >= 700:
-            case 4 when _xp >= 980:
-            case 5 when _xp >= 1300:
-            case 6 when _xp >= 1640:
-            case 7 when _xp >= 2020:    
-            case 8 when _xp >= 2460:
-            case 9 when _xp >= 2920:
-            case 10 when _xp > 3440:
-            case 11 when _xp > 4000:    
-            case 12 when _xp > 4640:
-            case 13 when _xp > 5340:
-                LevelUp();
-                break;
+            _xp -= _xpToNextLevel[level - 1];
+            LevelUp();
         }
         
         onChangeCallback.Invoke();
@@ -115,12 +122,10 @@ public class PlayerStat : CharacterStat, IDamaged
     
     private void LevelUp()
     {
+        level++;
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
         KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(LevelUpEffect);
-
-        level++;
-        _xp = 0;
     }
     
     public bool ModifyHealth(int value)
@@ -207,7 +212,7 @@ public class PlayerStat : CharacterStat, IDamaged
         animator.SetTrigger("Die");
         PlayerStat.Instance.gameObject.layer = 2;
         PlayerStat.Instance.gameObject.tag = "Untagged";
-        InterfaceOnScene.Instance.Hide();
+        InterfaceOnScene.Instance.HideMainElements();
         InterfaceOnScene.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroy or set Active(faulse) 

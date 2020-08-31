@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Need setters and getters (?)
 public class TradeManager : MonoBehaviour
@@ -85,24 +86,19 @@ public class TradeManager : MonoBehaviour
         {
             playerInventory.ChangeGold(-currentItem.Price);
             playerInventory.AddItemToInventory(currentItem);
+            AudioManager.Instance.Play("Buy");
         }
         
         onChangeCallback?.Invoke();
-        AudioManager.Instance.Play("Buy");
     }
 
     public void Sell()
     {
-        if (currentItem == null)
-        {
-            Debug.Log("Null pointer in TradeManager.cs, Sell()");
-            return;
-        }
-        
         playerInventory.ChangeGold(currentItem.Price);
         playerInventory.RemoveItemFromInventory(currentItem);
-        // Do an item check in inventory
-        
+        if (currentItem is UsableItem)
+            QuickSlotsManager.Instance.Request((UsableItem)currentItem);
+
         currentItem = null;
         EraseTooltip();
         
@@ -127,7 +123,10 @@ public class TradeManager : MonoBehaviour
     public void Open()
     {
         var UI = InterfaceOnScene.Instance;
-        UI.Hide();
+        var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
+        
+        UI.HideAll();
+        playerButton.enabled = false;
         tradeWindow.SetActive(true);
         
         onChangeCallback.Invoke();
@@ -137,9 +136,12 @@ public class TradeManager : MonoBehaviour
     public void Close()
     {
         var UI = InterfaceOnScene.Instance;
+        var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
+        
         EraseTooltip();
         tradeWindow.SetActive(false);
-        UI.Show();
+        UI.ShowMainElements();
+        playerButton.enabled = true;
         currentItem = null;
         AudioManager.Instance.Play("TradeClose");
 

@@ -76,12 +76,11 @@ public class QuickSlotsManager : MonoBehaviour
     {
         foreach (var item in items.ToList()) // ToList() prevents InvalidOperationException
         {
-            if (usableItem == item)
-            {
-                items.Remove(usableItem);
-                _count--;
-                UpdateUI();
-            }
+            if (usableItem != item) continue;
+            
+            items.Remove(usableItem);
+            _count--;
+            UpdateUI();
         }
         
     }
