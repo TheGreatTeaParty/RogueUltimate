@@ -14,7 +14,7 @@ public class InvetoryUI : MonoBehaviour
         //Make delegate function from InventoryManager be equal to UpdateUI fun
         _inventoryManager.onItemChangedCallback += UpdateUI;
         inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
-        //UpdateUI();
+        UpdateUI();
     }
 
     
