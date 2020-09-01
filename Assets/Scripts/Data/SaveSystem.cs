@@ -41,8 +41,8 @@ public static class SaveSystem
     public static void DeletePlayer()
     {
         string path = Application.persistentDataPath + "/player.gay";
-        //FileUtil.DeleteFileOrDirectory(path);
-       // AssetDatabase.Refresh();
+        File.Delete(path);
+        //AssetDatabase.Refresh();
 
     }
 
