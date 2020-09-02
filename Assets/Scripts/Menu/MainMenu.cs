@@ -18,25 +18,21 @@ public class MainMenu : MonoBehaviour {
     
     private void Start()
     {
-        string path = Application.persistentDataPath + "/player.gay";
+        string path = Application.persistentDataPath + "/player.dat";
         if (File.Exists(path)) resumeButton.interactable = true;
     }
 
     public void NewGame()
     {
+        SaveManager.DeletePlayer();
         LevelManager.LoadScene("StartTavern");
-        SaveSystem.DeletePlayer();
     }
 
     public void ResumeGame()
     {
-        PlayerData data = SaveSystem.LoadPlayer();
+        PlayerData data = SaveManager.LoadPlayer();
         LevelManager.LoadScene(data.scene);
 
-        Debug.Log("U are trying to load scene " + data.scene);
-        Debug.Log("gameObject's name is " + data.gameObjectName);
-        Debug.Log("gameObject's HP = " + data.currentHP);
-         
         foreach(GameObject pref in characterPrefabs)
         {
             StringBuilder sb = new StringBuilder(pref.name);
@@ -47,7 +43,7 @@ public class MainMenu : MonoBehaviour {
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
                 Instantiate(playerInterface);
-                PlayerStat.Instance.currentHealth = data.currentHP;
+                PlayerStat.Instance.SetCurrentHealth(data.currentHP);
                 PlayerStat.Instance.SetCurrentMana(data.currentMP);
                 PlayerStat.Instance.SetCurrentStamina(data.currentSP);
                 PlayerStat.Instance.maxHealth = data.maxHP;
@@ -66,4 +62,5 @@ public class MainMenu : MonoBehaviour {
         Application.Quit();
     }
 
+    
 }

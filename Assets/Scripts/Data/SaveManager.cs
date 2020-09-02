@@ -3,12 +3,12 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-public static class SaveSystem
+public static class SaveManager
 {
     public static void SavePlayer ()
     {
         BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
-        string path = Application.persistentDataPath + "/player.gay"; //Make an adress of a our file
+        string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
         FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
 
         PlayerData data = new PlayerData(); //Unity data -> general data for better saving
@@ -31,7 +31,7 @@ public static class SaveSystem
             return data;
         } else
         {
-            Debug.LogError("There is no save file in " + path);
+            //Debug.LogError("There is no save file in " + path);
             //Sets button resume non interactable
             return null;
         }
@@ -39,10 +39,11 @@ public static class SaveSystem
 
     public static void DeletePlayer()
     {
-        string path = Application.persistentDataPath + "/player.gay";
+        string path = Application.persistentDataPath + "/player.dat";
         File.Delete(path);
         //AssetDatabase.Refresh();
 
     }
+    
 
 }

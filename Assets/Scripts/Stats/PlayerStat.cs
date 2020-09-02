@@ -59,18 +59,18 @@ public class PlayerStat : CharacterStat, IDamaged
 
     private void Start()
     {
-        _regenerationCoolDown = 0;
-        regenerationSpeed = 1;
-        currentHealth = maxHealth;
-        _currentStamina = maxStamina;
-        _currentMana = maxMana;
+        if (SaveManager.LoadPlayer() != null) return;
+            _regenerationCoolDown = 0;
+            regenerationSpeed = 1;
+            currentHealth = maxHealth;
+            _currentStamina = maxStamina;
+            _currentMana = maxMana;
 
-        //Set max health
-        InterfaceOnScene.Instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
-        InterfaceOnScene.Instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
-        InterfaceOnScene.Instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
+            //Set max health
+            InterfaceOnScene.Instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
+            InterfaceOnScene.Instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
+            InterfaceOnScene.Instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
 
-        if (EquipmentManager.Instance != null)
             EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
     
@@ -186,6 +186,15 @@ public class PlayerStat : CharacterStat, IDamaged
         _currentStamina = stamina;
     }
 
+    public void SetCurrentHealth(int health)
+    {
+        currentHealth = health;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
 
     public void RegenerateStamina()
     {

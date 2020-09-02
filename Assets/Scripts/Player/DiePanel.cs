@@ -25,7 +25,7 @@ public class DiePanel : MonoBehaviour
     {
         var UI = InterfaceOnScene.Instance;
         
-        SaveSystem.DeletePlayer();
+        SaveManager.DeletePlayer();
         UI.HideAll();
         diePanel.SetActive(false);
         LevelManager.LoadScene("Menu");
