@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-//using UnityEditor;
 
 
 public static class SaveSystem
@@ -20,7 +19,7 @@ public static class SaveSystem
 
     public static PlayerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/player.gay"; //Make an adress of a our file
+        string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
         if (File.Exists(path)) //Check if saving exists
         {
             BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter

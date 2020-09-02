@@ -25,12 +25,15 @@ public class DiePanel : MonoBehaviour
     {
         var UI = InterfaceOnScene.Instance;
         
-        Destroy(PlayerStat.Instance.gameObject);
         SaveSystem.DeletePlayer();
         UI.HideAll();
         diePanel.SetActive(false);
         LevelManager.LoadScene("Menu");
         Time.timeScale = 1f;
+
+        Destroy(InterfaceOnScene.Instance.gameObject);
+        Destroy(AudioManager.Instance.gameObject);
+        Destroy(PlayerStat.Instance.gameObject);
     }
 
     public void ResurrectButton()
