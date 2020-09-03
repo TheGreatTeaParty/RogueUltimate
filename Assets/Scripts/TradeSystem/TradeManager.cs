@@ -122,10 +122,14 @@ public class TradeManager : MonoBehaviour
 
     public void Open()
     {
+        //Return Joystick to 0 position;
+        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+
         var UI = InterfaceOnScene.Instance;
         var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
+
         playerButton.enabled = false;
         tradeWindow.SetActive(true);
         

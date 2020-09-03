@@ -74,6 +74,6 @@ public class PlayerMovment : MonoBehaviour
 
     public void SlowDown(float percent)
     {
-        movementSpeed *= percent;
+        BASE_MOVEMENT_SPEED *= percent;
     }
 }

@@ -25,6 +25,9 @@ public class DialogSystem : MonoBehaviour
 
     public void StartDialog(Dialog dialog)
     {
+        //Return Joystick to 0 position;
+        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+
         Debug.Log("Talk to " + dialog.name);
         nameText.text = dialog.name;
 

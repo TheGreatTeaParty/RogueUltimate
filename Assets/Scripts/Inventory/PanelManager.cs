@@ -15,6 +15,10 @@ public class PanelManager : MonoBehaviour
 
     private void OpenClose()
     {
+        //Return Joystick to 0 position;
+        if(InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>()!= null)
+            InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+
         foreach (var panel in panels)
             if (panel != null)
             {
@@ -26,6 +30,7 @@ public class PanelManager : MonoBehaviour
             if (!playerPanel.activeSelf)
                 tooltip.SetActive(false);
         
+
     }
     
     

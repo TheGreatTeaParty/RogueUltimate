@@ -31,6 +31,7 @@ public class NextLevelTrigger : MonoBehaviour
     {
         transition.SetTrigger("Start");
 
+        //Audio sound depends on type:
         if(type == Type.portal)
         {
             AudioManager.Instance.Play("Teleport");
@@ -39,6 +40,8 @@ public class NextLevelTrigger : MonoBehaviour
         {
 
         }
+        //Return Joustick to 0 position
+        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
 
         yield return new WaitForSeconds(1f);
         
