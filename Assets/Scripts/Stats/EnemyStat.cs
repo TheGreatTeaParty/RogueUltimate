@@ -22,7 +22,6 @@ public class EnemyStat : CharacterStat,IDamaged
         onReceivedDamage?.Invoke(magicDamageReceived+physicalDamageReceived);
 
         onDamaged?.Invoke();
-        GetComponent<CharacterAudio>().DamageSound();
     }
 
     public override void Die()

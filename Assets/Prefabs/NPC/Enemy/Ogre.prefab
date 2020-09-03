@@ -184,6 +184,7 @@ MonoBehaviour:
     modifiers: 
   maxHealth: 120
   currentHealth: 0
+  XP: 250
 --- !u!114 &5968919584281164153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,15 +346,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step_sounds:
-  - {fileID: 8300000, guid: ffd837243fe0c45fb97be11f842d444e, type: 3}
+  - {fileID: 8300000, guid: 00dca58c68a724de59ee67d0c5f0edc6, type: 3}
   take_damage: {fileID: 8300000, guid: d82e0707c05d34218bfe9a401b8a3f3a, type: 3}
-  death: {fileID: 8300000, guid: b67274d6a15e24be5b92ab49485068af, type: 3}
+  death: {fileID: 8300000, guid: a0b208f649a8d496fa0084ec78c2f03c, type: 3}
   attack:
-  - {fileID: 8300000, guid: be04b54e4dbd84c0184a3751c4d60713, type: 3}
+  - {fileID: 8300000, guid: f9a79b2fba87d45dd84ffefd7290989b, type: 3}
   swing: {fileID: 8300000, guid: f54e840b177a14560949231b77dee8ba, type: 3}
+  extraSounds:
+  - {fileID: 8300000, guid: 29b71e28005a54166be1339ff0ae40d8, type: 3}
   source:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5968919584281164150}
+  - {fileID: 5968919584281164155}
 --- !u!82 &5968919584281164150
 AudioSource:
   m_ObjectHideFlags: 0
@@ -366,8 +369,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.08
+  m_Pitch: 0.8
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -462,7 +465,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

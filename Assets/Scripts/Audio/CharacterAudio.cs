@@ -20,6 +20,9 @@ public class CharacterAudio : MonoBehaviour
     AudioClip swing;
 
     [SerializeField]
+    AudioClip[] extraSounds;
+
+    [SerializeField]
     AudioSource[] source;
     public enum Type
     {
@@ -63,8 +66,14 @@ public class CharacterAudio : MonoBehaviour
         }
         
     }
+
     public void SwingSound()
     {
         source[1].PlayOneShot(swing);
+    }
+
+    public void PlayExtra(int number)
+    {
+        source[1].PlayOneShot(extraSounds[number]);
     }
 }

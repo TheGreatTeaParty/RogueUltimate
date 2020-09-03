@@ -147,8 +147,7 @@ public class TavernKeeper : AI,IInteractable
         //If not, change to the hanging
         else
         {
-            STATE = TaverKeeperState.hanging;
-            _stopped = false;
+            STATE = TaverKeeperState.standing;
         }
     }
 

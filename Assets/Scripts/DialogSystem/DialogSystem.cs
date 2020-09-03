@@ -12,6 +12,9 @@ public class DialogSystem : MonoBehaviour
     private TextMeshProUGUI dialogText;
     [SerializeField]
     private GameObject dialogWindow;
+    [SerializeField]
+    private float SoundGapTime = 0.3f;
+    private bool CourantineHasStarted = false;
     private Queue<string> sentences;
 
 
@@ -62,8 +65,17 @@ public class DialogSystem : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogText.text += letter;
+            if(!CourantineHasStarted)
+                StartCoroutine(CallSound());
             yield return null;
         }
+    }
+    IEnumerator CallSound()
+    {
+        CourantineHasStarted = true;
+        yield return new WaitForSeconds(SoundGapTime);
+        AudioManager.Instance.Play("Talk");
+        CourantineHasStarted = false;
     }
 
 }
