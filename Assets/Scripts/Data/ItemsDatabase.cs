@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 
 
@@ -26,11 +25,14 @@ public class ItemsDatabase : MonoBehaviour
     public Item[] tierThree;
     public Item[] tierFour;
     public Item[] tierFive;
-    
+
 
     public Item GetItemByID(int ID)
     {
-        return allItems.FirstOrDefault(item => ID == item.ID);
+        foreach (var item in allItems)
+            if (ID == item.ID) return item;
+        
+        return null;
     }
     
 }

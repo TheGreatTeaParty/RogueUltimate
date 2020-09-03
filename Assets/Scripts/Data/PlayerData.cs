@@ -20,7 +20,7 @@ public class PlayerData
     public int currentMP, maxMP; //Mana
     public int currentSP, maxSP; //Stamina
 
-    public int xp, xpToNextLevel, level;
+    public int xp, level;
     public int strength, dexterity, intelligence;
     
     
@@ -50,17 +50,15 @@ public class PlayerData
 
         level = stats.level;
         xp = stats.GetXP();
-        xpToNextLevel = stats.GetXPToNextLevel(level); // ???
 
         strength = stats.strength;
         dexterity = stats.agility;
         intelligence = stats.intelligence;
 
         gold = inventory.GetGold();
-        for (int i = 0; i < inventory.size; i++)
+        for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i] == null) 
-                break;
+            if (inventory.items[i].ID == 0) break;
             
             inventoryData[i] = inventory.items[i].ID;
         }

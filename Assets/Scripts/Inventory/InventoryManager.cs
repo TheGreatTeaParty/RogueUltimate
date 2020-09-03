@@ -30,12 +30,15 @@ public class InventoryManager : MonoBehaviour
     {
         if (SaveManager.LoadPlayer() == null) return;
         
-        var data = SaveManager.LoadPlayer().inventoryData;
-        foreach (var id in data)
-            AddItemToInventory(ItemsDatabase.Instance.GetItemByID(id));
+        var data = SaveManager.LoadPlayer();
         
-        onItemChangedCallback.Invoke();
-
+        gold = data.gold;
+        foreach (var id in data.inventoryData)
+        {
+            if (id != 0) 
+                AddItemToInventory(ItemsDatabase.Instance.GetItemByID(id));
+        }
+        
     }
 
     public bool AddItemToInventory(Item item)
