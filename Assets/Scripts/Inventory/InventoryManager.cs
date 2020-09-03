@@ -25,7 +25,19 @@ public class InventoryManager : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    
+
+    public void Start()
+    {
+        if (SaveManager.LoadPlayer() == null) return;
+        
+        var data = SaveManager.LoadPlayer().inventoryData;
+        foreach (var id in data)
+            AddItemToInventory(ItemsDatabase.Instance.GetItemByID(id));
+        
+        onItemChangedCallback.Invoke();
+
+    }
+
     public bool AddItemToInventory(Item item)
     {
         if (CheckOverflow() is true)
