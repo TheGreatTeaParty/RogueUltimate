@@ -57,12 +57,8 @@ public class PlayerData
 
         gold = inventory.GetGold();
         for (int i = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].ID == 0) break;
-            
             inventoryData[i] = inventory.items[i].ID;
-        }
-        
+
         scene = SceneManager.GetActiveScene().name;
         gameObjectName = PlayerStat.Instance.gameObject.name;
 

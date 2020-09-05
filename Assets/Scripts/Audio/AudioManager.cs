@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         
         if (s == null)
         {
-            Debug.Log($"Could not find sound with name: {name}");
+            Debug.Log($"Could not find sound with sign: {name}");
             return;
         }
         s.source.Play();
