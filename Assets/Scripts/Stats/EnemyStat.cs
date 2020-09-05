@@ -28,6 +28,7 @@ public class EnemyStat : CharacterStat,IDamaged
     {
         PlayerStat.Instance.GainXP(XP);
         onDie?.Invoke();
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().Sleep();
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<FloatingNumber>().enabled = false;

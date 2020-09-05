@@ -149,8 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -3707059856164043864, guid: f4acfaec10b60ae4a8c28c3781983296,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: e626add27afce8140a35431be12c92a1, type: 3}
   m_Color: {r: 0.5250534, g: 0.72156864, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -174,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: BOSSSw
+  level: 0
   physicalDamage:
     baseValue: 20
     modifiers: 
@@ -188,6 +188,7 @@ MonoBehaviour:
     modifiers: 
   maxHealth: 300
   currentHealth: 0
+  XP: 250
 --- !u!114 &8116231467878050934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +258,7 @@ MonoBehaviour:
   FollowRange: 10
   waitTime: 2
   attackCoolDown: 3
+  attackDuration: 0.5
   speed: 3
   meleRange: 2
   rockRange: 6
