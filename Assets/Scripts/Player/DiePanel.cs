@@ -43,8 +43,10 @@ public class DiePanel : MonoBehaviour
         PlayerStat.Instance.ModifyHealth(PlayerStat.Instance.maxHealth);
         PlayerStat.Instance.ModifyMana(PlayerStat.Instance.maxMana);
         PlayerStat.Instance.ModifyStamina(PlayerStat.Instance.maxStamina);
+        
         PlayerStat.Instance.gameObject.layer = 12;
         PlayerStat.Instance.gameObject.tag = "Player";
+        
         diePanel.SetActive(false);
         UI.ShowMainElements();
         Time.timeScale = 1f;

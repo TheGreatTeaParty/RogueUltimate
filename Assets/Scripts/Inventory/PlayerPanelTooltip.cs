@@ -22,6 +22,7 @@ public class PlayerPanelTooltip : MonoBehaviour
     [SerializeField] private Image image;
     [Space]
     [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private TextMeshProUGUI optionalButtonText;
     [Space]
     [SerializeField] private GameObject dropButton;
@@ -42,6 +43,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         item = pureItem;
         _place = "Inventory";
         itemName.SetText(item.Name);
+        itemDescription.SetText(item.Description);
         image.sprite = item.Sprite;
         optionalButton.SetActive(false);
         quickAccessButton.SetActive(false);
@@ -56,6 +58,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         item = equipmentItem;
         _place = "Inventory";
         itemName.SetText(item.Name);
+        itemDescription.SetText(item.Description);
         image.sprite = item.Sprite;
 
         quickAccessButton.SetActive(false);
@@ -72,6 +75,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         item = equipmentItem;
         _place = "Equipment";
         itemName.SetText(item.Name);
+        itemDescription.SetText(item.Description);
         image.sprite = item.Sprite;
         _index = slotIndex;
 
@@ -89,6 +93,7 @@ public class PlayerPanelTooltip : MonoBehaviour
         item = usableItem;
         _place = "Inventory";
         itemName.SetText(item.Name);
+        itemDescription.SetText(item.Description);
         image.sprite = item.Sprite;
 
         quickAccessButton.SetActive(true);

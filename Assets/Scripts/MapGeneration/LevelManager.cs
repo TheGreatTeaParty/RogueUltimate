@@ -23,9 +23,8 @@ public static class LevelManager
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if(player != null)
-        {
             player.transform.position = new Vector3(0f, 0f, 0f);
-        }
+        
     }
     
     public static void LoadScene(String scenes)
@@ -36,7 +35,7 @@ public static class LevelManager
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) 
             player.transform.position = new Vector3(0f, 0f, 0f);
-        
+
     }
 
 }

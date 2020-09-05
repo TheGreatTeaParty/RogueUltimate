@@ -42,16 +42,20 @@ public class PlayerStat : CharacterStat, IDamaged
 
     private int _currentMana;
     private int _currentStamina;
-    [SerializeField] 
-    private float regenerationSpeed;
-    [SerializeField] 
-    private Animator animator;
-    [SerializeField]
-    private Transform LevelUpEffect;
-
-    public int maxMana = 100;
-    public int maxStamina = 100;
     
+    // Delete getters for maxvalues ?
+    public int maxMana;
+    public int maxStamina;
+    [Space]
+    public int strength;
+    public int agility;
+    public int intelligence;
+    [Space]
+    public float regenerationSpeed;
+    [Space]
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform LevelUpEffect;
+
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
@@ -59,19 +63,38 @@ public class PlayerStat : CharacterStat, IDamaged
 
     private void Start()
     {
-        if (SaveManager.LoadPlayer() != null) return;
-            _regenerationCoolDown = 0;
-            regenerationSpeed = 1;
-            currentHealth = maxHealth;
-            _currentStamina = maxStamina;
-            _currentMana = maxMana;
+        _regenerationCoolDown = 0;
+        regenerationSpeed = 1;
+        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        
+        if (SaveManager.LoadPlayer() != null)
+        {
+            var data = SaveManager.LoadPlayer();
 
-            //Set max health
-            InterfaceOnScene.Instance.GetComponentInChildren<HealthBar>().SetMaxValue(maxHealth);
-            InterfaceOnScene.Instance.GetComponentInChildren<StaminaBar>().SetMaxValue(maxStamina);
-            InterfaceOnScene.Instance.GetComponentInChildren<ManaBar>().SetMaxValue(maxMana);
+            level = data.level;
+            _xp = data.xp;
 
-            EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+            strength = data.strength;
+            agility = data.dexterity;
+            intelligence = data.intelligence;
+
+            maxHealth = data.maxHP;
+            maxStamina = data.maxSP;
+            maxMana = data.maxMP;
+            
+            currentHealth = data.currentHP;
+            _currentStamina = data.currentSP;
+            _currentMana = data.currentMP;
+            
+            return;
+        }
+
+        currentHealth = maxHealth;
+        _currentStamina = maxStamina;
+        _currentMana = maxMana;
+
+        _xp = 0;
+        level = 1;
     }
     
     private void Update()
@@ -177,6 +200,16 @@ public class PlayerStat : CharacterStat, IDamaged
         return _currentStamina;
     }
 
+    public int GetMaxStamina()
+    {
+        return maxStamina;
+    }
+
+    public int GetMaxMana()
+    {
+        return maxMana;
+    }
+    
     public void SetCurrentMana(int mana)
     {
         _currentMana = mana;
@@ -191,11 +224,6 @@ public class PlayerStat : CharacterStat, IDamaged
         currentHealth = health;
     }
 
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
     public void RegenerateStamina()
     {
         _currentStamina += Mathf.RoundToInt(Time.deltaTime);
@@ -205,6 +233,11 @@ public class PlayerStat : CharacterStat, IDamaged
     public int GetXP()
     {
         return _xp;
+    }
+
+    public int GetXPToNextLevel(int level)
+    {
+        return _xpToNextLevel[level - 1];
     }
 
     public override void TakeDamage(int _physicalDamage, int _magicDamage)

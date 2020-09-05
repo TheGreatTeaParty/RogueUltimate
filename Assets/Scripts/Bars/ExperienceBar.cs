@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class XPBar : Bar
+public class ExperienceBar : Bar
 {
     [SerializeField]
     TextMeshProUGUI Level;
@@ -35,5 +35,6 @@ public class XPBar : Bar
             case 13 : { SetMaxValue(5340); break; }
         }
         SetCurrentValue(PlayerStat.Instance.GetXP());
+        
     }
 }
