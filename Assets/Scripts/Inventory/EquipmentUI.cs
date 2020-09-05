@@ -8,7 +8,7 @@ public class EquipmentUI : MonoBehaviour
     public Transform itemsParent;   
 
     
-    void Start()
+    private void Awake()
     {
         equipmentManager = EquipmentManager.Instance;
         //Make delegate function from InventoryManager be equal to UpdateUI fun

@@ -30,6 +30,20 @@ public class EquipmentManager : MonoBehaviour
     {
         int numSlots = System.Enum.GetNames(typeof(EquipmentType)).Length;
         currentEquipment = new EquipmentItem[numSlots];
+        
+        // Load items on save
+        if (SaveManager.LoadPlayer() == null) return;
+        
+        var data = SaveManager.LoadPlayer();
+        
+        foreach (var id in data.equipmentData)
+        {
+            if (id != 0)
+            {
+                Equip((EquipmentItem)ItemsDatabase.Instance.GetItemByID(id));
+                Debug.Log("Equipment loaded");
+            }
+        }
     }
     
     public void Equip(EquipmentItem newItem)

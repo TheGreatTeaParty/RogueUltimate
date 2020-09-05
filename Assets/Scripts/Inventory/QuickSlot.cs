@@ -8,7 +8,7 @@ public class QuickSlot : MonoBehaviour
     [SerializeField] private Button button;
 
 
-    private void Start()
+    private void Awake()
     {
         button.image.enabled = false;
         button.enabled = false;

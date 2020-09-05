@@ -18,18 +18,29 @@ public class QuickSlotsManager : MonoBehaviour
     }
 
     #endregion
-
+    
+    
     private int _count = 0;
-    [SerializeField] private List<UsableItem> items;
     [SerializeField] private QuickSlot[] slots;
+    public List<UsableItem> items;
 
-
+    
     private void Start()
-    { 
+    {
+        // Load items on save
+        if (SaveManager.LoadPlayer() == null) return;
+        
+        var data = SaveManager.LoadPlayer();
+        
+        foreach (var id in data.quickSlotsData)
+        {
+            if (id != 0) 
+                AddItemToQuickAccessSlot((UsableItem)ItemsDatabase.Instance.GetItemByID(id));
+        }
+        
         UpdateUI();
     }
-
-
+    
     public void AddItemToQuickAccessSlot(UsableItem usableItem)
     {
         foreach (var item in items)
@@ -48,7 +59,6 @@ public class QuickSlotsManager : MonoBehaviour
         UpdateUI();
     }
 
-
     public void UseItem(UsableItem usableItem)
     {
         if (usableItem != null)
@@ -60,8 +70,7 @@ public class QuickSlotsManager : MonoBehaviour
             UpdateUI();
         }
     }
-    
-    
+
     private void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -70,7 +79,6 @@ public class QuickSlotsManager : MonoBehaviour
             else slots[i].RemoveItemFromQuickAccessSlot();
         }
     }
-
 
     public void Request(UsableItem usableItem)
     {

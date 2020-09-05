@@ -28,6 +28,7 @@ public class InventoryManager : MonoBehaviour
 
     public void Start()
     {
+        // Load items on save
         if (SaveManager.LoadPlayer() == null) return;
         
         var data = SaveManager.LoadPlayer();

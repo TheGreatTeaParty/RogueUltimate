@@ -2,10 +2,10 @@
 
 public enum EquipmentType
 {
-    Weapon, 
-    Armor, 
-    Ring, 
-    Amulet 
+    Weapon = 0, 
+    Armor = 1, 
+    Ring = 2, 
+    Amulet = 3 
     
 }
 

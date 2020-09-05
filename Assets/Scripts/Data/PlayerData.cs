@@ -29,17 +29,18 @@ public class PlayerData
     public string gameObjectName;
 
     public int[] inventoryData = new int[8];
+    public int[] equipmentData = new int[4];
+    public int[] quickSlotsData = new int[3];
     public int gold;
     
     public PlayerData()
     {
+        scene = SceneManager.GetActiveScene().name;
+        gameObjectName = PlayerStat.Instance.gameObject.name;
+     
+        
         var stats = PlayerStat.Instance;
-        var inventory = InventoryManager.Instance;
-        var equipment = EquipmentManager.Instance;
-        var quickSlots = QuickSlotsManager.Instance;
-        var transformPosition = PlayerStat.Instance.transform.position;
-        
-        
+
         currentHP = stats.GetCurrentHealth();
         currentMP = stats.GetCurrentMana();
         currentSP = stats.GetCurrentStamina();
@@ -55,13 +56,29 @@ public class PlayerData
         dexterity = stats.agility;
         intelligence = stats.intelligence;
 
+        
+        var inventory = InventoryManager.Instance;
         gold = inventory.GetGold();
         for (int i = 0; i < inventory.items.Count; i++)
             inventoryData[i] = inventory.items[i].ID;
 
-        scene = SceneManager.GetActiveScene().name;
-        gameObjectName = PlayerStat.Instance.gameObject.name;
+        
+        var equipment = EquipmentManager.Instance;
+        for (int i = 0; i < equipment.currentEquipment.Length; i++)
+            // Null check because of currentEquipment structure: array, not list
+            if (equipment.currentEquipment[i] != null)
+            {
+                equipmentData[i] = equipment.currentEquipment[i].ID;
+                Debug.Log("Equipment saved");
+            }
+        
+        
+        var quickSlots = QuickSlotsManager.Instance;
+        for (int i = 0; i < quickSlots.items.Count; i++)
+            quickSlotsData[i] = quickSlots.items[i].ID;
 
+        
+        var transformPosition = PlayerStat.Instance.transform.position;
         position = new float[3];
         position[0] = transformPosition.x;
         position[1] = transformPosition.y;
