@@ -8,15 +8,14 @@ public class EquipmentUI : MonoBehaviour
     public Transform itemsParent;   
 
     
-    private void Awake()
+    private void Start()
     {
         equipmentManager = EquipmentManager.Instance;
-        //Make delegate function from InventoryManager be equal to UpdateUI fun
         equipmentManager.onEquipmentCallback += UpdateUI;
         equipmentSlots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+        UpdateUI();
     }
     
-
     private void UpdateUI()
     {
         for (int i = 0; i < equipmentSlots.Length; i++)
@@ -25,6 +24,5 @@ public class EquipmentUI : MonoBehaviour
             else equipmentSlots[i].RemoveItemFromEquipmentSlot();
         }
     }
-    
-    
+
 }

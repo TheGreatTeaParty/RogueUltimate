@@ -10,7 +10,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private EquipmentItem equipmentItem;
 
     
-    private void Start()
+    private void Awake()
     {
         icon = GetComponent<Image>();
         gameObject.name = equipmentType.ToString() + " Slot";
