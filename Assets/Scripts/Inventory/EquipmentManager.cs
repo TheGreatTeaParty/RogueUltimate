@@ -44,6 +44,7 @@ public class EquipmentManager : MonoBehaviour
                 Debug.Log("Equipment loaded");
             }
         }
+
     }
     
     public void Equip(EquipmentItem newItem)
