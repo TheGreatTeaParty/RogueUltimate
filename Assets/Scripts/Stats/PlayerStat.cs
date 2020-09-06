@@ -20,7 +20,6 @@ public class PlayerStat : CharacterStat, IDamaged
     #endregion
     
     private float _regenerationCoolDown;
-    
     private int _xp;
     private int[] _xpToNextLevel = 
     {
@@ -39,7 +38,6 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-
     private int _currentMana;
     private int _currentStamina;
     
