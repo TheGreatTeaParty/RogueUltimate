@@ -20,7 +20,7 @@ public class EnemyStat : CharacterStat,IDamaged
         base.TakeDamage(_physicalDamage, _magicDamage);
      
         onReceivedDamage?.Invoke(magicDamageReceived+physicalDamageReceived);
-
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         onDamaged?.Invoke();
     }
 
