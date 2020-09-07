@@ -12,6 +12,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] protected Joystick joystick;
     private Vector2 movementDirection;
     private Vector2 direction;
+    private bool _stopped = false;
 
     public void Start()
     {
@@ -52,7 +53,8 @@ public class PlayerMovment : MonoBehaviour
     /*This is the main function which calculates Character's movement*/
     void MoveCharacter()
     {
-        rb2D.MovePosition((Vector2)transform.position + 
+        if(!_stopped)
+            rb2D.MovePosition((Vector2)transform.position + 
                             (movementSpeed * BASE_MOVEMENT_SPEED * 
                                 movementDirection * Time.deltaTime));
     }
@@ -75,5 +77,15 @@ public class PlayerMovment : MonoBehaviour
     public void SlowDown(float percent)
     {
         BASE_MOVEMENT_SPEED *= percent;
+    }
+
+    public void StopMoving()
+    {
+        _stopped = true;
+    }
+
+    public void StartMoving()
+    {
+        _stopped = false;
     }
 }

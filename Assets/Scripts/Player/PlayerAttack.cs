@@ -59,6 +59,10 @@ public class PlayerAttack : MonoBehaviour
             if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
             {
                 EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
+                if(EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Echo() == WeaponType.Melee)
+                {
+                    StartCoroutine(PlayerStop(0.5f));
+                }
                 startAttackCoolDown = weaponCoolDown;
             }
             //if not, this is base fist attack
@@ -76,8 +80,6 @@ public class PlayerAttack : MonoBehaviour
         {
             attackRange = fistRange;
 
-           
-
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(transform.position + direction / 2, attackRange, whatIsEnemy.value);
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
@@ -85,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
                 enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(GetComponent<PlayerStat>().physicalDamage.GetValue(), GetComponent<PlayerStat>().magicDamage.GetValue());
             }
             startAttackCoolDown = attackCoolDown;
+            StartCoroutine(PlayerStop(0.4f));
             onAttacked?.Invoke(WeaponType.None,0);
         }
     }
@@ -112,5 +115,12 @@ public class PlayerAttack : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + direction/2, attackRange);
+    }
+
+    IEnumerator PlayerStop(float attackDuration)
+    {
+        KeepOnScene.instance.GetComponent<PlayerMovment>().StopMoving();
+        yield return new WaitForSeconds(attackDuration);
+        KeepOnScene.instance.GetComponent<PlayerMovment>().StartMoving();
     }
 }

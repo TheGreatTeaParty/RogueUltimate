@@ -15,6 +15,7 @@ public class MeleeWeapon : EquipmentItem
 
     [Space]
     [SerializeField] private int requiredStamina;
+    [SerializeField] private float attackDuration = 0.5f;
 
     private LayerMask whatIsEnemy;
     private Vector2 attackPosition;
@@ -35,7 +36,6 @@ public class MeleeWeapon : EquipmentItem
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, attackRange, whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             { 
-                enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * KnockBack,ForceMode2D.Impulse);
                 enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(ph_damage, mg_damage);
             }
 
@@ -57,7 +57,6 @@ public class MeleeWeapon : EquipmentItem
     {
         return attackCoolDown;
     }
-    
 }
 
 

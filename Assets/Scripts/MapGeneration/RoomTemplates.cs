@@ -27,7 +27,7 @@ public class RoomTemplates : MonoBehaviour
     {
         if(wait_time <= 0 && !end_point_is_spawned)
         {
-            Portal = Instantiate(endpoint, rooms[rooms.Count - 1].transform.position, Quaternion.identity);
+            Portal = Instantiate(endpoint, rooms[rooms.Count - 1].GetComponent<PortalSpawnPoint>().GetPosition(), Quaternion.identity);
             Portal.GetComponent<NextLevelTrigger>().SetNextLevel(scenes);
             rooms[rooms.Count - 1].GetComponentInChildren<PlayerEnterCheck>().gameObject.SetActive(false);
             end_point_is_spawned = true;

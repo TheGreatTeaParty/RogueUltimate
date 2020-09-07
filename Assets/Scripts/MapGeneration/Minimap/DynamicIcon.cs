@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DynamicIcon : MonoBehaviour
 {
-    [SerializeField] bool TurnOff = true;
+    [SerializeField]
+    bool TurnOff = true;
+
+    [SerializeField]
     private SpriteRenderer sprite;
 
     // Start is called before the first frame update
