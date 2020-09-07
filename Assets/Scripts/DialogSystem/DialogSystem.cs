@@ -12,6 +12,8 @@ public class DialogSystem : MonoBehaviour
     private TextMeshProUGUI dialogText;
     [SerializeField]
     private GameObject dialogWindow;
+    [SerializeField] 
+    private GameObject buttonContinue;
     [SerializeField]
     private float SoundGapTime = 0.3f;
     private bool CourantineHasStarted = false;
@@ -60,6 +62,7 @@ public class DialogSystem : MonoBehaviour
         dialogWindow.gameObject.SetActive(false);
         InterfaceOnScene.Instance.gameObject.SetActive(true);
         Debug.Log("End of diolog ");
+        buttonContinue.gameObject.SetActive(false);
     }
 
     IEnumerator WriteSentence (string sentence)
