@@ -54546,6 +54546,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1787982232398707251, guid: 73eb3faae2961c54d80045621d78647f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787982232398707251, guid: 73eb3faae2961c54d80045621d78647f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.97
+      objectReference: {fileID: 0}
     - target: {fileID: 1787982232398707262, guid: 73eb3faae2961c54d80045621d78647f,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -67071,6 +67081,7 @@ GameObject:
   - component: {fileID: 1673264706}
   - component: {fileID: 1673264708}
   - component: {fileID: 1673264707}
+  - component: {fileID: 1673264709}
   m_Layer: 11
   m_Name: Wagon
   m_TagString: Untagged
@@ -67178,6 +67189,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1673264709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673264705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: -1
+  runOnlyOnce: 1
 --- !u!1 &1676983865
 GameObject:
   m_ObjectHideFlags: 0
