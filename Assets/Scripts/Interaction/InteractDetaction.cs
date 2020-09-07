@@ -9,6 +9,7 @@ public class InteractDetaction : MonoBehaviour
     private InteractionUI interactionUI;
     private IInteractable interactable;
 
+    
     private void Start()
     {
         interactionUI = InterfaceOnScene.Instance.GetComponentInChildren<InteractionUI>();
@@ -30,6 +31,7 @@ public class InteractDetaction : MonoBehaviour
             interactionUI.SetInteractDetaction(this);
         }
     }
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<IInteractable>() != null)
@@ -39,8 +41,10 @@ public class InteractDetaction : MonoBehaviour
             interactable = null;
         }
     }
+    
     public void CallInteraction()
     {
         interactable.Interact();
     }
+    
 }

@@ -30,6 +30,7 @@ public class InteractionUI : MonoBehaviour
     {
         InteractButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
+    
     public void SetActive(bool condition)
     {
         Button.SetActive(condition);
