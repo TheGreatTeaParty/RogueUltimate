@@ -34,7 +34,7 @@ public class RoomTemplates : MonoBehaviour
 
             if (SpawnDwarf)
             {
-                int number = Random.Range(0, rooms.Count - 1);
+                int number = Random.Range(1, rooms.Count - 1);
                 Instantiate(DwarfSeller, rooms[number].transform.position, Quaternion.identity);
                 rooms[number].GetComponentInChildren<PlayerEnterCheck>().gameObject.SetActive(false);
             }

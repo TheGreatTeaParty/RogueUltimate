@@ -16,26 +16,25 @@ public static class LevelManager
         DB3,
     }
     
-    public static void LoadScene(Scenes scenes)
+    public static void LoadScene(Scenes scenes,Vector3 position = new Vector3())
     {
         SceneManager.LoadScene(scenes.ToString());
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player != null)
-            player.transform.position = new Vector3(0f, 0f, 0f);
+        if(player != null )
+            player.transform.position = position;
         
     }
     
-    public static void LoadScene(String scenes)
+    public static void LoadScene(String scenes, Vector3 position = new Vector3())
     {
         SceneManager.LoadScene(scenes);
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) 
-            player.transform.position = new Vector3(0f, 0f, 0f);
+            player.transform.position = position;
 
     }
-
 }

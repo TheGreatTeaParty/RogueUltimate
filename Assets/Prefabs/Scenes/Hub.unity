@@ -4986,6 +4986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 1
+  NextLevelposition: {x: 0, y: 0, z: 0}
   transition: {fileID: 124881553}
   type: 1
 --- !u!61 &38360743
@@ -118455,7 +118456,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02da380333bf043ae826c2f8b7d3f248, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -132793,7 +132794,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 29d4b5048c43d99459eb6a02fce695a5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -154946,6 +154947,16 @@ PrefabInstance:
         type: 3}
       propertyPath: nextLevel
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410145805153092715, guid: 7289926d064c942c6bb548f7048218f7,
+        type: 3}
+      propertyPath: NextLevelposition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410145805153092715, guid: 7289926d064c942c6bb548f7048218f7,
+        type: 3}
+      propertyPath: NextLevelposition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8140805330702868024, guid: 7289926d064c942c6bb548f7048218f7,
         type: 3}

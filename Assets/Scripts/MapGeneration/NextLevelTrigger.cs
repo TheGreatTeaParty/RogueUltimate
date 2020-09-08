@@ -5,6 +5,7 @@ using UnityEngine;
 public class NextLevelTrigger : MonoBehaviour
 {
     [SerializeField] private LevelManager.Scenes nextLevel;
+    [SerializeField] private Vector3 NextLevelposition = Vector3.zero;
     [SerializeField] private Animator transition;
     [SerializeField] private Type type;
 
@@ -38,14 +39,14 @@ public class NextLevelTrigger : MonoBehaviour
         }
         else
         {
-
+            //Dungeon sound/Door sound 
         }
         //Return Joustick to 0 position
         InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
 
         yield return new WaitForSeconds(1f);
         
-        LevelManager.LoadScene(nextLevel);
+        LevelManager.LoadScene(nextLevel, NextLevelposition);
     }
 
     public void SetNextLevel(LevelManager.Scenes next)
