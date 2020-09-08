@@ -16,6 +16,8 @@ public class RangeWeapon : EquipmentItem
     [Space]
     public Transform arrowPrefab;
 
+    [Space]
+    public AudioClip PrepareSound;
     
     private void Awake()
     {

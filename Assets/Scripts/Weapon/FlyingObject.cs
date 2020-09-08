@@ -5,7 +5,8 @@ using UnityEngine;
 public class FlyingObject : MonoBehaviour
 {
     public float speed;
-
+    [SerializeField]
+    string HitName;
     private int _physicalDamage;
     private int _magicDamage;
     private Rigidbody2D _rb;
@@ -28,8 +29,10 @@ public class FlyingObject : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<IDamaged>()!= null)
+        AudioManager.Instance.Play(HitName);
+        if (collision.GetComponent<IDamaged>()!= null)
            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage,_magicDamage);
         Destroy(gameObject);
     }
+    
 }

@@ -16,7 +16,10 @@ public class MagicWeapon : EquipmentItem
     [Space]
     public Transform Prefab;
 
-    
+    [Space]
+    public AudioClip PrepareSound;
+
+
     private void Awake()
     {
         equipmentType = EquipmentType.Weapon;

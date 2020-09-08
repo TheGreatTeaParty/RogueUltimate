@@ -10,6 +10,7 @@ public class JoystickAttack : MonoBehaviour
     private bool _isShooting;
     private bool _isSlowed;
     private float timer = 0;
+    private bool playin_audio = false;
 
     public void Start()
     {
@@ -37,8 +38,26 @@ public class JoystickAttack : MonoBehaviour
                 _isSlowed = true;
             }
 
+            if (!playin_audio)
+            {
+                playin_audio = true;
+
+                RangeWeapon weapon = EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] as RangeWeapon;
+                if (weapon == null)
+                {
+                    MagicWeapon MagicWeapon = EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] as MagicWeapon;
+                    KeepOnScene.instance.GetComponent<AudioSource>().PlayOneShot(MagicWeapon.PrepareSound);
+                }
+                else
+                {
+                    KeepOnScene.instance.GetComponent<AudioSource>().PlayOneShot(weapon.PrepareSound);
+                }
+            }
+
             if (_isShooting)
+            {
                 timer += Time.deltaTime;
+            }
 
             if (_isShooting && timer > KeepOnScene.instance.GetComponent<PlayerAttack>().GetWeaponCD())
             {
@@ -47,7 +66,7 @@ public class JoystickAttack : MonoBehaviour
                     KeepOnScene.instance.GetComponent<PlayerAttack>().Attack();
                 }
 
-
+                playin_audio = false;
                 _isShooting = false;
                 timer = 0;
             }
@@ -58,6 +77,8 @@ public class JoystickAttack : MonoBehaviour
         {
             KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(2f);
             _isSlowed = false;
+            playin_audio = false;
+            timer = 0;
         }
     }
 

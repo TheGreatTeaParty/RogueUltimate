@@ -63,6 +63,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     StartCoroutine(PlayerStop(0.5f));
                 }
+                
                 startAttackCoolDown = weaponCoolDown;
             }
             //if not, this is base fist attack
