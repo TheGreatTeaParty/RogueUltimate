@@ -23,6 +23,8 @@ public class JoystickAttack : MonoBehaviour
     void Update()
     {
         movement = joystick.Direction;
+        KeepOnScene.instance.GetComponentInChildren<EquipmentAnimationHandler>().RotateRangeWeapon(movement.normalized);
+
     }
 
     private void FixedUpdate()
@@ -34,7 +36,9 @@ public class JoystickAttack : MonoBehaviour
             //if not slowed, slow the character down
             if (!_isSlowed)
             {
+                KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeJoystick(this);
                 KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(0.5f);
+                KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeMoving(true);
                 _isSlowed = true;
             }
 
@@ -52,6 +56,7 @@ public class JoystickAttack : MonoBehaviour
                 {
                     KeepOnScene.instance.GetComponent<AudioSource>().PlayOneShot(weapon.PrepareSound);
                 }
+                KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 0);
             }
 
             if (_isShooting)
@@ -64,8 +69,9 @@ public class JoystickAttack : MonoBehaviour
                 if (movement.x != 0 || movement.y != 0)
                 {
                     KeepOnScene.instance.GetComponent<PlayerAttack>().Attack();
+                    KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 1);
                 }
-
+            
                 playin_audio = false;
                 _isShooting = false;
                 timer = 0;
@@ -76,6 +82,8 @@ public class JoystickAttack : MonoBehaviour
         else if(_isSlowed)
         {
             KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(2f);
+            KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeMoving(false);
+            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 1);
             _isSlowed = false;
             playin_audio = false;
             timer = 0;

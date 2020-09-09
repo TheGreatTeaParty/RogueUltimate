@@ -10,9 +10,11 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
+    private JoystickAttack rangeJoystick;
     private Vector2 movementDirection;
     private Vector2 direction;
     private bool _stopped = false;
+    private bool RangeMoving = false;
 
     public void Start()
     {
@@ -25,11 +27,17 @@ public class PlayerMovment : MonoBehaviour
         ProcessInputs();
 
         //Save the direction of player movement
-        if (movementDirection.x != 0 || movementDirection.y != 0)
+        if (!RangeMoving && movementDirection.x != 0 || movementDirection.y != 0)
         {
             animator.SetFloat("Horizontal", movementDirection.x);
             animator.SetFloat("Vertical", movementDirection.y);
             direction = movementDirection;
+        }
+        else if(RangeMoving)
+        {
+            animator.SetFloat("Horizontal", rangeJoystick.GetDirection().x);
+            animator.SetFloat("Vertical", rangeJoystick.GetDirection().y);
+            direction = rangeJoystick.GetDirection();
         }
         animator.SetFloat("Speed", movementSpeed);
 
@@ -87,5 +95,14 @@ public class PlayerMovment : MonoBehaviour
     public void StartMoving()
     {
         _stopped = false;
+    }
+
+    public void SetRangeMoving(bool state)
+    {
+        RangeMoving = state;
+    }
+    public void SetRangeJoystick(JoystickAttack joystick)
+    {
+        rangeJoystick = joystick;
     }
 }

@@ -22,7 +22,7 @@ public class WeaponRenderer : MonoBehaviour
     {
         direction = playerMovment.GetDirection();
 
-        if(direction.y > 0.01f && (direction.x < 0.2f && direction.x > - 0.2f))
+        if(direction.y > 0.01f && (direction.x < 0.65f && direction.x > - 0.65f))
         {
             WeaponSprite.sortingOrder = PlayerSprite.sortingOrder - 1;
         }

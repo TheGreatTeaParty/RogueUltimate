@@ -73,6 +73,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
         //If we drop the weapon, clear the animation controller
         else
         {
+            WeaponAnim.gameObject.transform.rotation = Quaternion.identity;
             WeaponAnim.runtimeAnimatorController = null as RuntimeAnimatorController;
             WeaponController = null;
         }
@@ -98,5 +99,9 @@ public class EquipmentAnimationHandler : MonoBehaviour
         }
         if(EquipmentController != null)
             EquipmentAnim.SetTrigger("Attack");
+    }
+    public void RotateRangeWeapon(Vector3 dir)
+    {
+        WeaponAnim.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
     }
 }
