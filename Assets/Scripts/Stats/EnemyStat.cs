@@ -18,8 +18,6 @@ public class EnemyStat : CharacterStat,IDamaged
 
     public void Start()
     {
-        // Should be depended on dungeon level
-        level = 1;
         int modifier = level * 10; 
         
         physicalDamage.AddModifier(modifier);
