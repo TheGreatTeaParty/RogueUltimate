@@ -15,6 +15,19 @@ public class EnemyStat : CharacterStat,IDamaged
     public delegate void OnDie();
     public OnDie onDie;
 
+
+    public void Start()
+    {
+        // Should be depended on dungeon level
+        level = 1;
+        int modifier = level * 10; 
+        
+        physicalDamage.AddModifier(modifier);
+        magicDamage.AddModifier(modifier);
+        physicalProtection.AddModifier(modifier);
+        magicProtection.AddModifier(modifier);
+    }
+    
     public override void TakeDamage(int _physicalDamage, int _magicDamage)
     {
         base.TakeDamage(_physicalDamage, _magicDamage);

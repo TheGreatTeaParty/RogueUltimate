@@ -19,6 +19,7 @@ public class WeaponDisplayIcon : MonoBehaviour
         //Make delegate function from InventoryManager be equal to UpdateUI fun
         equipmentManager.onEquipmentChanged += UpdateIcon;
         UpdateIconOnStart();
+
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class WeaponDisplayIcon : MonoBehaviour
         {
             Icon.sprite = newItem.Sprite;
         }
-        else if(newItem == null && newItem.equipmentType == EquipmentType.Weapon)
+        else if(newItem == null)
         {
             Icon.sprite = BaseIcon;
         }

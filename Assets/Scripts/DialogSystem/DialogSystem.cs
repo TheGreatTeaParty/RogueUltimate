@@ -10,10 +10,8 @@ public class DialogSystem : MonoBehaviour
     private TextMeshProUGUI nameText;
     [SerializeField]
     private TextMeshProUGUI dialogText;
-    [SerializeField]
-    private GameObject dialogWindow;
-    [SerializeField] 
-    private GameObject buttonContinue;
+    public GameObject dialogWindow;
+    public GameObject buttonContinue;
     [SerializeField]
     private float SoundGapTime = 0.3f;
     private bool CourantineHasStarted = false;

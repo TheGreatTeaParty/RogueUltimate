@@ -129,8 +129,8 @@ public class TradeManager : MonoBehaviour
         var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
-
         playerButton.enabled = false;
+        
         tradeWindow.SetActive(true);
         
         onChangeCallback.Invoke();
@@ -143,9 +143,12 @@ public class TradeManager : MonoBehaviour
         var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
         
         EraseTooltip();
+        
         tradeWindow.SetActive(false);
+        
         UI.ShowMainElements();
         playerButton.enabled = true;
+        
         currentItem = null;
         AudioManager.Instance.Play("TradeClose");
 

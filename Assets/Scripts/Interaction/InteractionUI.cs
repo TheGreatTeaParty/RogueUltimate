@@ -6,34 +6,34 @@ using TMPro;
 
 public class InteractionUI : MonoBehaviour
 {
-    [SerializeField] private GameObject Button;
-    private Button InteractButton;
-    private InteractDetaction interactDetaction;
+    private Button _interactButton;
+    private InteractDetaction _interactDetaction;
 
     private void Start()
     {
-        InteractButton = Button.GetComponent<Button>();
+        _interactButton = GetComponentInChildren<Button>();
+        _interactButton.gameObject.SetActive(false);
     }
 
     public void Action()
     {
-        interactDetaction.CallInteraction();
+        _interactDetaction.CallInteraction();
         SetActive(false);
     }
 
-    public void SetInteractDetaction(InteractDetaction _interactDetaction)
+    public void SetInteractDetaction(InteractDetaction interactDetaction)
     {
-        interactDetaction = _interactDetaction;
+        _interactDetaction = interactDetaction;
     }
 
     public void SetText(string text)
     {
-        InteractButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        _interactButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
     
     public void SetActive(bool condition)
     {
-        Button.SetActive(condition);
+        _interactButton.gameObject.SetActive(condition);
     }
 
 }

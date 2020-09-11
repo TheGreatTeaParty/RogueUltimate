@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Warior : AI
+public class Warrior : AI
 {
     private LayerMask whatIsEnemy;
     private Vector2 attackPosition;

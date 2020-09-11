@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class Citizen : AI, IInteractable
 {
-    [SerializeField]
     private DialogSystem dialogSystem;
-    [SerializeField]
-    private GameObject dialogWindow;
-    [SerializeField]
-    private GameObject buttonContinue;
     [SerializeField]
     private Dialog dialog;
 
@@ -33,6 +28,7 @@ public class Citizen : AI, IInteractable
         base.Start();
         currentHangingIndex = Random.Range(0, HangingPoints.Length);
         target = HangingPoints[currentHangingIndex];
+        dialogSystem = GetComponentInChildren<DialogSystem>();
     }
 
 
@@ -115,8 +111,8 @@ public class Citizen : AI, IInteractable
     void IInteractable.Interact()
     {
         InterfaceOnScene.Instance.gameObject.SetActive(false);
-        dialogWindow.SetActive(true);
-        buttonContinue.SetActive(true);
+        dialogSystem.dialogWindow.SetActive(true);
+        dialogSystem.buttonContinue.SetActive(true);
         dialogSystem.StartDialog(dialog);
         Talk(true);
     }

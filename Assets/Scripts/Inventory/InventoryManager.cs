@@ -32,7 +32,6 @@ public class InventoryManager : MonoBehaviour
         if (SaveManager.LoadPlayer() == null) return;
         
         var data = SaveManager.LoadPlayer();
-        
         gold = data.gold;
         foreach (var id in data.inventoryData)
         {

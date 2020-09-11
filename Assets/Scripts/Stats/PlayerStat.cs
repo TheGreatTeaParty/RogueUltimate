@@ -23,6 +23,7 @@ public class PlayerStat : CharacterStat, IDamaged
     private int _xp;
     private int[] _xpToNextLevel = 
     {
+        // multiplied by 3
         220, // 1
         440, // 2
         700, // 3
@@ -84,6 +85,12 @@ public class PlayerStat : CharacterStat, IDamaged
             _currentStamina = data.currentSP;
             _currentMana = data.currentMP;
             
+            int modifier = level * 10;
+            physicalDamage.AddModifier(modifier);
+            magicDamage.AddModifier(modifier);
+            physicalProtection.AddModifier(modifier);
+            magicProtection.AddModifier(modifier);
+            
             return;
         }
 
@@ -144,6 +151,13 @@ public class PlayerStat : CharacterStat, IDamaged
     private void LevelUp()
     {
         level++;
+        
+        int modifier = level * 10;
+        physicalDamage.AddModifier(modifier);
+        magicDamage.AddModifier(modifier);
+        physicalProtection.AddModifier(modifier);
+        magicProtection.AddModifier(modifier);
+        
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
         KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(LevelUpEffect);
