@@ -54,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
     public int GetEnemyLevel()
     {
         return RandomFromRangeWithExceptions(_playerLevel - levelRange, 
-                                             _playerLevel + levelRange, 
+                                             levelRange * 2, 
                                                       _excludedInts);
     }
 
@@ -66,6 +66,10 @@ public class EnemySpawner : MonoBehaviour
     private int RandomFromRangeWithExceptions(int rangeMin, int rangeMax, params int[] exclude)
     {
         var enumerable = Enumerable.Range(rangeMin, rangeMax).Where(i => !exclude.Contains(i));
+        foreach (var v in enumerable)
+        {
+            Debug.Log("Enum: " + v);
+        }
         var range = enumerable as int[] ?? enumerable.ToArray();
         
         var index = Random.Range(0, range.Length);
