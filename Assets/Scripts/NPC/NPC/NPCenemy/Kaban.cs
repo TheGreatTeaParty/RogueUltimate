@@ -16,8 +16,20 @@ public class Kaban : AI
     private bool hit_player = false;
 
     [SerializeField] private GameObject kabanDamageArea;
-
     
+    // Cache
+    private CapsuleCollider2D _damageAreaCollider;
+    private Animator _animator;
+
+
+    public override void Start()
+    {
+        base.Start();
+        
+        _damageAreaCollider = GetComponent<CapsuleCollider2D>();
+        _animator = GetComponent<Animator>();
+    }
+
     public override void Update()
     {
         base.Update();
@@ -27,7 +39,7 @@ public class Kaban : AI
 
         if (hit)
         {
-            kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = false;
+            _damageAreaCollider.enabled = false;
             _isRage = false;
             hit = false;
             if (!hit_player)
@@ -42,7 +54,7 @@ public class Kaban : AI
         }
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
        
         if (!_isRage)
@@ -52,7 +64,7 @@ public class Kaban : AI
                 _preparing = true;
                 finalPos = target.transform.position;
                 position = (finalPos - transform.position).normalized;
-                kabanDamageArea.GetComponent<CapsuleCollider2D>().enabled = true;
+                _damageAreaCollider.enabled = true;
                 _isRage = true;
                 _preparing = false;
             }
@@ -79,9 +91,9 @@ public class Kaban : AI
 
     IEnumerator Stun()
     {
-        GetComponent<Animator>().SetBool("Stunned", true);
+        _animator.SetBool("Stunned", true);
         yield return new WaitForSeconds(StunTime);
         _attack = false;
-        GetComponent<Animator>().SetBool("Stunned", false);
+        _animator.SetBool("Stunned", false);
     }
 }

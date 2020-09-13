@@ -75,22 +75,15 @@ public class AI : MonoBehaviour
             return;
         }
 
-        else
-        {
-            reachedEnd = false;
-        }
-
+        reachedEnd = false;
         dir = (path.vectorPath[currentPathpoint] - transform.position).normalized;
 
         if (dir != Vector2.zero)
-        {
             last_dir = dir;
-        }
 
         if(Vector2.Distance(Rb.position, path.vectorPath[currentPathpoint]) < nextWayPointDistance)
-        {
             currentPathpoint++;
-        }
+        
     }
 
     public virtual void FixedUpdate()
@@ -111,6 +104,7 @@ public class AI : MonoBehaviour
                     StateAttack();
                     break;
                 }
+            
             case NPCstate.hanging:
                 {
                     StateHanging();
@@ -157,56 +151,45 @@ public class AI : MonoBehaviour
             state = NPCstate.chasing;
     }
 
-    public virtual void Attack()
+    protected virtual void Attack()
     {
 
     }
 
-    public void StateChasing()
+    protected void StateChasing()
     {
-         if (path != null)
-         {
-             if (Vector2.Distance(transform.position, target.transform.position) <= AttackRange)
-             {
-                 state = NPCstate.attacking;
-             }
-            else
-            {
-                if(!_stopped)
-                    Rb.MovePosition(transform.position + (Vector3)dir * Speed * Time.deltaTime);
-            }
-         }
+        if (path == null) return;
+
+        if (Vector2.Distance(transform.position, target.transform.position) <= AttackRange)
+            state = NPCstate.attacking;
+        else
+        {
+            if (!_stopped)
+                Rb.MovePosition(transform.position + (Vector3) dir * Speed * Time.deltaTime);
+        }
     }
 
-    public void StopMoving()
+    private void StopMoving()
     {
         _stopped = true;
     }
 
-    public void StartMoving()
+    private void StartMoving()
     {
         _stopped = false;
     }
 
     public  virtual Vector2 GetDirection()
     {
-      
         return dir;
-
     }
+    
     public Vector2 GetVelocity()
     {
-        if (_stopped)
-        {
-            return new Vector2(0f, 0f);
-        }
-        else
-        {
-            return dir;
-        }
+        return _stopped ? new Vector2(0f, 0f) : dir;
     }
 
-    public void Die()
+    private void Die()
     {
         Destroy(this);
     }

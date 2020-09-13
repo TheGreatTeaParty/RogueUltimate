@@ -105,7 +105,7 @@ public class GolemBoss : AI
         StageChanged = true;
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
         if (Vector2.Distance(transform.position, target.transform.position) < rockRange &&
             Vector2.Distance(transform.position, target.transform.position) < meleRange)

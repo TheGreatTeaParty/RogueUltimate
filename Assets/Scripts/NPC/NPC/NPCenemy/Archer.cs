@@ -20,8 +20,8 @@ public class Archer : AI
         ShootDir = Vector3.Normalize(target.transform.position - transform.position);
     }
 
-   
-    public override void Attack()
+
+    protected override void Attack()
     {
         Transform arrow = Instantiate(arrowPrefab, transform.position + ShootDir, Quaternion.identity);
 

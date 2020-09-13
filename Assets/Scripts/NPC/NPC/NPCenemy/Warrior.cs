@@ -24,14 +24,14 @@ public class Warrior : AI
         attackPosition = transform.position + direction;
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
-            
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttackRange, whatIsEnemy);
-            for (int i = 0; i < enemiesToDamage.Length; i++)
-            {
-                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
-            }
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttackRange, whatIsEnemy);
+        
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
+        }
         _attack = false;
     }
 
