@@ -6,92 +6,103 @@ public class JoystickAttack : MonoBehaviour
 {
     protected Joystick joystick;
 
-    private Vector2 movement;
+    private Vector2 _movement;
     private bool _isShooting;
     private bool _isSlowed;
-    private float timer = 0;
-    private bool playin_audio = false;
-
+    private float _timer = 0;
+    private bool _audioIsPlaying = false;
+    
+    // Cache
+    private PlayerMovement _playerMovement;
+    private PlayerAttack _playerAttack;
+    private AudioSource _audioSource;
+    
+    
     public void Start()
     {
         _isShooting = false;
         _isSlowed = false;
         joystick = GetComponent<Joystick>();
+        
+        // Cache
+        _playerMovement = KeepOnScene.Instance.playerMovement;
+        _playerAttack = KeepOnScene.Instance.playerAttack;
+        _audioSource = KeepOnScene.Instance.audioSource;
     }
 
     /*There we receive input information*/
-    void Update()
+    private void Update()
     {
-        movement = joystick.Direction;
-        KeepOnScene.instance.GetComponentInChildren<EquipmentAnimationHandler>().RotateRangeWeapon(movement.normalized);
-
+        _movement = joystick.Direction;
+        KeepOnScene.Instance.equipmentAnimationHandler.RotateRangeWeapon(_movement.normalized);
     }
 
     private void FixedUpdate()
     {
-        if (movement.x != 0 || movement.y != 0)
+        if (_movement.x != 0 || _movement.y != 0)
         {
             _isShooting = true;
 
             //if not slowed, slow the character down
             if (!_isSlowed)
             {
-                KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeJoystick(this);
-                KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(0.5f);
-                KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeMoving(true);
+                _playerMovement.SetRangeJoystick(this);
+                _playerMovement.SlowDown(0.5f);
+                _playerMovement.SetRangeMoving(true);
                 _isSlowed = true;
             }
 
-            if (!playin_audio)
+            if (!_audioIsPlaying)
             {
-                playin_audio = true;
+                _audioIsPlaying = true;
 
                 RangeWeapon weapon = EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] as RangeWeapon;
                 if (weapon == null)
                 {
                     MagicWeapon MagicWeapon = EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] as MagicWeapon;
-                    KeepOnScene.instance.GetComponent<AudioSource>().PlayOneShot(MagicWeapon.PrepareSound);
+                    _audioSource.PlayOneShot(MagicWeapon.prepareSound);
                 }
                 else
                 {
-                    KeepOnScene.instance.GetComponent<AudioSource>().PlayOneShot(weapon.PrepareSound);
+                    _audioSource.PlayOneShot(weapon.prepareSound);
                 }
-                KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 0);
+                _playerAttack.onAttacked?.Invoke(WeaponType.Range, 0);
             }
 
             if (_isShooting)
             {
-                timer += Time.deltaTime;
+                _timer += Time.deltaTime;
             }
 
-            if (_isShooting && timer > KeepOnScene.instance.GetComponent<PlayerAttack>().GetWeaponCD())
+            if (_isShooting && _timer > _playerAttack.GetWeaponCD())
             {
-                if (movement.x != 0 || movement.y != 0)
+                if (_movement.x != 0 || _movement.y != 0)
                 {
-                    KeepOnScene.instance.GetComponent<PlayerAttack>().Attack();
-                    KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 1);
+                    _playerAttack.Attack();
+                    _playerAttack.onAttacked?.Invoke(WeaponType.Range, 1);
                 }
             
-                playin_audio = false;
+                _audioIsPlaying = false;
                 _isShooting = false;
-                timer = 0;
+                _timer = 0;
             }
         }
 
         //Return the normal speed;
         else if(_isSlowed)
         {
-            KeepOnScene.instance.GetComponent<PlayerMovment>().SlowDown(2f);
-            KeepOnScene.instance.GetComponent<PlayerMovment>().SetRangeMoving(false);
-            KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range, 1);
+            _playerMovement.SlowDown(2f);
+            _playerMovement.SetRangeMoving(false);
+            _playerAttack.onAttacked?.Invoke(WeaponType.Range, 1);
             _isSlowed = false;
-            playin_audio = false;
-            timer = 0;
+            _audioIsPlaying = false;
+            _timer = 0;
         }
     }
 
     public Vector2 GetDirection()
     {
-        return movement.normalized;
+        return _movement.normalized;
     }
+    
 }

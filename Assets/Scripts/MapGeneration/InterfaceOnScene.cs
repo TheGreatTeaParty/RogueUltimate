@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ public class InterfaceOnScene : MonoBehaviour
     public static InterfaceOnScene Instance;
     [SerializeField] private GameObject[] mainElements;
     [SerializeField] private GameObject[] panels;
+    
+    // Cache
+    public FixedJoystick fixedJoystick;
+    public JoystickAttack joystickAttack;
+    
     
     private void Awake()
     {
@@ -19,6 +25,10 @@ public class InterfaceOnScene : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        // Cache
+        fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();
+        joystickAttack = Instance.GetComponentInChildren<JoystickAttack>();
     }
 
     public void HideMainElements()

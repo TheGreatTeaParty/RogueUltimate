@@ -64,7 +64,7 @@ public class InventoryManager : MonoBehaviour
     {
         
         //Call spawn function on the player's position
-        var position = KeepOnScene.instance.transform.position;
+        var position = KeepOnScene.Instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, 0f);
         Collider2D checkWall = Physics2D.OverlapCircle(newPosition, 0.25f, LayerMask.GetMask("Wall"));
         if(checkWall == null)

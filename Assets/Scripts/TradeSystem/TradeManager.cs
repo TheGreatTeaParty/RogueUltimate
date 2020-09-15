@@ -28,8 +28,8 @@ public class TradeManager : MonoBehaviour
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
     public GameObject tradeWindow;
-
-
+    
+    
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
 
@@ -123,10 +123,10 @@ public class TradeManager : MonoBehaviour
     public void Open()
     {
         //Return Joystick to 0 position;
-        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+        InterfaceOnScene.Instance.fixedJoystick.ResetInput();
 
         var UI = InterfaceOnScene.Instance;
-        var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
+        var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
         playerButton.enabled = false;
@@ -140,7 +140,7 @@ public class TradeManager : MonoBehaviour
     public void Close()
     {
         var UI = InterfaceOnScene.Instance;
-        var playerButton = KeepOnScene.instance.GetComponentInChildren<Button>();
+        var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
         
         EraseTooltip();
         

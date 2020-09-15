@@ -29,8 +29,8 @@ public class ItemsDatabase : MonoBehaviour
 
     public Item GetItemByID(int ID)
     {
-        foreach (var item in allItems)
-            if (ID == item.ID) return item;
+        for (int i = 0; i < allItems.Length; i++)
+            if (ID == allItems[i].ID) return allItems[i];
         
         return null;
     }

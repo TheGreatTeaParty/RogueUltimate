@@ -42,7 +42,7 @@ public class NextLevelTrigger : MonoBehaviour
             //Dungeon sound/Door sound 
         }
         //Return Joustick to 0 position
-        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+        InterfaceOnScene.Instance.fixedJoystick.ResetInput();
 
         yield return new WaitForSeconds(1f);
         

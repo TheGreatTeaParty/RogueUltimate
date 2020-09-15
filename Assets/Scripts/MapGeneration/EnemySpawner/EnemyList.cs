@@ -8,11 +8,6 @@ public class EnemyList : MonoBehaviour
     [SerializeField] private Transform[] secondTierEnemies;
     [SerializeField] private Transform[] thirdTierEnemies;
 
-    /// <summary>
-    /// Some chnges in this script bla-bla-bla
-    /// </summary>
-    /// <returns></returns>
-    
     
     public Transform GenerateFirstTierEnemy()
     {

@@ -9,24 +9,35 @@ public class DoorsController : MonoBehaviour
 
     public LayerMask whatIsEnemy;
     public float width;
-
     public event EventHandler onDoorChanged;
-    private bool is_sended = false;
+    private bool _isSent = false;
 
+    // Cache
+    private BoxCollider2D[] _doorColliders;
+
+
+    private void Start()
+    {
+        // Cache
+        _doorColliders = new BoxCollider2D[doors.Length];
+        for (int i = 0; i < doors.Length; i++)
+            _doorColliders[i] = doors[i].GetComponent<BoxCollider2D>();
+    }
+    
     private void FixedUpdate()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, width, whatIsEnemy);
-        if(enemies.Length > 0)
+        if (enemies.Length > 0)
         {
             for (int i = 0; i < doors.Length; i++)
             {
-                doors[i].GetComponent<BoxCollider2D>().enabled = true;
+                _doorColliders[i].enabled = true;
 
                 //Send info to change visualisation
-                if (!is_sended)
+                if (!_isSent)
                 {
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
-                    is_sended = true;
+                    _isSent = true;
                 }
             }
             Minimap.instance.HideMap();
@@ -37,10 +48,10 @@ public class DoorsController : MonoBehaviour
             {
                 doors[i].GetComponent<BoxCollider2D>().enabled = false;
 
-                if (is_sended)
+                if (_isSent)
                 {
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
-                    is_sended = false;
+                    _isSent = false;
                 }
             }
             Minimap.instance.ShowMap();

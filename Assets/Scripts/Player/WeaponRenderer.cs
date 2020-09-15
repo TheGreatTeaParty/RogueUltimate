@@ -4,32 +4,27 @@ using UnityEngine;
 
 public class WeaponRenderer : MonoBehaviour
 {
-    private PlayerMovment playerMovment;
-    private Renderer PlayerSprite;
-    private Renderer WeaponSprite;
-    private Vector2 direction;
+    private PlayerMovement _playerMovement;
+    private Renderer _playerSprite;
+    private Renderer _weaponSprite;
+    private Vector2 _direction;
 
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Start()
     {
-        playerMovment = KeepOnScene.instance.GetComponent<PlayerMovment>();
-        PlayerSprite = KeepOnScene.instance.GetComponent<Renderer>();
-        WeaponSprite = GetComponent<Renderer>();
+        _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
+        _playerSprite = KeepOnScene.Instance.GetComponent<Renderer>();
+        _weaponSprite = GetComponent<Renderer>();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
-        direction = playerMovment.GetDirection();
+        _direction = _playerMovement.GetDirection();
 
-        if(direction.y > 0.01f && (direction.x < 0.65f && direction.x > - 0.65f))
-        {
-            WeaponSprite.sortingOrder = PlayerSprite.sortingOrder - 1;
-        }
-
+        if (_direction.y > 0.01f && (_direction.x < 0.65f && _direction.x > - 0.65f))
+            _weaponSprite.sortingOrder = _playerSprite.sortingOrder - 1;
         else
-        {
-            WeaponSprite.sortingOrder = PlayerSprite.sortingOrder + 1;
-        }
+            _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 1;
     }
+    
 }

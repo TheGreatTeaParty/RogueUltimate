@@ -35,4 +35,5 @@ public class BossFightPortal : MonoBehaviour
     {
         healthbar.SetActive(value);
     }
+    
 }

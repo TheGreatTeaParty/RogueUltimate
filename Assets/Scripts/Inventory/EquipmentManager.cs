@@ -76,7 +76,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void DropFromEquipment(EquipmentItem equipmentItem)
     {
-        var position = KeepOnScene.instance.transform.position;
+        var position = KeepOnScene.Instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, position.z);
         ItemScene.SpawnItemScene(newPosition, currentEquipment[(int)equipmentItem.equipmentType]);
         

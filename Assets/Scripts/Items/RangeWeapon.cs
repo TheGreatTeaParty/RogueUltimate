@@ -8,16 +8,14 @@ public class RangeWeapon : EquipmentItem
 {
     [Space]
     public float attackCD;
-    public float KnockBack;
-
+    public float knockBack;
     [Space]
     [SerializeField] private int requiredStamina;
-    
     [Space]
     public Transform arrowPrefab;
-
     [Space]
-    public AudioClip PrepareSound;
+    public AudioClip prepareSound;
+    
     
     private void Awake()
     {
@@ -30,11 +28,14 @@ public class RangeWeapon : EquipmentItem
         if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
             return;
             
-        Vector3 direction = new Vector3(InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
-        Transform arrow = Instantiate(arrowPrefab,KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
+        Vector3 direction = new Vector3(
+            InterfaceOnScene.Instance.joystickAttack.GetDirection().x, 
+            InterfaceOnScene.Instance.joystickAttack.GetDirection().y);
+        Transform arrow = Instantiate(arrowPrefab,
+            KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
-        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Range,0);
+        KeepOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Range,0);
     }
     
     

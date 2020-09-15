@@ -11,7 +11,7 @@ public class ManaPotion : UsableItem
     {
         base.ModifyStats();
         PlayerStat.Instance.ModifyMana(manaBonus);
-        KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(effectFX);
+        KeepOnScene.Instance.playerFX.SpawnEffect(effectFX);
         //Sound
         AudioManager.Instance.Play("Bottle");
     }

@@ -46,9 +46,7 @@ public class EnemySpawner : MonoBehaviour
         if (secondInterval <= rand && rand <= thirdInterval)
             return _enemyList.GenerateThirdTierEnemy();
 
-        Debug.Log("Out of range in EnemySpawner.cs. Number: " + rand);
-        return null;
-
+        return null; // uh
     }
 
     public int GetEnemyLevel()

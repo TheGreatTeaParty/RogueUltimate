@@ -86,6 +86,7 @@ public class PlayerStat : CharacterStat, IDamaged
             _currentMana = data.currentMP;
             
             int modifier = level * 10;
+
             physicalDamage.AddModifier(modifier);
             magicDamage.AddModifier(modifier);
             physicalProtection.AddModifier(modifier);
@@ -153,6 +154,14 @@ public class PlayerStat : CharacterStat, IDamaged
         level++;
         
         int modifier = level * 10;
+        maxHealth += 10;
+        maxStamina += 10;
+        maxMana += 10;
+        
+        currentHealth = maxHealth;
+        _currentStamina = maxStamina;
+        _currentMana = maxMana;
+        
         physicalDamage.AddModifier(modifier);
         magicDamage.AddModifier(modifier);
         physicalProtection.AddModifier(modifier);
@@ -160,7 +169,7 @@ public class PlayerStat : CharacterStat, IDamaged
         
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
-        KeepOnScene.instance.GetComponent<PlayerFX>().SpawnEffect(LevelUpEffect);
+        KeepOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);
     }
     
     public bool ModifyHealth(int value)

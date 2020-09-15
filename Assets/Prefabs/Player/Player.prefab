@@ -505,8 +505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1909f03464b44e95bd1a2f66f3c37f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponAnim: {fileID: 1964008847064453167}
-  EquipmentAnim: {fileID: 5916105398894925408}
+  weaponAnimator: {fileID: 1964008847064453167}
+  equipmentAnimator: {fileID: 5916105398894925408}
 --- !u!1 &5661998559102161995
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +942,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90a37cb6ed6043ecbdceeef47804a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAttack: {fileID: 0}
+  playerFX: {fileID: 0}
+  equipmentAnimationHandler: {fileID: 0}
+  playerMovement: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &6650249280148247194
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,8 +29,8 @@ public class PlayerEnterCheck : MonoBehaviour
         _eSpawner.SetPlayerLevel(playerLevel);
 
         int enemyLevel = _eSpawner.GetEnemyLevel();
-        foreach (var point in _eSpawnPoints)
-            point.SpawnEnemy(_eSpawner.GetEnemy(), enemyLevel);
+        for (int i = 0; i < _eSpawnPoints.Length; i++)
+            _eSpawnPoints[i].SpawnEnemy(_eSpawner.GetEnemy(), enemyLevel);
 
         _isSpawned = true;
         

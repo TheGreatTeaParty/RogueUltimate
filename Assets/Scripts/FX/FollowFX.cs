@@ -9,7 +9,7 @@ public class FollowFX : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Player = KeepOnScene.instance.gameObject;
+        Player = KeepOnScene.Instance.gameObject;
     }
 
     // Update is called once per frame

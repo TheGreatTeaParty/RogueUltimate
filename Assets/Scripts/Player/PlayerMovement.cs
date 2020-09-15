@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovment : MonoBehaviour 
+public class PlayerMovement : MonoBehaviour 
 {
     public float movementSpeed;
     public float BASE_MOVEMENT_SPEED;
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
-    private JoystickAttack rangeJoystick;
-    private Vector2 movementDirection;
-    private Vector2 direction;
+    private JoystickAttack _rangeJoystick;
+    private Vector2 _movementDirection;
+    private Vector2 _direction;
     private bool _stopped = false;
-    private bool RangeMoving = false;
+    private bool _rangeMoving = false;
 
     public void Start()
     {
@@ -27,17 +27,17 @@ public class PlayerMovment : MonoBehaviour
         ProcessInputs();
 
         //Save the direction of player movement
-        if (!RangeMoving && movementDirection.x != 0 || movementDirection.y != 0)
+        if (!_rangeMoving && _movementDirection.x != 0 || _movementDirection.y != 0)
         {
-            animator.SetFloat("Horizontal", movementDirection.x);
-            animator.SetFloat("Vertical", movementDirection.y);
-            direction = movementDirection;
+            animator.SetFloat("Horizontal", _movementDirection.x);
+            animator.SetFloat("Vertical", _movementDirection.y);
+            _direction = _movementDirection;
         }
-        else if(RangeMoving)
+        else if(_rangeMoving)
         {
-            animator.SetFloat("Horizontal", rangeJoystick.GetDirection().x);
-            animator.SetFloat("Vertical", rangeJoystick.GetDirection().y);
-            direction = rangeJoystick.GetDirection();
+            animator.SetFloat("Horizontal", _rangeJoystick.GetDirection().x);
+            animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
+            _direction = _rangeJoystick.GetDirection();
         }
         animator.SetFloat("Speed", movementSpeed);
 
@@ -52,9 +52,9 @@ public class PlayerMovment : MonoBehaviour
     
     void ProcessInputs()
     {
-        movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-        movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
-        movementDirection.Normalize();
+        _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+        movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+        _movementDirection.Normalize();
 
     }
     
@@ -64,7 +64,7 @@ public class PlayerMovment : MonoBehaviour
         if(!_stopped)
             rb2D.MovePosition((Vector2)transform.position + 
                             (movementSpeed * BASE_MOVEMENT_SPEED * 
-                                movementDirection * Time.deltaTime));
+                                _movementDirection * Time.deltaTime));
     }
 
     public void Push(Vector2 push_direction)
@@ -79,7 +79,7 @@ public class PlayerMovment : MonoBehaviour
     }
     public Vector3 GetDirection()
     {
-        return direction;
+        return _direction;
     }
 
     public void SlowDown(float percent)
@@ -99,10 +99,10 @@ public class PlayerMovment : MonoBehaviour
 
     public void SetRangeMoving(bool state)
     {
-        RangeMoving = state;
+        _rangeMoving = state;
     }
     public void SetRangeJoystick(JoystickAttack joystick)
     {
-        rangeJoystick = joystick;
+        _rangeJoystick = joystick;
     }
 }

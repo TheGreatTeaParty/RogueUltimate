@@ -10,14 +10,14 @@ public class PanelManager : MonoBehaviour
 
     private void Start()
     {
-        KeepOnScene.instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenClose;
+        KeepOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenClose;
     }
 
     private void OpenClose()
     {
         //Return Joystick to 0 position;
-        if(InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>()!= null)
-            InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+        if (InterfaceOnScene.Instance.fixedJoystick != null)
+            InterfaceOnScene.Instance.fixedJoystick.ResetInput();
 
         foreach (var panel in panels)
             if (panel != null)

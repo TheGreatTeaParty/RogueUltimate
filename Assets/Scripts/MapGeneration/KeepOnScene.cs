@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class KeepOnScene : MonoBehaviour
 {
-    public static KeepOnScene instance;
+    public static KeepOnScene Instance;
+
+    // Cache
+    public PlayerAttack playerAttack;
+    public PlayerFX playerFX;
+    public EquipmentAnimationHandler equipmentAnimationHandler;
+    public PlayerMovement playerMovement;
+    public AudioSource audioSource;
+    
 
     private void Awake()
     {
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(this);
         }
         else
-        {
-            Destroy(this.gameObject);
-        }
+            Destroy(this.gameObject); 
+        
+        // Cache
+        playerAttack = Instance.GetComponent<PlayerAttack>();
+        playerFX = Instance.GetComponent<PlayerFX>();
+        equipmentAnimationHandler = Instance.GetComponentInChildren<EquipmentAnimationHandler>();
+        playerMovement = Instance.GetComponent<PlayerMovement>();
+        audioSource = Instance.GetComponent<AudioSource>();
     }
+
 }

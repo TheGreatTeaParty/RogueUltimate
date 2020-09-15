@@ -17,7 +17,7 @@ public class InteractDetaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<IInteractable>()!= null)
+        if(collision.GetComponent<IInteractable>() != null)
         {
             //Save collission information to use it later in Call
             interactable = collision.GetComponent<IInteractable>();

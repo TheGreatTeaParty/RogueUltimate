@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 
 public class DialogSystem : MonoBehaviour
@@ -12,15 +13,15 @@ public class DialogSystem : MonoBehaviour
     private TextMeshProUGUI dialogText;
     public GameObject dialogWindow;
     public GameObject buttonContinue;
-    [SerializeField]
-    private float SoundGapTime = 0.3f;
-    private bool CourantineHasStarted = false;
-    private Queue<string> sentences;
+    [FormerlySerializedAs("SoundGapTime")] [SerializeField]
+    private float soundGapTime = 0.3f;
+    private bool _coroutineHasStarted = false;
+    private Queue<string> _sentences;
 
 
     void Start()
     {
-        sentences = new Queue<string>();
+        _sentences = new Queue<string>();
     }
 
     public void StartDialog(Dialog dialog)
@@ -31,11 +32,11 @@ public class DialogSystem : MonoBehaviour
         Debug.Log("Talk to " + dialog.name);
         nameText.text = dialog.name;
 
-        sentences.Clear();
+        _sentences.Clear();
 
         foreach (string sentence in dialog.sentences)
         {
-            sentences.Enqueue(sentence);
+            _sentences.Enqueue(sentence);
         }
 
         DisplayNextSentence();
@@ -43,23 +44,22 @@ public class DialogSystem : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0) 
+        if (_sentences.Count == 0) 
         {
-            EndDiolog();
+            EndDialog();
             return;
         }
-        string sentence = sentences.Dequeue();
+        string sentence = _sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(WriteSentence(sentence));
     }
 
-    public void EndDiolog()
+    public void EndDialog()
     {
         //This is needed to give information to AI that he can move
         GetComponentInParent<Citizen>().Talk(false);
         dialogWindow.gameObject.SetActive(false);
         InterfaceOnScene.Instance.gameObject.SetActive(true);
-        Debug.Log("End of diolog ");
         buttonContinue.gameObject.SetActive(false);
     }
 
@@ -69,17 +69,17 @@ public class DialogSystem : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogText.text += letter;
-            if(!CourantineHasStarted)
+            if(!_coroutineHasStarted)
                 StartCoroutine(CallSound());
             yield return null;
         }
     }
     IEnumerator CallSound()
     {
-        CourantineHasStarted = true;
-        yield return new WaitForSeconds(SoundGapTime);
+        _coroutineHasStarted = true;
+        yield return new WaitForSeconds(soundGapTime);
         AudioManager.Instance.Play("Talk");
-        CourantineHasStarted = false;
+        _coroutineHasStarted = false;
     }
 
 }

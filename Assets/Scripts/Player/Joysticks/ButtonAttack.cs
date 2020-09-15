@@ -5,12 +5,20 @@ using UnityEngine;
 
 public class ButtonAttack : MonoBehaviour
 {
+    // Cache
+    private PlayerAttack _playerAttack;
 
-    public void attackPlayer()
+
+    private void Start()
+    {    
+        // Cache
+        _playerAttack = KeepOnScene.Instance.playerAttack;
+    }
+
+    public void AttackPlayer()
     {
         //Call player damage function
-        KeepOnScene.instance.GetComponent<PlayerAttack>().Attack();
+        _playerAttack.Attack();
     }
     
-
 }

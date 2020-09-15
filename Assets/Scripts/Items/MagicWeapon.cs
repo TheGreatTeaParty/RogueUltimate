@@ -8,17 +8,14 @@ public class MagicWeapon : EquipmentItem
 {
     [Space]
     public float castTime;
-    public float KnockBack;
-    
-    [Space]
+    public float knockBack;
+    [Space] 
     [SerializeField] private int requiredMana;
+    [Space]
+    public Transform prefab;
+    [Space]
+    public AudioClip prepareSound;
     
-    [Space]
-    public Transform Prefab;
-
-    [Space]
-    public AudioClip PrepareSound;
-
 
     private void Awake()
     {
@@ -31,11 +28,15 @@ public class MagicWeapon : EquipmentItem
         if (PlayerStat.Instance.ModifyMana(requiredMana) == false)
             return;
         
-        Vector3 direction = new Vector3(InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().x, InterfaceOnScene.Instance.GetComponentInChildren<JoystickAttack>().GetDirection().y);
-        Transform magic = Instantiate(Prefab, KeepOnScene.instance.GetComponent<PlayerMovment>().transform.position + direction, Quaternion.identity);
+        Vector3 direction = new Vector3(
+            InterfaceOnScene.Instance.joystickAttack.GetDirection().x, 
+            InterfaceOnScene.Instance.joystickAttack.GetDirection().y);
+        
+        Transform magic = Instantiate(prefab, 
+            KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         magic.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
-        KeepOnScene.instance.GetComponent<PlayerAttack>().onAttacked?.Invoke(WeaponType.Magic,0);
+        KeepOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Magic,0);
     }
     
     public override WeaponType Echo()
