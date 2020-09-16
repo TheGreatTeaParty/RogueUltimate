@@ -88,7 +88,11 @@ public class Kaban : AI
         hit = true;
         hit_player = _hit_player;
     }
-
+    public override void Die()
+    {
+        _damageAreaCollider.gameObject.SetActive(false);
+        Destroy(this);
+    }
     IEnumerator Stun()
     {
         _animator.SetBool("Stunned", true);

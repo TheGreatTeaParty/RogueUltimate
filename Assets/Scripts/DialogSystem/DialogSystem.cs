@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 public class DialogSystem : MonoBehaviour
@@ -17,10 +18,12 @@ public class DialogSystem : MonoBehaviour
     private float soundGapTime = 0.3f;
     private bool _coroutineHasStarted = false;
     private Queue<string> _sentences;
+    private Button playerCallBackbutton;
 
 
     void Start()
     {
+        playerCallBackbutton = KeepOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().GetComponentInChildren<Button>();
         _sentences = new Queue<string>();
     }
 
@@ -28,7 +31,7 @@ public class DialogSystem : MonoBehaviour
     {
         //Return Joystick to 0 position;
         InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
-
+        playerCallBackbutton.gameObject.SetActive(false);
         Debug.Log("Talk to " + dialog.name);
         nameText.text = dialog.name;
 
@@ -60,6 +63,7 @@ public class DialogSystem : MonoBehaviour
         GetComponentInParent<Citizen>().Talk(false);
         dialogWindow.gameObject.SetActive(false);
         InterfaceOnScene.Instance.gameObject.SetActive(true);
+        playerCallBackbutton.gameObject.SetActive(true);
         buttonContinue.gameObject.SetActive(false);
     }
 

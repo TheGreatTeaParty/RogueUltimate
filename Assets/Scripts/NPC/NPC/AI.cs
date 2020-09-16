@@ -189,7 +189,7 @@ public class AI : MonoBehaviour
         return _stopped ? new Vector2(0f, 0f) : dir;
     }
 
-    private void Die()
+    public virtual void Die()
     {
         Destroy(this);
     }
