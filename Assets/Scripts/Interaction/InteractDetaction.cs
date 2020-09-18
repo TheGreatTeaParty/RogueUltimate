@@ -35,13 +35,15 @@ public class InteractDetaction : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<IInteractable>() != null)
-        {
-            //Disable
-            interactionUI.SetActive(false);
-            interactable = null;
-        }
+            DeleteInteractionData();
     }
-    
+
+    public void DeleteInteractionData()
+    {
+        interactionUI.SetActive(false);
+        interactable = null;
+    }
+
     public void CallInteraction()
     {
         interactable.Interact();

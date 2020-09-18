@@ -10,8 +10,8 @@ public class InterfaceOnScene : MonoBehaviour
     [SerializeField] private GameObject[] panels;
     
     // Cache
-    public FixedJoystick fixedJoystick;
-    public JoystickAttack joystickAttack;
+    [HideInInspector] public FixedJoystick fixedJoystick;
+    [HideInInspector] public JoystickAttack joystickAttack;
     
     
     private void Awake()

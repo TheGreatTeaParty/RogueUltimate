@@ -9,41 +9,48 @@ public class NextLevelTrigger : MonoBehaviour
     [SerializeField] private Animator transition;
     [SerializeField] private Type type;
 
+    
     public enum Type
     {
         portal = 0,
         stairs,
     }
 
+
+    private void Start()
+    {
+        if (!transition)
+            transition = FindObjectOfType<LevelLoader>().crossfadeAnimator;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-            LoadNextLevel();
-    }
+        {
+            KeepOnScene.Instance.interactDetaction.DeleteInteractionData();
+            InterfaceOnScene.Instance.fixedJoystick.ResetInput();
+            InterfaceOnScene.Instance.HideAll();
+            KeepOnScene.Instance.spriteRenderer.enabled = false;
 
+            LoadNextLevel();
+        }
+    }
     
     public void LoadNextLevel()
     {
         StartCoroutine(LoadLevelAnimation());
     }
-
     
     private IEnumerator LoadLevelAnimation()
     {
-        transition.SetTrigger("Start");
-
-        //Audio sound depends on type:
-        if(type == Type.portal)
+        if (type == Type.portal)
         {
             AudioManager.Instance.Play("Teleport");
         }
-        else
-        {
-            //Dungeon sound/Door sound 
-        }
-        //Return Joustick to 0 position
-        InterfaceOnScene.Instance.fixedJoystick.ResetInput();
+        
+        //Dungeon sound/Door sound 
 
+        transition.SetTrigger("Start");
         yield return new WaitForSeconds(1f);
         
         LevelManager.LoadScene(nextLevel, NextLevelposition);
@@ -53,4 +60,5 @@ public class NextLevelTrigger : MonoBehaviour
     {
         nextLevel = next;
     }
+    
 }

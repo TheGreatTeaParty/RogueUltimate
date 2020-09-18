@@ -15,16 +15,21 @@ public static class LevelManager
         DB2,
         DB3,
     }
-    
+
     public static void LoadScene(Scenes scenes,Vector3 position = new Vector3())
     {
         SceneManager.LoadScene(scenes.ToString());
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player != null )
+        if (player)
             player.transform.position = position;
         
+        if (KeepOnScene.Instance) 
+            KeepOnScene.Instance.spriteRenderer.enabled = true;
+        
+        if (InterfaceOnScene.Instance)
+            InterfaceOnScene.Instance.ShowMainElements();
     }
     
     public static void LoadScene(String scenes, Vector3 position = new Vector3())
@@ -33,8 +38,14 @@ public static class LevelManager
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) 
+        if (player) 
             player.transform.position = position;
-
+        
+        if (KeepOnScene.Instance) 
+            KeepOnScene.Instance.spriteRenderer.enabled = true;
+        
+        if (InterfaceOnScene.Instance)
+            InterfaceOnScene.Instance.ShowMainElements();
     }
+    
 }

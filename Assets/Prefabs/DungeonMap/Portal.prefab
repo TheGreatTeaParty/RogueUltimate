@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3645976467199772635}
   - component: {fileID: 6410145805153092715}
   - component: {fileID: 6785285708642688421}
-  - component: {fileID: 5723535560420712240}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -47,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextLevel: 0
   NextLevelposition: {x: 0.7, y: 21, z: 0}
-  transition: {fileID: 5723535560420712240}
+  transition: {fileID: 0}
   type: 0
 --- !u!61 &6785285708642688421
 BoxCollider2D:
@@ -73,27 +72,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7586956}
+  m_Size: {x: 1, y: 0.3675232}
   m_EdgeRadius: 0
---- !u!95 &5723535560420712240
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079217521600376294}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e44c031381ee9ee488995feafbe143a5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8140805330702868024
 GameObject:
   m_ObjectHideFlags: 0
