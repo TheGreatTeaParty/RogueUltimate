@@ -6,16 +6,19 @@ using UnityEngine;
 public class EquipmentAnimationHandler : MonoBehaviour
 {
     public Animator weaponAnimator;
-    public Animator equipmentAnimator;
+    public Sprite[] AnimationSprites;
+    public SpriteRenderer ArmorRenderer;
 
     private RuntimeAnimatorController _weaponController;
-    private RuntimeAnimatorController _equipmentController;
     private Vector2 _direction;
     private PlayerMovement _playerMovement;
+    private bool _armorEquiped = false;
+    private SpriteRenderer _playerRenderer;
   
     
     private void Start()
     {
+        _playerRenderer = KeepOnScene.Instance.GetComponent<SpriteRenderer>();
         _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
 
         EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
@@ -57,6 +60,41 @@ public class EquipmentAnimationHandler : MonoBehaviour
         //EquipmentAnim.SetFloat("Vertical", direction.y);
     }
 
+    // Take last digits in player sprite and put armor sprites with the same index
+    private void LateUpdate()
+    {
+        if (_armorEquiped)
+        {
+            string index = "";
+            if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2] != '_')
+            {
+                if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3] != '_')
+                    index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3];
+                index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2];
+            }
+            index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
+
+            if (AnimationSprites.Length == 0)
+                Debug.LogWarning("Missing Animation Sprites");
+            
+            else
+            {
+                if (int.TryParse(index, out int j))
+                {
+                    if (j >= AnimationSprites.Length)
+                        Debug.LogWarning($"Sprite with Index: {j} does not exist in Animation Sprites!");
+                    else
+                    {
+                        ArmorRenderer.sprite = AnimationSprites[j];
+
+                        //Move it on the top of the player Sprite
+                        ArmorRenderer.sortingOrder = _playerRenderer.sortingOrder + 1;
+                    }
+                }
+            }
+        }
+    }
+
     //When the equipment changed, change the Animation controller
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
@@ -80,11 +118,20 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
     {
         if (_new != null)
+        {
             if (_new.equipmentType == EquipmentType.Armor)
             {
-                _equipmentController = _new.EquipmentAnimations;
-                equipmentAnimator.runtimeAnimatorController = _equipmentController as RuntimeAnimatorController;
+                _armorEquiped = true;
+                AnimationSprites = _new.Animation;
             }
+        }
+
+        else
+        {
+            _armorEquiped = false;
+            ArmorRenderer.sprite = null;
+            AnimationSprites = null;
+        }
     }
 
     //When attack, trigger the Attack animation
@@ -95,8 +142,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             weaponAnimator.SetTrigger("Attack");
             weaponAnimator.SetInteger("Set", set);
         }
-        if(_equipmentController != null)
-            equipmentAnimator.SetTrigger("Attack");
+        
     }
     public void RotateRangeWeapon(Vector3 dir)
     {

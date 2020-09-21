@@ -24,7 +24,7 @@ public class DynamicLayerRenderer : MonoBehaviour
 
     private void RenderObject()
     {
-        myRenderer.sortingOrder = (int)(baseLayer - transform.position.y - offSet);
+        myRenderer.sortingOrder = (int)(baseLayer - transform.position.y*10 - offSet);
         if (runOnlyOnce)
             Destroy(this);
     }
