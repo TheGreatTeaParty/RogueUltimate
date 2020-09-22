@@ -66,7 +66,7 @@ public class JoystickAttack : MonoBehaviour
                 {
                     _audioSource.PlayOneShot(weapon.prepareSound);
                 }
-                _playerAttack.onAttacked?.Invoke(WeaponType.Range, 0);
+                _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 0);
             }
 
             if (_isShooting)
@@ -79,7 +79,7 @@ public class JoystickAttack : MonoBehaviour
                 if (_movement.x != 0 || _movement.y != 0)
                 {
                     _playerAttack.Attack();
-                    _playerAttack.onAttacked?.Invoke(WeaponType.Range, 1);
+                    _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 1);
                 }
             
                 _audioIsPlaying = false;

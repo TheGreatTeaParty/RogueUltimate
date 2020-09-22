@@ -7,7 +7,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
 {
     public Animator weaponAnimator;
     public Sprite[] AnimationSprites;
-    public SpriteRenderer ArmorRenderer;
+    private SpriteRenderer ArmorRenderer;
 
     private RuntimeAnimatorController _weaponController;
     private Vector2 _direction;
@@ -18,9 +18,12 @@ public class EquipmentAnimationHandler : MonoBehaviour
     
     private void Start()
     {
+        SpriteRenderer[] array = GetComponentsInChildren<SpriteRenderer>();
+        ArmorRenderer = array[1];
+        array = null;
+
         _playerRenderer = KeepOnScene.Instance.GetComponent<SpriteRenderer>();
         _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
-
         EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
         KeepOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
 
@@ -98,7 +101,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     //When the equipment changed, change the Animation controller
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new != null)
+        if (_new)
         {
             if (_new.equipmentType == EquipmentType.Weapon)
             {
@@ -107,7 +110,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
         }
         //If we drop the weapon, clear the animation controller
-        else
+        else if(_old.equipmentType == EquipmentType.Weapon && _new == null)
         {
             weaponAnimator.gameObject.transform.rotation = Quaternion.identity;
             weaponAnimator.runtimeAnimatorController = null as RuntimeAnimatorController;
@@ -117,7 +120,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
 
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new != null)
+        if (_new)
         {
             if (_new.equipmentType == EquipmentType.Armor)
             {
@@ -126,7 +129,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
         }
 
-        else
+        else if (_old.equipmentType == EquipmentType.Armor && _new == null)
         {
             _armorEquiped = false;
             ArmorRenderer.sprite = null;

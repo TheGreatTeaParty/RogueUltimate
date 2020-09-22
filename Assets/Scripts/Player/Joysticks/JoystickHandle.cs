@@ -15,7 +15,7 @@ public class JoystickHandle : MonoBehaviour
     
     private void OnEquipmentChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new != null) 
+        if (_new) 
         {
             if (_new.equipmentType == EquipmentType.Weapon)
             {
@@ -31,7 +31,7 @@ public class JoystickHandle : MonoBehaviour
                 }
             }
         }
-        else 
+        else if (!_new && _old.equipmentType == EquipmentType.Weapon)
         {
             joysticks[1].gameObject.SetActive(true);
             joysticks[2].gameObject.SetActive(false);

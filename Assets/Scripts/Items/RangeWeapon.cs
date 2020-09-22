@@ -34,8 +34,7 @@ public class RangeWeapon : EquipmentItem
         Transform arrow = Instantiate(arrowPrefab,
             KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
-        //Send mesage to Attack animation handler that we use Melee Weapon
-        KeepOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Range,0);
+        
     }
     
     

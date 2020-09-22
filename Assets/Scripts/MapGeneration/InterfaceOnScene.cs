@@ -11,7 +11,7 @@ public class InterfaceOnScene : MonoBehaviour
     
     // Cache
     [HideInInspector] public FixedJoystick fixedJoystick;
-    [HideInInspector] public JoystickAttack joystickAttack;
+    [SerializeField] public JoystickAttack joystickAttack;
     
     
     private void Awake()
@@ -28,7 +28,6 @@ public class InterfaceOnScene : MonoBehaviour
         
         // Cache
         fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();
-        joystickAttack = Instance.GetComponentInChildren<JoystickAttack>();
     }
 
     public void HideMainElements()
