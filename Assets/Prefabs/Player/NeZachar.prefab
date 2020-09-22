@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 5573504965047378232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.58, y: -0.16577373, z: 0}
-  m_LocalScale: {x: 6.2706394, y: 6.2706394, z: 6.2706394}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5573504964296876962}
   - {fileID: 2774382979857042301}
@@ -426,11 +426,14 @@ MonoBehaviour:
     modifiers: 
   maxHealth: 50
   currentHealth: 0
+  maxMana: 150
+  maxStamina: 80
+  strength: 0
+  agility: 0
+  intelligence: 0
   regenerationSpeed: 0
   animator: {fileID: 2774382978966536536}
   LevelUpEffect: {fileID: 0}
-  maxMana: 150
-  maxStamina: 80
 --- !u!114 &6359904152417877358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90a37cb6ed6043ecbdceeef47804a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  playerAttack: {fileID: 0}
+  playerFX: {fileID: 0}
+  equipmentAnimationHandler: {fileID: 0}
+  playerMovement: {fileID: 0}
+  audioSource: {fileID: 0}
+  interactDetaction: {fileID: 0}
 --- !u!70 &2220471680821878144
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
