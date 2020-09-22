@@ -32,7 +32,6 @@ public class DialogSystem : MonoBehaviour
         //Return Joystick to 0 position;
         InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
         playerCallBackbutton.gameObject.SetActive(false);
-        Debug.Log("Talk to " + dialog.name);
         nameText.text = dialog.name;
 
         _sentences.Clear();
@@ -78,6 +77,7 @@ public class DialogSystem : MonoBehaviour
             yield return null;
         }
     }
+    
     IEnumerator CallSound()
     {
         _coroutineHasStarted = true;
