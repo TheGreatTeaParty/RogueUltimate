@@ -16,7 +16,7 @@ public static class LevelManager
         DB3,
     }
 
-    public static void LoadScene(Scenes scenes,Vector3 position = new Vector3())
+    public static void LoadScene(Scenes scenes, Vector3 position = new Vector3())
     {
         SceneManager.LoadScene(scenes.ToString());
 
@@ -26,7 +26,7 @@ public static class LevelManager
             player.transform.position = position;
         
         if (KeepOnScene.Instance) 
-            KeepOnScene.Instance.spriteRenderer.enabled = true;
+            KeepOnScene.Instance.ShowPlayer();
         
         if (InterfaceOnScene.Instance)
             InterfaceOnScene.Instance.ShowMainElements();
@@ -42,7 +42,7 @@ public static class LevelManager
             player.transform.position = position;
         
         if (KeepOnScene.Instance) 
-            KeepOnScene.Instance.spriteRenderer.enabled = true;
+            KeepOnScene.Instance.ShowPlayer();
         
         if (InterfaceOnScene.Instance)
             InterfaceOnScene.Instance.ShowMainElements();

@@ -29,8 +29,8 @@ public class NextLevelTrigger : MonoBehaviour
         {
             KeepOnScene.Instance.interactDetaction.DeleteInteractionData();
             InterfaceOnScene.Instance.fixedJoystick.ResetInput();
+            KeepOnScene.Instance.HidePlayer();
             InterfaceOnScene.Instance.HideAll();
-            KeepOnScene.Instance.spriteRenderer.enabled = false;
 
             LoadNextLevel();
         }

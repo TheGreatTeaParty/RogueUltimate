@@ -1,11 +1,21 @@
 ﻿using System;
 using UnityEngine;
 
+public enum Tier
+{
+    Null = 0,
+    First = 1,
+    Second = 2,
+    Third = 3,
+    Fourth = 4,
+    Fifth = 5
+}
 
 [CreateAssetMenu(menuName = "Items/Item")]  
 public class Item : ScriptableObject
 {
     [SerializeField] public int ID;
+    [SerializeField] public Tier tier;
     [SerializeField] protected int price;
     [Space]
     [SerializeField] protected String name;

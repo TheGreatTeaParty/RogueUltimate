@@ -14,18 +14,18 @@ public class KeepOnScene : MonoBehaviour
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public InteractDetaction interactDetaction;
-    
+
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this);
         }
         else
-            Destroy(this.gameObject); 
-        
+            Destroy(this.gameObject);
+
         // Cache
         playerAttack = Instance.GetComponent<PlayerAttack>();
         playerFX = Instance.GetComponent<PlayerFX>();
@@ -34,6 +34,18 @@ public class KeepOnScene : MonoBehaviour
         audioSource = Instance.GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactDetaction = Instance.GetComponentInChildren<InteractDetaction>();
+    }
+
+    public void HidePlayer()
+    {
+        spriteRenderer.enabled = false;
+        // armor here
+    }
+
+    public void ShowPlayer()
+    {
+        spriteRenderer.enabled = true;
+        // armor here
     }
 
 }
