@@ -15,6 +15,7 @@ public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
     public RuntimeAnimatorController EquipmentAnimations;
+    public Sprite[] Animation;
     [Space]
     //Modifiers
     public int PhysicalArmorModifier;
