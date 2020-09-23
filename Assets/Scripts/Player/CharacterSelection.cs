@@ -80,6 +80,7 @@ public class CharacterSelection : MonoBehaviour
         Instantiate(prefabs[Index], options[Index].transform.position, Quaternion.identity);
         Destroy(options[Index]);
         Interface.SetActive(true);
+        Destroy(selectionCamera.gameObject);
         Destroy(gameObject);
     }
 
