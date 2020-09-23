@@ -32,6 +32,7 @@ public class DiePanel : MonoBehaviour
         Destroy(InterfaceOnScene.Instance.gameObject);
         Destroy(AudioManager.Instance.gameObject);
         Destroy(PlayerStat.Instance.gameObject);
+        Destroy(PlayerCamera.Instance.gameObject);
         
         LevelManager.LoadScene("Menu");
         Time.timeScale = 1f;

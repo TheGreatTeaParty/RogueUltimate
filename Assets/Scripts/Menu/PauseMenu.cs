@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         Destroy(PlayerStat.Instance.gameObject);
         Destroy(InterfaceOnScene.Instance.gameObject);
         Destroy(AudioManager.Instance.gameObject);
+        Destroy(PlayerCamera.Instance.gameObject);
 
         SceneManager.LoadScene("Menu");
     }
