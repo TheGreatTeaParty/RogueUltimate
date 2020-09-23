@@ -6,19 +6,23 @@ using UnityEngine;
 public class EquipmentAnimationHandler : MonoBehaviour
 {
     public Animator weaponAnimator;
-    public Sprite[] AnimationSprites;
+    private Sprite[] ArmorAnimationSprites;
+    private Sprite[] WeaponAnimationSprites;
     private SpriteRenderer ArmorRenderer;
+    private SpriteRenderer WeaponRenderer;
 
     private RuntimeAnimatorController _weaponController;
     private Vector2 _direction;
     private PlayerMovement _playerMovement;
     private bool _armorEquiped = false;
+    private bool _weaponEquiped = false;
     private SpriteRenderer _playerRenderer;
   
     
     private void Start()
     {
         SpriteRenderer[] array = GetComponentsInChildren<SpriteRenderer>();
+        WeaponRenderer = array[0];
         ArmorRenderer = array[1];
         array = null;
 
@@ -58,9 +62,6 @@ public class EquipmentAnimationHandler : MonoBehaviour
             weaponAnimator.SetFloat("Horizontal", _direction.x);
             weaponAnimator.SetFloat("Vertical", _direction.y);
         }
-
-        //EquipmentAnim.SetFloat("Horizontal", direction.x);
-        //EquipmentAnim.SetFloat("Vertical", direction.y);
     }
 
     // Take last digits in player sprite and put armor sprites with the same index
@@ -77,21 +78,65 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
             index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
 
-            if (AnimationSprites.Length == 0)
+            if (ArmorAnimationSprites.Length == 0)
                 Debug.LogWarning("Missing Animation Sprites");
             
             else
             {
                 if (int.TryParse(index, out int j))
                 {
-                    if (j >= AnimationSprites.Length)
+                    if (j >= ArmorAnimationSprites.Length)
+                    {
                         Debug.LogWarning($"Sprite with Index: {j} does not exist in Animation Sprites!");
+                        ArmorRenderer.sprite = null;
+                    }
                     else
                     {
-                        ArmorRenderer.sprite = AnimationSprites[j];
+                        ArmorRenderer.sprite = ArmorAnimationSprites[j];
 
                         //Move it on the top of the player Sprite
                         ArmorRenderer.sortingOrder = _playerRenderer.sortingOrder + 1;
+                    }
+                }
+            }
+        }
+
+        if (_weaponEquiped)
+        {
+            string index = "";
+            if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2] != '_')
+            {
+                if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3] != '_')
+                    index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3];
+                index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2];
+            }
+            index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
+
+            if (WeaponAnimationSprites.Length == 0)
+                Debug.LogWarning("Missing Animation Sprites");
+
+            else
+            {
+                if (int.TryParse(index, out int j))
+                {
+                    if (j >= WeaponAnimationSprites.Length)
+                    {
+                        WeaponRenderer.sprite = null;
+                    }
+                    else
+                    {
+                        WeaponRenderer.sprite = WeaponAnimationSprites[j];
+
+                        //Move it on the top of the player Sprite
+                        if (8 <=j && j <= 11 || 24 <= j && j <= 27 || 40 <= j && j <= 43 || 56 <= j && j <= 59
+                            || 72 <= j && j <= 75)
+                        {
+                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
+                        }
+                        else
+                        {
+                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 1;
+                        }
                     }
                 }
             }
@@ -107,6 +152,9 @@ public class EquipmentAnimationHandler : MonoBehaviour
             {
                 _weaponController = _new.EquipmentAnimations;
                 weaponAnimator.runtimeAnimatorController = _weaponController as RuntimeAnimatorController;
+
+                _weaponEquiped = true;
+                WeaponAnimationSprites = _new.Animation;
             }
         }
         //If we drop the weapon, clear the animation controller
@@ -115,6 +163,10 @@ public class EquipmentAnimationHandler : MonoBehaviour
             weaponAnimator.gameObject.transform.rotation = Quaternion.identity;
             weaponAnimator.runtimeAnimatorController = null as RuntimeAnimatorController;
             _weaponController = null;
+
+            _weaponEquiped = false;
+            WeaponAnimationSprites = null;
+            WeaponRenderer.sprite = null;
         }
     }
 
@@ -125,7 +177,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             if (_new.equipmentType == EquipmentType.Armor)
             {
                 _armorEquiped = true;
-                AnimationSprites = _new.Animation;
+                ArmorAnimationSprites = _new.Animation;
             }
         }
 
@@ -133,7 +185,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
         {
             _armorEquiped = false;
             ArmorRenderer.sprite = null;
-            AnimationSprites = null;
+            ArmorAnimationSprites = null;
         }
     }
 
