@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d24cff1d994a86861d66c42949da1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1766254653}
+  prefab: {fileID: 0}
   smoothSpeed: 10
   offset: {x: 0, y: 0, z: -10}
 --- !u!114 &1308579113
@@ -772,12 +772,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a6dcabf9a8a44150a6f97e965a2ad7c, type: 3}
---- !u!4 &1766254653 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7771391765174333839, guid: d6a248e98ccd246c18de9b65eb508aae,
-    type: 3}
-  m_PrefabInstance: {fileID: 7771391765743787350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2057269261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8901857810104016256, guid: 0557eadfef5504236a24aad841ce388b,
@@ -1065,7 +1059,7 @@ PrefabInstance:
     - target: {fileID: 918014800151723289, guid: 0557eadfef5504236a24aad841ce388b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -253.99976
+      value: -253.99951
       objectReference: {fileID: 0}
     - target: {fileID: 1083508571703326589, guid: 0557eadfef5504236a24aad841ce388b,
         type: 3}
@@ -2892,6 +2886,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1964008847064453167, guid: d6a248e98ccd246c18de9b65eb508aae,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4d7ffdbde2de84d55944b5118835b2c6, type: 2}
     - target: {fileID: 7771391764288533279, guid: d6a248e98ccd246c18de9b65eb508aae,
         type: 3}
       propertyPath: m_IsActive

@@ -66,7 +66,10 @@ public class PlayerAttack : MonoBehaviour
                 _playerStat.physicalDamage.GetValue(), _playerStat.magicDamage.GetValue());
                 
             if(EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Echo() == WeaponType.Melee)
+            {
                 StartCoroutine(PlayerStop(0.5f));
+                onAttacked?.Invoke(WeaponType.Melee, 1);
+            }
 
             _startAttackCoolDown = _weaponCoolDown;
         }
