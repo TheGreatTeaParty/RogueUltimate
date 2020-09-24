@@ -93,7 +93,7 @@ public class JoystickAttack : MonoBehaviour
         {
             _playerMovement.SlowDown(2f);
             _playerMovement.SetRangeMoving(false);
-            _playerAttack.onAttacked?.Invoke(WeaponType.Range, 1);
+            _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 1);
             _isSlowed = false;
             _audioIsPlaying = false;
             _timer = 0;

@@ -93,7 +93,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
                     else
                     {
                         ArmorRenderer.sprite = ArmorAnimationSprites[j];
-
+                      
                         //Move it on the top of the player Sprite
                         ArmorRenderer.sortingOrder = _playerRenderer.sortingOrder + 1;
                     }
@@ -101,7 +101,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
         }
 
-        if (_weaponEquiped)
+        if (_weaponEquiped && weaponAnimator.GetInteger("Set") > 0)
         {
             string index = "";
             if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2] != '_')
@@ -121,7 +121,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
                 {
                     if (j >= WeaponAnimationSprites.Length)
                     {
-                        WeaponRenderer.sprite = null;
+                        return;
                     }
                     else
                     {
@@ -135,7 +135,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
                         }
                         else
                         {
-                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 1;
+                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 2;
                         }
                     }
                 }
