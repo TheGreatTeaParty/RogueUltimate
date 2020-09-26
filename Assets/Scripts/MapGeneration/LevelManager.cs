@@ -28,8 +28,8 @@ public static class LevelManager
         if (KeepOnScene.Instance) 
             KeepOnScene.Instance.ShowPlayer();
         
-        if (InterfaceOnScene.Instance)
-            InterfaceOnScene.Instance.ShowMainElements();
+        if (InterfaceManager.Instance)
+            InterfaceManager.Instance.ShowFaceElements();
     }
     
     public static void LoadScene(String scenes, Vector3 position = new Vector3())
@@ -44,8 +44,8 @@ public static class LevelManager
         if (KeepOnScene.Instance) 
             KeepOnScene.Instance.ShowPlayer();
         
-        if (InterfaceOnScene.Instance)
-            InterfaceOnScene.Instance.ShowMainElements();
+        if (InterfaceManager.Instance)
+            InterfaceManager.Instance.ShowFaceElements();
     }
     
 }

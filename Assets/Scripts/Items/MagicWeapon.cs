@@ -29,8 +29,8 @@ public class MagicWeapon : EquipmentItem
             return;
         
         Vector3 direction = new Vector3(
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().x, 
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().y);
+            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
+            InterfaceManager.Instance.joystickAttack.GetDirection().y);
         
         Transform magic = Instantiate(prefab, 
             KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);

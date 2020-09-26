@@ -30,7 +30,7 @@ public class DialogSystem : MonoBehaviour
     public void StartDialog(Dialog dialog)
     {
         //Return Joystick to 0 position;
-        InterfaceOnScene.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+        InterfaceManager.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
         playerCallBackbutton.gameObject.SetActive(false);
         nameText.text = dialog.name;
 
@@ -61,7 +61,7 @@ public class DialogSystem : MonoBehaviour
         //This is needed to give information to AI that he can move
         GetComponentInParent<Citizen>().Talk(false);
         dialogWindow.gameObject.SetActive(false);
-        InterfaceOnScene.Instance.gameObject.SetActive(true);
+        InterfaceManager.Instance.gameObject.SetActive(true);
         playerCallBackbutton.gameObject.SetActive(true);
         buttonContinue.gameObject.SetActive(false);
     }

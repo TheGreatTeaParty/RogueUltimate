@@ -9,6 +9,7 @@ public class PlayerButtonCallBack : MonoBehaviour
 
     public void ChangeState()
     {
+        Debug.Log("Clicked");
         onStateChanged?.Invoke();
     }
     

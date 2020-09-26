@@ -49,7 +49,7 @@ public class TradeManager : MonoBehaviour
             return;
         }
         
-        tradeTooltip.SetName(currentItem.Name);
+        tradeTooltip.SetName(currentItem.ItemName);
         tradeTooltip.SetSprite(currentItem.Sprite);
         tradeTooltip.SetDescription(currentItem.Description);
         tradeTooltip.SetPrice(currentItem.Price);
@@ -123,9 +123,9 @@ public class TradeManager : MonoBehaviour
     public void Open()
     {
         //Return Joystick to 0 position;
-        InterfaceOnScene.Instance.fixedJoystick.ResetInput();
+        InterfaceManager.Instance.fixedJoystick.ResetInput();
 
-        var UI = InterfaceOnScene.Instance;
+        var UI = InterfaceManager.Instance;
         var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
@@ -139,14 +139,14 @@ public class TradeManager : MonoBehaviour
 
     public void Close()
     {
-        var UI = InterfaceOnScene.Instance;
+        var UI = InterfaceManager.Instance;
         var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
         
         EraseTooltip();
         
         tradeWindow.SetActive(false);
         
-        UI.ShowMainElements();
+        UI.ShowFaceElements();
         playerButton.enabled = true;
         
         currentItem = null;

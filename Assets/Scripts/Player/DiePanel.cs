@@ -13,7 +13,7 @@ public class DiePanel : MonoBehaviour
 
     public void PlayerDie()
     {
-        var UI = InterfaceOnScene.Instance;
+        var UI = InterfaceManager.Instance;
         
         UI.HideAll();
         diePanel.SetActive(true);
@@ -23,13 +23,13 @@ public class DiePanel : MonoBehaviour
 
     public void DieButton()
     {
-        var UI = InterfaceOnScene.Instance;
+        var UI = InterfaceManager.Instance;
         
         SaveManager.DeletePlayer();
         UI.HideAll();
         diePanel.SetActive(false);
         
-        Destroy(InterfaceOnScene.Instance.gameObject);
+        Destroy(InterfaceManager.Instance.gameObject);
         Destroy(AudioManager.Instance.gameObject);
         Destroy(PlayerStat.Instance.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);
@@ -40,7 +40,7 @@ public class DiePanel : MonoBehaviour
 
     public void ResurrectButton()
     {
-        var UI = InterfaceOnScene.Instance;
+        var UI = InterfaceManager.Instance;
         
         PlayerStat.Instance.ModifyHealth(PlayerStat.Instance.maxHealth);
         PlayerStat.Instance.ModifyMana(PlayerStat.Instance.maxMana);
@@ -50,9 +50,9 @@ public class DiePanel : MonoBehaviour
         PlayerStat.Instance.gameObject.tag = "Player";
         
         diePanel.SetActive(false);
-        UI.ShowMainElements();
+        UI.ShowFaceElements();
         Time.timeScale = 1f;
-        InterfaceOnScene.Instance.ShowMainElements();
+        InterfaceManager.Instance.ShowFaceElements();
         Debug.Log("There will be an adv : ");
     }
 

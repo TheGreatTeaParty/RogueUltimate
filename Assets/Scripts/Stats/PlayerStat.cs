@@ -275,14 +275,14 @@ public class PlayerStat : CharacterStat, IDamaged
         animator.SetTrigger("Die");
         PlayerStat.Instance.gameObject.layer = 2;
         PlayerStat.Instance.gameObject.tag = "Untagged";
-        InterfaceOnScene.Instance.HideMainElements();
-        InterfaceOnScene.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
+        InterfaceManager.Instance.HideFaceElements();
+        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
         //Destroy or set Active(faulse) 
 
 
         //Destroy(gameObject);
-        //Destroy(InterfaceOnScene.Instance.gameObject);
+        //Destroy(InterfaceManager.Instance.gameObject);
         //SceneManager.LoadScene("Menu");
 
     }

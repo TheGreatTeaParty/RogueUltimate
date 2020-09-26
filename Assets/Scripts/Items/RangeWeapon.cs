@@ -29,8 +29,8 @@ public class RangeWeapon : EquipmentItem
             return;
             
         Vector3 direction = new Vector3(
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().x, 
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().y);
+            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
+            InterfaceManager.Instance.joystickAttack.GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,
             KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);

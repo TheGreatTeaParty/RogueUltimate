@@ -28,9 +28,9 @@ public class NextLevelTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             KeepOnScene.Instance.interactDetaction.DeleteInteractionData();
-            InterfaceOnScene.Instance.fixedJoystick.ResetInput();
+            InterfaceManager.Instance.fixedJoystick.ResetInput();
             KeepOnScene.Instance.HidePlayer();
-            InterfaceOnScene.Instance.HideAll();
+            InterfaceManager.Instance.HideAll();
 
             LoadNextLevel();
         }
