@@ -14,10 +14,13 @@ public enum EquipmentType
 public class EquipmentItem : Item
 {
     public EquipmentType equipmentType;
+
+    [Header("For animation")]
     public RuntimeAnimatorController EquipmentAnimations;
     public Sprite[] Animation;
     [Space]
-    //Modifiers
+
+    [Header("Modifiers")]
     public int PhysicalArmorModifier;
     public int MagicalArmorModifier;
 

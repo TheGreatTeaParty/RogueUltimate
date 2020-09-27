@@ -19,7 +19,7 @@ public class Item : ScriptableObject
     [SerializeField] protected int price;
     [Space]
     [SerializeField] protected String name;
-    [SerializeField] protected String description;
+    [SerializeField][TextArea] protected String description;
     [SerializeField] protected Sprite sprite;
     [Space]
     [SerializeField] protected int stackSize;

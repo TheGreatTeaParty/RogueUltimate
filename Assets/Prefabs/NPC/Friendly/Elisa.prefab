@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1907518956473794626}
   - component: {fileID: 8450257105870885416}
   - component: {fileID: 7726190537592066904}
+  - component: {fileID: -537977802940533247}
   m_Layer: 0
   m_Name: Elisa
   m_TagString: Untagged
@@ -147,9 +148,6 @@ MonoBehaviour:
   waitTime: 2
   attackCoolDown: 1.2
   attackDuration: 0.5
-  dialogSystem: {fileID: 5610303572346991186}
-  dialogWindow: {fileID: 1787982233554279038}
-  buttonContinue: {fileID: 1787982232754780609}
   dialog:
     name: Elisa
     sentences:
@@ -237,6 +235,32 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &-537977802940533247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787982233019885463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.20389032, y: -0.5, z: 0}
+  - {x: 0.26445866, y: -0.5, z: 0}
+  - {x: 0.24426937, y: 0.28464758, z: 0}
+  - {x: -0.21061993, y: 0.27791786, z: 0}
+  m_ShapePathHash: -1502043931
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 118382
 --- !u!1001 &8355080953073991899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -534,15 +558,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33513fb688886f4188d28df823dc6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1787982233554279038 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7720020243525786277, guid: 4474cd027b592984299d9dcc2280b524,
-    type: 3}
-  m_PrefabInstance: {fileID: 8355080953073991899}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1787982232754780609 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7720020242374949146, guid: 4474cd027b592984299d9dcc2280b524,
-    type: 3}
-  m_PrefabInstance: {fileID: 8355080953073991899}
-  m_PrefabAsset: {fileID: 0}
