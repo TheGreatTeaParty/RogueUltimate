@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
+        CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         
         // Cache
         _playerStat = GetComponent<PlayerStat>();
@@ -57,22 +57,28 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
+        Equipment equipment = CharacterManager.Instance.Equipment;
+        EquipmentItem weapon = equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as EquipmentItem;
+        
         if (!(_startAttackCoolDown <= 0)) return;
         
         //If there is any Weapon call the function attack there
-        if (EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon] != null)
+
+        if (weapon != null) 
         {
-            EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Attack(
-                _playerStat.physicalDamage.GetValue(), _playerStat.magicDamage.GetValue());
-                
-            if(EquipmentManager.Instance.currentEquipment[(int)EquipmentType.Weapon].Echo() == WeaponType.Melee)
+            weapon.Attack(_playerStat.physicalDamage.Value, _playerStat.magicDamage.Value);
+
+            if(weapon.Echo() == WeaponType.Melee)
                 StartCoroutine(PlayerStop(0.5f));
 
             _startAttackCoolDown = _weaponCoolDown;
         }
         //if not, this is base fist attack
         else
-            FistAttack();
+        {
+            Debug.Log("No weapon equipped");
+            FistAttack();   
+        }
 
     }
     
@@ -86,10 +92,8 @@ public class PlayerAttack : MonoBehaviour
             transform.position + _direction / 2, attackRange, _whatIsEnemy.value);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(
-                _playerStat.physicalDamage.GetValue(), _playerStat.magicDamage.GetValue());
-        }
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_playerStat.physicalDamage.Value, _playerStat.magicDamage.Value);
+        
         _startAttackCoolDown = attackCoolDown;
         StartCoroutine(PlayerStop(0.4f));
         onAttacked?.Invoke(WeaponType.None,0);

@@ -18,6 +18,16 @@ public class Inventory : MonoBehaviour
     public event Action<ItemSlot> OnDropEvent;
 
 
+    private void OnValidate()
+    {
+        itemSlots = GetComponentsInChildren<ItemSlot>();
+    }
+    
+    private void Awake()
+    {
+        itemSlots = GetComponentsInChildren<ItemSlot>();
+    }
+    
     private void Start()
     {
         for (int i = 0; i < itemSlots.Length; i++)
@@ -28,6 +38,8 @@ public class Inventory : MonoBehaviour
             itemSlots[i].OnEndDragEvent += OnEndDragEvent;
             itemSlots[i].OnDropEvent += OnDropEvent;
         }
+        
+        StartUpWindow();
     }
 
     public bool AddItem(Item item)
@@ -64,6 +76,20 @@ public class Inventory : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void StartUpWindow()
+    {
+        int i = 0;
+        for (; i < items.Count && i < itemSlots.Length; i++)
+        {
+            itemSlots[i].Item = items[i];
+        }
+
+        for (; i < itemSlots.Length; i++)
+        {
+            itemSlots[i].Item = null;
+        }
     }
 
 }

@@ -31,7 +31,7 @@ public class InterfaceManager : MonoBehaviour
     [Space]
 
     // Cache
-    [HideInInspector] public FixedJoystick fixedJoystick;
+    [SerializeField] public FixedJoystick fixedJoystick;
     [SerializeField] public JoystickAttack joystickAttack;
     [SerializeField] public PlayerButtonCallBack playerButton;
 

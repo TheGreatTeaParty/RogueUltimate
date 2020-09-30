@@ -24,7 +24,7 @@ public class TradeManager : MonoBehaviour
     public bool state;
     public Item currentItem;
     [Space]
-    public InventoryManager playerInventory;
+    public CharacterManager playerCharacter;
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
     public GameObject tradeWindow;
@@ -82,10 +82,10 @@ public class TradeManager : MonoBehaviour
             return;
         }
 
-        if (playerInventory.items.Count < playerInventory.size && playerInventory.GetGold() >= currentItem.Price)
+       // if (playerCharacter.items.Count < playerCharacter.size && playerCharacter.GetGold() >= currentItem.Price)
         {
-            playerInventory.ChangeGold(-currentItem.Price);
-            playerInventory.AddItemToInventory(currentItem);
+            playerCharacter.ChangeGold(-currentItem.Price);
+            playerCharacter.AddItemToInventory(currentItem);
             AudioManager.Instance.Play("Buy");
         }
         
@@ -94,11 +94,10 @@ public class TradeManager : MonoBehaviour
 
     public void Sell()
     {
-        playerInventory.ChangeGold(currentItem.Price);
-        playerInventory.RemoveItemFromInventory(currentItem);
-        if (currentItem is UsableItem)
-            QuickSlotsManager.Instance.Request((UsableItem)currentItem);
-
+        playerCharacter.ChangeGold(currentItem.Price);
+       // playerCharacter.RemoveItemFromInventory(currentItem);
+       // !!!!!!!!!! QuickSlots
+       
         currentItem = null;
         EraseTooltip();
         
@@ -106,15 +105,15 @@ public class TradeManager : MonoBehaviour
         AudioManager.Instance.Play("Sell");
     }
 
-    public void Bind(InventoryManager playerInventory, NPCInventory npcInventory)
+    public void Bind(CharacterManager playerCharacter, NPCInventory npcInventory)
     {
-        if (playerInventory == null || npcInventory == null || tradeTooltip == null)
+        if (playerCharacter == null || npcInventory == null || tradeTooltip == null)
         {
             Debug.Log("Smth didn't found in TradeManager.cs, Bind()");
             return;
         }
         
-        this.playerInventory = playerInventory;
+        this.playerCharacter = playerCharacter;
         this.npcInventory = npcInventory;
 
         onChangeCallback?.Invoke();

@@ -42,39 +42,20 @@ public class Item : ScriptableObject
         set => stackMaxSize = value;
     }
 
-
     public virtual void Use()
     {
         
     }
-    
-    
+
     public void Drop(string place)
     {
-        if (place == "Inventory")
-        {
-            InventoryManager.Instance.RemoveItemFromInventory(this);
-            InventoryManager.Instance.DropFromInventory(this);
-            AudioManager.Instance.Play("DropItem");
-            return;
-        }
-
-        if (place == "Equipment")
-        {
-            EquipmentManager.Instance.DropFromEquipment((EquipmentItem)this);
-            AudioManager.Instance.Play("DropItem");
-            return;
-        }
         
-        Debug.Log("There is no place selected");
     }
-
 
     public virtual void MoveToQuickAccess()
     {
         
     }
-    
-    
+
 }
 

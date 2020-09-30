@@ -154,7 +154,7 @@ public class TavernKeeper : AI,IInteractable
     public void Interact()
     {
         // Bind the info for TradeManager
-        var playerInventory = InventoryManager.Instance;
+        var playerInventory = CharacterManager.Instance;
         var npcInventory = GetComponent<NPCInventory>();
         var tradeManager = TradeManager.Instance;
 

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BossStats : EnemyStat
 {
-    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    public override void TakeDamage(float physicalDamage, float magicDamage)
     {
-        base.TakeDamage(_physicalDamage, _magicDamage);
-        BossFightPortal.Instance.SetBossHealth(currentHealth);
+        base.TakeDamage(physicalDamage, magicDamage);
+        BossFightPortal.Instance.SetBossHealth(CurrentHealth);
     }
     public override void Die()
     {

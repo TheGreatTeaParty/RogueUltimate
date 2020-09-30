@@ -39,43 +39,78 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _currentMana;
-    private int _currentStamina;
+    private int _statPoints = 0;
+    private float _currentMana;
+    private float _currentStamina;
     
-    // Delete getters for maxvalues ?
-    public int maxMana;
-    public int maxStamina;
+    public float maxMana;
+    public float maxStamina;
+    [Space] 
+    public Stat vitality;
+    public Stat will;
+    public Stat mind;
+    public Stat agility;
     [Space]
-    public int strength;
-    public int agility;
-    public int intelligence;
+    public Stat attackSpeed;
+    public Stat blockStrength;
+    public Stat castSpeed;
+    public Stat dodgeChance;
+    public Stat critDamage;
+    public Stat critChance;
     [Space]
     public float regenerationSpeed;
     [Space]
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
 
+    public float CurrentMana
+    {
+        get => _currentMana;
+        set => _currentMana = value;
+    }
+    public float CurrentStamina
+    {
+        get => _currentStamina;
+        set => _currentStamina = value;
+    }
+    public float MaxMana
+    {
+        get => maxMana;
+        set => maxMana = value;
+    }
+    public float MaxStamina
+    {
+        get => maxStamina;
+        set => maxStamina = value;
+    }
+    public int XP
+    {
+        get => _xp;
+        set => _xp = value;
+    }
+    public int StatPoints
+    {
+        get => _statPoints;
+        set => _statPoints = value;
+    }
+
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
-
-
+    
+    
     private void Start()
     {
         _regenerationCoolDown = 0;
-        regenerationSpeed = 1;
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
-        
+        regenerationSpeed = 5;
+
         if (SaveManager.LoadPlayer() != null)
         {
             var data = SaveManager.LoadPlayer();
 
             level = data.level;
             _xp = data.xp;
-
-            strength = data.strength;
-            agility = data.dexterity;
-            intelligence = data.intelligence;
+            
 
             maxHealth = data.maxHP;
             maxStamina = data.maxSP;
@@ -84,55 +119,21 @@ public class PlayerStat : CharacterStat, IDamaged
             currentHealth = data.currentHP;
             _currentStamina = data.currentSP;
             _currentMana = data.currentMP;
-            
-            int modifier = level * 10;
 
-            physicalDamage.AddModifier(modifier);
-            magicDamage.AddModifier(modifier);
-            physicalProtection.AddModifier(modifier);
-            magicProtection.AddModifier(modifier);
-            
             return;
         }
-
+    
         currentHealth = maxHealth;
         _currentStamina = maxStamina;
         _currentMana = maxMana;
-
+        
         _xp = 0;
         level = 1;
     }
     
     private void Update()
     {
-        _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
-        if (_regenerationCoolDown > 1)
-        {
-            ModifyStamina(5);
-            _regenerationCoolDown = 0;
-        }
-    }
-
-    //Receive message of changing equipment, so change player modifiers
-    private void OnEquipmentChanged(EquipmentItem newEquipmentItem, EquipmentItem oldEquipmentItem)
-    {
-        if (newEquipmentItem != null)
-        {
-            physicalProtection.AddModifier(newEquipmentItem.PhysicalArmorModifier);
-            magicProtection.AddModifier(newEquipmentItem.MagicalArmorModifier);
-
-            physicalDamage.AddModifier(newEquipmentItem.PhysiscalDamageModifier);
-            magicDamage.AddModifier(newEquipmentItem.MagicalDamageModifier);
-        }
-
-        if (oldEquipmentItem != null)
-        {
-            physicalProtection.RemoveModifier(oldEquipmentItem.PhysicalArmorModifier);
-            magicProtection.RemoveModifier(oldEquipmentItem.MagicalArmorModifier);
-
-            physicalDamage.RemoveModifier(oldEquipmentItem.PhysiscalDamageModifier);
-            magicDamage.RemoveModifier(oldEquipmentItem.MagicalDamageModifier);
-        }
+        RegenerateStamina();
     }
 
     public void GainXP(int gainedXP)
@@ -152,27 +153,14 @@ public class PlayerStat : CharacterStat, IDamaged
     private void LevelUp()
     {
         level++;
-        
-        int modifier = level * 10;
-        maxHealth += 10;
-        maxStamina += 10;
-        maxMana += 10;
-        
-        currentHealth = maxHealth;
-        _currentStamina = maxStamina;
-        _currentMana = maxMana;
-        
-        physicalDamage.AddModifier(modifier);
-        magicDamage.AddModifier(modifier);
-        physicalProtection.AddModifier(modifier);
-        magicProtection.AddModifier(modifier);
-        
+        _statPoints += 5;
+
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
         KeepOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);
     }
     
-    public bool ModifyHealth(int value)
+    public bool ModifyHealth(float value)
     {
         if (currentHealth + value < 0)
             return false;
@@ -184,8 +172,8 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
-
-    public bool ModifyStamina(int value)
+    
+    public bool ModifyStamina(float value)
     {
         if (_currentStamina + value < 0)
             return false;
@@ -197,8 +185,8 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
-
-    public bool ModifyMana(int value)
+    
+    public bool ModifyMana(float value)
     {
         if (_currentMana + value < 0)
             return false;
@@ -210,50 +198,15 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback?.Invoke();
         return true;
     }
-
-    public int GetCurrentMana()
-    {
-        return _currentMana;
-    }
-
-    public int GetCurrentStamina()
-    {
-        return _currentStamina;
-    }
-
-    public int GetMaxStamina()
-    {
-        return maxStamina;
-    }
-
-    public int GetMaxMana()
-    {
-        return maxMana;
-    }
     
-    public void SetCurrentMana(int mana)
-    {
-        _currentMana = mana;
-    }
-    public void SetCurrentStamina(int stamina)
-    {
-        _currentStamina = stamina;
-    }
-
-    public void SetCurrentHealth(int health)
-    {
-        currentHealth = health;
-    }
-
     public void RegenerateStamina()
     {
-        _currentStamina += Mathf.RoundToInt(Time.deltaTime);
-        onChangeCallback?.Invoke();
-    }
-
-    public int GetXP()
-    {
-        return _xp;
+        _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
+        if (_regenerationCoolDown > 1)
+        {
+            ModifyStamina(1);
+            _regenerationCoolDown = 0;
+        }
     }
 
     public int GetXPToNextLevel(int level)
@@ -261,13 +214,10 @@ public class PlayerStat : CharacterStat, IDamaged
         return _xpToNextLevel[level - 1];
     }
 
-    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    public override void TakeDamage(float physicalDamage, float magicDamage)
     {
-        base.TakeDamage(_physicalDamage, _magicDamage);
+        base.TakeDamage(physicalDamage, magicDamage);
         animator.SetTrigger("Taking Dmg");
-        
-        
-        
     }
 
     public override void Die()
@@ -278,7 +228,7 @@ public class PlayerStat : CharacterStat, IDamaged
         InterfaceManager.Instance.HideFaceElements();
         InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
-        //Destroy or set Active(faulse) 
+        //Destroy or set Active(false) 
 
 
         //Destroy(gameObject);

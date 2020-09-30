@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IDamaged
 {
-    void TakeDamage(int _physicalDamage, int _magicDamage);
+    void TakeDamage(float receivedPhysicalDamage, float receivedMagicDamage);
+    
 }

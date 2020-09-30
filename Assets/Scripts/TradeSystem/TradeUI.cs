@@ -47,14 +47,14 @@ public class TradeUI : MonoBehaviour
 
         
         var j = 0;
-        for (; j < tradeManager.playerInventory.items.Count; j++)
-            playerSlots[j].AddItemToTradeSlot(tradeManager.playerInventory.items[j]);
+       // for (; j < tradeManager.playerCharacter.items.Count; j++)
+       //     playerSlots[j].AddItemToTradeSlot(tradeManager.playerCharacter.items[j]);
 
         for (; j < playerSlots.Length; j++)
             playerSlots[j].RemoveItemFromTradeSlot();
 
 
-        gold.SetText(tradeManager.playerInventory.GetGold().ToString());
+        gold.SetText(tradeManager.playerCharacter.GetGold().ToString());
         relation.SetText(tradeManager.npcInventory.GetRelation().ToString());
         action.SetText(tradeManager.state is true ? "Buy" : "Sell");
         if (tradeManager.currentItem != null) price.SetText(tradeManager.currentItem.Price.ToString());

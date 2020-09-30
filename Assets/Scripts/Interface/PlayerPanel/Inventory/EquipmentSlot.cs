@@ -6,41 +6,15 @@ using UnityEngine.EventSystems;
 public class EquipmentSlot : ItemSlot, IPointerClickHandler
 {
     public EquipmentType equipmentType;
-    [SerializeField] private Image icon;
-    [SerializeField] private EquipmentItem equipmentItem;
-    
-    
-    public void AddItemToEquipmentSlot(EquipmentItem newEquipmentItem)
-    {
-        equipmentItem = newEquipmentItem; 
-        icon.sprite = equipmentItem.Sprite; 
-        icon.enabled = true;         
-    }
-    
-    
-    public void RemoveItemFromEquipmentSlot()
-    {
-        equipmentItem = null; 
-        icon.sprite = null;
-        icon.enabled = false;
-    }
 
 
-    private void OpenTooltip()
+    public override bool CanReceiveItem(Item item)
     {
-        PlayerPanelTooltip tooltip = PlayerPanelTooltip.Instance;
-        tooltip.ShowTooltip(equipmentItem, (int)equipmentItem.equipmentType);
+        if (item == null)
+            return true;
+
+        EquipmentItem equipmentItem = item as EquipmentItem;
+        return equipmentItem != null && equipmentItem.equipmentType == equipmentType;
     }
-    
-    
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (equipmentItem != null)
-        {
-            AudioManager.Instance.Play("Click");
-            OpenTooltip();
-        }
-    }
-    
-    
+
 }

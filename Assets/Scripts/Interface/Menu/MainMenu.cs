@@ -43,10 +43,10 @@ public class MainMenu : MonoBehaviour {
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
                 Instantiate(playerInterface);
-                PlayerStat.Instance.SetCurrentHealth(data.currentHP);
-                PlayerStat.Instance.SetCurrentMana(data.currentMP);
-                PlayerStat.Instance.SetCurrentStamina(data.currentSP);
-                PlayerStat.Instance.maxHealth = data.maxHP;
+                PlayerStat.Instance.CurrentHealth = data.currentHP;
+                PlayerStat.Instance.CurrentMana = data.currentMP;
+                PlayerStat.Instance.CurrentStamina = data.currentSP;
+                PlayerStat.Instance.MaxHealth = data.maxHP;
                 PlayerStat.Instance.maxMana = data.maxMP;
                 PlayerStat.Instance.maxStamina = data.maxSP;
 

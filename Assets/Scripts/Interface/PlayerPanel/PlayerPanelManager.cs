@@ -51,7 +51,7 @@ public class PlayerPanelManager : MonoBehaviour
             case WindowType.QuestBook:
             {
                 _currentWindow?.SetActive(false);
-                _currentWindow = inventoryPanel;
+                _currentWindow = questPanel;
                 _currentWindow.SetActive(true);
                 break;
             }

@@ -13,7 +13,7 @@ public class ExperienceBar : Bar
 
     void Update()
     {
-        int level = PlayerStat.Instance.level;
+        int level = PlayerStat.Instance.Level;
         Level.text = (level).ToString();
         LevelBorder.text = (level).ToString();
 
@@ -34,7 +34,7 @@ public class ExperienceBar : Bar
             case 12: { SetMaxValue(4640); break; } 
             case 13 : { SetMaxValue(5340); break; }
         }
-        SetCurrentValue(PlayerStat.Instance.GetXP());
+        SetCurrentValue(PlayerStat.Instance.XP);
         
     }
 }

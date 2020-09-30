@@ -6,8 +6,8 @@ public class HealthBar : Bar
 {
     private void Update()
     {
-        SetCurrentValue(PlayerStat.Instance.GetCurrentHealth());
-        SetMaxValue(PlayerStat.Instance.GetMaxHealth());
+        SetCurrentValue(PlayerStat.Instance.CurrentHealth);
+        SetMaxValue(PlayerStat.Instance.MaxHealth);
     }
     
 }

@@ -15,7 +15,7 @@ public class ItemPickUp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            bool wasPickedUp = InventoryManager.Instance.AddItemToInventory(itemOnScene.GetItem());
+            bool wasPickedUp = CharacterManager.Instance.AddItemToInventory(itemOnScene.GetItem());
             if (wasPickedUp)
             {
                 AudioManager.Instance.Play("Collect");

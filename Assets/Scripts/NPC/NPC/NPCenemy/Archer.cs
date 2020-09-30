@@ -25,7 +25,7 @@ public class Archer : AI
     {
         Transform arrow = Instantiate(arrowPrefab, transform.position + ShootDir, Quaternion.identity);
 
-        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.GetValue(),archerStat.magicDamage.GetValue(),ShootDir);
+        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.Value, archerStat.magicDamage.Value,ShootDir);
         _attack = false;
 
     }

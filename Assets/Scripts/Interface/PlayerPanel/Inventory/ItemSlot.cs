@@ -12,7 +12,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     protected Color normalColor = Color.white;
     protected Color disabledColor = new Color(1, 1, 1, 0);
     
-    protected Item _item;
+    public Item _item;
     public Item Item
     {
         get => _item;
@@ -52,8 +52,8 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
         
     }
-
-
+    
+    
     public event Action<ItemSlot> OnClickEvent;
     public event Action<ItemSlot> OnBeginDragEvent;
     public event Action<ItemSlot> OnDragEvent;
@@ -71,63 +71,32 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         return true;
     }
 
-    public void AddItemToInventorySlot(Item newItem)
-    {
-        Item = newItem;
-        image.enabled = true;
-        image.sprite = Item.Sprite;
-    }
-    
-    public void RemoveItemFromInventorySlot()
-    {
-        Item = null;
-        image.sprite = null;
-        image.enabled = false;
-    }
-    
-    private void ShowTooltip()
-    {
-        var tooltip = PlayerPanelTooltip.Instance;
-
-        if (Item is EquipmentItem)
-            tooltip.ShowTooltip((EquipmentItem) Item);
-        else if (Item is UsableItem)
-            tooltip.ShowTooltip((UsableItem) Item);
-        else
-            tooltip.ShowTooltip(Item);
-    }
-    
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        if (Item != null && OnClickEvent != null)
-        {
-            OnClickEvent(this);
-            AudioManager.Instance.Play("Click");
-        }
+        if (OnClickEvent == null) return;
+        
+        OnClickEvent.Invoke(this);
+        AudioManager.Instance.Play("Click");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (OnBeginDragEvent != null)
-            OnBeginDragEvent(this);
+        OnBeginDragEvent?.Invoke(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (OnEndDragEvent != null)
-            OnEndDragEvent(this);
+        OnEndDragEvent?.Invoke(this);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (OnDragEvent != null)
-            OnDragEvent(this);
+        OnDragEvent?.Invoke(this);
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (OnDropEvent != null)
-            OnDropEvent(this);
+        OnDropEvent?.Invoke(this);
     }
     
 }

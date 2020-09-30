@@ -5,8 +5,16 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-[CreateAssetMenu(menuName = "Items/MeleeWeapon")]
+public enum WeaponType 
+{ 
+    Melee, 
+    Range, 
+    Magic, 
+    None 
+}
 
+
+[CreateAssetMenu(menuName = "Items/MeleeWeapon")]
 public class MeleeWeapon : EquipmentItem
 {
     [Space]
@@ -23,7 +31,7 @@ public class MeleeWeapon : EquipmentItem
     private Vector2 _attackPosition;
     
 
-    public override void Attack(int ph_damage, int mg_damage)
+    public override void Attack(float physicalDamage, float magicDamage)
     {
         // Checks if current stamina is less than required. If not - continues attack.
         if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
@@ -38,7 +46,7 @@ public class MeleeWeapon : EquipmentItem
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
             { 
-                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(ph_damage, mg_damage);
+                enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(physicalDamage, magicDamage);
             }
 
             //Send mesage to Attack animation handler that we use Melee Weapon
@@ -48,24 +56,14 @@ public class MeleeWeapon : EquipmentItem
         
     }
     
-
     public override WeaponType Echo()
     {
         return WeaponType.Melee;
     }
 
-    
     public override float GetAttackCD()
     {
         return attackCoolDown;
     }
-}
-
-
-public enum WeaponType 
-{ 
-    Melee, 
-    Range, 
-    Magic, 
-    None 
+    
 }

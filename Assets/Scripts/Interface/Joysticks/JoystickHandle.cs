@@ -9,7 +9,7 @@ public class JoystickHandle : MonoBehaviour
 
     private void Start()
     {
-        EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
     
     

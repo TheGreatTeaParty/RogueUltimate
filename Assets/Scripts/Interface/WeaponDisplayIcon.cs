@@ -1,25 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class WeaponDisplayIcon : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite BaseIcon;
-    [SerializeField]
-    private Image Icon;
-
-    private EquipmentManager equipmentManager;
-
+    [FormerlySerializedAs("BaseIcon")] 
+    [SerializeField] private Sprite baseIcon;
+    [FormerlySerializedAs("Icon")] 
+    [SerializeField] private Image icon;
+    
+    // Cache
+    private Equipment _equipment;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
-        equipmentManager = EquipmentManager.Instance;
-        //Make delegate function from InventoryManager be equal to UpdateUI fun
-        equipmentManager.onEquipmentChanged += UpdateIcon;
+        //Make delegate function from CharacterManager be equal to UpdateUI fun
+        CharacterManager.Instance.onEquipmentChanged += UpdateIcon;
+        _equipment = CharacterManager.Instance.Equipment;
         UpdateIconOnStart();
-
     }
 
     // Update is called once per frame
@@ -27,23 +29,18 @@ public class WeaponDisplayIcon : MonoBehaviour
     {
         if(newItem!= null && newItem.equipmentType == EquipmentType.Weapon)
         {
-            Icon.sprite = newItem.Sprite;
+            icon.sprite = newItem.Sprite;
         }
         else if(newItem == null)
         {
-            Icon.sprite = BaseIcon;
+            icon.sprite = baseIcon;
         }
     }
 
     void UpdateIconOnStart()
     {
-        if (equipmentManager.currentEquipment[(int)EquipmentType.Weapon] != null)
-        {
-            Icon.sprite = equipmentManager.currentEquipment[(int)EquipmentType.Weapon].Sprite;
-        }
-        else
-        {
-            Icon.sprite = BaseIcon;
-        }
+        EquipmentItem equipmentItem = _equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as EquipmentItem;
+        icon.sprite = equipmentItem != null ? equipmentItem.Sprite : baseIcon;
     }
+    
 }
