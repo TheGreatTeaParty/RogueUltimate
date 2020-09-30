@@ -157,7 +157,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
-        KeepOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);
+        PlayerOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);
     }
     
     public bool ModifyHealth(float value)

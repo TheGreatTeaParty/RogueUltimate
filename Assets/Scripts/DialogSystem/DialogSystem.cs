@@ -23,7 +23,7 @@ public class DialogSystem : MonoBehaviour
 
     void Start()
     {
-        playerCallBackbutton = KeepOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().GetComponentInChildren<Button>();
+        playerCallBackbutton = PlayerOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().GetComponentInChildren<Button>();
         _sentences = new Queue<string>();
     }
 

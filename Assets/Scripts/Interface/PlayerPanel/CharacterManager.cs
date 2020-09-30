@@ -33,7 +33,7 @@ public class CharacterManager : MonoBehaviour
     
     public void Start()
     {
-        stats = KeepOnScene.Instance.GetComponent<PlayerStat>();
+        stats = PlayerOnScene.Instance.GetComponent<PlayerStat>();
         
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
 
@@ -127,7 +127,7 @@ public class CharacterManager : MonoBehaviour
     public void DropFromInventory(Item item)
     {
         //Call spawn function on the player's position
-        var position = KeepOnScene.Instance.transform.position;
+        var position = PlayerOnScene.Instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, 0f);
         Collider2D checkWall = Physics2D.OverlapCircle(newPosition, 0.25f, LayerMask.GetMask("Wall"));
         ItemScene.SpawnItemScene(checkWall == null ? newPosition : new Vector3(position.x - 1f, position.y, 0f), item);

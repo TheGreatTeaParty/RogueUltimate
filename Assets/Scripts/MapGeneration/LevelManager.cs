@@ -25,8 +25,8 @@ public static class LevelManager
         if (player)
             player.transform.position = position;
         
-        if (KeepOnScene.Instance) 
-            KeepOnScene.Instance.ShowPlayer();
+        if (PlayerOnScene.Instance) 
+            PlayerOnScene.Instance.ShowPlayer();
         
         if (InterfaceManager.Instance)
             InterfaceManager.Instance.ShowFaceElements();
@@ -41,8 +41,8 @@ public static class LevelManager
         if (player) 
             player.transform.position = position;
         
-        if (KeepOnScene.Instance) 
-            KeepOnScene.Instance.ShowPlayer();
+        if (PlayerOnScene.Instance) 
+            PlayerOnScene.Instance.ShowPlayer();
         
         if (InterfaceManager.Instance)
             InterfaceManager.Instance.ShowFaceElements();

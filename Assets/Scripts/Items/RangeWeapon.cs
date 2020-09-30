@@ -32,7 +32,7 @@ public class RangeWeapon : EquipmentItem
             InterfaceManager.Instance.joystickAttack.GetDirection().x, 
             InterfaceManager.Instance.joystickAttack.GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,
-            KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
+            PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction);
         
     }

@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeepOnScene : MonoBehaviour
+public class PlayerOnScene : MonoBehaviour
 {
-    public static KeepOnScene Instance;
+    public static PlayerOnScene Instance;
 
     // Cache
     [HideInInspector] public SpriteRenderer spriteRenderer;
@@ -25,7 +26,11 @@ public class KeepOnScene : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
+        
+    }
 
+    private void Start()
+    {
         // Cache
         playerAttack = Instance.GetComponent<PlayerAttack>();
         playerFX = Instance.GetComponent<PlayerFX>();
@@ -38,14 +43,14 @@ public class KeepOnScene : MonoBehaviour
 
     public void HidePlayer()
     {
+        equipmentAnimationHandler.gameObject.SetActive(false);
         spriteRenderer.enabled = false;
-        // armor here
     }
 
     public void ShowPlayer()
     {
         spriteRenderer.enabled = true;
-        // armor here
+        equipmentAnimationHandler.gameObject.SetActive(true);
     }
 
 }

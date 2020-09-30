@@ -12,8 +12,8 @@ public class WeaponRenderer : MonoBehaviour
     
     private void Start()
     {
-        _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
-        _playerSprite = KeepOnScene.Instance.GetComponent<Renderer>();
+        _playerMovement = PlayerOnScene.Instance.GetComponent<PlayerMovement>();
+        _playerSprite = PlayerOnScene.Instance.GetComponent<Renderer>();
         _weaponSprite = GetComponent<Renderer>();
     }
     

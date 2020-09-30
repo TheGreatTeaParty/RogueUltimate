@@ -122,9 +122,9 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator PlayerStop(float attackDuration)
     {
-        KeepOnScene.Instance.playerMovement.StopMoving();
+        PlayerOnScene.Instance.playerMovement.StopMoving();
         yield return new WaitForSeconds(attackDuration);
-        KeepOnScene.Instance.playerMovement.StartMoving();
+        PlayerOnScene.Instance.playerMovement.StartMoving();
     }
     
 }

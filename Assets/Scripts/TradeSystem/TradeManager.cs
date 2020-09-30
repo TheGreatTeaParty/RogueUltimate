@@ -125,7 +125,7 @@ public class TradeManager : MonoBehaviour
         InterfaceManager.Instance.fixedJoystick.ResetInput();
 
         var UI = InterfaceManager.Instance;
-        var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
+        var playerButton = PlayerOnScene.Instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
         playerButton.enabled = false;
@@ -139,7 +139,7 @@ public class TradeManager : MonoBehaviour
     public void Close()
     {
         var UI = InterfaceManager.Instance;
-        var playerButton = KeepOnScene.Instance.GetComponentInChildren<Button>();
+        var playerButton = PlayerOnScene.Instance.GetComponentInChildren<Button>();
         
         EraseTooltip();
         

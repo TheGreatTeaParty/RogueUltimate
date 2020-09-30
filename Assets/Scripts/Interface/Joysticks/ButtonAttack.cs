@@ -12,7 +12,7 @@ public class ButtonAttack : MonoBehaviour
     private void Start()
     {    
         // Cache
-        _playerAttack = KeepOnScene.Instance.playerAttack;
+        _playerAttack = PlayerOnScene.Instance.playerAttack;
     }
 
     public void AttackPlayer()

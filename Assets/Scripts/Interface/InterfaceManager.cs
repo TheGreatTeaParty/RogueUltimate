@@ -41,7 +41,7 @@ public class InterfaceManager : MonoBehaviour
         playerPanelManager = GetComponentInChildren<PlayerPanelManager>();
        
         playerButton.onStateChanged += OpenPlayerPanel;
-        // KeepOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenPlayerPanel;
+        // PlayerOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenPlayerPanel;
         
         // Cache
         fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();

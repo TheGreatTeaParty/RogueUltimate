@@ -26,9 +26,9 @@ public class JoystickAttack : MonoBehaviour
         joystick = GetComponent<Joystick>();
         
         // Cache
-        _playerMovement = KeepOnScene.Instance.playerMovement;
-        _playerAttack = KeepOnScene.Instance.playerAttack;
-        _audioSource = KeepOnScene.Instance.audioSource;
+        _playerMovement = PlayerOnScene.Instance.playerMovement;
+        _playerAttack = PlayerOnScene.Instance.playerAttack;
+        _audioSource = PlayerOnScene.Instance.audioSource;
         _equipment = CharacterManager.Instance.Equipment;
     }
 
@@ -36,7 +36,7 @@ public class JoystickAttack : MonoBehaviour
     private void Update()
     {
         _movement = joystick.Direction;
-        KeepOnScene.Instance.equipmentAnimationHandler.RotateRangeWeapon(_movement.normalized);
+        PlayerOnScene.Instance.equipmentAnimationHandler.RotateRangeWeapon(_movement.normalized);
     }
 
     private void FixedUpdate()

@@ -38,10 +38,10 @@ public class MeleeWeapon : EquipmentItem
             return;
         
         _whatIsEnemy = LayerMask.GetMask("Enemy");
-        Vector3 direction = KeepOnScene.Instance.playerMovement.GetDirection();
-        _attackPosition = KeepOnScene.Instance.transform.position + direction;
+        Vector3 direction = PlayerOnScene.Instance.playerMovement.GetDirection();
+        _attackPosition = PlayerOnScene.Instance.transform.position + direction;
 
-        if (KeepOnScene.Instance.playerAttack.GetAttackCD() <= 0)
+        if (PlayerOnScene.Instance.playerAttack.GetAttackCD() <= 0)
         {
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
@@ -50,8 +50,8 @@ public class MeleeWeapon : EquipmentItem
             }
 
             //Send mesage to Attack animation handler that we use Melee Weapon
-            KeepOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Melee, Random.Range(0, 2));
-            KeepOnScene.Instance.playerAttack.SetRange(attackRange);
+            PlayerOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Melee, Random.Range(0, 2));
+            PlayerOnScene.Instance.playerAttack.SetRange(attackRange);
         }
         
     }

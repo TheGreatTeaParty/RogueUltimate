@@ -21,13 +21,13 @@ public class EquipmentAnimationHandler : MonoBehaviour
         SpriteRenderer[] array = GetComponentsInChildren<SpriteRenderer>();
         ArmorRenderer = array[1];
 
-        _playerRenderer = KeepOnScene.Instance.GetComponent<SpriteRenderer>();
-        _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
+        _playerRenderer = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
+        _playerMovement = PlayerOnScene.Instance.GetComponent<PlayerMovement>();
         
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
         
-        KeepOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
+        PlayerOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
 
 
     }

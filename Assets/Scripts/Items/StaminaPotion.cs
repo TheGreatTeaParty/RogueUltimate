@@ -10,7 +10,7 @@ public class StaminaPotion : UsableItem
     {
         base.ModifyStats();
         PlayerStat.Instance.ModifyStamina(staminaBonus);
-        KeepOnScene.Instance.GetComponent<PlayerFX>().SpawnEffect(effectFX);
+        PlayerOnScene.Instance.GetComponent<PlayerFX>().SpawnEffect(effectFX);
         AudioManager.Instance.Play("Bottle");
     }
     
