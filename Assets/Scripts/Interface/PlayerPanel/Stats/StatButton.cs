@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public enum StatType
 {
     Will = 0,
-    Vitality = 1,
+    Physique = 1,
     Mind = 2,
-    Agility = 3,
+    Reaction = 3,
 }
 
 public class StatButton : MonoBehaviour, IPointerClickHandler

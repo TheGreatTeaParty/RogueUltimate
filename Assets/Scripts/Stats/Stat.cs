@@ -99,7 +99,6 @@ public class Stat
         _statModifiers.Add(statModifier);
         _statModifiers.Sort(CompareModifierOrder);
     }
-
     
     public virtual bool RemoveModifier(StatModifier statModifier)
     {

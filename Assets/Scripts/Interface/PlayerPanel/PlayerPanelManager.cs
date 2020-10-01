@@ -3,67 +3,94 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+public enum WindowType
+{
+    Inventory = 0,
+    Stats = 1, 
+    SkillTree = 2,
+    QuestBook = 3,
+    ReturnOption = 4,
+    None = 5
+}
+
+
 public class PlayerPanelManager : MonoBehaviour
 {
     private GameObject _currentWindow;
     private Animator _animator;
-
+    private NavigatorButton _currentNavigatorButton;
+    private NavigatorButton[] _navigatorButtons;
+    
     public GameObject navigator;
     public GameObject inventoryPanel;
     public GameObject statsPanel;
     public GameObject skillsPanel;
     public GameObject questPanel;
-
+    
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _navigatorButtons = navigator.GetComponentsInChildren<NavigatorButton>();
+        for (int i = 0; i < _navigatorButtons.Length; i++)
+            _navigatorButtons[i].onWindowChanged += ChangeWindow;
     }
 
-    public void ChangeWindow(WindowType window)
+    public void ChangeWindow(WindowType window, NavigatorButton navigatorButton)
     {
         switch (window)
         {
             case WindowType.Inventory:
             {
-                _currentWindow?.SetActive(false);
-                _currentWindow = inventoryPanel;
-                _currentWindow.SetActive(true);
+                SwitchWindow(inventoryPanel);
+                HighlightNavButton(navigatorButton);
                 break;
             }
 
             case WindowType.Stats:
             {
-                _currentWindow?.SetActive(false);
-                _currentWindow = statsPanel;
-                _currentWindow.SetActive(true);
+                SwitchWindow(statsPanel);
+                HighlightNavButton(navigatorButton);
                 break;
             }
             
             case WindowType.SkillTree:
             {
-                _currentWindow?.SetActive(false);
-                _currentWindow = skillsPanel;
-                _currentWindow.SetActive(true);
+                SwitchWindow(skillsPanel);
+                HighlightNavButton(navigatorButton);
                 break;
             }
             
             case WindowType.QuestBook:
             {
-                _currentWindow?.SetActive(false);
-                _currentWindow = questPanel;
-                _currentWindow.SetActive(true);
+                SwitchWindow(questPanel);
+                HighlightNavButton(navigatorButton);
                 break;
             }
             
             case WindowType.ReturnOption:
             {
+                HighlightNavButton(null);
                 InterfaceManager.Instance.ClosePlayerPanel();
                 break;
             }
         }
         
     }
+
+    private void SwitchWindow(GameObject window)
+    {
+        _currentWindow?.SetActive(false);
+        _currentWindow = window;
+        _currentWindow.SetActive(true);
+    }
+
+    private void HighlightNavButton(NavigatorButton navigatorButton)
+    {
+        _currentNavigatorButton?.Highlight(false);
+        _currentNavigatorButton = navigatorButton;
+        _currentNavigatorButton?.Highlight(true);
+    } 
     
     public void OpenSelf()
     {
@@ -81,15 +108,5 @@ public class PlayerPanelManager : MonoBehaviour
         Time.timeScale = 1f;
         _animator.SetFloat("Kind of animation", 1f);
     }
-    
-}  
 
-public enum WindowType
-{
-    Inventory = 0,
-    Stats = 1, 
-    SkillTree = 2,
-    QuestBook = 3,
-    ReturnOption = 4,
-    None = 5
-}
+}  

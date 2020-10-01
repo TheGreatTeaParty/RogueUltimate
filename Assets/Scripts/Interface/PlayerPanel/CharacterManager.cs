@@ -200,7 +200,9 @@ public class CharacterManager : MonoBehaviour
             if (dropItemSlot is EquipmentSlot)
             {
                 onEquipmentChanged.Invoke(dragItem, dropItem != null ? dropItem : null);
+                
                 AudioManager.Instance.Play("Equip");
+                stats.onChangeCallback?.Invoke();
             }
 
             // Put off/change slot of equipment 
@@ -216,9 +218,9 @@ public class CharacterManager : MonoBehaviour
                     onEquipmentChanged.Invoke(null, dragItem);
                     AudioManager.Instance.Play("Unequip");
                 }
+
+                stats.onChangeCallback.Invoke();
             }
-            
-            //stats.onChangeCallback.Invoke();;
 
             Item draggedItem = _draggedSlot.Item;
             _draggedSlot.Item = dropItemSlot.Item;

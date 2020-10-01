@@ -53,11 +53,11 @@ public class EquipmentItem : Item
         if (willBonus != 0)
             stats.will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
         if (vitalityBonus != 0)
-            stats.vitality.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
+            stats.physique.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
         if (mindBonus != 0)
             stats.mind.AddModifier(new StatModifier(mindBonus, StatModifierType.Flat, this));
         if (agilityBonus != 0)
-            stats.agility.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
+            stats.reaction.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
         
         if (physicalDamagePercentBonus != 0) 
             stats.physicalDamage.AddModifier(new StatModifier(physicalDamagePercentBonus, StatModifierType.PercentMult, this));
@@ -77,9 +77,9 @@ public class EquipmentItem : Item
         stats.magicDamage.RemoveAllModifiersFromSource(this);
         stats.magicProtection.RemoveAllModifiersFromSource(this);
         stats.will.RemoveAllModifiersFromSource(this);
-        stats.vitality.RemoveAllModifiersFromSource(this);
+        stats.physique.RemoveAllModifiersFromSource(this);
         stats.mind.RemoveAllModifiersFromSource(this);
-        stats.agility.RemoveAllModifiersFromSource(this);
+        stats.reaction.RemoveAllModifiersFromSource(this);
     }
 
     public virtual void Attack(float physicalDamage, float magicDamage)

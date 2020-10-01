@@ -45,11 +45,12 @@ public class PlayerStat : CharacterStat, IDamaged
     
     public float maxMana;
     public float maxStamina;
+    public float maxWill;
     [Space] 
-    public Stat vitality;
+    public Stat physique;
     public Stat will;
     public Stat mind;
-    public Stat agility;
+    public Stat reaction;
     [Space]
     public Stat attackSpeed;
     public Stat blockStrength;
@@ -82,6 +83,11 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         get => maxStamina;
         set => maxStamina = value;
+    }
+    public float MaxWill
+    {
+        get => maxWill;
+        set => maxWill = value;
     }
     public int XP
     {
@@ -153,13 +159,51 @@ public class PlayerStat : CharacterStat, IDamaged
     private void LevelUp()
     {
         level++;
-        _statPoints += 5;
+        _statPoints += 1;
 
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
         PlayerOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);
     }
     
+    public void AddAttributePoint(StatType statType)
+    {
+        switch (statType)
+        {
+            case StatType.Will:
+            {
+                will.AddModifier(new StatModifier(1, StatModifierType.Flat));
+                break;
+            }
+         
+            case StatType.Physique:
+            {
+            
+                break;
+            }
+         
+            case StatType.Mind:
+            {
+            
+                break;
+            }
+         
+            case StatType.Reaction:
+            {
+            
+                break;
+            }
+        }
+
+        onChangeCallback.Invoke();
+    }
+
+    public void AddAttributePoint(StatType statType, int value = 1)
+    {
+        for (int i = 0; i < value; i++)
+            AddAttributePoint(statType);
+    }
+
     public bool ModifyHealth(float value)
     {
         if (currentHealth + value < 0)
