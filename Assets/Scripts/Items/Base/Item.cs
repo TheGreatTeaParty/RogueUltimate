@@ -23,31 +23,27 @@ public class Item : ScriptableObject
     [SerializeField] protected String itemName;
     [SerializeField] protected String description;
     [SerializeField] protected Sprite sprite;
-    [Space]
+    [Space] 
+    [Range(1, 100)]
     [SerializeField] protected int stackMaxSize;
-    [SerializeField] protected int amount;
-    
+
     public int Price => price;
     public String ItemName => itemName;
     public Sprite Sprite => sprite;
     public string Description => description;
-    public int Amount
-    {
-        get => amount;
-        set => amount = value;
-    }
     public int StackMaxSize
     {
         get => stackMaxSize;
         set => stackMaxSize = value;
     }
 
-    public virtual void Use()
-    {
-        
-    }
 
-    public void Drop(string place)
+    public virtual Item GetCopy()
+    {
+        return this;
+    }
+    
+    public virtual void Use()
     {
         
     }

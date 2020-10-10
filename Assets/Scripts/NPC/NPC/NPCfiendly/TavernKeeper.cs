@@ -45,13 +45,7 @@ public class TavernKeeper : AI,IInteractable
         target = BarPosition;
     }
 
-
-    override public void Update()
-    {
-        base.Update();
-    }
-
-    override public void FixedUpdate()
+    public override void FixedUpdate()
     {
         switch (STATE)
         {
@@ -62,16 +56,11 @@ public class TavernKeeper : AI,IInteractable
                         _stopped = true;
 
                     if (!_stopped)
-                    {
                         Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
-                    }
                     else
-                    {
-
                         if(!courantineHasStarted)
                             StartCoroutine(waiter());
-                    }
-
+                    
                     break;
                 }
 
@@ -79,8 +68,10 @@ public class TavernKeeper : AI,IInteractable
                 {
                     if (!courantineHasStarted)
                         StartCoroutine(Stand());
+                    
                     break;
                 }
+            
             case TaverKeeperState.goingBack:
                 {
                     Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
@@ -90,9 +81,8 @@ public class TavernKeeper : AI,IInteractable
                 }
 
             case TaverKeeperState.talking:
-                {
-                    break;
-                }
+                break;
+            
         }
     }
 
@@ -114,13 +104,10 @@ public class TavernKeeper : AI,IInteractable
 
         //Move to another point
         if (currentHangingIndex == HangingPoints.Length - 1)
-        {
             currentHangingIndex = 0;
-        }
         else
-        {
             currentHangingIndex++;
-        }
+        
         target = HangingPoints[currentHangingIndex];
         courantineHasStarted = false;
     }
@@ -154,7 +141,7 @@ public class TavernKeeper : AI,IInteractable
     public void Interact()
     {
         // Bind the info for TradeManager
-        var playerInventory = CharacterManager.Instance;
+        var playerInventory = CharacterManager.Instance.Inventory;
         var npcInventory = GetComponent<NPCInventory>();
         var tradeManager = TradeManager.Instance;
 
@@ -167,4 +154,5 @@ public class TavernKeeper : AI,IInteractable
     {
         return "Trade";
     }
+    
 }

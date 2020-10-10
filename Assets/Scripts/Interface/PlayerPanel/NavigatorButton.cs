@@ -6,35 +6,32 @@ using UnityEngine.UI;
 
 public class NavigatorButton : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private Image image;
+    private Image _image;
+    private Color _unselectedColor = new Color(0.8f, 0.8f, 0.8f);
+    private Color _selectedColor = new Color(1f, 1f, 1f);
+    
     public WindowType windowType;
-    
-    private Color unselectedColor = new Color(255, 255, 255, 150);
-    private Color selectedColor = new Color(255, 255, 255, 255);
-    
     
     public event Action<WindowType, NavigatorButton> onWindowChanged; 
     
     
-    private void Start()
+    private void Awake()
     {
-        image.color = unselectedColor;
-        Debug.Log("Start(), " + image.color);
+        _image = GetComponent<Image>();
+        _image.color = _unselectedColor;
     }
 
     public void Highlight(bool state)
     {
         if (state)
         {
-            gameObject.transform.localScale.Set(1.1f, 1.1f, 1f);
-            image.color = selectedColor;
-            Debug.Log("True state");
+            gameObject.transform.localScale = new Vector3(1.1f, 1.1f, 1f);
+            _image.color = _selectedColor;
         }
         else
         {
-            gameObject.transform.localScale.Set(1f, 1f, 1f);
-            image.color = unselectedColor;
-            Debug.Log("False state");
+            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            _image.color = _unselectedColor;
         }
     }
     

@@ -20,15 +20,13 @@ public class TradeManager : MonoBehaviour
 
     #endregion
     
-    // State: true - buy, false - sell
-    public bool state;
-    public Item currentItem;
-    [Space]
-    public CharacterManager playerCharacter;
+    public TradeSlot currentSlot;
+    [Space] 
+    public Inventory playerInventory;
     public NPCInventory npcInventory;
     public TradeTooltip tradeTooltip;
     public GameObject tradeWindow;
-    
+
     
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
@@ -41,18 +39,21 @@ public class TradeManager : MonoBehaviour
         tradeWindow.SetActive(false);
     }
 
+    public void OnSlotClick(TradeSlot tradeSlot)
+    {
+        currentSlot = tradeSlot;
+        DrawTooltip();
+        AudioManager.Instance.Play("Click");
+        
+        onChangeCallback();
+    }
+    
     public void DrawTooltip()
     {
-        if (currentItem == null)
-        {
-            Debug.Log("Null pointer in TradeManager.cs, ShowInfo()");
-            return;
-        }
-        
-        tradeTooltip.SetName(currentItem.ItemName);
-        tradeTooltip.SetSprite(currentItem.Sprite);
-        tradeTooltip.SetDescription(currentItem.Description);
-        tradeTooltip.SetPrice(currentItem.Price);
+        tradeTooltip.SetName(currentSlot.Item.ItemName);
+        tradeTooltip.SetSprite(currentSlot.Item.Sprite);
+        tradeTooltip.SetDescription(currentSlot.Item.Description);
+        tradeTooltip.SetPrice(currentSlot.Item.Price);
     }
 
     public void EraseTooltip()
@@ -65,10 +66,10 @@ public class TradeManager : MonoBehaviour
 
     public void Trade()
     {
-        if (currentItem == null) return;
-     
+        if (currentSlot == null) return;
+
         // State: true - buy, false - sell
-        if (state)
+        if (currentSlot.tradeSlotType == TradeSlotType.NPC)
             Buy();
         else
             Sell();
@@ -76,16 +77,10 @@ public class TradeManager : MonoBehaviour
     
     public void Buy()
     {
-        if (currentItem == null)
+        if (!playerInventory.IsFull() && playerInventory.Gold >= currentSlot.Item.Price)
         {
-            Debug.Log("Null pointer in TradeManager.cs, Buy()");
-            return;
-        }
-
-       // if (playerCharacter.items.Count < playerCharacter.size && playerCharacter.GetGold() >= currentItem.Price)
-        {
-            playerCharacter.ChangeGold(-currentItem.Price);
-            playerCharacter.AddItemToInventory(currentItem);
+            playerInventory.Gold -= currentSlot.Item.Price;
+            playerInventory.AddItem(currentSlot.Item);
             AudioManager.Instance.Play("Buy");
         }
         
@@ -94,26 +89,24 @@ public class TradeManager : MonoBehaviour
 
     public void Sell()
     {
-        playerCharacter.ChangeGold(currentItem.Price);
-       // playerCharacter.RemoveItemFromInventory(currentItem);
-       // !!!!!!!!!! QuickSlots
-       
-        currentItem = null;
-        EraseTooltip();
+        playerInventory.Gold += currentSlot.Item.Price;
+        playerInventory.RemoveItem(currentSlot.Item);
+
+        currentSlot.Amount--;
+        if (currentSlot.Amount < 1)
+        {
+            EraseTooltip();
+            currentSlot = null;
+        }
+        
         
         onChangeCallback?.Invoke();
         AudioManager.Instance.Play("Sell");
     }
 
-    public void Bind(CharacterManager playerCharacter, NPCInventory npcInventory)
+    public void Bind(Inventory playerInventory, NPCInventory npcInventory)
     {
-        if (playerCharacter == null || npcInventory == null || tradeTooltip == null)
-        {
-            Debug.Log("Smth didn't found in TradeManager.cs, Bind()");
-            return;
-        }
-        
-        this.playerCharacter = playerCharacter;
+        this.playerInventory = playerInventory;
         this.npcInventory = npcInventory;
 
         onChangeCallback?.Invoke();
@@ -148,7 +141,7 @@ public class TradeManager : MonoBehaviour
         UI.ShowFaceElements();
         playerButton.enabled = true;
         
-        currentItem = null;
+        currentSlot = null;
         AudioManager.Instance.Play("TradeClose");
 
         //No Idea How to make it normal(without null check)

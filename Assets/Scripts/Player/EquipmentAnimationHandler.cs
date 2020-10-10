@@ -7,7 +7,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
 {
     public Animator weaponAnimator;
     public Sprite[] AnimationSprites;
-    private SpriteRenderer ArmorRenderer;
+    public SpriteRenderer ArmorRenderer;
 
     private RuntimeAnimatorController _weaponController;
     private Vector2 _direction;
@@ -28,8 +28,6 @@ public class EquipmentAnimationHandler : MonoBehaviour
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
         
         PlayerOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
-
-
     }
     
     private void Update()
@@ -96,7 +94,9 @@ public class EquipmentAnimationHandler : MonoBehaviour
                     }
                 }
             }
+            
         }
+        
     }
 
     //When the equipment changed, change the Animation controller
@@ -152,4 +152,5 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
     }
+    
 }

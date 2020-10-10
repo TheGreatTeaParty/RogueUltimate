@@ -52,9 +52,9 @@ public class PlayerData
 
 
         var inventory = CharacterManager.Instance;
-        gold = inventory.GetGold();
-       /* for (int i = 0; i < inventory.items.Count; i++)
-            inventoryData[i] = inventory.items[i].ID;
+        //gold = playerInventory.GetGold();
+       /* for (int i = 0; i < playerInventory.items.Count; i++)
+            inventoryData[i] = playerInventory.items[i].ID;
 */
         
         Equipment equipment = CharacterManager.Instance.Equipment;

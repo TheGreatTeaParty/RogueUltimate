@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,14 +17,18 @@ public class CharacterManager : MonoBehaviour
     }
     #endregion
     
-    [SerializeField] private int gold = 10;
-    [Space]
+    
     [SerializeField] private Inventory inventory;
     [SerializeField] private Equipment equipment;
     [SerializeField] private PlayerStat stats;
     [SerializeField] private Image draggableItem;
-    private ItemSlot _draggedSlot;
+    [SerializeField] private GameObject tooltipPrefab;
 
+    // Optional
+    private ItemSlot _draggedSlot;
+    private List<Tooltip> _openedTooltips = new List<Tooltip>();
+
+    public Inventory Inventory => inventory;
     public Equipment Equipment => equipment;
     
     
@@ -38,13 +43,13 @@ public class CharacterManager : MonoBehaviour
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
 
         
-        inventory.OnClickEvent += ShowTooltip;
+        inventory.OnClickEvent += AddTooltip;
         inventory.OnBeginDragEvent += BeginDrag;
         inventory.OnDragEvent += Drag;
         inventory.OnEndDragEvent += EndDrag;
         inventory.OnDropEvent += Drop;
         
-        equipment.OnClickEvent += ShowTooltip;
+        equipment.OnClickEvent += AddTooltip;
         equipment.OnBeginDragEvent += BeginDrag;
         equipment.OnDragEvent += Drag;
         equipment.OnEndDragEvent += EndDrag;
@@ -55,7 +60,6 @@ public class CharacterManager : MonoBehaviour
         if (SaveManager.LoadPlayer() == null) return;
         
         var data = SaveManager.LoadPlayer();
-        gold = data.gold;
         foreach (var id in data.inventoryData)
         {
            /* if (id != 0) 
@@ -63,17 +67,6 @@ public class CharacterManager : MonoBehaviour
             */
         }
         
-    }
-
-    public bool AddItemToInventory(Item item)
-    {
-        if (!inventory.IsFull())
-        {
-            inventory.AddItem(item);
-            return true;
-        }
-
-        return false;
     }
 
     public void Equip(ItemSlot itemSlot)
@@ -131,6 +124,8 @@ public class CharacterManager : MonoBehaviour
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, 0f);
         Collider2D checkWall = Physics2D.OverlapCircle(newPosition, 0.25f, LayerMask.GetMask("Wall"));
         ItemScene.SpawnItemScene(checkWall == null ? newPosition : new Vector3(position.x - 1f, position.y, 0f), item);
+
+        inventory.RemoveItem(item);
     }
 
     public void UpdateStatsOnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
@@ -140,29 +135,27 @@ public class CharacterManager : MonoBehaviour
         stats.onChangeCallback?.Invoke();
     }
 
-    private void ShowTooltip(ItemSlot itemSlot)
+    public void AddTooltip(ItemSlot itemSlot)
     {
+        if (itemSlot.TooltipIsOpened) return;
         
+        Tooltip tooltip = 
+            Instantiate(tooltipPrefab, itemSlot.transform.position, Quaternion.identity, transform).GetComponent<Tooltip>();
+        tooltip.Init(itemSlot);
+        _openedTooltips.Add(tooltip);
     }
 
-    private void HideTooltip(ItemSlot itemSlot)
+    public void RemoveTooltip(Tooltip tooltip = null)
     {
-        
-    }
-    
-    public void ChangeGold(int value)
-    {
-        gold += value;
-    }
-
-    public void SetGold(int value)
-    {
-        gold = value;
-    }
-
-    public int GetGold()
-    {
-        return gold;
+        if (tooltip)
+        {
+            _openedTooltips.Remove(tooltip);
+            return;
+        }
+            
+        // Remove all existing tooltips
+        while (_openedTooltips.Count > 0)
+            _openedTooltips[0].CloseSelf();
     }
 
     private void BeginDrag(ItemSlot itemSlot)
@@ -190,42 +183,63 @@ public class CharacterManager : MonoBehaviour
     
     private void Drop(ItemSlot dropItemSlot)
     {
-        if (dropItemSlot.CanReceiveItem(_draggedSlot.Item) && _draggedSlot.CanReceiveItem(dropItemSlot.Item))
-        {
-            EquipmentItem dragItem = _draggedSlot.Item as EquipmentItem;
-            EquipmentItem dropItem = dropItemSlot.Item as EquipmentItem;
+        if (dropItemSlot == null || _draggedSlot == null) return;
 
-            // Next two if-statements also can swap equipment
-            // Put on/change slot equipment 
-            if (dropItemSlot is EquipmentSlot)
-            {
-                onEquipmentChanged.Invoke(dragItem, dropItem != null ? dropItem : null);
-                
-                AudioManager.Instance.Play("Equip");
-                stats.onChangeCallback?.Invoke();
-            }
-
-            // Put off/change slot of equipment 
-            if (_draggedSlot is EquipmentSlot)
-            {
-                if (dropItem != null)
-                {
-                    onEquipmentChanged.Invoke(dropItem, dragItem);
-                    AudioManager.Instance.Play("Equip");
-                }
-                else
-                {
-                    onEquipmentChanged.Invoke(null, dragItem);
-                    AudioManager.Instance.Play("Unequip");
-                }
-
-                stats.onChangeCallback.Invoke();
-            }
-
-            Item draggedItem = _draggedSlot.Item;
-            _draggedSlot.Item = dropItemSlot.Item;
-            dropItemSlot.Item = draggedItem;
-        }
+        if (dropItemSlot.CanAddStack(_draggedSlot.Item))
+            AddStack(dropItemSlot);
+        else if (dropItemSlot.CanReceiveItem(_draggedSlot.Item) && _draggedSlot.CanReceiveItem(dropItemSlot.Item))
+            SwapItems(dropItemSlot);
     }
 
+    private void SwapItems(ItemSlot dropItemSlot)
+    {
+        EquipmentItem dragItem = _draggedSlot.Item as EquipmentItem;
+        EquipmentItem dropItem = dropItemSlot.Item as EquipmentItem;
+
+        // Next two if-statements also can swap equipment
+        // Put on/change slot equipment 
+        if (dropItemSlot is EquipmentSlot)
+        {
+            onEquipmentChanged.Invoke(dragItem, dropItem != null ? dropItem : null);
+
+            AudioManager.Instance.Play("Equip");
+            stats.onChangeCallback?.Invoke();
+        }
+
+        // Put off/change slot of equipment 
+        if (_draggedSlot is EquipmentSlot)
+        {
+            if (dropItem != null)
+            {
+                onEquipmentChanged.Invoke(dropItem, dragItem);
+                AudioManager.Instance.Play("Equip");
+            }
+            else
+            {
+                onEquipmentChanged.Invoke(null, dragItem);
+                AudioManager.Instance.Play("Unequip");
+            }
+
+            stats.onChangeCallback.Invoke();
+        }
+
+        Item draggedItem = _draggedSlot.Item;
+        int draggedItemAmount = _draggedSlot.Amount;
+
+        _draggedSlot.Item = dropItemSlot.Item;
+        _draggedSlot.Amount = dropItemSlot.Amount;
+
+        dropItemSlot.Item = draggedItem;
+        dropItemSlot.Amount = draggedItemAmount;
+    }
+
+    private void AddStack(ItemSlot dropItemSlot)
+    {
+        int allowedCount = dropItemSlot.Item.StackMaxSize - dropItemSlot.Amount;
+        int stackCountToAdd = Mathf.Min(allowedCount, _draggedSlot.Amount);
+
+        dropItemSlot.Amount += stackCountToAdd;
+        _draggedSlot.Amount -= stackCountToAdd;
+    }
+    
 }

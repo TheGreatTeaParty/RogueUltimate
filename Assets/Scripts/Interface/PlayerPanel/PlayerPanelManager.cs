@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,23 +18,42 @@ public enum WindowType
 public class PlayerPanelManager : MonoBehaviour
 {
     private GameObject _currentWindow;
-    private Animator _animator;
     private NavigatorButton _currentNavigatorButton;
     private NavigatorButton[] _navigatorButtons;
-    
+
     public GameObject navigator;
     public GameObject inventoryPanel;
     public GameObject statsPanel;
     public GameObject skillsPanel;
     public GameObject questPanel;
-    
+
+    public event Action ClosePanel;
+
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
         _navigatorButtons = navigator.GetComponentsInChildren<NavigatorButton>();
         for (int i = 0; i < _navigatorButtons.Length; i++)
             _navigatorButtons[i].onWindowChanged += ChangeWindow;
+
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        navigator.SetActive(true);
+        inventoryPanel.SetActive(true);
+        statsPanel.SetActive(true);
+        skillsPanel.SetActive(true);
+        questPanel.SetActive(true);
+
+        yield return new WaitForSeconds(0.01f);
+        
+        navigator.SetActive(false);
+        inventoryPanel.SetActive(false);
+        statsPanel.SetActive(false);
+        skillsPanel.SetActive(false);
+        questPanel.SetActive(false);
     }
 
     public void ChangeWindow(WindowType window, NavigatorButton navigatorButton)
@@ -71,7 +91,7 @@ public class PlayerPanelManager : MonoBehaviour
             case WindowType.ReturnOption:
             {
                 HighlightNavButton(null);
-                InterfaceManager.Instance.ClosePlayerPanel();
+                ClosePanel?.Invoke();
                 break;
             }
         }
@@ -95,7 +115,6 @@ public class PlayerPanelManager : MonoBehaviour
     public void OpenSelf()
     {
         Time.timeScale = 0.2f;
-        _animator.SetFloat("Kind of animation", 0f);
         navigator.SetActive(true);
     }
 
@@ -105,8 +124,9 @@ public class PlayerPanelManager : MonoBehaviour
         _currentWindow = null;
         navigator.SetActive(false);
         
+        CharacterManager.Instance.RemoveTooltip();
+        
         Time.timeScale = 1f;
-        _animator.SetFloat("Kind of animation", 1f);
     }
 
 }  

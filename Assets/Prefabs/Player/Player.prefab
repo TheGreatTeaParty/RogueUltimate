@@ -486,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponAnimator: {fileID: 1964008847064453167}
   AnimationSprites: []
+  ArmorRenderer: {fileID: 0}
 --- !u!1 &5661998559102161995
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,13 +689,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1673654890344226605, guid: b998b14445da46a4aa90e9ed5a1cbc09,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: b998b14445da46a4aa90e9ed5a1cbc09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 2.56, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -750,27 +750,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfdbfbccf29f0541ad8e6a93f4dbea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Zachar
-  level: 1
+  characterName: Zachar
   physicalDamage:
     baseValue: 5
-    modifiers: 
-  magicDamage:
-    baseValue: 0
-    modifiers: 
   physicalProtection:
     baseValue: 0
-    modifiers: 
+  magicDamage:
+    baseValue: 0
   magicProtection:
     baseValue: 0
-    modifiers: 
   maxHealth: 100
-  currentHealth: 0
   maxMana: 100
   maxStamina: 100
-  strength: 1
-  agility: 1
-  intelligence: 1
+  maxWill: 0
+  physique:
+    baseValue: 0
+  will:
+    baseValue: 0
+  mind:
+    baseValue: 0
+  reaction:
+    baseValue: 0
+  attackSpeed:
+    baseValue: 0
+  blockStrength:
+    baseValue: 0
+  castSpeed:
+    baseValue: 0
+  dodgeChance:
+    baseValue: 0
+  critDamage:
+    baseValue: 0
+  critChance:
+    baseValue: 0
   regenerationSpeed: 0
   animator: {fileID: 304746976}
   LevelUpEffect: {fileID: 5267075721743264303, guid: 1a947a02e99fb4bf99a6afcb223bfc4c,

@@ -28,6 +28,7 @@ public class InterfaceManager : MonoBehaviour
 
     public PlayerPanelManager playerPanelManager;
     public GameObject faceElements;
+    public GameObject quickSlotPanel;
     [Space]
 
     // Cache
@@ -39,25 +40,34 @@ public class InterfaceManager : MonoBehaviour
     private void Start()
     {
         playerPanelManager = GetComponentInChildren<PlayerPanelManager>();
-       
-        playerButton.onStateChanged += OpenPlayerPanel;
-        // PlayerOnScene.Instance.GetComponentInChildren<PlayerButtonCallBack>().onStateChanged += OpenPlayerPanel;
-        
+        playerPanelManager.ClosePanel += HidePlayerPanel;
+        playerButton.onStateChanged += ShowPlayerPanel;
+
         // Cache
         fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();
     }
     
     
-    public void OpenPlayerPanel()
+    public void ShowPlayerPanel()
     {
         HideFaceElements();
         playerPanelManager.OpenSelf();
     }
 
-    public void ClosePlayerPanel()
+    public void HidePlayerPanel()
     {
         playerPanelManager.CloseSelf();
         ShowFaceElements();
+    }
+
+    public void ShowQuickSlotPanel()
+    {
+        
+    }
+
+    public void HideQuickSlotPanel()
+    {
+        
     }
     
     public void ShowFaceElements()
@@ -72,7 +82,7 @@ public class InterfaceManager : MonoBehaviour
     
     public void HideAll()
     {
-        ClosePlayerPanel();
+        HidePlayerPanel();
         HideFaceElements();
     }
 
