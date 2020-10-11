@@ -45,7 +45,7 @@ public class PlayerCamera : MonoBehaviour
             Instantiate(prefab, transform.position, Quaternion.identity, null);
         }
 
-        _target = FindObjectOfType<KeepOnScene>().gameObject.transform;
+        _target = FindObjectOfType<PlayerOnScene>().gameObject.transform;
         transform.position = _target.position + offset;
     }
 

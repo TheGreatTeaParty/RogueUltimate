@@ -354,7 +354,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -410,27 +410,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfdbfbccf29f0541ad8e6a93f4dbea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: NeZachar
-  level: 1
+  characterName: NeZachar
   physicalDamage:
     baseValue: 5
-    modifiers: 
-  magicDamage:
-    baseValue: 0
-    modifiers: 
   physicalProtection:
     baseValue: 0
-    modifiers: 
+  magicDamage:
+    baseValue: 0
   magicProtection:
     baseValue: 0
-    modifiers: 
   maxHealth: 50
-  currentHealth: 0
   maxMana: 150
   maxStamina: 80
-  strength: 0
-  agility: 0
-  intelligence: 0
+  maxWill: 0
+  physique:
+    baseValue: 0
+  will:
+    baseValue: 0
+  mind:
+    baseValue: 0
+  reaction:
+    baseValue: 0
+  attackSpeed:
+    baseValue: 0
+  blockStrength:
+    baseValue: 0
+  castSpeed:
+    baseValue: 0
+  dodgeChance:
+    baseValue: 0
+  critDamage:
+    baseValue: 0
+  critChance:
+    baseValue: 0
   regenerationSpeed: 0
   animator: {fileID: 2774382978966536536}
   LevelUpEffect: {fileID: 0}

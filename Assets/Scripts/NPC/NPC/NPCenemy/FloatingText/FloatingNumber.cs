@@ -6,7 +6,7 @@ using TMPro;
 public class FloatingNumber : MonoBehaviour
 {
     [SerializeField] private Transform textPb;
-    private int _damage;
+    private float _damage;
 
 
     void Start()
@@ -15,7 +15,7 @@ public class FloatingNumber : MonoBehaviour
     }
 
 
-    private void ReceiveDamage(int damage)
+    private void ReceiveDamage(float damage)
     {
         _damage = damage;
         textPb.GetComponent<TextMeshPro>().text = damage.ToString();
@@ -25,7 +25,7 @@ public class FloatingNumber : MonoBehaviour
     }
     
     
-    public int GetDamage()
+    public float GetDamage()
     {
         return _damage;
     }

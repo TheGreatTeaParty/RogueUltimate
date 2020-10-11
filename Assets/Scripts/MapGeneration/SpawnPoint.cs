@@ -38,28 +38,28 @@ public class SpawnPoint : MonoBehaviour
             //Spawn close room
             if (oppenning_direction == 1)
             {
-                //Spawn Close Room with Bottom door
+                //Spawn CloseSelf Room with Bottom door
               
                 Instantiate(templates.close_rooms[1-1], transform.position, Quaternion.identity);
 
             }
             else if (oppenning_direction == 2)
             {
-                //Spawn Close Room with top door
+                //Spawn CloseSelf Room with top door
                
                 Instantiate(templates.close_rooms[2 - 1], transform.position, Quaternion.identity);
 
             }
             else if (oppenning_direction == 3)
             {
-                //Spawn Close Room with right door
+                //Spawn CloseSelf Room with right door
             
                 Instantiate(templates.close_rooms[3 - 1], transform.position, Quaternion.identity);
 
             }
             else if (oppenning_direction == 4)
             {
-                //Spawn Close Room with left door
+                //Spawn CloseSelf Room with left door
                 Instantiate(templates.close_rooms[4 - 1], transform.position, Quaternion.identity);
 
             }

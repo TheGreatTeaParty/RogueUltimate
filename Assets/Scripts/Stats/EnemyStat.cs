@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStat : CharacterStat,IDamaged
+public class EnemyStat : CharacterStat, IDamaged
 {
     [Space] public int gainedXP;
 
-    public delegate void OnReceivedDamage(int damage);
+    public delegate void OnReceivedDamage(float damage);
     public OnReceivedDamage onReceivedDamage;
 
     public delegate void OnDamaged();
@@ -20,34 +20,27 @@ public class EnemyStat : CharacterStat,IDamaged
     private CapsuleCollider2D _capsuleCollider2D;
     private FloatingNumber _floatingNumber;
 
+    
     public void Start()
     {
         // Cache
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         _floatingNumber = GetComponent<FloatingNumber>();
-        
-        
-        int modifier = level * 10;
 
         maxHealth += level * 10;
         currentHealth = maxHealth;
-        
-        physicalDamage.AddModifier(modifier);
-        magicDamage.AddModifier(modifier);
-        physicalProtection.AddModifier(modifier);
-        magicProtection.AddModifier(modifier);
     }
     
-    public override void TakeDamage(int _physicalDamage, int _magicDamage)
+    public override void TakeDamage(float physicalDamage, float magicDamage)
     {
-        base.TakeDamage(_physicalDamage, _magicDamage);
+        base.TakeDamage(physicalDamage, magicDamage);
      
-        onReceivedDamage?.Invoke(magicDamageReceived+physicalDamageReceived);
+        onReceivedDamage?.Invoke(damageReceived);
         _rigidbody2D.velocity = Vector2.zero;
         onDamaged?.Invoke();
     }
-
+    
     public override void Die()
     {
         PlayerStat.Instance.GainXP(gainedXP);

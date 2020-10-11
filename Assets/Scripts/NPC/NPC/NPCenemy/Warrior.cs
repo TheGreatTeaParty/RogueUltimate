@@ -8,12 +8,12 @@ public class Warrior : AI
     private Vector2 attackPosition;
     private Vector3 direction;
 
-    private EnemyStat WariorStat;
+    private EnemyStat _warriorStat;
 
     public override void Start()
     {
         base.Start();
-        WariorStat = GetComponent<EnemyStat>();
+        _warriorStat = GetComponent<EnemyStat>();
         whatIsEnemy = LayerMask.GetMask("Player");
     }
 
@@ -30,7 +30,7 @@ public class Warrior : AI
         
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(WariorStat.physicalDamage.GetValue(), WariorStat.magicDamage.GetValue());
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_warriorStat.physicalDamage.Value, _warriorStat.magicDamage.Value);
         }
         _attack = false;
     }

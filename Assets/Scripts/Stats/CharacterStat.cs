@@ -1,35 +1,61 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CharacterStat : MonoBehaviour
 {
-    public string Name;
-    public int level;
-    [Space]
+    [FormerlySerializedAs("Name")] 
+    public string characterName;
+    protected int level;
+    [Space] 
     public Stat physicalDamage;
-    public Stat magicDamage;
     public Stat physicalProtection;
+    public Stat magicDamage;
     public Stat magicProtection;
     [Space]
+    [SerializeField] protected float maxHealth = 100;
+    protected float currentHealth;
+    protected float damageReceived;
 
-    [SerializeField] public int maxHealth = 100;
-    public int currentHealth;
-    
-    protected int physicalDamageReceived;
-    protected int magicDamageReceived;
-    
+    public string CharacterName
+    {
+        get => characterName;
+        set => characterName = value;
+    }
+    public int Level
+    {
+        get => level;
+        set => level = value;
+    }
+    public float CurrentHealth
+    {
+        get => currentHealth;
+        set => currentHealth = value;
+    }
+    public float MaxHealth
+    {
+        get => maxHealth;
+        set => maxHealth = value;
+    }
+    public float DamageReceived
+    {
+        get => damageReceived;
+        set => damageReceived = value;
+    }
 
+    
     // This is base class for all NPS, Player, Enemy so on
-    // all damage counting, damage intake should be written here
+    // all receivedPhysicalDamage counting, receivedPhysicalDamage intake should be written here
     private void Awake()
     {
         currentHealth = maxHealth;
     }
     
-    public virtual void TakeDamage(int _physicalDamage,int _magicDamage)
+    public virtual void TakeDamage(float receivedPhysicalDamage, float receivedMagicDamage)
     {
-        physicalDamageReceived = (int)(_physicalDamage * (100 / (100 + (float)physicalProtection.GetValue())));
-        magicDamageReceived = (int)(_magicDamage * (100 / (100 + (float)magicProtection.GetValue())));
-        currentHealth -= (physicalDamageReceived + magicDamageReceived);
+        receivedPhysicalDamage = (physicalDamage.Value * (100 / (100 + physicalProtection.Value)));
+        receivedMagicDamage = (magicDamage.Value * (100 / (100 + magicProtection.Value)));
+        currentHealth -= (receivedPhysicalDamage + receivedMagicDamage);
         if (currentHealth <= 0)
             Die();
     }
@@ -38,26 +64,5 @@ public class CharacterStat : MonoBehaviour
     {
      
     }
-
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public string GetName()
-    {
-        return Name;
-    }
-
-    public void SetMaxHealth(int health)
-    {
-        maxHealth = health;
-    }
-    
 
 }

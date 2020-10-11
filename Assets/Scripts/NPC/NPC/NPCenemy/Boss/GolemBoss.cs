@@ -42,15 +42,15 @@ public class GolemBoss : AI
     {
         base.Update();
 
-        if (golemStat.GetCurrentHealth() <= StageTwoHealth && !StageChanged)
+        if (golemStat.CurrentHealth <= StageTwoHealth && !StageChanged)
         {
             SwitchStage();
         }
 
         //Should be changed in the inherited EnemyStat class
-        BossFightPortal.Instance.SetBossHealth(golemStat.GetCurrentHealth());
+        BossFightPortal.Instance.SetBossHealth(golemStat.CurrentHealth);
 
-        if(golemStat.GetCurrentHealth() <= 0)
+        if(golemStat.CurrentHealth <= 0)
         {
             BossFightPortal.Instance.HealthBar(false);
             BossFightPortal.Instance.TurnThePortal();
@@ -109,7 +109,7 @@ public class GolemBoss : AI
     {
         if (Vector2.Distance(transform.position, target.transform.position) < rockRange &&
             Vector2.Distance(transform.position, target.transform.position) < meleRange)
-            MeleAttack();
+            MeleeAttack();
 
         else
         {
@@ -117,7 +117,7 @@ public class GolemBoss : AI
         }
     }
 
-    private void MeleAttack()
+    private void MeleeAttack()
     {
         Vector3 direction = (target.transform.position - transform.position).normalized;
         Vector3 attackPosition = transform.position + direction;
@@ -126,13 +126,13 @@ public class GolemBoss : AI
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
      
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(golemStat.physicalDamage.GetValue(), golemStat.magicDamage.GetValue());
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(golemStat.physicalDamage.Value, golemStat.magicDamage.Value);
         }
     }
     private void RangeAttack()
     {
         Transform rock = Instantiate(rockPrefab, transform.position + (target.transform.position - transform.position).normalized*2, Quaternion.identity);
 
-        rock.GetComponent<FlyingObject>().SetData(golemStat.physicalDamage.GetValue(), golemStat.magicDamage.GetValue(), (target.transform.position - transform.position).normalized);
+        rock.GetComponent<FlyingObject>().SetData(golemStat.physicalDamage.Value, golemStat.magicDamage.Value, (target.transform.position - transform.position).normalized);
     }
 }

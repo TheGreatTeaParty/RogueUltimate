@@ -1,44 +1,45 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TradeSlot : MonoBehaviour, IPointerClickHandler
+
+public enum TradeSlotType
 {
-    private Item _item;
-    [SerializeField] private Image image;
+    Player = 0,
+    NPC = 1,
+}
+
+
+public class TradeSlot : ItemSlot, IPointerClickHandler
+{
+    public TradeSlotType tradeSlotType;
+    public event Action<TradeSlot> OnClick;
     
     
-    public void AddItemToTradeSlot(Item item)
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        if (item == null)
-        {
-            Debug.Log("Null reference in TradeSlot.cs");
-            return;
-        }
+        if (Item != null)
+            OnClick?.Invoke(this);
+    }
+
+    public override void OnDrop(PointerEventData eventData)
+    {
         
-        _item = item;
-        image.enabled = true;
-        image.sprite = _item.Sprite;
-
     }
 
-    public void RemoveItemFromTradeSlot()
+    public override void OnDrag(PointerEventData eventData)
     {
-        image.sprite = null;
-        image.enabled = false; 
-        _item = null;
+        
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnBeginDrag(PointerEventData eventData)
     {
-        var tradeManager = TradeManager.Instance;
-        tradeManager.currentItem = _item;
-        tradeManager.DrawTooltip();
-        AudioManager.Instance.Play("Click");
 
-        // State: true - buy, false - sell
-        tradeManager.state = gameObject.CompareTag("NPCTradeSlot");
-        tradeManager.onChangeCallback();
     }
-    
+
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        
+    }
 } 

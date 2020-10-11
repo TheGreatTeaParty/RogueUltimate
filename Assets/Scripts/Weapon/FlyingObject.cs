@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FlyingObject : MonoBehaviour
 {
     public float speed;
-    [SerializeField]
-    string HitName;
-    private int _physicalDamage;
-    private int _magicDamage;
+    [FormerlySerializedAs("HitName")] [SerializeField]
+    private string _hitName;
+    private float _physicalDamage;
+    private float _magicDamage;
     private Rigidbody2D _rb;
     private Vector2 _direction;
 
@@ -22,18 +23,18 @@ public class FlyingObject : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
     }
     
-    public void SetData(int _physicalDamage, int _magicDamage, Vector2 _direction)
+    public void SetData(float physicalDamage, float magicDamage, Vector2 direction)
     {
-        this._physicalDamage = _physicalDamage;
-        this._magicDamage = _magicDamage;
-        this._direction = _direction;
+        _physicalDamage = physicalDamage;
+        _magicDamage = magicDamage;
+        _direction = direction;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        AudioManager.Instance.Play(HitName);
+        AudioManager.Instance.Play(_hitName);
         if (collision.GetComponent<IDamaged>()!= null)
-           collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage,_magicDamage);
+           collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
         Destroy(gameObject);
     }
     

@@ -7,7 +7,7 @@ public class DwarfSeller : MonoBehaviour,IInteractable
     public void Interact()
     {
         // Bind the info for TradeManager
-        var playerInventory = InventoryManager.Instance;
+        var playerInventory = CharacterManager.Instance.Inventory;
         var npcInventory = GetComponent<NPCInventory>();
         var tradeManager = TradeManager.Instance;
 
