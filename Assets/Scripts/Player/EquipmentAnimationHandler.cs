@@ -20,7 +20,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private bool _weaponEquiped = false;
     private SpriteRenderer _playerRenderer;
 
-    public Sprite[] ArmorAnimationSprites => ArmorAnimationSprites;
+    public Sprite[] ArmorAnimationSprites => _armorAnimationSprites;
 
 
     private void Start()

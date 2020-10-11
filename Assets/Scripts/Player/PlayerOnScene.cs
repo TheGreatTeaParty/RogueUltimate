@@ -33,8 +33,17 @@ public class PlayerOnScene : MonoBehaviour
     [HideInInspector] public InteractDetaction interactDetaction; 
     
     public Sprite PlayerSprite => spriteRenderer.sprite;
-    public Sprite ArmorSprite 
-        => equipmentAnimationHandler.AnimationSprites.Length > 0 ? equipmentAnimationHandler.AnimationSprites?[0] : null;
+
+    public Sprite ArmorSprite
+    {
+        get
+        {
+            if (equipmentAnimationHandler == null) return null;
+
+            return equipmentAnimationHandler.ArmorAnimationSprites?.Length > 0 
+                ? equipmentAnimationHandler.ArmorAnimationSprites?[0] : null;
+        }
+    }
 
 
     private void Start()

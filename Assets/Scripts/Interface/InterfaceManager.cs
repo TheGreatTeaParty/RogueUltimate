@@ -45,10 +45,20 @@ public class InterfaceManager : MonoBehaviour
         playerPanelManager.ClosePanel += HidePlayerPanel;
         playerButton.onStateChanged += ShowPlayerPanel;
 
+        StartCoroutine(Init());
+
         // Cache
         fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();
     }
     
+    private IEnumerator Init()
+    {
+        quickPanel.SetActive(true);
+
+        yield return new WaitForSeconds(0.01f);
+        
+        quickPanel.SetActive(false);
+    }
     
     public void ShowPlayerPanel()
     {
