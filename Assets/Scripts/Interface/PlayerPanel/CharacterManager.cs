@@ -48,6 +48,7 @@ public class CharacterManager : MonoBehaviour
         inventory.OnDragEvent += Drag;
         inventory.OnEndDragEvent += EndDrag;
         inventory.OnDropEvent += Drop;
+        inventory.OnQuickDropEvent += QuickDrop;
         
         equipment.OnClickEvent += AddTooltip;
         equipment.OnBeginDragEvent += BeginDrag;
@@ -189,6 +190,12 @@ public class CharacterManager : MonoBehaviour
             AddStack(dropItemSlot);
         else if (dropItemSlot.CanReceiveItem(_draggedSlot.Item) && _draggedSlot.CanReceiveItem(dropItemSlot.Item))
             SwapItems(dropItemSlot);
+    }
+
+    private void QuickDrop(QuickSlot dropQuickSlot)
+    {
+        if (_draggedSlot.Item is UsableItem)
+            Drop(dropQuickSlot);
     }
 
     private void SwapItems(ItemSlot dropItemSlot)

@@ -28,9 +28,11 @@ public class InterfaceManager : MonoBehaviour
 
     public PlayerPanelManager playerPanelManager;
     public GameObject faceElements;
-    public GameObject quickSlotPanel;
+    public GameObject quickPanel;
     [Space]
-
+    [Range(0.05f, 1f)]
+    public float panelTimeScale;
+    
     // Cache
     [SerializeField] public FixedJoystick fixedJoystick;
     [SerializeField] public JoystickAttack joystickAttack;
@@ -60,29 +62,35 @@ public class InterfaceManager : MonoBehaviour
         ShowFaceElements();
     }
 
-    public void ShowQuickSlotPanel()
+    public void ShowQuickPanel()
     {
-        
+        Time.timeScale = panelTimeScale;
+        HideFaceElements();
+        quickPanel.SetActive(true);   
     }
 
-    public void HideQuickSlotPanel()
+    public void HideQuickPanel()
     {
-        
+        quickPanel.SetActive(false);
+        ShowFaceElements();
+        Time.timeScale = 1f;
     }
     
     public void ShowFaceElements()
     {
         faceElements.SetActive(true);    
     }
-    
+
     public void HideFaceElements()
     {
         faceElements.SetActive(false);
     }
-    
+
     public void HideAll()
     {
+        // Order matters
         HidePlayerPanel();
+        HideQuickPanel();
         HideFaceElements();
     }
 

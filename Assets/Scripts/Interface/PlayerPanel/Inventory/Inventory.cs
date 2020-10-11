@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     public event Action<ItemSlot> OnDragEvent;
     public event Action<ItemSlot> OnEndDragEvent;
     public event Action<ItemSlot> OnDropEvent;
+    public event Action<QuickSlot> OnQuickDropEvent;
     
     
     private void Awake()
@@ -36,6 +37,15 @@ public class Inventory : MonoBehaviour
             itemSlots[i].OnDragEvent += OnDragEvent;
             itemSlots[i].OnEndDragEvent += OnEndDragEvent;
             itemSlots[i].OnDropEvent += OnDropEvent;
+        }
+
+        for (int i = 0; i < quickSlots.Length; i++)
+        {
+            quickSlots[i].OnClickEvent += OnClickEvent;
+            quickSlots[i].OnBeginDragEvent += OnBeginDragEvent;
+            quickSlots[i].OnDragEvent += OnDragEvent;
+            quickSlots[i].OnEndDragEvent += OnEndDragEvent;
+            quickSlots[i].OnQuickDropEvent += OnQuickDropEvent;
         }
 
         SetInventoryOnStart();

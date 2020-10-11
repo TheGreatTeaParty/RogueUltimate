@@ -114,7 +114,7 @@ public class PlayerPanelManager : MonoBehaviour
     
     public void OpenSelf()
     {
-        Time.timeScale = 0.2f;
+        Time.timeScale = InterfaceManager.Instance.panelTimeScale;
         navigator.SetActive(true);
     }
 

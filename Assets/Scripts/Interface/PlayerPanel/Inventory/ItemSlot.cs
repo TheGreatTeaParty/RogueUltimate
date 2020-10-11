@@ -74,8 +74,8 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     protected virtual void Awake()
     {
-        Image[] images = gameObject.GetComponentsInChildren<Image>();
-        TMP_Text[] texts = gameObject.GetComponentsInChildren<TMP_Text>();
+        var images = gameObject.GetComponentsInChildren<Image>();
+        var texts = gameObject.GetComponentsInChildren<TMP_Text>();
         
         for (int i = 0; i < images.Length; i++)
             if (images[i].gameObject.transform.parent.GetInstanceID() != GetInstanceID())
