@@ -22,21 +22,21 @@ public class MagicWeapon : EquipmentItem
         equipmentType = EquipmentType.Weapon;
     }
 
-    public override void Attack(int ph_dmg,int mg_dmg)
+    public override void Attack(float physicalDamage, float magicDamage)
     {
         // Checks if current stamina is less than required. If not - continues attack.
         if (PlayerStat.Instance.ModifyMana(requiredMana) == false)
             return;
         
         Vector3 direction = new Vector3(
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().x, 
-            InterfaceOnScene.Instance.joystickAttack.GetDirection().y);
+            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
+            InterfaceManager.Instance.joystickAttack.GetDirection().y);
         
         Transform magic = Instantiate(prefab, 
-            KeepOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
-        magic.GetComponent<FlyingObject>().SetData(ph_dmg, mg_dmg, direction);
+            PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
+        magic.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
-        KeepOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Magic,0);
+        PlayerOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Magic,0);
     }
     
     public override WeaponType Echo()

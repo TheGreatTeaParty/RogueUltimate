@@ -20,7 +20,7 @@ public class BossFightPortal : MonoBehaviour
     }
     #endregion
 
-    public void SetBossHealth(int health)
+    public void SetBossHealth(float health)
     {
         bosshealthSlider.value = health;
     }

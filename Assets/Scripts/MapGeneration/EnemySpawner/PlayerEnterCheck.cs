@@ -25,7 +25,7 @@ public class PlayerEnterCheck : MonoBehaviour
         if (_isSpawned) 
             return;
         
-        var playerLevel = collision.GetComponent<PlayerStat>().level;
+        var playerLevel = collision.GetComponent<PlayerStat>().Level;
         _eSpawner.SetPlayerLevel(playerLevel);
 
         int enemyLevel = _eSpawner.GetEnemyLevel();

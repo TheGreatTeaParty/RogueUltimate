@@ -11,7 +11,7 @@ public class HealthPotion : UsableItem
     {
         base.ModifyStats();
         PlayerStat.Instance.ModifyHealth(healthBonus);
-        KeepOnScene.Instance.playerFX.SpawnEffect(healFX);
+        PlayerOnScene.Instance.playerFX.SpawnEffect(healFX);
         AudioManager.Instance.Play("Bottle");
     }
     

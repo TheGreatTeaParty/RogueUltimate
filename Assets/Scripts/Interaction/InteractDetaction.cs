@@ -12,7 +12,7 @@ public class InteractDetaction : MonoBehaviour
     
     private void Start()
     {
-        interactionUI = InterfaceOnScene.Instance.GetComponentInChildren<InteractionUI>();
+        interactionUI = InterfaceManager.Instance.GetComponentInChildren<InteractionUI>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +25,7 @@ public class InteractDetaction : MonoBehaviour
             //Enable
             interactionUI.SetActive(true);
 
-            //Get Action Name and set it up 
+            //Get Action ItemName and set it up 
             interactionUI.SetText(interactable.GetActionName());
 
             interactionUI.SetInteractDetaction(this);

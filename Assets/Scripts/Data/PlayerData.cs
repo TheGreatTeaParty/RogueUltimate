@@ -16,14 +16,12 @@ struct InventoryData
 [System.Serializable]
 public class PlayerData
 {
-    public int currentHP, maxHP; //Health
-    public int currentMP, maxMP; //Mana
-    public int currentSP, maxSP; //Stamina
+    public float currentHP, maxHP; //Health
+    public float currentMP, maxMP; //Mana
+    public float currentSP, maxSP; //Stamina
 
     public int xp, level;
-    public int strength, dexterity, intelligence;
-    
-    
+
     public float[] position;
     public string scene;
     public string gameObjectName;
@@ -41,41 +39,33 @@ public class PlayerData
         
         var stats = PlayerStat.Instance;
 
-        currentHP = stats.GetCurrentHealth();
-        currentMP = stats.GetCurrentMana();
-        currentSP = stats.GetCurrentStamina();
+        currentHP = stats.CurrentHealth;
+        currentMP = stats.CurrentMana;       
+        currentSP = stats.CurrentStamina;
+
+        maxHP = stats.MaxHealth;
+        maxMP = stats.MaxMana;
+        maxSP = stats.MaxStamina;        
+            
+        level = stats.Level;
+        xp = stats.XP;
+
+
+        var inventory = CharacterManager.Instance;
+        //gold = playerInventory.GetGold();
+       /* for (int i = 0; i < playerInventory.items.Count; i++)
+            inventoryData[i] = playerInventory.items[i].ID;
+*/
         
-        maxHP = stats.GetMaxHealth();
-        maxMP = stats.GetMaxMana();
-        maxSP = stats.GetMaxStamina();
-
-        level = stats.level;
-        xp = stats.GetXP();
-
-        strength = stats.strength;
-        dexterity = stats.agility;
-        intelligence = stats.intelligence;
-
-        
-        var inventory = InventoryManager.Instance;
-        gold = inventory.GetGold();
-        for (int i = 0; i < inventory.items.Count; i++)
-            inventoryData[i] = inventory.items[i].ID;
-
-        
-        var equipment = EquipmentManager.Instance;
-        for (int i = 0; i < equipment.currentEquipment.Length; i++)
+        Equipment equipment = CharacterManager.Instance.Equipment;
+        for (int i = 0; i < equipment.equipmentSlots.Length; i++)
             // Null check because of currentEquipment structure: array, not list
-            if (equipment.currentEquipment[i] != null)
+            if (equipment.equipmentSlots[i].Item != null)
             {
-                equipmentData[i] = equipment.currentEquipment[i].ID;
+                equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
                 Debug.Log("Equipment saved");
             }
         
-        
-        var quickSlots = QuickSlotsManager.Instance;
-        for (int i = 0; i < quickSlots.items.Count; i++)
-            quickSlotsData[i] = quickSlots.items[i].ID;
 
         
         var transformPosition = PlayerStat.Instance.transform.position;

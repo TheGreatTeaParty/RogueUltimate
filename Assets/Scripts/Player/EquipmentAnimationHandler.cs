@@ -6,10 +6,12 @@ using UnityEngine;
 public class EquipmentAnimationHandler : MonoBehaviour
 {
     public Animator weaponAnimator;
-    private Sprite[] ArmorAnimationSprites;
-    private Sprite[] WeaponAnimationSprites;
-    private SpriteRenderer ArmorRenderer;
-    private SpriteRenderer WeaponRenderer;
+
+    private Sprite[] _armorAnimationSprites;
+    private Sprite[] _weaponAnimationSprites;
+    private SpriteRenderer _armorRenderer;
+    private SpriteRenderer _weaponRenderer;
+
 
     private RuntimeAnimatorController _weaponController;
     private Vector2 _direction;
@@ -17,22 +19,23 @@ public class EquipmentAnimationHandler : MonoBehaviour
     private bool _armorEquiped = false;
     private bool _weaponEquiped = false;
     private SpriteRenderer _playerRenderer;
-  
-    
+
+    public Sprite[] ArmorAnimationSprites => _armorAnimationSprites;
+
+
     private void Start()
     {
         SpriteRenderer[] array = GetComponentsInChildren<SpriteRenderer>();
-        WeaponRenderer = array[0];
-        ArmorRenderer = array[1];
-        array = null;
+        _weaponRenderer = array[0];
+        _armorRenderer = array[1];
 
-        _playerRenderer = KeepOnScene.Instance.GetComponent<SpriteRenderer>();
-        _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
-        EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
-        KeepOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
-
-        if (EquipmentManager.Instance != null)
-            EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        _playerRenderer = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
+        _playerMovement = PlayerOnScene.Instance.GetComponent<PlayerMovement>();
+        
+        CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
+        CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        
+        PlayerOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
     }
     
     private void Update()
@@ -88,17 +91,18 @@ public class EquipmentAnimationHandler : MonoBehaviour
                     if (j >= ArmorAnimationSprites.Length)
                     {
                         Debug.LogWarning($"Sprite with Index: {j} does not exist in Animation Sprites!");
-                        ArmorRenderer.sprite = null;
+                        _armorRenderer.sprite = null;
                     }
                     else
                     {
-                        ArmorRenderer.sprite = ArmorAnimationSprites[j];
+                        _armorRenderer.sprite = ArmorAnimationSprites[j];
                       
                         //Move it on the top of the player Sprite
-                        ArmorRenderer.sortingOrder = _playerRenderer.sortingOrder + 1;
+                        _armorRenderer.sortingOrder = _playerRenderer.sortingOrder + 1;
                     }
                 }
             }
+            
         }
 
         if (_weaponEquiped && weaponAnimator.GetInteger("Set") > 0)
@@ -112,35 +116,36 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
             index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
 
-            if (WeaponAnimationSprites.Length == 0)
+            if (_weaponAnimationSprites.Length == 0)
                 Debug.LogWarning("Missing Animation Sprites");
 
             else
             {
                 if (int.TryParse(index, out int j))
                 {
-                    if (j >= WeaponAnimationSprites.Length)
+                    if (j >= _weaponAnimationSprites.Length)
                     {
                         return;
                     }
                     else
                     {
-                        WeaponRenderer.sprite = WeaponAnimationSprites[j];
+                        _weaponRenderer.sprite = _weaponAnimationSprites[j];
 
                         //Move it on the top of the player Sprite
                         if (8 <=j && j <= 11 || 24 <= j && j <= 27 || 40 <= j && j <= 43 || 56 <= j && j <= 59
                             || 72 <= j && j <= 75)
                         {
-                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
+                            _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
                         }
                         else
                         {
-                            WeaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 2;
+                            _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 2;
                         }
                     }
                 }
             }
         }
+
     }
 
     //When the equipment changed, change the Animation controller
@@ -154,7 +159,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
                 weaponAnimator.runtimeAnimatorController = _weaponController as RuntimeAnimatorController;
 
                 _weaponEquiped = true;
-                WeaponAnimationSprites = _new.Animation;
+                _weaponAnimationSprites = _new.Animation;
             }
         }
         //If we drop the weapon, clear the animation controller
@@ -165,8 +170,8 @@ public class EquipmentAnimationHandler : MonoBehaviour
             _weaponController = null;
 
             _weaponEquiped = false;
-            WeaponAnimationSprites = null;
-            WeaponRenderer.sprite = null;
+            _weaponAnimationSprites = null;
+            _weaponRenderer.sprite = null;
         }
     }
 
@@ -177,15 +182,15 @@ public class EquipmentAnimationHandler : MonoBehaviour
             if (_new.equipmentType == EquipmentType.Armor)
             {
                 _armorEquiped = true;
-                ArmorAnimationSprites = _new.Animation;
+                _armorAnimationSprites = _new.Animation;
             }
         }
 
         else if (_old.equipmentType == EquipmentType.Armor && _new == null)
         {
             _armorEquiped = false;
-            ArmorRenderer.sprite = null;
-            ArmorAnimationSprites = null;
+            _armorRenderer.sprite = null;
+            _armorAnimationSprites = null;
         }
     }
 
@@ -203,4 +208,5 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
     }
+    
 }

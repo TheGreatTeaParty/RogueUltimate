@@ -15,11 +15,11 @@ public class WeaponRenderer : MonoBehaviour
     
     private void Start()
     {
+        CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         _weaponAnimator = GetComponent<Animator>();
-        _playerMovement = KeepOnScene.Instance.GetComponent<PlayerMovement>();
-        _playerSprite = KeepOnScene.Instance.GetComponent<SpriteRenderer>();
+        _playerMovement = PlayerOnScene.Instance.GetComponent<PlayerMovement>();
+        _playerSprite = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
         _weaponSprite = GetComponent<SpriteRenderer>();
-        EquipmentManager.Instance.onEquipmentChanged += OnWeaponChanged;
     }
     
     private void Update()

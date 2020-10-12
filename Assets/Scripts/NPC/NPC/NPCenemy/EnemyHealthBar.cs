@@ -18,20 +18,21 @@ public class EnemyHealthBar : MonoBehaviour
         enemyStat = GetComponentInParent<EnemyStat>();
         enemyStat.onReceivedDamage += ChangeHealth;
         enemyStat.onDie += DeleteBar;
-        SliderHealth.maxValue = enemyStat.GetMaxHealth();
+        SliderHealth.maxValue = enemyStat.MaxHealth;
         SliderHealth.value = SliderHealth.maxValue;
-        Name.text = enemyStat.GetName();
+        Name.text = enemyStat.CharacterName;
         Shadow.text = Name.text;
-        LvL.text = (enemyStat.level).ToString();
+        LvL.text = (enemyStat.Level).ToString();
     }
 
-    void ChangeHealth(int damage)
+    private void ChangeHealth(float damage)
     {
-        SliderHealth.value = enemyStat.GetCurrentHealth();
+        SliderHealth.value = enemyStat.CurrentHealth;
     }
 
-    void DeleteBar()
+    private void DeleteBar()
     {
         Destroy(gameObject);
     }
+    
 }
