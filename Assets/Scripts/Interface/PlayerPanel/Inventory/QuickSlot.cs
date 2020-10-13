@@ -7,15 +7,17 @@ using UnityEngine.UI;
 
 public class QuickSlot : ItemSlot
 {
-    [SerializeField] private QuickSlotOnScene quickSlotOnScene;
+    public QuickSlotOnScene quickSlotOnScene;
 
     public event Action<QuickSlot> OnQuickDropEvent;
     
 
     private void Start()
     {
-        if (quickSlotOnScene != null)
-            quickSlotOnScene.OnClickEvent += UseItem;
+        quickSlotOnScene.OnClickEvent += UseItem;
+
+        if (Item != null)
+            quickSlotOnScene.SetItem(this);
     }
 
     private void UseItem(QuickSlotOnScene quickSlotOnScene)
@@ -27,7 +29,7 @@ public class QuickSlot : ItemSlot
         
         quickSlotOnScene.SetItem(this);
     }
-    
+
     public override void OnDrop(PointerEventData eventData)
     {
         OnQuickDropEvent?.Invoke(this);

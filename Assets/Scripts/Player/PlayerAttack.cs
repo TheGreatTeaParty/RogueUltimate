@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 _direction;
 
     //Deligate to trigger animation
-    public delegate void OnAttacked(WeaponType type,int set);
+    public delegate void OnAttacked(AttackType type,int set);
     public OnAttacked onAttacked;
 
     // Cache
@@ -68,10 +68,10 @@ public class PlayerAttack : MonoBehaviour
         {
             weapon.Attack(_playerStat.physicalDamage.Value, _playerStat.magicDamage.Value);
                 
-            if (weapon.Echo() == WeaponType.Melee)
+            if (weapon.Echo() == AttackType.Melee)
             {
                 StartCoroutine(PlayerStop(0.5f));
-                onAttacked?.Invoke(WeaponType.Melee, 1);
+                onAttacked?.Invoke(AttackType.Melee, 1);
             }
 
             _startAttackCoolDown = _weaponCoolDown;
@@ -99,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
         
         _startAttackCoolDown = attackCoolDown;
         StartCoroutine(PlayerStop(0.4f));
-        onAttacked?.Invoke(WeaponType.None,0);
+        onAttacked?.Invoke(AttackType.None,0);
     }
     
     public float GetAttackCD()

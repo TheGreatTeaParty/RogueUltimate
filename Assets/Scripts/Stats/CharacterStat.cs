@@ -59,6 +59,11 @@ public class CharacterStat : MonoBehaviour
         if (currentHealth <= 0)
             Die();
     }
+
+    public virtual void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
+    {
+
+    }
     
     public virtual void Die()
     {

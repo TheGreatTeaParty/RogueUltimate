@@ -24,6 +24,8 @@ public class MagicWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
+        var player = PlayerOnScene.Instance;
+        
         // Checks if current stamina is less than required. If not - continues attack.
         if (PlayerStat.Instance.ModifyMana(requiredMana) == false)
             return;
@@ -33,15 +35,15 @@ public class MagicWeapon : EquipmentItem
             InterfaceManager.Instance.joystickAttack.GetDirection().y);
         
         Transform magic = Instantiate(prefab, 
-            PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
+            player.playerMovement.transform.position + direction, Quaternion.identity);
         magic.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction);
         //Send mesage to Attack animation handler that we use Melee Weapon
-        PlayerOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Magic,0);
+        player.playerAttack.onAttacked?.Invoke(AttackType.Magic,0);
     }
     
-    public override WeaponType Echo()
+    public override AttackType Echo()
     {
-        return WeaponType.Magic;
+        return AttackType.Magic;
     }
 
     public override float GetAttackCD()

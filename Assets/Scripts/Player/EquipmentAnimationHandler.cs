@@ -195,7 +195,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     }
 
     //When attack, trigger the Attack animation
-    private void AttackAnimation(WeaponType type,int set)
+    private void AttackAnimation(AttackType type,int set)
     {
         if (_weaponController != null)
         {

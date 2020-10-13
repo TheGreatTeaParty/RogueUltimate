@@ -38,9 +38,9 @@ public class RangeWeapon : EquipmentItem
     }
     
     
-    public override WeaponType Echo()
+    public override AttackType Echo()
     {
-        return WeaponType.Range;
+        return AttackType.Range;
     }
 
     public override float GetAttackCD()

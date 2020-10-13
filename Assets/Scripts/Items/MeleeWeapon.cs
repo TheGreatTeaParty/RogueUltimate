@@ -5,12 +5,14 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public enum WeaponType 
+public enum AttackType 
 { 
-    Melee, 
-    Range, 
-    Magic, 
-    None 
+    Melee = 0, 
+    Range = 1, 
+    Magic = 2, 
+    None = 3,
+    
+    Windblow = 4,
 }
 
 
@@ -22,7 +24,6 @@ public class MeleeWeapon : EquipmentItem
     public float attackRange;
     public float knockBack;
     public float pushForce;
-
     [Space]
     [SerializeField] private int requiredStamina;
     [SerializeField] private float attackDuration = 0.5f;
@@ -33,15 +34,17 @@ public class MeleeWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
+        var player = PlayerOnScene.Instance;
+        
         // Checks if current stamina is less than required. If not - continues attack.
         if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
             return;
         
         _whatIsEnemy = LayerMask.GetMask("Enemy");
-        Vector3 direction = PlayerOnScene.Instance.playerMovement.GetDirection();
-        _attackPosition = PlayerOnScene.Instance.transform.position + direction;
+        Vector3 direction = player.playerMovement.GetDirection();
+        _attackPosition = player.transform.position + direction;
 
-        if (PlayerOnScene.Instance.playerAttack.GetAttackCD() <= 0)
+        if (player.playerAttack.GetAttackCD() <= 0)
         {
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
             for (int i = 0; i < enemiesToDamage.Length; i++)
@@ -50,15 +53,15 @@ public class MeleeWeapon : EquipmentItem
             }
 
             //Send mesage to Attack animation handler that we use Melee Weapon
-            PlayerOnScene.Instance.playerAttack.onAttacked?.Invoke(WeaponType.Melee, Random.Range(0, 2));
-            PlayerOnScene.Instance.playerAttack.SetRange(attackRange);
+            player.playerAttack.onAttacked?.Invoke(AttackType.Melee, Random.Range(0, 2));
+            player.playerAttack.SetRange(attackRange);
         }
         
     }
     
-    public override WeaponType Echo()
+    public override AttackType Echo()
     {
-        return WeaponType.Melee;
+        return AttackType.Melee;
     }
 
     public override float GetAttackCD()

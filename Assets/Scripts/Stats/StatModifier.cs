@@ -9,7 +9,7 @@ public enum StatModifierType
 }
 
 
-public class StatModifier : MonoBehaviour
+public class StatModifier
 {
     public readonly float Value;
     public readonly int Order;

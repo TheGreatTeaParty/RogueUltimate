@@ -178,19 +178,19 @@ public class PlayerStat : CharacterStat, IDamaged
          
             case StatType.Physique:
             {
-            
+                physique.AddModifier(new StatModifier(1, StatModifierType.Flat));
                 break;
             }
          
             case StatType.Mind:
             {
-            
+                mind.AddModifier(new StatModifier(1, StatModifierType.Flat));
                 break;
             }
          
             case StatType.Reaction:
             {
-            
+                reaction.AddModifier(new StatModifier(1, StatModifierType.Flat));
                 break;
             }
         }

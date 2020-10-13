@@ -92,9 +92,9 @@ public class EquipmentItem : Item
         return 0;
     }
     
-    public virtual WeaponType Echo()
+    public virtual AttackType Echo()
     {
-        return WeaponType.None;
+        return AttackType.None;
     }
     
 }

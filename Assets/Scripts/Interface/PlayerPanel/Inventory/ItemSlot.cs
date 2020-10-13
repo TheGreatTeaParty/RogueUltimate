@@ -8,15 +8,15 @@ using UnityEngine;
 public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerClickHandler
 {
     protected Item _item;
-    protected int _amount;
-    protected bool _tooltipIsOpened = false;
+    private int _amount;
+    private bool _tooltipIsOpened = false;
     
     protected Image image;
-    protected TMP_Text amountText;
-  
-    protected Color normalColor = Color.white;
-    protected Color shadowColor = new Color(0.8f, 0.8f, 0.8f, 0.8f);
-    protected Color disabledColor = Color.clear;
+    private TMP_Text amountText;
+
+    private readonly Color _normalColor = Color.white;
+    private readonly Color _shadowColor = new Color(0.8f, 0.8f, 0.8f, 0.8f);
+    private readonly Color _disabledColor = Color.clear;
     
 
     public Item Item
@@ -30,12 +30,12 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             if (_item == null) 
             {
                 image.sprite = null;
-                image.color = disabledColor;
+                image.color = _disabledColor;
             } 
             else 
             {
                 image.sprite = _item.Sprite;
-                image.color = normalColor;
+                image.color = _normalColor;
             }
             
         }
@@ -108,7 +108,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         if (_item == null) return;
         
-        image.color = shadowColor;
+        image.color = _shadowColor;
         OnBeginDragEvent?.Invoke(this);
     }
 
@@ -116,7 +116,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         OnEndDragEvent?.Invoke(this);
         if (_item != null)
-            image.color = normalColor;
+            image.color = _normalColor;
     }
 
     public virtual void OnDrag(PointerEventData eventData)

@@ -68,7 +68,7 @@ public class JoystickAttack : MonoBehaviour
                 {
                     _audioSource.PlayOneShot(weapon.prepareSound);
                 }
-                _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 0);
+                _playerAttack.onAttacked?.Invoke(AttackType.Melee, 0);
             }
 
             if (_isShooting)
@@ -79,7 +79,7 @@ public class JoystickAttack : MonoBehaviour
                 if (_movement.x != 0 || _movement.y != 0)
                 {
                     _playerAttack.Attack();
-                    _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 1);
+                    _playerAttack.onAttacked?.Invoke(AttackType.Melee, 1);
                 }
             
                 _audioIsPlaying = false;
@@ -93,7 +93,7 @@ public class JoystickAttack : MonoBehaviour
         {
             _playerMovement.SlowDown(2f);
             _playerMovement.SetRangeMoving(false);
-            _playerAttack.onAttacked?.Invoke(WeaponType.Melee, 1);
+            _playerAttack.onAttacked?.Invoke(AttackType.Melee, 1);
             _isSlowed = false;
             _audioIsPlaying = false;
             _timer = 0;

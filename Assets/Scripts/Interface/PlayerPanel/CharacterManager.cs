@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class CharacterManager : MonoBehaviour
 {
     #region Singleton
+    
     public static CharacterManager Instance;
+    
     void Awake()
     {
         if (Instance != null)
@@ -15,6 +17,7 @@ public class CharacterManager : MonoBehaviour
         
         Instance = this;
     }
+    
     #endregion
     
     
@@ -161,13 +164,12 @@ public class CharacterManager : MonoBehaviour
 
     private void BeginDrag(ItemSlot itemSlot)
     {
-        if (itemSlot.Item != null)
-        {
-            _draggedSlot = itemSlot;
-            draggableItem.sprite = itemSlot.Item.Sprite;
-            draggableItem.transform.position = Input.mousePosition;
-            draggableItem.enabled = true;
-        }
+        if (itemSlot.Item == null) return;
+        
+        _draggedSlot = itemSlot;
+        draggableItem.sprite = itemSlot.Item.Sprite;
+        draggableItem.transform.position = Input.mousePosition;
+        draggableItem.enabled = true;
     }
     
     private void Drag(ItemSlot itemSlot)
@@ -195,7 +197,13 @@ public class CharacterManager : MonoBehaviour
     private void QuickDrop(QuickSlot dropQuickSlot)
     {
         if (_draggedSlot.Item is UsableItem)
+        {
             Drop(dropQuickSlot);
+            
+            var dragSlot = _draggedSlot as QuickSlot;
+            if (dragSlot != null) 
+                dragSlot.quickSlotOnScene.SetItem(dragSlot);
+        }
     }
 
     private void SwapItems(ItemSlot dropItemSlot)

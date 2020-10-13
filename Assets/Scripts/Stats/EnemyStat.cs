@@ -40,7 +40,17 @@ public class EnemyStat : CharacterStat, IDamaged
         _rigidbody2D.velocity = Vector2.zero;
         onDamaged?.Invoke();
     }
-    
+
+    public override void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
+    {
+        base.TakeDamage(receivedPhyDmg, receivedMagDmg);
+
+        
+        onReceivedDamage?.Invoke(damageReceived);
+        _rigidbody2D.AddForce(bounceDirection * power);
+        onDamaged?.Invoke();
+    }
+
     public override void Die()
     {
         PlayerStat.Instance.GainXP(gainedXP);

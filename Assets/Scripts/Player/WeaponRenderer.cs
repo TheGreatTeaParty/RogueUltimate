@@ -35,7 +35,7 @@ public class WeaponRenderer : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.Echo() != WeaponType.Melee && _new.equipmentType == EquipmentType.Weapon)
+            if (_new.Echo() != AttackType.Melee && _new.equipmentType == EquipmentType.Weapon)
             {
                 _rangeEquiped = true;
                 WeaponAttackAnim = _new.Animation;

@@ -19,7 +19,7 @@ public class JoystickHandle : MonoBehaviour
         {
             if (_new.equipmentType == EquipmentType.Weapon)
             {
-                if (_new.Echo() != WeaponType.Melee && _new.Echo() != WeaponType.None)
+                if (_new.Echo() != AttackType.Melee && _new.Echo() != AttackType.None)
                 {
                     joysticks[1].gameObject.SetActive(false);
                     joysticks[2].gameObject.SetActive(true);
