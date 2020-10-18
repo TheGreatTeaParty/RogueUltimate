@@ -9,7 +9,7 @@ public class StaminaPotion : UsableItem
     public override void ModifyStats()
     {
         base.ModifyStats();
-        PlayerStat.Instance.ModifyStamina(staminaBonus);
+        CharacterManager.Instance.Stats.ModifyStamina(staminaBonus);
         PlayerOnScene.Instance.GetComponent<PlayerFX>().SpawnEffect(effectFX);
         AudioManager.Instance.Play("Bottle");
     }

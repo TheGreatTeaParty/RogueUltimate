@@ -16,23 +16,27 @@ public enum EquipmentType
 [CreateAssetMenu(menuName = "Items/EquipmentItem")]
 public class EquipmentItem : Item
 {
-    public EquipmentType equipmentType;
-    public RuntimeAnimatorController EquipmentAnimations;
-    public Sprite[] Animation;
+    [SerializeField] protected EquipmentType equipmentType;
+    [SerializeField] protected RuntimeAnimatorController equipmentAnimations;
+    [SerializeField] protected Sprite[] animation;
     [Space] 
-    public int physicalDamageBonus;
-    public int physicalProtectionBonus;
-    public int magicDamageBonus;
-    public int magicProtectionBonus;
-    public int willBonus;
-    public int vitalityBonus;
-    public int mindBonus;
-    public int agilityBonus;
+    [SerializeField] protected int physicalDamageBonus;
+    [SerializeField] protected int physicalProtectionBonus;
+    [SerializeField] protected int magicDamageBonus;
+    [SerializeField] protected int magicProtectionBonus;
+    [SerializeField] protected int willBonus;
+    [SerializeField] protected int vitalityBonus;
+    [SerializeField] protected int mindBonus;
+    [SerializeField] protected int agilityBonus;
     [Space]
-    public float physicalDamagePercentBonus;
-    public float physicalProtectionPercentBonus;
-    public float magicDamagePercentBonus;
-    public float magicProtectionPercentBonus;
+    [SerializeField] protected float physicalDamagePercentBonus;
+    [SerializeField] protected float physicalProtectionPercentBonus;
+    [SerializeField] protected float magicDamagePercentBonus;
+    [SerializeField] protected float magicProtectionPercentBonus;
+
+    public EquipmentType EquipmentType => equipmentType;
+    public Sprite[] Animation => animation;
+    public RuntimeAnimatorController EquipmentAnimations => equipmentAnimations;
 
 
     public override void Use()
@@ -43,43 +47,43 @@ public class EquipmentItem : Item
     public virtual void Equip(PlayerStat stats)
     {
         if (physicalDamageBonus != 0) 
-            stats.physicalDamage.AddModifier(new StatModifier(physicalDamageBonus, StatModifierType.Flat, this));
+            stats.PhysicalDamage.AddModifier(new StatModifier(physicalDamageBonus, StatModifierType.Flat, this));
         if (physicalProtectionBonus != 0) 
-            stats.physicalProtection.AddModifier(new StatModifier(physicalProtectionBonus, StatModifierType.Flat, this));
+            stats.PhysicalProtection.AddModifier(new StatModifier(physicalProtectionBonus, StatModifierType.Flat, this));
         if (magicDamageBonus != 0) 
-            stats.magicDamage.AddModifier(new StatModifier(magicDamageBonus, StatModifierType.Flat, this));
+            stats.MagicDamage.AddModifier(new StatModifier(magicDamageBonus, StatModifierType.Flat, this));
         if (magicProtectionBonus != 0) 
-            stats.magicProtection.AddModifier(new StatModifier(magicProtectionBonus, StatModifierType.Flat, this));
+            stats.MagicProtection.AddModifier(new StatModifier(magicProtectionBonus, StatModifierType.Flat, this));
         if (willBonus != 0)
-            stats.will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
+            stats.Will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
         if (vitalityBonus != 0)
-            stats.physique.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
+            stats.Physique.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
         if (mindBonus != 0)
-            stats.mind.AddModifier(new StatModifier(mindBonus, StatModifierType.Flat, this));
+            stats.Mind.AddModifier(new StatModifier(mindBonus, StatModifierType.Flat, this));
         if (agilityBonus != 0)
-            stats.reaction.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
+            stats.Reaction.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
         
         if (physicalDamagePercentBonus != 0) 
-            stats.physicalDamage.AddModifier(new StatModifier(physicalDamagePercentBonus, StatModifierType.PercentMult, this));
+            stats.PhysicalDamage.AddModifier(new StatModifier(physicalDamagePercentBonus, StatModifierType.PercentMult, this));
         if (physicalProtectionPercentBonus != 0) 
-            stats.physicalProtection.AddModifier(new StatModifier(physicalProtectionPercentBonus, StatModifierType.PercentMult, this));
+            stats.PhysicalProtection.AddModifier(new StatModifier(physicalProtectionPercentBonus, StatModifierType.PercentMult, this));
         if (magicDamagePercentBonus != 0) 
-            stats.physicalDamage.AddModifier(new StatModifier(magicDamagePercentBonus, StatModifierType.PercentMult, this));
+            stats.PhysicalDamage.AddModifier(new StatModifier(magicDamagePercentBonus, StatModifierType.PercentMult, this));
         if (magicProtectionPercentBonus != 0) 
-            stats.physicalProtection.AddModifier(new StatModifier(magicProtectionPercentBonus, StatModifierType.PercentMult, this));
+            stats.PhysicalProtection.AddModifier(new StatModifier(magicProtectionPercentBonus, StatModifierType.PercentMult, this));
         
     }
     
     public virtual void Unequip(PlayerStat stats)
     {
-        stats.physicalDamage.RemoveAllModifiersFromSource(this);
-        stats.physicalProtection.RemoveAllModifiersFromSource(this);
-        stats.magicDamage.RemoveAllModifiersFromSource(this);
-        stats.magicProtection.RemoveAllModifiersFromSource(this);
-        stats.will.RemoveAllModifiersFromSource(this);
-        stats.physique.RemoveAllModifiersFromSource(this);
-        stats.mind.RemoveAllModifiersFromSource(this);
-        stats.reaction.RemoveAllModifiersFromSource(this);
+        stats.PhysicalDamage.RemoveAllModifiersFromSource(this);
+        stats.PhysicalProtection.RemoveAllModifiersFromSource(this);
+        stats.MagicDamage.RemoveAllModifiersFromSource(this);
+        stats.MagicProtection.RemoveAllModifiersFromSource(this);
+        stats.Will.RemoveAllModifiersFromSource(this);
+        stats.Physique.RemoveAllModifiersFromSource(this);
+        stats.Mind.RemoveAllModifiersFromSource(this);
+        stats.Reaction.RemoveAllModifiersFromSource(this);
     }
 
     public virtual void Attack(float physicalDamage, float magicDamage)

@@ -141,10 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 1
-  Speed: 1.5
-  AttackRange: 0.5
-  DetectionRange: 7
-  FollowRange: 10
+  movementSpeed: 1.5
+  detectionRange: 7
+  followRange: 10
   waitTime: 2
   attackCoolDown: 1.2
   attackDuration: 0.5
@@ -155,11 +154,8 @@ MonoBehaviour:
     - My name is Elisa, i'm a daughter of there's blacksmith.
     - I'm a citizen of that city and it was realy beatiful beafore all that heppened.
     - See you next time !
-  HangingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PointStandingTime: 6
+  hangingPoints: []
+  pointStandingTime: 3
 --- !u!95 &5995633807853373683
 Animator:
   serializedVersion: 3

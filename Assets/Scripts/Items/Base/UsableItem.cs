@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-
-
-public class UsableItem : Item
+﻿public class UsableItem : Item
 {
     public override void Use()
     {
@@ -10,7 +7,6 @@ public class UsableItem : Item
         ModifyStats();
     }
     
-    // Use this function 
     public virtual void ModifyStats()
     {
         

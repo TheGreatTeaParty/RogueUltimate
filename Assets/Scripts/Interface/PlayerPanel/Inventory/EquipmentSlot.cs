@@ -5,15 +5,22 @@ using UnityEngine.EventSystems;
 
 public class EquipmentSlot : ItemSlot, IPointerClickHandler
 {
-    public EquipmentType equipmentType;
+    [SerializeField] private Image shadowedIcon;
+    [SerializeField] private EquipmentType equipmentType;
+    
+    public EquipmentType EquipmentType
+    {
+        get => equipmentType;
+        set => equipmentType = value;
+    }
 
 
     protected override void Awake()
     {
         Image[] images = gameObject.GetComponentsInChildren<Image>();
-        for (int i = 0; i < images.Length; i++)
+        for (int i = 1; i < images.Length; i++)
             if (images[i].gameObject.transform.parent.GetInstanceID() != GetInstanceID())
-                image = images[i];    
+                image = images[i];
     }
 
     public override bool CanReceiveItem(Item item)
@@ -22,7 +29,7 @@ public class EquipmentSlot : ItemSlot, IPointerClickHandler
             return true;
 
         EquipmentItem equipmentItem = item as EquipmentItem;
-        return equipmentItem != null && equipmentItem.equipmentType == equipmentType;
+        return equipmentItem != null && equipmentItem.EquipmentType == equipmentType;
     }
-
+    
 }

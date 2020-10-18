@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -34,10 +31,10 @@ public class PlayerData
     public PlayerData()
     {
         scene = SceneManager.GetActiveScene().name;
-        gameObjectName = PlayerStat.Instance.gameObject.name;
+        gameObjectName = CharacterManager.Instance.Stats.gameObject.name;
      
         
-        var stats = PlayerStat.Instance;
+        var stats = CharacterManager.Instance.Stats;
 
         currentHP = stats.CurrentHealth;
         currentMP = stats.CurrentMana;       
@@ -68,7 +65,7 @@ public class PlayerData
         
 
         
-        var transformPosition = PlayerStat.Instance.transform.position;
+        var transformPosition = CharacterManager.Instance.Stats.transform.position;
         position = new float[3];
         position[0] = transformPosition.x;
         position[1] = transformPosition.y;

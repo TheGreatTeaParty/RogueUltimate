@@ -1,12 +1,9 @@
-﻿using UnityEngine;
-    
-
-public class ManaBar : Bar
+﻿public class ManaBar : Bar
 {
     private void Update()
     {
-        SetCurrentValue(PlayerStat.Instance.CurrentMana);
-        SetMaxValue(PlayerStat.Instance.MaxMana);
+        SetCurrentValue(CharacterManager.Instance.Stats.CurrentMana);
+        SetMaxValue(CharacterManager.Instance.Stats.MaxMana);
     }
 
 }

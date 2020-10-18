@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 // Need setters and getters (?)
@@ -68,7 +66,7 @@ public class TradeManager : MonoBehaviour
     {
         if (currentSlot == null) return;
 
-        // State: true - buy, false - sell
+        // state: true - buy, false - sell
         if (currentSlot.tradeSlotType == TradeSlotType.NPC)
             Buy();
         else

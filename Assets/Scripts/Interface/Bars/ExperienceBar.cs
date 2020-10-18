@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class ExperienceBar : Bar
@@ -13,7 +11,7 @@ public class ExperienceBar : Bar
 
     void Update()
     {
-        int level = PlayerStat.Instance.Level;
+        int level = CharacterManager.Instance.Stats.Level;
         Level.text = (level).ToString();
         LevelBorder.text = (level).ToString();
 
@@ -34,7 +32,7 @@ public class ExperienceBar : Bar
             case 12: { SetMaxValue(4640); break; } 
             case 13 : { SetMaxValue(5340); break; }
         }
-        SetCurrentValue(PlayerStat.Instance.XP);
+        SetCurrentValue(CharacterManager.Instance.Stats.XP);
         
     }
 }

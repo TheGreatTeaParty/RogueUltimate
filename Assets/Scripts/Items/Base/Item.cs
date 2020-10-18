@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Text;
 
 
 public enum Tier
@@ -16,6 +15,7 @@ public enum Tier
 [CreateAssetMenu(menuName = "Items/Item")]  
 public class Item : ScriptableObject
 {
+    // ReSharper disable once InconsistentNaming
     [SerializeField] public int ID;
     [SerializeField] public Tier tier;
     [SerializeField] protected int price;

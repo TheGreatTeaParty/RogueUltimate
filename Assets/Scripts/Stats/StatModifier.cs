@@ -1,6 +1,3 @@
-using UnityEngine;
-
-
 public enum StatModifierType
 {
     Flat = 10,

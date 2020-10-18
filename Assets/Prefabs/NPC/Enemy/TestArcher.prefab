@@ -100,22 +100,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  level: 1
+  characterName: 
   physicalDamage:
     baseValue: 10
-    modifiers: 
-  magicDamage:
-    baseValue: 0
-    modifiers: 
   physicalProtection:
     baseValue: 0
-    modifiers: 
+  magicDamage:
+    baseValue: 0
   magicProtection:
     baseValue: 0
-    modifiers: 
   maxHealth: 100
-  currentHealth: 0
+  gainedXP: 0
 --- !u!114 &8981110619606535360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,15 +174,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 1
-  Speed: 4
-  AttackRange: 5
-  DetectionRange: 7
-  FollowRange: 10
+  movementSpeed: 4
+  detectionRange: 7
+  followRange: 10
   waitTime: 2
-  attackCoolDown: 1.6
+  attackCoolDown: 1.2
   attackDuration: 0.5
-  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
-    type: 3}
+  attackRange: 0.5
+  arrowPrefab: {fileID: 0}
 --- !u!114 &1683021117319414664
 MonoBehaviour:
   m_ObjectHideFlags: 0

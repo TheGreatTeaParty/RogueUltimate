@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -51,7 +50,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
         if (_new != null) 
-            if (_new.equipmentType == EquipmentType.Weapon)
+            if (_new.EquipmentType == EquipmentType.Weapon)
                 _weaponCoolDown = _new.GetAttackCD();
     }
 
@@ -66,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (weapon != null) 
         {
-            weapon.Attack(_playerStat.physicalDamage.Value, _playerStat.magicDamage.Value);
+            weapon.Attack(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
                 
             if (weapon.Echo() == AttackType.Melee)
             {
@@ -95,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
             transform.position + _direction / 2, attackRange, _whatIsEnemy.value);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_playerStat.physicalDamage.Value, _playerStat.magicDamage.Value);
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
         
         _startAttackCoolDown = attackCoolDown;
         StartCoroutine(PlayerStop(0.4f));
@@ -123,10 +122,10 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + _direction/2, attackRange);
     }
 
-    IEnumerator PlayerStop(float attackDuration)
+    IEnumerator PlayerStop(float time)
     {
         PlayerOnScene.Instance.playerMovement.StopMoving();
-        yield return new WaitForSeconds(attackDuration);
+        yield return new WaitForSeconds(time);
         PlayerOnScene.Instance.playerMovement.StartMoving();
     }
     

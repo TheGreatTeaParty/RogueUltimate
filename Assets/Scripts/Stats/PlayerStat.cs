@@ -1,24 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public class PlayerStat : CharacterStat, IDamaged
 {
-    #region Singleton
-
-    public static PlayerStat Instance;
-
-    private void Awake()
-    {
-        if (Instance != null)
-            return;
-
-        Instance = this;
-    }
-
-    #endregion
-    
     private float _regenerationCoolDown;
     private int _xp;
     private int[] _xpToNextLevel = 
@@ -42,63 +26,43 @@ public class PlayerStat : CharacterStat, IDamaged
     private int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
-    
-    public float maxMana;
-    public float maxStamina;
-    public float maxWill;
+
+    [SerializeField] private float maxMana;
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float maxWill;
     [Space] 
-    public Stat physique;
-    public Stat will;
-    public Stat mind;
-    public Stat reaction;
+    [SerializeField] private Stat physique;
+    [SerializeField] private Stat will;
+    [SerializeField] private Stat mind;
+    [SerializeField] private Stat reaction;
     [Space]
-    public Stat attackSpeed;
-    public Stat blockStrength;
-    public Stat castSpeed;
-    public Stat dodgeChance;
-    public Stat critDamage;
-    public Stat critChance;
+    [SerializeField] private Stat attackSpeed;
+    [SerializeField] private Stat blockStrength;
+    [SerializeField] private Stat castSpeed;
+    [SerializeField] private Stat dodgeChance;
+    [SerializeField] private Stat critDamage;
+    [SerializeField] private Stat critChance;
     [Space]
-    public float regenerationSpeed;
+    [SerializeField] private float regenerationSpeed;
     [Space]
+    // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
+    // Cache 
+    private PlayerMovement _playerMovement;
 
-    public float CurrentMana
-    {
-        get => _currentMana;
-        set => _currentMana = value;
-    }
-    public float CurrentStamina
-    {
-        get => _currentStamina;
-        set => _currentStamina = value;
-    }
-    public float MaxMana
-    {
-        get => maxMana;
-        set => maxMana = value;
-    }
-    public float MaxStamina
-    {
-        get => maxStamina;
-        set => maxStamina = value;
-    }
-    public float MaxWill
-    {
-        get => maxWill;
-        set => maxWill = value;
-    }
-    public int XP
-    {
-        get => _xp;
-        set => _xp = value;
-    }
-    public int StatPoints
-    {
-        get => _statPoints;
-        set => _statPoints = value;
-    }
+    public Stat Physique => physique;
+    public Stat Will => will;
+    public Stat Mind => mind;
+    public Stat Reaction => reaction;
+
+    public float CurrentMana => _currentMana;
+    public float CurrentStamina => _currentStamina;
+    public float MaxMana => maxMana;
+    public float MaxStamina => maxStamina;
+    public float MaxWill => maxWill;
+    public int XP => _xp;
+    public int StatPoints => _statPoints;
 
 
     public delegate void OnChangeCallback();
@@ -110,35 +74,20 @@ public class PlayerStat : CharacterStat, IDamaged
         _regenerationCoolDown = 0;
         regenerationSpeed = 5;
 
-        if (SaveManager.LoadPlayer() != null)
-        {
-            var data = SaveManager.LoadPlayer();
-
-            level = data.level;
-            _xp = data.xp;
-            
-
-            maxHealth = data.maxHP;
-            maxStamina = data.maxSP;
-            maxMana = data.maxMP;
-            
-            currentHealth = data.currentHP;
-            _currentStamina = data.currentSP;
-            _currentMana = data.currentMP;
-
-            return;
-        }
-    
         currentHealth = maxHealth;
         _currentStamina = maxStamina;
         _currentMana = maxMana;
         
         _xp = 0;
         level = 1;
+        
+        // Cache
+        _playerMovement = GetComponent<PlayerMovement>();
     }
     
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         RegenerateStamina();
     }
 
@@ -198,10 +147,24 @@ public class PlayerStat : CharacterStat, IDamaged
         onChangeCallback.Invoke();
     }
 
-    public void AddAttributePoint(StatType statType, int value = 1)
+    public void AddAttributePoint(StatType statType, int value)
     {
         for (int i = 0; i < value; i++)
             AddAttributePoint(statType);
+    }
+
+    protected override void TakeEffectDamage(Effect effect)
+    {
+        switch (effect.EffectType)
+        {
+            case EffectType.Burning:
+                
+                break;
+            
+            case EffectType.Freezing:
+
+                break;
+        }
     }
 
     public bool ModifyHealth(float value)
@@ -258,17 +221,17 @@ public class PlayerStat : CharacterStat, IDamaged
         return _xpToNextLevel[level - 1];
     }
 
-    public override void TakeDamage(float physicalDamage, float magicDamage)
+    public override void TakeDamage(float phyDamage, float magDamage)
     {
-        base.TakeDamage(physicalDamage, magicDamage);
+        base.TakeDamage(phyDamage, magDamage);
         animator.SetTrigger("Taking Dmg");
     }
 
     public override void Die()
     {
         animator.SetTrigger("Die");
-        PlayerStat.Instance.gameObject.layer = 2;
-        PlayerStat.Instance.gameObject.tag = "Untagged";
+        gameObject.layer = 2;
+        gameObject.tag = "Untagged";
         InterfaceManager.Instance.HideFaceElements();
         InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
         //transform.position = new Vector2(100, 100);
@@ -278,7 +241,6 @@ public class PlayerStat : CharacterStat, IDamaged
         //Destroy(gameObject);
         //Destroy(InterfaceManager.Instance.gameObject);
         //SceneManager.LoadScene("Menu");
-
     }
     
 }

@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.IO;
 using System.Text;
 
@@ -43,12 +40,7 @@ public class MainMenu : MonoBehaviour {
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
                 Instantiate(playerInterface);
-                PlayerStat.Instance.CurrentHealth = data.currentHP;
-                PlayerStat.Instance.CurrentMana = data.currentMP;
-                PlayerStat.Instance.CurrentStamina = data.currentSP;
-                PlayerStat.Instance.MaxHealth = data.maxHP;
-                PlayerStat.Instance.maxMana = data.maxMP;
-                PlayerStat.Instance.maxStamina = data.maxSP;
+
 
                 break;
             }

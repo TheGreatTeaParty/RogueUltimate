@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,6 +85,10 @@ public class AbilityManager : MonoBehaviour
         var dragSlot = _draggedSlot as AbilityQuickSlot;
         if (dragSlot == null)
         {
+            for (int i = 0; i < abilityQuickSlots.Length; i++)
+                if (abilityQuickSlots[i].Ability == _draggedSlot.Ability)
+                    return;
+            
             dropSlot.Ability = _draggedSlot.Ability;
             dropSlot.abilitySlotOnScene.SetAbility(dropSlot);
             return;

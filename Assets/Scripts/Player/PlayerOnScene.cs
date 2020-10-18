@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerOnScene : MonoBehaviour
 {
@@ -24,6 +21,8 @@ public class PlayerOnScene : MonoBehaviour
 
     
     // Cache
+    [HideInInspector] public PlayerStat stats;
+    [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public PlayerAttack playerAttack;
     [HideInInspector] public PlayerFX playerFX;
@@ -49,6 +48,8 @@ public class PlayerOnScene : MonoBehaviour
     private void Start()
     {
         // Cache
+        stats = GetComponent<PlayerStat>();
+        rb = Instance.GetComponent<Rigidbody2D>();
         playerAttack = Instance.GetComponent<PlayerAttack>();
         playerFX = Instance.GetComponent<PlayerFX>();
         equipmentAnimationHandler = Instance.GetComponentInChildren<EquipmentAnimationHandler>();

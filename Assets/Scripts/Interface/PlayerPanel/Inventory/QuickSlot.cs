@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 
 public class QuickSlot : ItemSlot
@@ -22,9 +19,9 @@ public class QuickSlot : ItemSlot
 
     private void UseItem(QuickSlotOnScene quickSlotOnScene)
     {
-        if (_item == null) return;
+        if (item == null) return;
         
-        _item.Use();
+        item.Use();
         Amount--;
         
         quickSlotOnScene.SetItem(this);

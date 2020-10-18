@@ -5,15 +5,25 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public Transform inventoryParent;
-    public Transform quickSlotsParent;
-    public ItemSlot[] itemSlots;
-    public QuickSlot[] quickSlots;
-    public List<Item> items;
+    [SerializeField] private Transform inventoryParent;
+    [SerializeField] private Transform quickSlotsParent;
+    [SerializeField] private ItemSlot[] itemSlots;
+    [SerializeField] private QuickSlot[] quickSlots;
+    [SerializeField] private List<Item> items;
  
     public int Gold { get; set; } = 100;
+    public List<Item> Items
+    {
+        get => items;
+        set => items = value;
+    }
+    public ItemSlot[] ItemSlots
+    {
+        get => itemSlots;
+        set => itemSlots = value;
+    }
 
-    
+
     public event Action<ItemSlot> OnClickEvent;
     public event Action<ItemSlot> OnBeginDragEvent;
     public event Action<ItemSlot> OnDragEvent;

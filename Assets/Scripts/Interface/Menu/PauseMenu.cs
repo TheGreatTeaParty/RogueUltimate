@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -32,7 +30,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         Debug.Log("Quitting game...");
 
-        Destroy(PlayerStat.Instance.gameObject);
+        Destroy(PlayerOnScene.Instance.gameObject);
+        // null to CharacterManager.Instance.Stats ?
         Destroy(InterfaceManager.Instance.gameObject);
         Destroy(AudioManager.Instance.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);

@@ -1,138 +1,135 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GolemBoss : AI
+
+public enum BossStage
+{
+    First = 0,
+    Second = 1
+}
+
+
+public class GolemBoss : EnemyAI
 {
     public float speed = 6f;
-    public float meleRange = 0.5f;
+    public float meleeRange = 0.5f;
     public float rockRange = 7f;
     [Space]
-    public int StageTwoHealth = 180;
-    public float StageCharacteristicMult = 1.4f;
-
+    public int stageTwoHealth = 180;
+    public float stageCharacteristicMult = 1.4f;
     [Space]
-    public float KnockBack = 1f;
+    public float knockBack = 1f;
     public Transform rockPrefab;
 
-    private BossStage stage;
-    private EnemyStat golemStat;
+    private BossStage _stage;
+    private bool _stageChanged = false;
 
-    private bool StageChanged = false;
-
-
-    public enum BossStage
-    {
-        first = 0,
-        second,
-    };
+    // Cache
+    private SpriteRenderer _spriteRenderer;
     
-    public override void Start()
+    
+    protected override void Start()
     {
         base.Start();
-        golemStat = GetComponent<EnemyStat>();
-        stage = BossStage.first;
+        _stage = BossStage.First;
 
         target = GameObject.FindGameObjectWithTag("Player");
         BossFightPortal.Instance.HealthBar(true);
-        state = NPCstate.chasing;
+        state = NPCstate.Chasing;
+        
+        // Cache
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
 
-        if (golemStat.CurrentHealth <= StageTwoHealth && !StageChanged)
-        {
+        if (stats.CurrentHealth <= stageTwoHealth && !_stageChanged)
             SwitchStage();
-        }
-
+        
         //Should be changed in the inherited EnemyStat class
-        BossFightPortal.Instance.SetBossHealth(golemStat.CurrentHealth);
+        BossFightPortal.Instance.SetBossHealth(stats.CurrentHealth);
 
-        if(golemStat.CurrentHealth <= 0)
+        if (stats.CurrentHealth <= 0)
         {
             BossFightPortal.Instance.HealthBar(false);
             BossFightPortal.Instance.TurnThePortal();
         }
     }
 
-    public override void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        if (stage == BossStage.first)
-        {
+        if (_stage == BossStage.First)
             switch (state)
             {
-                case NPCstate.chasing:
-                    {
-                        StateChasing();
-                        break;
-                    }
-
-                case NPCstate.attacking:
-                    {
-                        StateAttack();
-                        break;
-                    }
+                case NPCstate.Chasing:
+                    StateChasing();
+                    break;
+                
+                case NPCstate.Attacking:
+                    StateAttack();
+                    break;
+                
+                case NPCstate.Hanging:
+                    break;
             }
-        }
         else
-        {
             switch (state)
             {
-                case NPCstate.chasing:
-                    {
-                        StateChasing();
-                        break;
-                    }
-
-                case NPCstate.attacking:
-                    {
-                        StateAttack();
-                        break;
-                    }
+                case NPCstate.Chasing:
+                    StateChasing();
+                    break;
+                
+                case NPCstate.Attacking:
+                    StateAttack();
+                    break;
+                
+                case NPCstate.Hanging:
+                    break;
             }
-        }
     }
-
     
     private void SwitchStage()
     {
-        stage = BossStage.second;
-        speed *= StageCharacteristicMult;
+        _stage = BossStage.Second;
+        speed *= stageCharacteristicMult;
         attackCoolDown -= .2f;
-        GetComponent<SpriteRenderer>().color = Color.red;
-        StageChanged = true;
+        _spriteRenderer.color = Color.red;
+        _stageChanged = true;
     }
 
     protected override void Attack()
     {
         if (Vector2.Distance(transform.position, target.transform.position) < rockRange &&
-            Vector2.Distance(transform.position, target.transform.position) < meleRange)
+            Vector2.Distance(transform.position, target.transform.position) < meleeRange)
             MeleeAttack();
-
+        
         else
-        {
             RangeAttack();
-        }
     }
 
     private void MeleeAttack()
     {
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        Vector3 attackPosition = transform.position + direction;
-
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, meleRange, LayerMask.GetMask("Player"));
+        var direction = (target.transform.position - transform.position).normalized;
+        var attackPosition = transform.position + direction;
+        var whatIsEnemy = LayerMask.GetMask("Player");
+        
+        Collider2D[] enemiesToDamage = 
+            Physics2D.OverlapCircleAll(attackPosition, meleeRange, whatIsEnemy);
+        
         for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-     
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(golemStat.physicalDamage.Value, golemStat.magicDamage.Value);
-        }
+            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
     }
     private void RangeAttack()
     {
-        Transform rock = Instantiate(rockPrefab, transform.position + (target.transform.position - transform.position).normalized*2, Quaternion.identity);
+        var position = transform.position;
+        var targetPosition = target.transform.position;
+        
+        var rock = 
+            Instantiate(rockPrefab, position + (targetPosition - position).normalized*2, Quaternion.identity);
 
-        rock.GetComponent<FlyingObject>().SetData(golemStat.physicalDamage.Value, golemStat.magicDamage.Value, (target.transform.position - transform.position).normalized);
+        rock.GetComponent<FlyingObject>().
+            SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value, (targetPosition - position).normalized);
     }
+    
 }

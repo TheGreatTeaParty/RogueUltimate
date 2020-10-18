@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
-    [Space] public int gainedXP;
-
+    [SerializeField] private int gainedXP;
+    private EnemyAI _enemyAi;
+    
+    
     public delegate void OnReceivedDamage(float damage);
     public OnReceivedDamage onReceivedDamage;
 
@@ -21,8 +22,10 @@ public class EnemyStat : CharacterStat, IDamaged
     private FloatingNumber _floatingNumber;
 
     
-    public void Start()
+    private void Start()
     {
+        _enemyAi = GetComponent<EnemyAI>();
+        
         // Cache
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
@@ -31,20 +34,24 @@ public class EnemyStat : CharacterStat, IDamaged
         maxHealth += level * 10;
         currentHealth = maxHealth;
     }
-    
-    public override void TakeDamage(float physicalDamage, float magicDamage)
+
+    private void Update()
     {
-        base.TakeDamage(physicalDamage, magicDamage);
+        
+    }
+
+    public override void TakeDamage(float phyDamage, float magDamage)
+    {
+        base.TakeDamage(phyDamage, magDamage);
      
         onReceivedDamage?.Invoke(damageReceived);
         _rigidbody2D.velocity = Vector2.zero;
         onDamaged?.Invoke();
     }
 
-    public override void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
+    public void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
     {
         base.TakeDamage(receivedPhyDmg, receivedMagDmg);
-
         
         onReceivedDamage?.Invoke(damageReceived);
         _rigidbody2D.AddForce(bounceDirection * power);
@@ -53,7 +60,7 @@ public class EnemyStat : CharacterStat, IDamaged
 
     public override void Die()
     {
-        PlayerStat.Instance.GainXP(gainedXP);
+        CharacterManager.Instance.Stats.GainXP(gainedXP);
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
         _rigidbody2D.Sleep();

@@ -1,28 +1,25 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Kaban : AI
+public class Kaban : EnemyAI
 {
-    public float rage_speed;
-    public float StunTime = 2.5f;
+    public float rageSpeed;
+    public float stunTime = 2.5f;
 
-    private Vector2 position;
-    private Vector3 finalPos;
+    private Vector2 _position;
+    private Vector3 _finalPos;
     private bool _isRage;
 
     private bool _preparing = false;
-    private bool hit = false;
-    private bool hit_player = false;
+    private bool _hit = false;
+    private bool _hitPlayer = false;
 
-    [SerializeField] private GameObject kabanDamageArea;
-    
     // Cache
     private CapsuleCollider2D _damageAreaCollider;
     private Animator _animator;
 
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         
@@ -30,74 +27,61 @@ public class Kaban : AI
         _animator = GetComponent<Animator>();
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
        
         if (_isRage)
-            Rb.MovePosition(Rb.position + position* rage_speed * Time.deltaTime);
+            rb.MovePosition(rb.position + _position* rageSpeed * Time.deltaTime);
 
-        if (hit)
+        if (_hit)
         {
             _damageAreaCollider.enabled = false;
             _isRage = false;
-            hit = false;
-            if (!hit_player)
-            {
+            _hit = false;
+            if (!_hitPlayer)
                 StartCoroutine(Stun());
-            }
-
             else
-            {
-                _attack = false;
-            }
+                isAttack = false;
         }
     }
 
     protected override void Attack()
     {
-       
-        if (!_isRage)
-        {
-            if (!_preparing)
-            {
-                _preparing = true;
-                finalPos = target.transform.position;
-                position = (finalPos - transform.position).normalized;
-                _damageAreaCollider.enabled = true;
-                _isRage = true;
-                _preparing = false;
-            }
+        if (_isRage) return;
+        if (_preparing) return;
 
-        }
+        _preparing = true;
+        _finalPos = target.transform.position;
+        _position = (_finalPos - transform.position).normalized;
+        _damageAreaCollider.enabled = true;
+        _isRage = true;
+        _preparing = false;
     }
+
     public override Vector2 GetDirection()
     {
-        if (_isRage)
-        {
-            return position;
-        }
-        else
-        {
-            return dir;
-        }
+        return _isRage ? _position : direction;
     }
 
-    public void SetHit(bool _hit_player)
+    public void SetHit(bool hitPlayer)
     {
-        hit = true;
-        hit_player = _hit_player;
+        _hit = true;
+        _hitPlayer = hitPlayer;
     }
-    public override void Die()
+
+    protected override void Die()
     {
         _damageAreaCollider.gameObject.SetActive(false);
         Destroy(this);
     }
+    
     IEnumerator Stun()
     {
         _animator.SetBool("Stunned", true);
-        yield return new WaitForSeconds(StunTime);
-        _attack = false;
+        yield return new WaitForSeconds(stunTime);
+        isAttack = false;
         _animator.SetBool("Stunned", false);
     }
+    
 }

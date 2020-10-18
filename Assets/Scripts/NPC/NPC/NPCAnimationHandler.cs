@@ -1,69 +1,68 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NPCAnimationHandler : MonoBehaviour
 {
-    private AI NPC;
-    private EnemyStat NPCstat;
-    private Animator animator;
-    private Vector2 dir;
-    private Vector2 velocity;
-    private float movementSpeed;
+    private AI _npc;
+    private EnemyStat _stats;
+    private Animator _animator;
+    private Vector2 _dir;
+    private Vector2 _velocity;
+    private float _movementSpeed;
     [SerializeField] private bool isEnemy = true;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        NPC = GetComponent<AI>();
+        _npc = GetComponent<AI>();
 
         //Only enemies has attack,die,damage animations, as well as stats
         if (isEnemy)
         {
 
-            NPC.onAttacked += Attack;
+            _npc.OnAttacked += Attack;
 
-            NPCstat = GetComponent<EnemyStat>();
-            NPCstat.onDamaged += GetDamage;
-            NPCstat.onDie += Die;
+            _stats = GetComponent<EnemyStat>();
+            _stats.onDamaged += GetDamage;
+            _stats.onDie += Die;
         }
 
-        animator = GetComponent<Animator>();
-        InvokeRepeating("UpdateDirection", 0f, 0.3f); //Call this method every 0.3 seconds
+        _animator = GetComponent<Animator>();
+        InvokeRepeating(nameof(UpdateDirection), 0f, 0.3f); //Call this method every 0.3 seconds
     }
 
     // Update is called once per frame
     void UpdateDirection()
     {
-        dir = NPC.GetDirection();
-        velocity = NPC.GetVelocity();
+        _dir = _npc.GetDirection();
+        _velocity = _npc.GetVelocity();
         ProcessInputs();
 
-        animator.SetFloat("Horizontal", dir.x);
-        animator.SetFloat("Vertical", dir.y);
-        animator.SetFloat("Speed", movementSpeed);
+        _animator.SetFloat("Horizontal", _dir.x);
+        _animator.SetFloat("Vertical", _dir.y);
+        _animator.SetFloat("movementSpeed", _movementSpeed);
     }
 
     void Attack()
     {
-        animator.SetTrigger("Attack");
+        _animator.SetTrigger("isAttack");
     }
 
     void GetDamage()
     {
-        animator.SetTrigger("Damaged");
+        _animator.SetTrigger("Damaged");
     }
 
     void Die()
     {
-        animator.SetTrigger("Dead");
+        _animator.SetTrigger("Dead");
     }
 
     void ProcessInputs()
     {
-        movementSpeed = Mathf.Clamp(velocity.magnitude, 0.0f, 1.0f);
-        dir.Normalize();
-        velocity.Normalize();
+        _movementSpeed = Mathf.Clamp(_velocity.magnitude, 0.0f, 1.0f);
+        _dir.Normalize();
+        _velocity.Normalize();
     }
+    
 }

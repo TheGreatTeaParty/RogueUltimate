@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IDamaged
+﻿public interface IDamaged
 {
-    void TakeDamage(float receivedPhysicalDamage, float receivedMagicDamage);
+    void TakeDamage(float phyDamage, float magDamage);
     
 }

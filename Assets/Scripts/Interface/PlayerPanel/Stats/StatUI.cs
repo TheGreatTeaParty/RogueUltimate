@@ -1,5 +1,3 @@
-using System;
-using System.Data;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -25,7 +23,7 @@ public class StatUI : MonoBehaviour
    
    private void Start()
    {
-      _playerStat = PlayerStat.Instance;
+      _playerStat = CharacterManager.Instance.Stats;
       _playerStat.onChangeCallback += UpdateUI;
       
       _statButtons = attributes.GetComponentsInChildren<StatButton>();
@@ -44,10 +42,10 @@ public class StatUI : MonoBehaviour
       maxWillPoints.SetText(_playerStat.MaxWill.ToString(CultureInfo.CurrentUICulture));
 
       // Protection & damage
-      physicalDamagePoints.SetText(_playerStat.physicalDamage.Value.ToString(CultureInfo.CurrentUICulture));
-      physicalProtectionPoints.SetText(_playerStat.physicalProtection.Value.ToString(CultureInfo.CurrentUICulture));
-      magicDamagePoints.SetText(_playerStat.magicDamage.Value.ToString(CultureInfo.CurrentUICulture));
-      magicProtectionPoints.SetText(_playerStat.magicProtection.Value.ToString(CultureInfo.CurrentUICulture));
+      physicalDamagePoints.SetText(_playerStat.PhysicalDamage.Value.ToString(CultureInfo.CurrentUICulture));
+      physicalProtectionPoints.SetText(_playerStat.PhysicalProtection.Value.ToString(CultureInfo.CurrentUICulture));
+      magicDamagePoints.SetText(_playerStat.MagicDamage.Value.ToString(CultureInfo.CurrentUICulture));
+      magicProtectionPoints.SetText(_playerStat.MagicProtection.Value.ToString(CultureInfo.CurrentUICulture));
       
    }
    

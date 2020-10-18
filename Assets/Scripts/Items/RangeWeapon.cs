@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/RangeWeapon")]
 
@@ -25,7 +23,7 @@ public class RangeWeapon : EquipmentItem
     public override void Attack(float physicalDamage, float magicDamage)
     {
         // Checks if current stamina is less than required. If not - continues attack.
-        if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
+        if (CharacterManager.Instance.Stats.ModifyStamina(requiredStamina) == false)
             return;
             
         Vector3 direction = new Vector3(

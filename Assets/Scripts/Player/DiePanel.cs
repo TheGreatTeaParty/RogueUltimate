@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -31,7 +30,7 @@ public class DiePanel : MonoBehaviour
         
         Destroy(InterfaceManager.Instance.gameObject);
         Destroy(AudioManager.Instance.gameObject);
-        Destroy(PlayerStat.Instance.gameObject);
+        Destroy(CharacterManager.Instance.Stats.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);
         
         LevelManager.LoadScene("Menu");
@@ -41,13 +40,14 @@ public class DiePanel : MonoBehaviour
     public void ResurrectButton()
     {
         var UI = InterfaceManager.Instance;
+        var stats = CharacterManager.Instance.Stats;
         
-        PlayerStat.Instance.ModifyHealth(PlayerStat.Instance.MaxHealth);
-        PlayerStat.Instance.ModifyMana(PlayerStat.Instance.MaxMana);
-        PlayerStat.Instance.ModifyStamina(PlayerStat.Instance.MaxStamina);
+        stats.ModifyHealth(stats.MaxHealth);
+        stats.ModifyMana(stats.MaxMana);
+        stats.ModifyStamina(stats.MaxStamina);
         
-        PlayerStat.Instance.gameObject.layer = 12;
-        PlayerStat.Instance.gameObject.tag = "Player";
+        stats.gameObject.layer = 12;
+        stats.gameObject.tag = "Player";
         
         diePanel.SetActive(false);
         UI.ShowFaceElements();

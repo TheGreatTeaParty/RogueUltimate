@@ -1,209 +1,122 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Pathfinding;
 
 
 public enum NPCstate
 {
-    chasing = 0,
-    attacking,
-    hanging
+    Chasing = 0,
+    Attacking,
+    Hanging
 }
 
 
 public class AI : MonoBehaviour
 {
+    [SerializeField] protected float nextWayPointDistance = 1f;
+    [SerializeField] protected float movementSpeed = 4f;
+    [SerializeField] protected float detectionRange = 7f;
+    [SerializeField] protected float followRange = 10f;
+    [SerializeField] protected float waitTime = 2f;
     [Space]
-    public float nextWayPointDistance = 1f;
-    public float Speed = 4f;
-    public float AttackRange = 0.5f;
-    public float DetectionRange = 7f;
-    public float FollowRange = 10f;
-    public float waitTime = 2f;
-    [Space]
-    public float attackCoolDown = 1.2f;
-    public float attackDuration = 0.5f;
+    [SerializeField] protected float attackCoolDown = 1.2f;
+    [SerializeField] protected float attackDuration = 0.5f;
 
     protected Vector3[] points;
     protected NPCstate state;
-    protected int currentPathpoint = 0;
+    protected int currentPathPoint;
     protected bool reachedEnd = false;
-    protected Vector2 dir;
-    protected Vector2 last_dir;
+    protected Vector2 direction;
+    protected Vector2 lastDirection;
     protected GameObject target;
 
     protected Path path;
     protected Seeker seeker;
-    protected Rigidbody2D Rb;
-    protected bool _stopped = false;
-    protected bool _attack = false;
+    protected Rigidbody2D rb;
+    protected bool isStopped = false;
+    protected bool isAttack = false;
 
-    private EnemyStat NPCstat;
-    
 
-    public delegate void OnAttacked();
-    public OnAttacked onAttacked;
+    public delegate void OnAttackedEvent();
+    public OnAttackedEvent OnAttacked;
 
     
-    // Start is called before the first frame update
-    public virtual void Start()
+    protected virtual void Start()
     {
         seeker = GetComponent<Seeker>();
-        Rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
 
-        // So only enemies can die
-        if (GetComponent<EnemyStat>() != null)
-        {
-            NPCstat = GetComponent<EnemyStat>();
-            NPCstat.onDie += Die;
-        }
-
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
     }
-
-    // Update is called once per frame
-    public virtual void Update()
+    
+    protected virtual void Update()
     {
-        if (path == null) //Change it!
+        if (path == null)
             return;
 
-        if (currentPathpoint >= path.vectorPath.Count)
+        if (currentPathPoint >= path.vectorPath.Count)
         {
             reachedEnd = true;
             return;
         }
 
         reachedEnd = false;
-        dir = (path.vectorPath[currentPathpoint] - transform.position).normalized;
+        direction = (path.vectorPath[currentPathPoint] - transform.position).normalized;
 
-        if (dir != Vector2.zero)
-            last_dir = dir;
+        if (direction != Vector2.zero)
+            lastDirection = direction;
 
-        if(Vector2.Distance(Rb.position, path.vectorPath[currentPathpoint]) < nextWayPointDistance)
-            currentPathpoint++;
+        if (Vector2.Distance(rb.position, path.vectorPath[currentPathPoint]) < nextWayPointDistance)
+            currentPathPoint++;
         
     }
 
-    public virtual void FixedUpdate()
+    private void OnPathComplete(Path path)
     {
-        if (Vector2.Distance(transform.position, target.transform.position) > AttackRange && !_attack)
-            state = NPCstate.chasing;
-
-        switch (state)
+        if (!path.error)
         {
-            case NPCstate.chasing:
-                {
-                    StateChasing();
-                    break;
-                }
-
-            case NPCstate.attacking:
-                {
-                    StateAttack();
-                    break;
-                }
-            
-            case NPCstate.hanging:
-                {
-                    StateHanging();
-                    break;
-                }
+            this.path = path;
+            currentPathPoint = 0;
         }
     }
 
-    void OnPathComplete(Path _path)
+    private void UpdatePath()
     {
-        if (!_path.error)
-        {
-            path = _path;
-            currentPathpoint = 0;
-        }
-    }
-
-    void UpdatePath()
-    {
-        if(seeker.IsDone())
+        if (seeker.IsDone())
             seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
     }
 
-
-    protected void StateAttack()
-    {
-        if (!_attack)
-            StartCoroutine(AttackWait());
-    }
-
-    protected void StateHanging()
-    {
-        if (path != null)
-        {
-            //Hangout
-
-            EnemyTrigger();
-        }
-    }
-
-    protected void EnemyTrigger()
-    {
-        if (Vector2.Distance(transform.position, target.transform.position) < DetectionRange)
-            state = NPCstate.chasing;
-    }
-
-    protected virtual void Attack()
-    {
-
-    }
-
-    protected void StateChasing()
+    protected virtual void StateChasing()
     {
         if (path == null) return;
 
-        if (Vector2.Distance(transform.position, target.transform.position) <= AttackRange)
-            state = NPCstate.attacking;
-        else
-        {
-            if (!_stopped)
-                Rb.MovePosition(transform.position + (Vector3) dir * Speed * Time.deltaTime);
-        }
+        if (!isStopped)
+                rb.MovePosition(transform.position + (Vector3) direction * movementSpeed * Time.deltaTime);
     }
 
-    private void StopMoving()
+    protected void StopMoving()
     {
-        _stopped = true;
+        isStopped = true;
     }
 
-    private void StartMoving()
+    protected void StartMoving()
     {
-        _stopped = false;
+        isStopped = false;
     }
 
+    protected virtual void Die()
+    {
+        Destroy(this);
+    }
+    
     public  virtual Vector2 GetDirection()
     {
-        return dir;
+        return direction;
     }
     
     public Vector2 GetVelocity()
     {
-        return _stopped ? new Vector2(0f, 0f) : dir;
+        return isStopped ? new Vector2(0f, 0f) : direction;
     }
 
-    public virtual void Die()
-    {
-        Destroy(this);
-    }
-
-    
-    IEnumerator AttackWait()
-    {
-        _attack = true;
-        StopMoving();
-        yield return new WaitForSeconds(attackCoolDown);
-        onAttacked?.Invoke();
-        yield return new WaitForSeconds(attackDuration);
-        Attack();
-        StartMoving();
-    }
-    
 }

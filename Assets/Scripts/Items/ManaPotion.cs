@@ -10,9 +10,8 @@ public class ManaPotion : UsableItem
     public override void ModifyStats()
     {
         base.ModifyStats();
-        PlayerStat.Instance.ModifyMana(manaBonus);
+        CharacterManager.Instance.Stats.ModifyMana(manaBonus);
         PlayerOnScene.Instance.playerFX.SpawnEffect(effectFX);
-        //Sound
         AudioManager.Instance.Play("Bottle");
     }
     

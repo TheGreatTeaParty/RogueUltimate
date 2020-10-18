@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponRenderer : MonoBehaviour
 {
@@ -35,7 +33,7 @@ public class WeaponRenderer : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.Echo() != AttackType.Melee && _new.equipmentType == EquipmentType.Weapon)
+            if (_new.Echo() != AttackType.Melee && _new.EquipmentType == EquipmentType.Weapon)
             {
                 _rangeEquiped = true;
                 WeaponAttackAnim = _new.Animation;
@@ -50,7 +48,7 @@ public class WeaponRenderer : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_rangeEquiped && _weaponAnimator.GetBool("Attack") && _weaponAnimator.GetInteger("Set") < 1)
+        if (_rangeEquiped && _weaponAnimator.GetBool("isAttack") && _weaponAnimator.GetInteger("Set") < 1)
         {
             string index = "";
             if (_weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 2] != '_')

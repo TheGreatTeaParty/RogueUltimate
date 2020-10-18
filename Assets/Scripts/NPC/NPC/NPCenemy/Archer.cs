@@ -1,33 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Archer : AI
+public class Archer : EnemyAI
 {
+    private Vector3 _shootDir;
     public Transform arrowPrefab;
 
-    private EnemyStat archerStat;
-    private Vector3 ShootDir;
-    public override void Start()
-    {
-        base.Start();
-        archerStat = GetComponent<EnemyStat>();
-    }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
-        ShootDir = Vector3.Normalize(target.transform.position - transform.position);
+        _shootDir = Vector3.Normalize(target.transform.position - transform.position);
     }
-
-
+    
     protected override void Attack()
     {
-        Transform arrow = Instantiate(arrowPrefab, transform.position + ShootDir, Quaternion.identity);
+        Transform arrow = Instantiate(arrowPrefab, transform.position + _shootDir, Quaternion.identity);
 
-        arrow.GetComponent<FlyingObject>().SetData(archerStat.physicalDamage.Value, archerStat.magicDamage.Value,ShootDir);
-        _attack = false;
-
+        arrow.GetComponent<FlyingObject>().SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value,_shootDir);
+        isAttack = false;
     }
 
 }

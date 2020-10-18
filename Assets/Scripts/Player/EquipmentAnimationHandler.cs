@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Animations;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EquipmentAnimationHandler : MonoBehaviour
 {
@@ -153,7 +150,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.equipmentType == EquipmentType.Weapon)
+            if (_new.EquipmentType == EquipmentType.Weapon)
             {
                 _weaponController = _new.EquipmentAnimations;
                 weaponAnimator.runtimeAnimatorController = _weaponController as RuntimeAnimatorController;
@@ -163,7 +160,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
         }
         //If we drop the weapon, clear the animation controller
-        else if(_old.equipmentType == EquipmentType.Weapon && _new == null)
+        else if(_old.EquipmentType == EquipmentType.Weapon && _new == null)
         {
             weaponAnimator.gameObject.transform.rotation = Quaternion.identity;
             weaponAnimator.runtimeAnimatorController = null as RuntimeAnimatorController;
@@ -179,14 +176,14 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.equipmentType == EquipmentType.Armor)
+            if (_new.EquipmentType == EquipmentType.Armor)
             {
                 _armorEquiped = true;
                 _armorAnimationSprites = _new.Animation;
             }
         }
 
-        else if (_old.equipmentType == EquipmentType.Armor && _new == null)
+        else if (_old.EquipmentType == EquipmentType.Armor && _new == null)
         {
             _armorEquiped = false;
             _armorRenderer.sprite = null;
@@ -194,12 +191,12 @@ public class EquipmentAnimationHandler : MonoBehaviour
         }
     }
 
-    //When attack, trigger the Attack animation
+    //When attack, trigger the isAttack animation
     private void AttackAnimation(AttackType type,int set)
     {
         if (_weaponController != null)
         {
-            weaponAnimator.SetTrigger("Attack");
+            weaponAnimator.SetTrigger("isAttack");
             weaponAnimator.SetInteger("Set", set);
         }
         

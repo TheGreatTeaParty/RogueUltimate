@@ -36,7 +36,7 @@ public class Equipment : MonoBehaviour
     {
         for (int i = 0; i < equipmentSlots.Length; i++)
         {
-            if (equipmentSlots[i].equipmentType == item.equipmentType)
+            if (equipmentSlots[i].EquipmentType == item.EquipmentType)
             {
                 previousItem = (EquipmentItem) equipmentSlots[i].Item;
                 equipmentSlots[i].Item = item;

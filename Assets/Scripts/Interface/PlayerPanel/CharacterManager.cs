@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,9 +20,9 @@ public class CharacterManager : MonoBehaviour
     #endregion
     
     
+    private PlayerStat _stats;
     [SerializeField] private Inventory inventory;
     [SerializeField] private Equipment equipment;
-    [SerializeField] private PlayerStat stats;
     [SerializeField] private Image draggableItem;
     [SerializeField] private GameObject tooltipPrefab;
 
@@ -33,18 +32,17 @@ public class CharacterManager : MonoBehaviour
 
     public Inventory Inventory => inventory;
     public Equipment Equipment => equipment;
-    
-    
-    public delegate void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem);
-    public OnEquipmentChanged onEquipmentChanged;
+    public PlayerStat Stats => _stats;
+
+
+    public event Action<EquipmentItem, EquipmentItem> onEquipmentChanged; 
     
     
     public void Start()
     {
-        stats = PlayerOnScene.Instance.GetComponent<PlayerStat>();
+        _stats = PlayerOnScene.Instance.GetComponent<PlayerStat>();
         
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
-
         
         inventory.OnClickEvent += AddTooltip;
         inventory.OnBeginDragEvent += BeginDrag;
@@ -61,18 +59,9 @@ public class CharacterManager : MonoBehaviour
         
         
         // Load items on save
-        if (SaveManager.LoadPlayer() == null) return;
-        
-        var data = SaveManager.LoadPlayer();
-        foreach (var id in data.inventoryData)
-        {
-           /* if (id != 0) 
-                AddItemToInventory(ItemsDatabase.Instance.GetItemByID(id));
-            */
-        }
-        
     }
 
+    // Inventory & equipment
     public void Equip(ItemSlot itemSlot)
     {
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
@@ -90,13 +79,13 @@ public class CharacterManager : MonoBehaviour
                 if (previousItem != null)
                 {
                     inventory.AddItem(previousItem);
-                    previousItem.Unequip(stats);
-                    stats.onChangeCallback.Invoke();
+                    previousItem.Unequip(_stats);
+                    _stats.onChangeCallback.Invoke();
                 }
 
                 AudioManager.Instance.Play("Equip");
-                item.Equip(stats);
-                stats.onChangeCallback.Invoke();
+                item.Equip(_stats);
+                _stats.onChangeCallback.Invoke();
             }
             else
             {
@@ -130,13 +119,6 @@ public class CharacterManager : MonoBehaviour
         ItemScene.SpawnItemScene(checkWall == null ? newPosition : new Vector3(position.x - 1f, position.y, 0f), item);
 
         inventory.RemoveItem(item);
-    }
-
-    public void UpdateStatsOnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
-    {
-        if (newItem != null) newItem.Equip(stats);
-        if (oldItem != null) oldItem.Unequip(stats);
-        stats.onChangeCallback?.Invoke();
     }
 
     public void AddTooltip(ItemSlot itemSlot)
@@ -218,7 +200,7 @@ public class CharacterManager : MonoBehaviour
             onEquipmentChanged.Invoke(dragItem, dropItem != null ? dropItem : null);
 
             AudioManager.Instance.Play("Equip");
-            stats.onChangeCallback?.Invoke();
+            _stats.onChangeCallback?.Invoke();
         }
 
         // Put off/change slot of equipment 
@@ -235,7 +217,7 @@ public class CharacterManager : MonoBehaviour
                 AudioManager.Instance.Play("Unequip");
             }
 
-            stats.onChangeCallback.Invoke();
+            _stats.onChangeCallback?.Invoke();
         }
 
         Item draggedItem = _draggedSlot.Item;
@@ -256,5 +238,15 @@ public class CharacterManager : MonoBehaviour
         dropItemSlot.Amount += stackCountToAdd;
         _draggedSlot.Amount -= stackCountToAdd;
     }
+    
+    
+    // Stats
+    public void UpdateStatsOnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
+    {
+        if (newItem != null) newItem.Equip(_stats);
+        if (oldItem != null) oldItem.Unequip(_stats);
+        _stats.onChangeCallback?.Invoke();
+    }
+    
     
 }

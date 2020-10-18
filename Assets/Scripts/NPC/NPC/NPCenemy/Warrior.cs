@@ -1,44 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Warrior : AI
+public class Warrior : EnemyAI
 {
-    private LayerMask whatIsEnemy;
-    private Vector2 attackPosition;
-    private Vector3 direction;
+    private LayerMask _whatIsEnemy;
+    private Vector2 _attackPosition;
+    private Vector3 _direction;
 
-    private EnemyStat _warriorStat;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
-        _warriorStat = GetComponent<EnemyStat>();
-        whatIsEnemy = LayerMask.GetMask("Player");
+        _whatIsEnemy = LayerMask.GetMask("Player");
     }
 
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
-        direction = last_dir;
-        attackPosition = transform.position + direction;
+        _direction = lastDirection;
+        _attackPosition = transform.position + _direction;
     }
 
     protected override void Attack()
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition, AttackRange, whatIsEnemy);
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
         
         for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_warriorStat.physicalDamage.Value, _warriorStat.magicDamage.Value);
-        }
-        _attack = false;
+            enemiesToDamage[i].GetComponent<IDamaged>().
+                TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
+        
+        isAttack = false;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPosition, AttackRange);
+        Gizmos.DrawWireSphere(_attackPosition, attackRange);
     }
     
 }

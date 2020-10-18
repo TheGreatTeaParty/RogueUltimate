@@ -1,13 +1,9 @@
-﻿using System;
-using UnityEngine;
-
-
-public class HealthBar : Bar
+﻿public class HealthBar : Bar
 {
     private void Update()
     {
-        SetCurrentValue(PlayerStat.Instance.CurrentHealth);
-        SetMaxValue(PlayerStat.Instance.MaxHealth);
+        SetCurrentValue(CharacterManager.Instance.Stats.CurrentHealth);
+        SetMaxValue(CharacterManager.Instance.Stats.MaxHealth);
     }
     
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 
@@ -37,7 +34,7 @@ public class MeleeWeapon : EquipmentItem
         var player = PlayerOnScene.Instance;
         
         // Checks if current stamina is less than required. If not - continues attack.
-        if (PlayerStat.Instance.ModifyStamina(requiredStamina) == false)
+        if (CharacterManager.Instance.Stats.ModifyStamina(requiredStamina) == false)
             return;
         
         _whatIsEnemy = LayerMask.GetMask("Enemy");
@@ -52,7 +49,7 @@ public class MeleeWeapon : EquipmentItem
                 enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(physicalDamage, magicDamage);
             }
 
-            //Send mesage to Attack animation handler that we use Melee Weapon
+            //Send mesage to isAttack animation handler that we use Melee Weapon
             player.playerAttack.onAttacked?.Invoke(AttackType.Melee, Random.Range(0, 2));
             player.playerAttack.SetRange(attackRange);
         }

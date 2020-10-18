@@ -26,12 +26,10 @@ public class Windblow : ActiveAbility
                 Debug.Log(vector.normalized.ToString());
             }
 
-            //Send mesage to Attack animation handler that we use Melee Weapon
+            //Send mesage to isAttack animation handler that we use Melee Weapon
             player.playerAttack.onAttacked?.Invoke(AttackType.Melee, Random.Range(0, 2));
             player.playerAttack.SetRange(attackRange);
         }
-
-        _timeUntilCast = coolDownTime;
     }
     
 }

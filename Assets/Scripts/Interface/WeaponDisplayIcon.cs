@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -27,7 +25,7 @@ public class WeaponDisplayIcon : MonoBehaviour
     // Update is called once per frame
     void UpdateIcon(EquipmentItem newItem, EquipmentItem oldItem)
     {
-        if(newItem!= null && newItem.equipmentType == EquipmentType.Weapon)
+        if(newItem!= null && newItem.EquipmentType == EquipmentType.Weapon)
         {
             icon.sprite = newItem.Sprite;
         }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,12 +30,12 @@ public class PlayerImage : MonoBehaviour
     private void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
     {
         if (oldItem)
-            if (oldItem.equipmentType == EquipmentType.Armor)
+            if (oldItem.EquipmentType == EquipmentType.Armor)
                 SwitchArmor();
         
         if (newItem)
         {
-            if (newItem.equipmentType == EquipmentType.Armor)
+            if (newItem.EquipmentType == EquipmentType.Armor)
                 SwitchArmor(newItem);
         }
     }

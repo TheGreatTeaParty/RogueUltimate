@@ -1,33 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class EnemyHealthBar : MonoBehaviour
 {
-    private EnemyStat enemyStat;
-    [SerializeField] private TextMeshPro Name;
-    [SerializeField] private TextMeshPro Shadow;
-    [SerializeField] private TextMeshPro LvL;
-    [SerializeField] private Slider SliderHealth;
+    private EnemyStat _enemyStat;
+    [SerializeField] private TextMeshPro enemyName;
+    [SerializeField] private TextMeshPro shadow;
+    [SerializeField] private TextMeshPro level;
+    [SerializeField] private Slider sliderHealth;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
-        enemyStat = GetComponentInParent<EnemyStat>();
-        enemyStat.onReceivedDamage += ChangeHealth;
-        enemyStat.onDie += DeleteBar;
-        SliderHealth.maxValue = enemyStat.MaxHealth;
-        SliderHealth.value = SliderHealth.maxValue;
-        Name.text = enemyStat.CharacterName;
-        Shadow.text = Name.text;
-        LvL.text = (enemyStat.Level).ToString();
+        _enemyStat = GetComponentInParent<EnemyStat>();
+        _enemyStat.onReceivedDamage += ChangeHealth;
+        _enemyStat.onDie += DeleteBar;
+        sliderHealth.maxValue = _enemyStat.MaxHealth;
+        sliderHealth.value = sliderHealth.maxValue;
+        enemyName.text = _enemyStat.CharacterName;
+        shadow.text = enemyName.text;
+        level.text = _enemyStat.Level.ToString();
     }
 
     private void ChangeHealth(float damage)
     {
-        SliderHealth.value = enemyStat.CurrentHealth;
+        sliderHealth.value = _enemyStat.CurrentHealth;
     }
 
     private void DeleteBar()

@@ -1,74 +1,61 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+public enum CitizenState
+{
+    Hanging = 0,
+    Standing,
+}
 
 public class Citizen : AI, IInteractable
 {
-    private DialogSystem dialogSystem;
+    private DialogSystem _dialogSystem;
     [SerializeField]
     private Dialog dialog;
 
-    public GameObject[] HangingPoints;
+    public GameObject[] hangingPoints;
 
-    [SerializeField] private float PointStandingTime = 3f;
+    [SerializeField] private float pointStandingTime = 3f;
 
-    private int currentHangingIndex = 0;
-    private bool courantineHasStarted = false;
-    private CitizenState STATE;
+    private int _currentHangingIndex = 0;
+    private bool _coroutineHasStarted = false;
+    private CitizenState _state;
+    
 
-    public enum CitizenState
-    {
-        hanging = 0,
-        standing,
-    };
-
-    override public void Start()
+    protected override void Start()
     {
         base.Start();
-        currentHangingIndex = Random.Range(0, HangingPoints.Length);
-        target = HangingPoints[currentHangingIndex];
-        dialogSystem = GetComponentInChildren<DialogSystem>();
+        _currentHangingIndex = Random.Range(0, hangingPoints.Length);
+        target = hangingPoints[_currentHangingIndex];
+        _dialogSystem = GetComponentInChildren<DialogSystem>();
     }
 
-
-    override public void Update()
+    public void FixedUpdate()
     {
-        base.Update();
-    }
-
-    override public void FixedUpdate()
-    {
-        switch (STATE)
+        switch (_state)
         {
-            case CitizenState.hanging:
+            case CitizenState.Hanging:
                 {
                     //If the NPC reach the point
-                    if (Vector2.Distance(transform.position, HangingPoints[currentHangingIndex].transform.position) < 0.2f)
-                         _stopped = true;
+                    if (Vector2.Distance(transform.position, hangingPoints[_currentHangingIndex].transform.position) < 0.2f)
+                         isStopped = true;
 
                     //If not, move it till the next point
-                    if (!_stopped)
-                    {
-                        Rb.MovePosition(Rb.position + dir * Speed * Time.deltaTime);
-                    }
-
+                    if (!isStopped)
+                        rb.MovePosition(rb.position + direction * movementSpeed * Time.deltaTime);
                     //If reached, run the standing timer
                     else
-                    {
-
-                        if (!courantineHasStarted)
-                            StartCoroutine(waiter());
-                    }
+                        if (!_coroutineHasStarted)
+                            StartCoroutine(Waiter());
 
                     break;
                 }
 
-            case CitizenState.standing:
-                {
-                    break;
-                }
+            case CitizenState.Standing:
+                break;
+                
         }
+        
     }
 
     public void Talk(bool option)
@@ -76,44 +63,44 @@ public class Citizen : AI, IInteractable
         //If we talk, change to the standing
         if (option)
         {
-            STATE = CitizenState.standing;
-            _stopped = true;
+            _state = CitizenState.Standing;
+            isStopped = true;
         }
 
         //If not, change to the hanging
         else
         {
-            STATE = CitizenState.hanging;
-            _stopped = false;
+            _state = CitizenState.Hanging;
+            isStopped = false;
         }
     }
 
 
-    IEnumerator waiter()
+    IEnumerator Waiter()
     {
-        courantineHasStarted = true;
-        yield return new WaitForSeconds(PointStandingTime);
-        _stopped = false;
+        _coroutineHasStarted = true;
+        yield return new WaitForSeconds(pointStandingTime);
+        isStopped = false;
 
         //Move to another point
-        if (currentHangingIndex == HangingPoints.Length - 1)
+        if (_currentHangingIndex == hangingPoints.Length - 1)
         {
-            currentHangingIndex = 0;
+            _currentHangingIndex = 0;
         }
         else
         {
-            currentHangingIndex++;
+            _currentHangingIndex++;
         }
-        target = HangingPoints[currentHangingIndex];
-        courantineHasStarted = false;
+        target = hangingPoints[_currentHangingIndex];
+        _coroutineHasStarted = false;
     }
 
     void IInteractable.Interact()
     {
         InterfaceManager.Instance.gameObject.SetActive(false);
-        dialogSystem.dialogWindow.SetActive(true);
-        dialogSystem.buttonContinue.SetActive(true);
-        dialogSystem.StartDialog(dialog);
+        _dialogSystem.dialogWindow.SetActive(true);
+        _dialogSystem.buttonContinue.SetActive(true);
+        _dialogSystem.StartDialog(dialog);
         Talk(true);
     }
 

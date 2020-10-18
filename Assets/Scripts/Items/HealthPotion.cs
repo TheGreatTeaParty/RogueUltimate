@@ -10,7 +10,7 @@ public class HealthPotion : UsableItem
     public override void ModifyStats()
     {
         base.ModifyStats();
-        PlayerStat.Instance.ModifyHealth(healthBonus);
+        CharacterManager.Instance.Stats.ModifyHealth(healthBonus);
         PlayerOnScene.Instance.playerFX.SpawnEffect(healFX);
         AudioManager.Instance.Play("Bottle");
     }

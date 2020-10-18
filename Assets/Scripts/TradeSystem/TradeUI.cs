@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 
@@ -45,10 +44,10 @@ public class TradeUI : MonoBehaviour
             npcSlots[i].Item = null;
         
         i = 0;
-        for (; i < tradeManager.playerInventory.items.Count && i < playerSlots.Length; i++)
+        for (; i < tradeManager.playerInventory.Items.Count && i < playerSlots.Length; i++)
         {
-            playerSlots[i].Item = tradeManager.playerInventory.itemSlots[i].Item;
-            playerSlots[i].Amount = tradeManager.playerInventory.itemSlots[i].Amount;
+            playerSlots[i].Item = tradeManager.playerInventory.ItemSlots[i].Item;
+            playerSlots[i].Amount = tradeManager.playerInventory.ItemSlots[i].Amount;
         }
         for (; i < playerSlots.Length; i++)
         {

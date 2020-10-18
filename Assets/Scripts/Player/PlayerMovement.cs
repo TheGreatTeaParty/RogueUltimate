@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour 
 {
@@ -39,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
             _direction = _rangeJoystick.GetDirection();
         }
-        animator.SetFloat("Speed", movementSpeed);
+        animator.SetFloat("movementSpeed", movementSpeed);
 
     }
     
@@ -74,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     
     public void attackCharacter(){
 
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("isAttack");
 
     }
     public Vector3 GetDirection()

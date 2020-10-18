@@ -1,34 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class FloatingNumber : MonoBehaviour
 {
     [SerializeField] private Transform textPb;
-    private float _damage;
 
 
-    void Start()
+    private void Start()
     {
         GetComponent<EnemyStat>().onReceivedDamage += ReceiveDamage;
     }
 
-
     private void ReceiveDamage(float damage)
     {
-        _damage = damage;
+        var position = transform.position;
+        
         textPb.GetComponent<TextMeshPro>().text = damage.ToString();
         textPb.GetComponent<TextMeshPro>().color = new Color32(255, 168, 0, 255);
-        Instantiate(textPb, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+        Instantiate(textPb, new Vector3(position.x, position.y + 1, position.z), Quaternion.identity);
+    }
 
-    }
-    
-    
-    public float GetDamage()
-    {
-        return _damage;
-    }
-    
-    
 }

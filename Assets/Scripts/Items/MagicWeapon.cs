@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/MagicWeapon")]
 
@@ -27,7 +25,7 @@ public class MagicWeapon : EquipmentItem
         var player = PlayerOnScene.Instance;
         
         // Checks if current stamina is less than required. If not - continues attack.
-        if (PlayerStat.Instance.ModifyMana(requiredMana) == false)
+        if (CharacterManager.Instance.Stats.ModifyMana(requiredMana) == false)
             return;
         
         Vector3 direction = new Vector3(
@@ -37,7 +35,7 @@ public class MagicWeapon : EquipmentItem
         Transform magic = Instantiate(prefab, 
             player.playerMovement.transform.position + direction, Quaternion.identity);
         magic.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction);
-        //Send mesage to Attack animation handler that we use Melee Weapon
+        //Send mesage to isAttack animation handler that we use Melee Weapon
         player.playerAttack.onAttacked?.Invoke(AttackType.Magic,0);
     }
     

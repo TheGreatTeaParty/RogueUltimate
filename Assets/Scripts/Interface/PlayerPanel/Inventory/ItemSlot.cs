@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerClickHandler
 {
-    protected Item _item;
+    protected Item item;
     private int _amount;
     private bool _tooltipIsOpened = false;
     
     protected Image image;
-    private TMP_Text amountText;
+    private TMP_Text _amountText;
 
     private readonly Color _normalColor = Color.white;
     private readonly Color _shadowColor = new Color(0.8f, 0.8f, 0.8f, 0.8f);
@@ -21,20 +21,20 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public Item Item
     {
-        get => _item;
+        get => item;
         set 
         {
-            _item = value;
-            if (_item == null && Amount != 0) Amount = 0;
+            item = value;
+            if (item == null && Amount != 0) Amount = 0;
 
-            if (_item == null) 
+            if (item == null) 
             {
                 image.sprite = null;
                 image.color = _disabledColor;
             } 
             else 
             {
-                image.sprite = _item.Sprite;
+                image.sprite = item.Sprite;
                 image.color = _normalColor;
             }
             
@@ -49,11 +49,11 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             if (_amount < 0) _amount = 0;
             if (_amount == 0 && Item != null) Item = null;
 
-            if (amountText != null)
+            if (_amountText != null)
             {
-                amountText.enabled = _item != null && _amount > 1;
-                if (amountText.enabled) 
-                    amountText.text = _amount.ToString();
+                _amountText.enabled = item != null && _amount > 1;
+                if (_amountText.enabled) 
+                    _amountText.text = _amount.ToString();
             }
         }
         
@@ -75,15 +75,11 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     protected virtual void Awake()
     {
         var images = gameObject.GetComponentsInChildren<Image>();
-        var texts = gameObject.GetComponentsInChildren<TMP_Text>();
+        _amountText = gameObject.GetComponentInChildren<TMP_Text>();
         
         for (int i = 0; i < images.Length; i++)
             if (images[i].gameObject.transform.parent.GetInstanceID() != GetInstanceID())
                 image = images[i];
-        
-        for (int i = 0; i < texts.Length; i++)
-            if (texts[i].gameObject.transform.parent.GetInstanceID() != GetInstanceID())
-                amountText = texts[i];
     }
     
     public virtual bool CanAddStack(Item item, int amount = 1)
@@ -98,7 +94,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        if (_item == null) return;
+        if (item == null) return;
         
         OnClickEvent?.Invoke(this);
         AudioManager.Instance.Play("Click");
@@ -106,7 +102,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (_item == null) return;
+        if (item == null) return;
         
         image.color = _shadowColor;
         OnBeginDragEvent?.Invoke(this);
@@ -115,7 +111,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         OnEndDragEvent?.Invoke(this);
-        if (_item != null)
+        if (item != null)
             image.color = _normalColor;
     }
 

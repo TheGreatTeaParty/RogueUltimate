@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JoystickHandle : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class JoystickHandle : MonoBehaviour
     {
         if (_new) 
         {
-            if (_new.equipmentType == EquipmentType.Weapon)
+            if (_new.EquipmentType == EquipmentType.Weapon)
             {
                 if (_new.Echo() != AttackType.Melee && _new.Echo() != AttackType.None)
                 {
@@ -31,7 +29,7 @@ public class JoystickHandle : MonoBehaviour
                 }
             }
         }
-        else if (!_new && _old.equipmentType == EquipmentType.Weapon)
+        else if (!_new && _old.EquipmentType == EquipmentType.Weapon)
         {
             joysticks[1].gameObject.SetActive(true);
             joysticks[2].gameObject.SetActive(false);

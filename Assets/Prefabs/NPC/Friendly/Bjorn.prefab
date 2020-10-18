@@ -90,10 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 1
-  Speed: 1.5
-  AttackRange: 0.5
-  DetectionRange: 7
-  FollowRange: 10
+  movementSpeed: 1.5
+  detectionRange: 7
+  followRange: 10
   waitTime: 2
   attackCoolDown: 1.2
   attackDuration: 0.5
@@ -102,10 +101,8 @@ MonoBehaviour:
     sentences:
     - 'Hi, my name is Bjorn. I''m working with my grandfather Roland in a smithy. '
     - I'm a bit busy now. Hope we can talk later.
-  HangingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  PointStandingTime: 3
+  hangingPoints: []
+  pointStandingTime: 3
 --- !u!114 &1561472824262912737
 MonoBehaviour:
   m_ObjectHideFlags: 0
