@@ -196,7 +196,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         if (_weaponController != null)
         {
-            weaponAnimator.SetTrigger("isAttack");
+            weaponAnimator.SetTrigger("Attack");
             weaponAnimator.SetInteger("Set", set);
         }
         

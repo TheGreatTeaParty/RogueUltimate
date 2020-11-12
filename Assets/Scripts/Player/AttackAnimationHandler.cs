@@ -15,7 +15,7 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.None: { animator.SetTrigger("isAttack"); break; }
+            case AttackType.None: { animator.SetTrigger("Attack"); break; }
             case AttackType.Melee: { animator.SetTrigger("SwordAttack"); animator.SetInteger("Type", set); break; }
             case AttackType.Range: { /*Animation for Range attack*/ break; }
             case AttackType.Magic: { /*Animation for Magic attack*/ break; }

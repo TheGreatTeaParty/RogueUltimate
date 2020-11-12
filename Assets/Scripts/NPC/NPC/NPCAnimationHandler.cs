@@ -40,12 +40,12 @@ public class NPCAnimationHandler : MonoBehaviour
 
         _animator.SetFloat("Horizontal", _dir.x);
         _animator.SetFloat("Vertical", _dir.y);
-        _animator.SetFloat("movementSpeed", _movementSpeed);
+        _animator.SetFloat("Speed", _movementSpeed);
     }
 
     void Attack()
     {
-        _animator.SetTrigger("isAttack");
+        _animator.SetTrigger("Attack");
     }
 
     void GetDamage()

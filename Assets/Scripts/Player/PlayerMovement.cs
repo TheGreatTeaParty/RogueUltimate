@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
             _direction = _rangeJoystick.GetDirection();
         }
-        animator.SetFloat("movementSpeed", movementSpeed);
+        animator.SetFloat("Speed", movementSpeed);
 
     }
     
