@@ -14,8 +14,10 @@ public class Kaban : EnemyAI
     private bool _hit = false;
     private bool _hitPlayer = false;
 
-    // Cache
+    [SerializeField]
     private CapsuleCollider2D _damageAreaCollider;
+
+    // Cache
     private Animator _animator;
 
 
@@ -23,7 +25,6 @@ public class Kaban : EnemyAI
     {
         base.Start();
         
-        _damageAreaCollider = GetComponent<CapsuleCollider2D>();
         _animator = GetComponent<Animator>();
     }
 

@@ -174,9 +174,9 @@ MonoBehaviour:
     baseValue: 30
   physicalProtection:
     baseValue: 15
-  magicDamage:
-    baseValue: 0
   magicProtection:
+    baseValue: 0
+  magicDamage:
     baseValue: 0
   maxHealth: 120
   gainedXP: 200
@@ -252,6 +252,7 @@ MonoBehaviour:
   attackRange: 3.2
   rageSpeed: 6.9
   stunTime: 3.7
+  _damageAreaCollider: {fileID: 2235192288042624215}
 --- !u!95 &5968919584281164146
 Animator:
   serializedVersion: 3
@@ -568,7 +569,7 @@ MonoBehaviour:
   - {x: -0.04797433, y: 0.05212968, z: 0}
   m_ShapePathHash: 1284741456
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56976
+  m_InstanceId: 42598
 --- !u!1001 &5905455315380873949
 PrefabInstance:
   m_ObjectHideFlags: 0
