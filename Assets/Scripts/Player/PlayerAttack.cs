@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         Equipment equipment = CharacterManager.Instance.Equipment;
-        EquipmentItem weapon = equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as EquipmentItem;
+        EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
         
         if (!(_startAttackCoolDown <= 0)) return;
         

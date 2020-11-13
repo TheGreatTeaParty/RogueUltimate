@@ -56,10 +56,10 @@ public class JoystickAttack : MonoBehaviour
             {
                 _audioIsPlaying = true;
                 
-                RangeWeapon weapon = _equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as RangeWeapon;
+                RangeWeapon weapon = _equipment.equipmentSlots[5].Item as RangeWeapon;
                 if (weapon == null)
                 {
-                    MagicWeapon MagicWeapon = _equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as MagicWeapon;
+                    MagicWeapon MagicWeapon = _equipment.equipmentSlots[5].Item as MagicWeapon;
                     _audioSource.PlayOneShot(MagicWeapon.prepareSound);
                 }
                 else

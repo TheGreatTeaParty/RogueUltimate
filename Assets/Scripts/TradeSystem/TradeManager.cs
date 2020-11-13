@@ -116,10 +116,8 @@ public class TradeManager : MonoBehaviour
         InterfaceManager.Instance.fixedJoystick.ResetInput();
 
         var UI = InterfaceManager.Instance;
-        var playerButton = PlayerOnScene.Instance.GetComponentInChildren<Button>();
         
         UI.HideAll();
-        playerButton.enabled = false;
         
         tradeWindow.SetActive(true);
         
@@ -137,7 +135,6 @@ public class TradeManager : MonoBehaviour
         tradeWindow.SetActive(false);
         
         UI.ShowFaceElements();
-        playerButton.enabled = true;
         
         currentSlot = null;
         AudioManager.Instance.Play("TradeClose");

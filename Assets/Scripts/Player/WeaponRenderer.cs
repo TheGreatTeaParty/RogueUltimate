@@ -48,7 +48,7 @@ public class WeaponRenderer : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_rangeEquiped && _weaponAnimator.GetBool("isAttack") && _weaponAnimator.GetInteger("Set") < 1)
+        if (_rangeEquiped && _weaponAnimator.GetBool("Attack") && _weaponAnimator.GetInteger("Set") < 1)
         {
             string index = "";
             if (_weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 2] != '_')

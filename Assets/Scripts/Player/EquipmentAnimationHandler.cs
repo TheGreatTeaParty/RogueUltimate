@@ -114,7 +114,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
 
             if (_weaponAnimationSprites.Length == 0)
-                Debug.LogWarning("Missing Animation Sprites");
+                return;
 
             else
             {
@@ -129,7 +129,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
                         _weaponRenderer.sprite = _weaponAnimationSprites[j];
 
                         //Move it on the top of the player Sprite
-                        if (8 <=j && j <= 11 || 24 <= j && j <= 27 || 40 <= j && j <= 43 || 56 <= j && j <= 59
+                        if (8 <= j && j <= 11 || 24 <= j && j <= 27 || 40 <= j && j <= 43 || 56 <= j && j <= 59
                             || 72 <= j && j <= 75)
                         {
                             _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
