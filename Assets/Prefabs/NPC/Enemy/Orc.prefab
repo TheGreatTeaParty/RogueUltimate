@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 824822416574230489}
   - component: {fileID: 1924165181328397174}
   - component: {fileID: 4968012315996581786}
-  - component: {fileID: 8711286606551967151}
   m_Layer: 8
   m_Name: Orc
   m_TagString: Enemy
@@ -113,9 +112,9 @@ MonoBehaviour:
     baseValue: 20
   physicalProtection:
     baseValue: 10
-  magicDamage:
-    baseValue: 0
   magicProtection:
+    baseValue: 0
+  magicDamage:
     baseValue: 0
   maxHealth: 100
   gainedXP: 100
@@ -479,32 +478,6 @@ MonoBehaviour:
   source:
   - {fileID: 824822416574230489}
   - {fileID: 1924165181328397174}
---- !u!114 &8711286606551967151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969126813485017444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.030581003, y: -0.076371655, z: 0}
-  - {x: 0.03154903, y: -0.07664011, z: 0}
-  - {x: 0.03141477, y: 0.04913478, z: 0}
-  - {x: -0.031549092, y: 0.050236974, z: 0}
-  m_ShapePathHash: 217263563
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 57486
 --- !u!1001 &2094779383678785793
 PrefabInstance:
   m_ObjectHideFlags: 0

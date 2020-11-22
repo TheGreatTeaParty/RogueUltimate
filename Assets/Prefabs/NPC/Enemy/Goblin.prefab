@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 3389519769093825949}
   - component: {fileID: 4526020671065479474}
   - component: {fileID: 6956453090368300510}
-  - component: {fileID: -6800344865234369452}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Enemy
@@ -113,9 +112,9 @@ MonoBehaviour:
     baseValue: 10
   physicalProtection:
     baseValue: 0
-  magicDamage:
-    baseValue: 0
   magicProtection:
+    baseValue: 0
+  magicDamage:
     baseValue: 0
   maxHealth: 100
   gainedXP: 50
@@ -479,32 +478,6 @@ MonoBehaviour:
   source:
   - {fileID: 3389519769093825949}
   - {fileID: 4526020671065479474}
---- !u!114 &-6800344865234369452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959214771665855264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.019374566, y: -0.07002254, z: 0}
-  - {x: 0.028884115, y: -0.070138395, z: 0}
-  - {x: 0.030101785, y: 0.022302803, z: 0}
-  - {x: -0.022534635, y: 0.021693986, z: 0}
-  m_ShapePathHash: 738084162
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 56710
 --- !u!1001 &4136981887192372037
 PrefabInstance:
   m_ObjectHideFlags: 0

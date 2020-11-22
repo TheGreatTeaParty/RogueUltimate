@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 1827760089824657927}
   - component: {fileID: 4250924370760505363}
   - component: {fileID: 4842548143731956305}
-  - component: {fileID: 3868735855795351134}
   m_Layer: 0
   m_Name: Tavern Keeper
   m_TagString: Untagged
@@ -111,19 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 1
-  Speed: 2
-  AttackRange: 0.5
-  DetectionRange: 10
-  FollowRange: 10
+  movementSpeed: 4
+  detectionRange: 7
+  followRange: 10
   waitTime: 15
   attackCoolDown: 1.2
   attackDuration: 0.5
   pointStandingTime: 3
-  HangingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  BarPosition: {fileID: 0}
+  hangingPoints: []
+  barPosition: {fileID: 0}
 --- !u!114 &6681453941935188931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,29 +365,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3868735855795351134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096455669997638438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.13157803, y: -0.49527663, z: 0}
-  - {x: 0.197705, y: -0.49055332, z: 0}
-  - {x: 0.25910863, y: 0.33468246, z: 0}
-  - {x: -0.24966198, y: 0.32995903, z: 0}
-  m_ShapePathHash: 2086667246
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 118664
