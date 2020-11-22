@@ -10,7 +10,8 @@ public class WeaponDisplayIcon : MonoBehaviour
     [SerializeField] private Image icon;
     
     // Cache
-    private Equipment _equipment;
+
+    [SerializeField] private Equipment _equipment;
     
     
     // Start is called before the first frame update
@@ -18,8 +19,7 @@ public class WeaponDisplayIcon : MonoBehaviour
     {
         //Make delegate function from CharacterManager be equal to UpdateUI fun
         CharacterManager.Instance.onEquipmentChanged += UpdateIcon;
-        _equipment = CharacterManager.Instance.Equipment;
-        UpdateIconOnStart();
+        //UpdateIconOnStart();
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class WeaponDisplayIcon : MonoBehaviour
 
     void UpdateIconOnStart()
     {
-        EquipmentItem equipmentItem = _equipment.equipmentSlots[(int)EquipmentType.Weapon].Item as EquipmentItem;
+        EquipmentItem equipmentItem = _equipment.equipmentSlots[5].Item as EquipmentItem;
         icon.sprite = equipmentItem != null ? equipmentItem.Sprite : baseIcon;
     }
     

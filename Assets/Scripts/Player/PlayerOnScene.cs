@@ -57,6 +57,8 @@ public class PlayerOnScene : MonoBehaviour
         audioSource = Instance.GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactDetaction = Instance.GetComponentInChildren<InteractDetaction>();
+        //Set stats to CharacterManager
+        SetStats();
     }
 
     public void HidePlayer()
@@ -70,5 +72,8 @@ public class PlayerOnScene : MonoBehaviour
         spriteRenderer.enabled = true;
         equipmentAnimationHandler.gameObject.SetActive(true);
     }
-
+    public void SetStats()
+    {
+        CharacterManager.Instance.SetStats(stats);
+    }
 }
