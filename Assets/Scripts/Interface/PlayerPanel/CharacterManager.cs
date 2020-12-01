@@ -40,8 +40,6 @@ public class CharacterManager : MonoBehaviour
     
     public void Start()
     {
-        _stats = PlayerOnScene.Instance.GetComponent<PlayerStat>();
-        
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
         
         inventory.OnClickEvent += AddTooltip;
@@ -248,5 +246,8 @@ public class CharacterManager : MonoBehaviour
         _stats.onChangeCallback?.Invoke();
     }
     
-    
+    public void SetStats(PlayerStat playerStat)
+    {
+        _stats = playerStat;
+    }
 }
