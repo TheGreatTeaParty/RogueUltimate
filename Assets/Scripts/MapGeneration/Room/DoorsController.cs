@@ -27,6 +27,10 @@ public class DoorsController : MonoBehaviour
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, width, whatIsEnemy);
         if (enemies.Length > 0)
         {
+            if (!_isSent)
+            {
+                Minimap.instance.HideMap();
+            }
             for (int i = 0; i < doors.Length; i++)
             {
                 _doorColliders[i].enabled = true;
@@ -38,10 +42,14 @@ public class DoorsController : MonoBehaviour
                     _isSent = true;
                 }
             }
-            Minimap.instance.HideMap();
         }
         else
         {
+            if (_isSent)
+            {
+                Minimap.instance.ShowMap();
+            }
+
             for (int i = 0; i < doors.Length; i++)
             {
                 doors[i].GetComponent<BoxCollider2D>().enabled = false;
@@ -52,7 +60,6 @@ public class DoorsController : MonoBehaviour
                     _isSent = false;
                 }
             }
-            Minimap.instance.ShowMap();
         }
     }
     private void OnDrawGizmosSelected() 

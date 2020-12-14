@@ -18,10 +18,10 @@ public class Minimap : MonoBehaviour
 
     public void ShowMap()
     {
-        this.enabled = true;
+       gameObject.SetActive(true);
     }
     public void HideMap()
     {
-        this.enabled = false;
+        gameObject.SetActive(false);
     }
 }

@@ -16,6 +16,7 @@ public class InteractionUI : MonoBehaviour
     public void Action()
     {
         _interactDetaction.CallInteraction();
+        _interactDetaction.DeleteInteractionData();
         SetActive(false);
     }
 
