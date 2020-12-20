@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteAlways]
 public class DynamicLayerRenderer : MonoBehaviour
 {
     [SerializeField]
@@ -23,7 +24,7 @@ public class DynamicLayerRenderer : MonoBehaviour
     private void RenderObject()
     {
         myRenderer.sortingOrder = (int)(baseLayer - transform.position.y*10 - offSet);
-        if (runOnlyOnce)
+        if (runOnlyOnce && Application.isPlaying)
             Destroy(this);
     }
 

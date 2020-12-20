@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Pathfinding;
 
 public class PlayerEnterCheck : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerEnterCheck : MonoBehaviour
         if (_isSpawned) 
             return;
         
+        ScanArea();
         var playerLevel = collision.GetComponent<PlayerStat>().Level;
         _eSpawner.SetPlayerLevel(playerLevel);
 
@@ -30,8 +32,15 @@ public class PlayerEnterCheck : MonoBehaviour
             _eSpawnPoints[i].SpawnEnemy(_eSpawner.GetEnemy(), enemyLevel);
 
         _isSpawned = true;
+        Destroy(gameObject);
         
     }
-    
-    
+
+    public void ScanArea()
+    {
+        var graph = AstarPath.active.data.gridGraph;
+        graph.center = transform.position;
+        graph.UpdateTransform();
+        graph.Scan();
+    }
 }
