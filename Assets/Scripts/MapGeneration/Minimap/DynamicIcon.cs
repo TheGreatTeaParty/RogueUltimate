@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
 
 public class DynamicIcon : MonoBehaviour
 {
@@ -30,27 +29,8 @@ public class DynamicIcon : MonoBehaviour
 
         if (TurnOff)
         {
-            if (_roomLight)
-                _roomLight.intensity = 0;
             sprite.enabled = false;
             SetLightsState(false);
-        }
-    }
-
-    private void Update()
-    {
-        if (_triggeredOn)
-        {
-            _roomLight.intensity += 0.1f;
-            if (_roomLight.intensity >= _ligthIntecity)
-                _triggeredOn = false;
-        }
-
-        else if (_triggeredOff)
-        {
-            _roomLight.intensity -= 0.1f;
-            if (_roomLight.intensity <= IntencityOut)
-                _triggeredOff = false;
         }
     }
 
@@ -74,7 +54,6 @@ public class DynamicIcon : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             sprite.color = new Color(0.3f, 0.3f, 0.3f);
-            _triggeredOff = true;
         }
     }
 
