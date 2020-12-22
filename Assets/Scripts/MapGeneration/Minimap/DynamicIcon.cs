@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DynamicIcon : MonoBehaviour
 {
-    public float IntencityOut = 0.7f;
     public GameObject LightParent;
     [SerializeField]
     bool TurnOff = true;
@@ -14,7 +14,7 @@ public class DynamicIcon : MonoBehaviour
     private Light2D _roomLight;
     private Light2D[] _lights;
 
-    private float _ligthIntecity;
+    private float IntencityOut = 0.7f;
     private bool _triggeredOn = false;
     private bool _triggeredOff = false;
 
@@ -24,14 +24,39 @@ public class DynamicIcon : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         _lights = LightParent.GetComponentsInChildren<Light2D>();
 
-        if (_roomLight)
-            _ligthIntecity = _roomLight.intensity;
 
         if (TurnOff)
         {
             sprite.enabled = false;
             SetLightsState(false);
+            if (_roomLight)
+                _roomLight.intensity = 0;
         }
+    }
+
+
+    private void Update()
+    {
+
+        if (_triggeredOn)
+        {
+            _roomLight.intensity += 0.1f;
+            if(_roomLight.intensity >= 1.4)
+            {
+                _triggeredOn = false;
+            }
+        }
+
+        else if (_triggeredOff)
+        {
+            _roomLight.intensity -= 0.1f;
+            if(_roomLight.intensity <= IntencityOut)
+            {
+                _triggeredOff = false;
+            }
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,6 +79,8 @@ public class DynamicIcon : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             sprite.color = new Color(0.3f, 0.3f, 0.3f);
+            if (_roomLight)
+                _triggeredOff = true;
         }
     }
 
