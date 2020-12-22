@@ -12,7 +12,7 @@ public enum Tier
     Fifth = 5
 }
 
-[CreateAssetMenu(menuName = "Items/Item")]  
+[CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject
 {
     // ReSharper disable once InconsistentNaming
@@ -21,14 +21,20 @@ public class Item : ScriptableObject
     [SerializeField] protected int price;
     [Space]
     [SerializeField] protected String itemName;
+    [TextArea()]
     [SerializeField] protected String description;
     [SerializeField] protected Sprite sprite;
-    [Space] 
+    [Space]
     [Range(1, 100)]
     [SerializeField] protected int stackMaxSize;
 
     public int Price => price;
-    public String ItemName => itemName;
+    public String ItemName
+    {
+        get => itemName;
+        set => itemName = value;
+
+    }
     public Sprite Sprite => sprite;
     public string Description => description;
     public int StackMaxSize

@@ -34,7 +34,11 @@ public class EquipmentItem : Item
     [SerializeField] protected float magicDamagePercentBonus;
     [SerializeField] protected float magicProtectionPercentBonus;
 
-    public EquipmentType EquipmentType => equipmentType;
+    public EquipmentType EquipmentType
+    {
+        get => equipmentType;
+        set => equipmentType = value;
+    }
     public Sprite[] Animation => animation;
     public RuntimeAnimatorController EquipmentAnimations => equipmentAnimations;
 

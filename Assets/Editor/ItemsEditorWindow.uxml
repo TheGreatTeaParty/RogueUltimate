@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+    xsi:schemaLocation="UnityEngine.UIElements ../UIElementsSchema/UnityEngine.UIElements.xsd"
+>   
+    <Box name="Tool">
+        <Button name= "Add" text="Add Item"/>
+        <ListView name="item-list"/>
+    </Box>
+    <Box name="item">
+        <ScrollView name="items-info-scroll">
+            <Box name="body">
+                <Box name="head"/>
+                <Image name="preview" text="Icon"/>
+            </Box>
+            <Box name= "data"/>
+            <Box name="item-info"/>
+            <Button name="Delete" text="Delete Item"/>
+        </ScrollView>
+    </Box>
+</UXML >
