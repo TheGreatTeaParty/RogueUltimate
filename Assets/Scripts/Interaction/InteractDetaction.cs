@@ -23,6 +23,7 @@ public class InteractDetaction : MonoBehaviour
             //Save colide material
             _colliderInfo.GetPropertyBlock(_collideMaterial);
 
+            TurnOnOutline();
 
             //Save collission information to use it later in Call
             interactable = collision.GetComponent<IInteractable>();
@@ -58,7 +59,7 @@ public class InteractDetaction : MonoBehaviour
 
     private void TurnOnOutline()
     {
-        _collideMaterial.SetFloat("_Thickness", 0.01f);
+        _collideMaterial.SetFloat("_Thickness", 0.007f);
         _colliderInfo.SetPropertyBlock(_collideMaterial);
     }
 
