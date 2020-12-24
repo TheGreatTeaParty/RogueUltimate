@@ -1,9 +1,18 @@
-﻿public class StaminaBar : Bar
+﻿using UnityEngine;
+public class StaminaBar : Bar
 {
+    private void Start()
+    {
+        CharacterManager.Instance.Stats.OnStaminaChanged += SetStaminaValue;
+    }
+
     private void Update()
     {
-        SetCurrentValue(CharacterManager.Instance.Stats.CurrentStamina);
         SetMaxValue(CharacterManager.Instance.Stats.MaxStamina);
     }
-    
+
+    private void SetStaminaValue(float value)
+    {
+        SetCurrentValue(value);
+    }
 }

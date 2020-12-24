@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Pathfinding;
 
 public class Warrior : EnemyAI
 {
@@ -36,5 +37,21 @@ public class Warrior : EnemyAI
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_attackPosition, attackRange);
     }
-    
+
+    protected override void Die()
+    {
+        DestroyAllComponents();
+        Destroy(this);
+    }
+
+    private void DestroyAllComponents()
+    {
+        Destroy(GetComponent<FloatingNumber>());
+        Destroy(GetComponent<CapsuleCollider2D>());
+        Destroy(GetComponent<Rigidbody2D>());
+        Destroy(GetComponent<Seeker>());
+        Destroy(GetComponent<NPCAnimationHandler>());
+        Destroy(GetComponent<DynamicLayerRenderer>());
+        Destroy(GetComponent<AudioSource>());
+    }
 }

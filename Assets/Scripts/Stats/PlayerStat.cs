@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 
 public class PlayerStat : CharacterStat, IDamaged
@@ -67,6 +68,11 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
+
+    public Action<float> OnHealthChanged;
+    public Action<float> OnStaminaChanged;
+    public Action<float> OnManaChanged;
+
     
     
     private void Start()
@@ -190,6 +196,7 @@ public class PlayerStat : CharacterStat, IDamaged
             _currentStamina = maxStamina;
 
         onChangeCallback?.Invoke();
+        OnStaminaChanged?.Invoke(_currentStamina);
         return true;
     }
     
@@ -203,6 +210,7 @@ public class PlayerStat : CharacterStat, IDamaged
             _currentMana = maxMana;
 
         onChangeCallback?.Invoke();
+        OnManaChanged?.Invoke(_currentMana);
         return true;
     }
     
@@ -224,6 +232,7 @@ public class PlayerStat : CharacterStat, IDamaged
     public override void TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
+        OnHealthChanged?.Invoke(currentHealth);
         animator.SetTrigger("Taking Dmg");
     }
 
