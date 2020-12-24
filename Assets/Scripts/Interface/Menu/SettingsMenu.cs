@@ -20,4 +20,8 @@ public class SettingsMenu : MonoBehaviour
         Screen.fullScreen = isFullScreen;
     }
 
+    public void SetKeyboardInput(bool isKeyboardAllowed)
+	{
+        SettingsManager.instance.ChangeSetting(SettingsManager.SettingsKeys.isKeyboardAllowed, isKeyboardAllowed);
+	}
 }
