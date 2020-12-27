@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
     private JoystickAttack _rangeJoystick;
+    [SerializeField]
     private Vector2 _movementDirection;
     private Vector2 _direction;
     private bool _stopped = false;
@@ -16,6 +17,11 @@ public class PlayerMovement : MonoBehaviour
     public void Start()
     {
         joystick = InterfaceManager.Instance.fixedJoystick;
+
+        if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
+        {
+            InterfaceManager.Instance.DisableView();
+        }
     }
 
     /*There we receive input information*/
@@ -49,9 +55,17 @@ public class PlayerMovement : MonoBehaviour
     
     void ProcessInputs()
     {
-        _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-        movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
-        _movementDirection.Normalize();
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+        {
+            _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+        }
+		else
+        { 
+            _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            _movementDirection.Normalize();
+        }
 
     }
     

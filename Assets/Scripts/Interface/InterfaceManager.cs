@@ -58,6 +58,11 @@ public class InterfaceManager : MonoBehaviour
         quickPanel.SetActive(false);
     }
     
+    public void DisableView()
+	{
+        // TODO: disable joystick sprite. 
+	}
+
     public void ShowPlayerPanel()
     {
         HideFaceElements();
