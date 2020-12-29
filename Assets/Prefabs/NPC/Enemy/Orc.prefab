@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4999
   m_Sprite: {fileID: 8749302817991680212, guid: 1ebf941cef3fe4a7d87445b2ba2fddd0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 60
+  m_Mass: 80
   m_LinearDrag: 4
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -182,12 +182,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWayPointDistance: 0.5
   movementSpeed: 2
-  detectionRange: 7
+  detectionRange: 5
   followRange: 10
   waitTime: 2
   attackCoolDown: 1.7
   attackDuration: 0.4
-  attackRange: 0.8
+  attackRange: 1.2
 --- !u!114 &-244161455613779257
 MonoBehaviour:
   m_ObjectHideFlags: 0

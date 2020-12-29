@@ -4,6 +4,7 @@ using System;
 
 public class PlayerStat : CharacterStat, IDamaged
 {
+    private float STAMINA_REGINERATION_DEALY = 2;
     private float _regenerationCoolDown;
     private int _xp;
     private int[] _xpToNextLevel = 
@@ -37,6 +38,9 @@ public class PlayerStat : CharacterStat, IDamaged
     [SerializeField] private Stat mind;
     [SerializeField] private Stat reaction;
     [Space]
+    [SerializeField] private Stat attackRange;
+    [SerializeField] private Stat pushForce;
+    [SerializeField] private Stat knockBack;
     [SerializeField] private Stat attackSpeed;
     [SerializeField] private Stat blockStrength;
     [SerializeField] private Stat castSpeed;
@@ -44,18 +48,22 @@ public class PlayerStat : CharacterStat, IDamaged
     [SerializeField] private Stat critDamage;
     [SerializeField] private Stat critChance;
     [Space]
-    [SerializeField] private float regenerationSpeed;
+    [SerializeField] private float regenerationSpeed;  //Make it stat?
     [Space]
     // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
-    // Cache 
-    private PlayerMovement _playerMovement;
 
     public Stat Physique => physique;
     public Stat Will => will;
     public Stat Mind => mind;
     public Stat Reaction => reaction;
+
+    public Stat AttackRange => attackRange;
+    public Stat PushForce => pushForce;
+    public Stat KnockBack => knockBack;
+    public Stat AttackSpeed => attackSpeed;
+    public Stat CastSpeed => castSpeed;
 
     public float CurrentMana => _currentMana;
     public float CurrentStamina => _currentStamina;
@@ -78,7 +86,7 @@ public class PlayerStat : CharacterStat, IDamaged
     private void Start()
     {
         _regenerationCoolDown = 0;
-        regenerationSpeed = 5;
+        regenerationSpeed = 2;
 
         currentHealth = maxHealth;
         _currentStamina = maxStamina;
@@ -87,8 +95,6 @@ public class PlayerStat : CharacterStat, IDamaged
         _xp = 0;
         level = 1;
         
-        // Cache
-        _playerMovement = GetComponent<PlayerMovement>();
     }
     
     protected override void Update()
@@ -197,6 +203,10 @@ public class PlayerStat : CharacterStat, IDamaged
 
         onChangeCallback?.Invoke();
         OnStaminaChanged?.Invoke(_currentStamina);
+
+        //Set timer to stamina regineration:
+        if(value < 0)
+            _regenerationCoolDown = 0;
         return true;
     }
     
@@ -204,7 +214,6 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         if (_currentMana + value < 0)
             return false;
-
         _currentMana += value;
         if (_currentMana > maxMana)
             _currentMana = maxMana;
@@ -213,14 +222,31 @@ public class PlayerStat : CharacterStat, IDamaged
         OnManaChanged?.Invoke(_currentMana);
         return true;
     }
-    
+    public bool CheckHealth(float value)
+    {
+        if (currentHealth + value < 0)
+            return false;
+        return true;
+    }
+    public bool CheckStamina(float value)
+    {
+        if (_currentStamina + value < 0)
+            return false;
+        return true;
+    }
+    public bool CheckMana(float value)
+    {
+        if (_currentMana + value < 0)
+            return false;
+        return true;
+    }
     public void RegenerateStamina()
     {
-        _regenerationCoolDown += Time.deltaTime * regenerationSpeed;
-        if (_regenerationCoolDown > 1)
+        if(_regenerationCoolDown <= STAMINA_REGINERATION_DEALY)
+            _regenerationCoolDown += Time.deltaTime;
+        else if (_regenerationCoolDown > STAMINA_REGINERATION_DEALY)
         {
-            ModifyStamina(1);
-            _regenerationCoolDown = 0;
+            ModifyStamina(regenerationSpeed);
         }
     }
 
@@ -234,6 +260,8 @@ public class PlayerStat : CharacterStat, IDamaged
         base.TakeDamage(phyDamage, magDamage);
         OnHealthChanged?.Invoke(currentHealth);
         animator.SetTrigger("Taking Dmg");
+        //Take Damage -> Screen shake MAYBE it will be removed later!
+        ScreenShakeController.Instance.StartShake(0.17f, 1f);
     }
 
     public override void Die()

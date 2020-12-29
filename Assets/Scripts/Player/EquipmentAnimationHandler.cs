@@ -31,8 +31,6 @@ public class EquipmentAnimationHandler : MonoBehaviour
         
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
-        
-        PlayerOnScene.Instance.playerAttack.onAttacked += AttackAnimation;
     }
     
     private void Update()
@@ -102,7 +100,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
             
         }
 
-        if (_weaponEquiped && weaponAnimator.GetInteger("Set") > 0)
+        if (_weaponEquiped && !weaponAnimator.GetBool("Attack"))
         {
             string index = "";
             if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2] != '_')
@@ -191,19 +189,8 @@ public class EquipmentAnimationHandler : MonoBehaviour
         }
     }
 
-    //When attack, trigger the isAttack animation
-    private void AttackAnimation(AttackType type,int set)
-    {
-        if (_weaponController != null)
-        {
-            weaponAnimator.SetTrigger("Attack");
-            weaponAnimator.SetInteger("Set", set);
-        }
-        
-    }
     public void RotateRangeWeapon(Vector3 dir)
     {
         weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
     }
-    
 }

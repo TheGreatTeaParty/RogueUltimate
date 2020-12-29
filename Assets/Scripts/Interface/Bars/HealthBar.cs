@@ -24,6 +24,8 @@ public class HealthBar : Bar
 
     private void ChangeSliderValue(float value)
     {
+        if (slider.value < value)
+            changedslider.value = value;
         SetCurrentValue(value);
     }
     

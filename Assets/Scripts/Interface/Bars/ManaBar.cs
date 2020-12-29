@@ -25,6 +25,8 @@ public class ManaBar : Bar
 
     private void SetManaValue(float value)
     {
+        if (slider.value < value)
+            changedslider.value = value;
         SetCurrentValue(value);
     }
 }

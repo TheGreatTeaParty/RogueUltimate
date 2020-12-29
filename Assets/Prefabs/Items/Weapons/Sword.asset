@@ -15,14 +15,14 @@ MonoBehaviour:
   ID: 5
   tier: 0
   price: 50
-  itemName: Simple sword
-  description: 
+  itemName: Broken Sword
+  description: '+15 Physical Damage '
   sprite: {fileID: 4337684191699249041, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 6ede747c3098b4c209d011fc75aacdfe, type: 2}
   animation: []
-  physicalDamageBonus: 0
+  physicalDamageBonus: 15
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -34,9 +34,10 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
-  attackCoolDown: 1
-  attackRange: 1
-  knockBack: 1
-  pushForce: 1
-  requiredStamina: -10
-  attackDuration: 0.5
+  attackSpeedMofifier: 0.7
+  attackRangeMofifier: 0.2
+  knockBackModifier: 38
+  pushForceMofifier: 25
+  requiredStamina: -20
+  requiredMana: 0
+  requiredHealth: 0

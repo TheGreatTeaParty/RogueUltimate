@@ -8,6 +8,7 @@ public class FlyingObject : MonoBehaviour
     private string _hitName;
     private float _physicalDamage;
     private float _magicDamage;
+    private float _knockBack;
     private Rigidbody2D _rb;
     private Vector2 _direction;
 
@@ -21,18 +22,22 @@ public class FlyingObject : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
     }
     
-    public void SetData(float physicalDamage, float magicDamage, Vector2 direction)
+    public void SetData(float physicalDamage, float magicDamage, Vector2 direction,float knockback = 0)
     {
         _physicalDamage = physicalDamage;
         _magicDamage = magicDamage;
         _direction = direction;
+        _knockBack = knockback;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
         AudioManager.Instance.Play(_hitName);
-        if (collision.GetComponent<IDamaged>()!= null)
-           collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
+        if (collision.GetComponent<IDamaged>() != null)
+        {
+            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
+            collision.GetComponent<Rigidbody2D>().AddForce(_direction * 100 * _knockBack);
+        }
         Destroy(gameObject);
     }
     

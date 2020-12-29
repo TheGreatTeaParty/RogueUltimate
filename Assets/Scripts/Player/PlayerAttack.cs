@@ -1,39 +1,42 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System;
 
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackCoolDown;
-    public float attackRange;
-    public float knockBack;
-    public float pushForce;
+    public float FistAttackSpeed = 0.9f;
+    public float FistAttackRange = 0.3f;
+    public float FistPushForce = 1.2f;
+    public float FistStaminaCost = -10;
 
-    private float _startAttackCoolDown;
-    private float _weaponCoolDown;
-    private float _fistRange;
+    public float CurrentAttackCD => _currentAttackCD;
+
+    private float _currentAttackCD = 0;
+    private IEnumerator attackCoroutine;
+    private float _playerAttackSpeed = 0;
+    private bool _isAttacking = false;
     private LayerMask _whatIsEnemy;
     private Vector3 _direction;
 
     //Deligate to trigger animation
-    public delegate void OnAttacked(AttackType type,int set);
+    public delegate void OnAttacked(AttackType type);
     public OnAttacked onAttacked;
+
+    public Action<AttackType> EndAttack;
 
     // Cache
     private PlayerStat _playerStat;
     private PlayerMovement _playerMovement;
-    
-    
+
+
     private void Awake()
     {
         _whatIsEnemy = LayerMask.GetMask("Enemy");
-        _fistRange = attackRange;
     }
 
     private void Start()
     {
-        CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
-        
         // Cache
         _playerStat = GetComponent<PlayerStat>();
         _playerMovement = GetComponent<PlayerMovement>();
@@ -41,92 +44,141 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (_startAttackCoolDown > 0)
-            _startAttackCoolDown -= Time.deltaTime;
-        
         _direction = _playerMovement.GetDirection();
     }
 
-    private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
-    {
-        if (_new != null) 
-            if (_new.EquipmentType == EquipmentType.Weapon)
-                _weaponCoolDown = _new.GetAttackCD();
-    }
 
     public void Attack()
     {
+
+        if (_playerAttackSpeed != _playerStat.AttackSpeed.Value)
+            _playerAttackSpeed = _playerStat.AttackSpeed.Value;
+
         Equipment equipment = CharacterManager.Instance.Equipment;
         EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
-        
-        if (!(_startAttackCoolDown <= 0)) return;
-        
-        //If there is any Weapon call the function attack there
 
-        if (weapon != null) 
+        if (!_isAttacking)
         {
-            weapon.Attack(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
-                
-            if (weapon.Echo() == AttackType.Melee)
-            {
-                StartCoroutine(PlayerStop(0.5f));
-                onAttacked?.Invoke(AttackType.Melee, 1);
-            }
+            _isAttacking = true;
 
-            _startAttackCoolDown = _weaponCoolDown;
-        }
-        //if not, this is base fist attack
-        else
-        {
-            Debug.Log("No weapon equipped");
-            FistAttack();   
-        }
+            //Calculate attack time depanding on the item type:
+            if (weapon && weapon.Echo() == AttackType.Magic)
+                _currentAttackCD = _playerStat.CastSpeed.Value;
+            else
+                _currentAttackCD = _playerStat.AttackSpeed.Value;
 
+            //Start Attack enumirator:
+            attackCoroutine = AttackAnimationWait(weapon);
+            StartCoroutine(attackCoroutine);
+
+        }
     }
-    
+
     private void FistAttack()
     {
-        if (!(_startAttackCoolDown <= 0)) return;
-        
-        attackRange = _fistRange;
+        if (!_playerStat.ModifyStamina(FistStaminaCost)) return;
 
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(
-            transform.position + _direction / 2, attackRange, _whatIsEnemy.value);
+            transform.position + _direction / 2, FistAttackRange, _whatIsEnemy.value);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
             enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
-        
-        _startAttackCoolDown = attackCoolDown;
-        StartCoroutine(PlayerStop(0.4f));
-        onAttacked?.Invoke(AttackType.None,0);
-    }
-    
-    public float GetAttackCD()
-    {
-        return _startAttackCoolDown;
-    }
-
-    public float GetWeaponCD()
-    {
-        return _weaponCoolDown;
-    }
-
-    public void SetRange(float range)
-    {
-        attackRange = range;
+        if(enemiesToDamage.Length > 0)
+            ScreenShakeController.Instance.StartShake(0.05f, 0.03f);
+        _playerMovement.PushToDirection(FistPushForce);
+        PlayerStop(_currentAttackCD);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + _direction/2, attackRange);
+        Gizmos.DrawWireSphere(transform.position + _direction / 2, _playerStat.AttackRange.Value);
     }
 
-    IEnumerator PlayerStop(float time)
+    private IEnumerator AttackAnimationWait(EquipmentItem weapon)
     {
-        PlayerOnScene.Instance.playerMovement.StopMoving();
-        yield return new WaitForSeconds(time);
-        PlayerOnScene.Instance.playerMovement.StartMoving();
+        if (weapon)
+        {
+            if (CheckRequiredStats(weapon)) ///Check and use stats
+            {
+
+                onAttacked?.Invoke(weapon.Echo());
+
+                if (weapon.Echo() == AttackType.Melee)
+                {
+                    _playerMovement.PushToDirection(_playerStat.PushForce.Value);
+                    PlayerStop(_currentAttackCD*0.9f);
+                }
+
+                yield return new WaitForSeconds(_currentAttackCD - CurrentAttackCD*0.2f);
+
+                weapon.Attack(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
+                EndAttack?.Invoke(weapon.Echo());
+                _isAttacking = false;
+            }
+            _isAttacking = false;
+        }
+
+        else
+        {
+            onAttacked?.Invoke(AttackType.None);
+
+            yield return new WaitForSeconds(FistAttackSpeed);
+            FistAttack();
+            EndAttack?.Invoke(AttackType.None);
+            _isAttacking = false;
+        }
+
     }
-    
+
+    void PlayerStop(float time)
+    {
+        StartCoroutine(_playerMovement.DisablePlayerControll(time));
+    }
+
+    public void StopAttack()
+    {
+        StopCoroutine(attackCoroutine);
+        EndAttack?.Invoke(AttackType.Range);
+        _isAttacking = false;
+    }
+
+    private bool CheckRequiredStats(EquipmentItem weapon)
+    {
+        switch (weapon.Echo())
+        {
+            case AttackType.Melee:
+                {
+                    MeleeWeapon mele = weapon as MeleeWeapon;
+                    if (_playerStat.CheckHealth(mele.RequiredHealth) &&
+                        _playerStat.CheckStamina(mele.RequiredStamina) &&
+                        _playerStat.CheckMana(mele.RequiredMana))
+                        return true;
+                    else
+                        return false;
+                }
+            case AttackType.Range:
+                {
+                    RangeWeapon range = weapon as RangeWeapon;
+                    if (_playerStat.CheckHealth(range.RequiredHealth) &&
+                        _playerStat.CheckStamina(range.RequiredStamina) &&
+                        _playerStat.CheckMana(range.RequiredMana))
+                        return true;
+                    else
+                        return false;
+                }
+            case AttackType.Magic:
+                {
+                    MagicWeapon magic = weapon as MagicWeapon;
+                    if (_playerStat.CheckHealth(magic.RequiredHealth) &&
+                        _playerStat.CheckStamina(magic.RequiredStamina) &&
+                        _playerStat.CheckMana(magic.RequiredMana))
+                        return true;
+                    else
+                        return false;
+                }
+            default:
+                return false;
+        }
+    }
 }

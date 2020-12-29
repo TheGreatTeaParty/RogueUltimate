@@ -14,7 +14,7 @@ public class Windblow : ActiveAbility
         var player = PlayerOnScene.Instance;
         var position = player.gameObject.transform.position;
         
-        if (player.playerAttack.GetAttackCD() <= 0)
+        if (player.playerAttack.CurrentAttackCD <= 0)
         {
             _enemyMask = LayerMask.GetMask("Enemy");
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(position, attackRange, _enemyMask);
@@ -27,8 +27,7 @@ public class Windblow : ActiveAbility
             }
 
             //Send mesage to isAttack animation handler that we use Melee Weapon
-            player.playerAttack.onAttacked?.Invoke(AttackType.Melee, Random.Range(0, 2));
-            player.playerAttack.SetRange(attackRange);
+            player.playerAttack.onAttacked?.Invoke(AttackType.Melee);
         }
     }
     

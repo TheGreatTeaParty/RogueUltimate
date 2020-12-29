@@ -16,13 +16,13 @@ MonoBehaviour:
   tier: 0
   price: 50
   itemName: Simple bow
-  description: 
+  description: +8 Damage
   sprite: {fileID: -2064859774160998932, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 4d7ffdbde2de84d55944b5118835b2c6, type: 2}
   animation: []
-  physicalDamageBonus: 0
+  physicalDamageBonus: 8
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -34,9 +34,12 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
-  attackCD: 1
-  knockBack: 0
+  attackSpeedMofifier: 0.6
+  knockBackModifier: 30
+  pushForceMofifier: 0
   requiredStamina: -10
+  requiredMana: 0
+  requiredHealth: 0
   arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
     type: 3}
   prepareSound: {fileID: 8300000, guid: 103be5ef3bea649448b38065b9b1d4cb, type: 3}

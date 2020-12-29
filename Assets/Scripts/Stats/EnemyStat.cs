@@ -50,7 +50,6 @@ public class EnemyStat : CharacterStat, IDamaged
         base.TakeDamage(phyDamage, magDamage);
      
         onReceivedDamage?.Invoke(damageReceived);
-        _rigidbody2D.velocity = Vector2.zero;
         onDamaged?.Invoke();
 
         //Make enemy blinding
@@ -68,7 +67,6 @@ public class EnemyStat : CharacterStat, IDamaged
 
     public override void Die()
     {
-
         CharacterManager.Instance.Stats.GainXP(gainedXP);
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
