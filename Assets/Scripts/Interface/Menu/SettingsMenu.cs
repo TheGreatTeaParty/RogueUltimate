@@ -1,10 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public void SetVolume(float volume){
+    [SerializeField]
+    Toggle keyboardToggle;
+	private void Start()
+	{
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+            keyboardToggle.isOn = true;
+        else
+            keyboardToggle.isOn = false;
+    }
+
+	public void SetVolume(float volume){
         
         audioMixer.SetFloat("Volume", volume);
     }
@@ -23,5 +34,5 @@ public class SettingsMenu : MonoBehaviour
     public void SetKeyboardInput(bool isKeyboardAllowed)
 	{
         SettingsManager.instance.ChangeSetting(SettingsManager.SettingsKeys.isKeyboardAllowed, isKeyboardAllowed);
-	}
+    }
 }

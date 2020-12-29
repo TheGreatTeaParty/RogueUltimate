@@ -79,15 +79,24 @@ public class SettingsManager : MonoBehaviour
         SaveSettings();
     }
 
+    /// <summary>
+    /// Get setting by ket.
+    /// </summary>
+    /// <param name="key">SettingsManager.SettingsKeys enum.</param>
+    /// <returns>Requested setting.</returns>
+    public string GetSetting(SettingsKeys key)
+	{
+        return stringSettings[key];
+	}
+
     private void LoadSettings()
 	{
         foreach(string settingKey in Enum.GetNames(typeof(SettingsKeys)))
 		{
             // TODO: Make something with default value setter.
-            stringSettings.Add((SettingsKeys)Enum.Parse(typeof(SettingsKeys), settingKey), PlayerPrefs.GetString(settingKey, "true"));
+            stringSettings.Add((SettingsKeys)Enum.Parse(typeof(SettingsKeys), settingKey), PlayerPrefs.GetString(settingKey, "False"));
 		}
         Debug.Log("Settings have been loaded.");
-        Debug.Log(stringSettings[SettingsKeys.isKeyboardAllowed]);
 	}
 
     private void SaveSettings()
