@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Pathfinding;
 
 public class Kaban : EnemyAI
 {
@@ -74,6 +75,7 @@ public class Kaban : EnemyAI
     protected override void Die()
     {
         _damageAreaCollider.gameObject.SetActive(false);
+        DestroyAllComponents();
         Destroy(this);
     }
     
@@ -84,5 +86,15 @@ public class Kaban : EnemyAI
         isAttack = false;
         _animator.SetBool("Stunned", false);
     }
-    
+
+    private void DestroyAllComponents()
+    {
+        Destroy(GetComponent<FloatingNumber>());
+        Destroy(GetComponent<CapsuleCollider2D>());
+        Destroy(GetComponent<Rigidbody2D>());
+        Destroy(GetComponent<Seeker>());
+        Destroy(GetComponent<NPCAnimationHandler>());
+        Destroy(GetComponent<DynamicLayerRenderer>());
+        Destroy(GetComponent<AudioSource>());
+    }
 }

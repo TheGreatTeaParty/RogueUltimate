@@ -51,12 +51,13 @@ public class Stat
         for (int i = 0; i < _statModifiers.Count; i++)
         {
             StatModifier modifier = _statModifiers[i];
-
             switch (modifier.Type)
             {
                 case StatModifierType.Flat:
-                    finalValue += modifier.Value;
-                    break;
+                    {
+                        finalValue += modifier.Value;
+                        break;
+                    }
                 
                 case StatModifierType.PercentAdd:
                 {
@@ -75,7 +76,7 @@ public class Stat
                     break;
             }
 
-            finalValue += _statModifiers[i].Value;
+           // finalValue += _statModifiers[i].Value; Do we need it?
         }
         
         return (float) Math.Round(finalValue, 1);
@@ -114,7 +115,7 @@ public class Stat
     {
         bool doneRemove = false;
         
-        for (int i = _statModifiers.Count - 1; i >= 0; i++)
+        for (int i = _statModifiers.Count - 1; i >= 0; i--)
         {
             if (_statModifiers[i].Source == source)
             {

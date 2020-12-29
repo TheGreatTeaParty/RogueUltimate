@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 public class Bar : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
+    protected const float DAMAGED_HEALTH_SHRINK_TIMER_MAX = 0.8f;
 
+    protected float damagedHealthShrinkTimer;
+
+    [SerializeField] protected Slider slider;
+    [SerializeField] protected Slider changedslider;
 
     public void SetCurrentValue(float value)
     {
+        damagedHealthShrinkTimer = DAMAGED_HEALTH_SHRINK_TIMER_MAX;
         slider.value = value;
     }
     
@@ -16,5 +21,6 @@ public class Bar : MonoBehaviour
     {
         slider.maxValue = value;
     }
+
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
@@ -21,7 +22,10 @@ public class EnemyStat : CharacterStat, IDamaged
     private CapsuleCollider2D _capsuleCollider2D;
     private FloatingNumber _floatingNumber;
 
-    
+    //Material
+    private MaterialPropertyBlock _collideMaterial;
+    private SpriteRenderer _materialInfo;
+
     private void Start()
     {
         _enemyAi = GetComponent<EnemyAI>();
@@ -33,20 +37,23 @@ public class EnemyStat : CharacterStat, IDamaged
 
         maxHealth += level * 10;
         currentHealth = maxHealth;
+
+        //Material:
+        _collideMaterial = new MaterialPropertyBlock();
+        _materialInfo = GetComponent<SpriteRenderer>();
+        _materialInfo.GetPropertyBlock(_collideMaterial);
     }
 
-    private void Update()
-    {
-        
-    }
-
+   
     public override void TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
      
         onReceivedDamage?.Invoke(damageReceived);
-        _rigidbody2D.velocity = Vector2.zero;
         onDamaged?.Invoke();
+
+        //Make enemy blinding
+        StartCoroutine(WaitAndChangeProperty());
     }
 
     public void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
@@ -68,5 +75,22 @@ public class EnemyStat : CharacterStat, IDamaged
         _floatingNumber.enabled = false;
         Destroy(this);
     }
-    
+
+    private IEnumerator WaitAndChangeProperty()
+    {
+        _collideMaterial.SetFloat("Damaged", 1f);
+        _materialInfo.SetPropertyBlock(_collideMaterial);
+
+        if (currentHealth <= 0)
+        {
+            _collideMaterial.SetFloat("Damaged", 0f);
+            _materialInfo.SetPropertyBlock(_collideMaterial);
+            StopAllCoroutines();
+        }
+        yield return new WaitForSeconds(0.24f);
+
+        _collideMaterial.SetFloat("Damaged", 0f);
+        _materialInfo.SetPropertyBlock(_collideMaterial);
+    }
+
 }

@@ -18,6 +18,7 @@ public class StatModifier
         Value = value;
         Type = type;
         Order = order;
+        Source = source;
     }
     
     public StatModifier(float value, StatModifierType type) : this (value, type, (int)type, null) { }

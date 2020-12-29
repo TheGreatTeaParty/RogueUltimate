@@ -70,11 +70,12 @@ public class CharacterStat : MonoBehaviour
         
     }
     
-    public virtual void TakeDamage(float phyDamage, float magDamage)
+    public virtual void TakeDamage(float _phyDamage, float _magDamage)
     {
-        phyDamage = (physicalDamage.Value * (100 / (100 + physicalProtection.Value)));
-        magDamage = (magicDamage.Value * (100 / (100 + magicProtection.Value)));
-        currentHealth -= (phyDamage + magDamage);
+        float phyDamage = (_phyDamage * (100 / (100 + physicalProtection.Value)));
+        float magDamage = (_magDamage * (100 / (100 + magicProtection.Value)));
+        damageReceived = (phyDamage + magDamage);
+        currentHealth -= damageReceived;
         if (currentHealth <= 0)
             Die();
     }

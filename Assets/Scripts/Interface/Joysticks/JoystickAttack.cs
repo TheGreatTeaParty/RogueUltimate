@@ -2,47 +2,48 @@
 
 public class JoystickAttack : MonoBehaviour
 {
+    public Transform AimArrow;
     protected Joystick joystick;
 
     private Vector2 _movement;
-    private bool _isShooting;
     private bool _isSlowed;
-    private float _timer = 0;
-    private bool _audioIsPlaying = false;
     
     // Cache
     private PlayerMovement _playerMovement;
     private PlayerAttack _playerAttack;
-    private AudioSource _audioSource;
-    private Equipment _equipment;
+    private AimDisplay _aimDisplay;
+    private EquipmentAnimationHandler equipmentAnimation;
     
     
     public void Start()
     {
-        _isShooting = false;
         _isSlowed = false;
         joystick = GetComponent<Joystick>();
         
         // Cache
         _playerMovement = PlayerOnScene.Instance.playerMovement;
         _playerAttack = PlayerOnScene.Instance.playerAttack;
-        _audioSource = PlayerOnScene.Instance.audioSource;
-        _equipment = CharacterManager.Instance.Equipment;
+        _aimDisplay = _playerAttack.GetComponentInChildren<AimDisplay>();
+        equipmentAnimation = PlayerOnScene.Instance.equipmentAnimationHandler;
     }
 
     /*There we receive input information*/
     private void Update()
     {
         _movement = joystick.Direction;
-        PlayerOnScene.Instance.equipmentAnimationHandler.RotateRangeWeapon(_movement.normalized);
+        if (_movement != Vector2.zero)
+        {
+            equipmentAnimation.RotateRangeWeapon(_movement.normalized);
+
+            if (_aimDisplay.GetIconState())
+                RotateAimArrow(_movement);
+        }
     }
 
     private void FixedUpdate()
     {
         if (_movement.x != 0 || _movement.y != 0)
         {
-            _isShooting = true;
-
             //if not slowed, slow the character down
             if (!_isSlowed)
             {
@@ -51,50 +52,24 @@ public class JoystickAttack : MonoBehaviour
                 _playerMovement.SetRangeMoving(true);
                 _isSlowed = true;
             }
+            DisplayAimArrow();
+            _playerAttack.Attack();
 
-            if (!_audioIsPlaying)
-            {
-                _audioIsPlaying = true;
-                
-                RangeWeapon weapon = _equipment.equipmentSlots[5].Item as RangeWeapon;
-                if (weapon == null)
-                {
-                    MagicWeapon MagicWeapon = _equipment.equipmentSlots[5].Item as MagicWeapon;
-                    _audioSource.PlayOneShot(MagicWeapon.prepareSound);
-                }
-                else
-                {
-                    _audioSource.PlayOneShot(weapon.prepareSound);
-                }
-                _playerAttack.onAttacked?.Invoke(AttackType.Melee, 0);
-            }
-
-            if (_isShooting)
-                _timer += Time.deltaTime;
-
-            if (_isShooting && _timer > _playerAttack.GetWeaponCD())
-            {
-                if (_movement.x != 0 || _movement.y != 0)
-                {
-                    _playerAttack.Attack();
-                    _playerAttack.onAttacked?.Invoke(AttackType.Melee, 1);
-                }
-            
-                _audioIsPlaying = false;
-                _isShooting = false;
-                _timer = 0;
-            }
         }
 
         //Return the normal speed;
         else if (_isSlowed)
         {
+            DisableAimArrow();
+            _playerAttack.StopAttack();
             _playerMovement.SlowDown(2f);
             _playerMovement.SetRangeMoving(false);
-            _playerAttack.onAttacked?.Invoke(AttackType.Melee, 1);
             _isSlowed = false;
-            _audioIsPlaying = false;
-            _timer = 0;
+
+            equipmentAnimation.RotateRangeWeapon(new Vector3(0f,0f,0f));
+
+            if (_aimDisplay.GetIconState())
+                RotateAimArrow(new Vector3(0f, 0f, 0f));
         }
     }
 
@@ -102,5 +77,19 @@ public class JoystickAttack : MonoBehaviour
     {
         return _movement.normalized;
     }
-    
+
+    private void DisplayAimArrow()
+    {
+        _aimDisplay.TurnOnIcon();
+    }
+
+    private void DisableAimArrow()
+    {
+        _aimDisplay.TurnOFFIcon();
+    }
+
+    private void RotateAimArrow(Vector3 dir)
+    {
+        _aimDisplay.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+    }
 }

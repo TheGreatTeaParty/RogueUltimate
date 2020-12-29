@@ -15,9 +15,10 @@ public class FloatingNumber : MonoBehaviour
     {
         var position = transform.position;
         
-        textPb.GetComponent<TextMeshPro>().text = damage.ToString();
-        textPb.GetComponent<TextMeshPro>().color = new Color32(255, 168, 0, 255);
-        Instantiate(textPb, new Vector3(position.x, position.y + 1, position.z), Quaternion.identity);
+        Transform text = Instantiate(textPb, new Vector3(position.x, position.y + 1, position.z), Quaternion.identity);
+        text.GetComponent<TextMeshPro>().text = ((int)damage).ToString();
+        text.GetComponent<TextMeshPro>().color = new Color32(255, 168, 0, 255);
+
     }
 
 }

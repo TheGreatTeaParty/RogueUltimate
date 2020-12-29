@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: cecb379343ca7432989f5e5bc6f85d59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4995
   m_Sprite: {fileID: 4354231566380549168, guid: a8a575ae31e5d4c979ce5452ce94a8d2,
     type: 3}
   m_Color: {r: 0.8113208, g: 0.7845319, b: 0.7845319, a: 1}
@@ -109,9 +109,9 @@ MonoBehaviour:
     baseValue: 10
   physicalProtection:
     baseValue: 0
-  magicDamage:
-    baseValue: 0
   magicProtection:
+    baseValue: 0
+  magicDamage:
     baseValue: 0
   maxHealth: 100
   gainedXP: 50
@@ -156,7 +156,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 60
+  m_Mass: 40
   m_LinearDrag: 4
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -179,12 +179,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWayPointDistance: 0.5
   movementSpeed: 2
-  detectionRange: 7
+  detectionRange: 5
   followRange: 10
   waitTime: 2
   attackCoolDown: 1.7
   attackDuration: 0.5
-  attackRange: 0.8
+  attackRange: 1.2
 --- !u!114 &1387692472574455193
 MonoBehaviour:
   m_ObjectHideFlags: 0
