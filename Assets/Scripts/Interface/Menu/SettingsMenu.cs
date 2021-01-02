@@ -9,10 +9,12 @@ public class SettingsMenu : MonoBehaviour
     Toggle keyboardToggle;
 	private void Start()
 	{
+       /*
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
             keyboardToggle.isOn = true;
         else
             keyboardToggle.isOn = false;
+            */
     }
 
 	public void SetVolume(float volume){

@@ -22,6 +22,7 @@ public class RangeWeapon : EquipmentItem
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
 
+
     private void Awake()
     {
         equipmentType = EquipmentType.Weapon;
@@ -52,14 +53,18 @@ public class RangeWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
+        JoystickAttack _directionJoystick = InterfaceManager.Instance.joystickAttack;
+        Vector3 direction = new Vector3(
+            _directionJoystick.GetDirection().x,
+            _directionJoystick.GetDirection().y);
+
+        if(direction.magnitude == 0) { return; }
+
         PlayerStat playerStat = CharacterManager.Instance.Stats;
         if (!playerStat.ModifyMana(requiredMana) ||
           !playerStat.ModifyHealth(requiredHealth) ||
           !playerStat.ModifyStamina(requiredStamina))
             return;
-        Vector3 direction = new Vector3(
-            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
-            InterfaceManager.Instance.joystickAttack.GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,
             PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
         arrow.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);

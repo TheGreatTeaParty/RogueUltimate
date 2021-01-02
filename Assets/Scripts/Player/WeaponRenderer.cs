@@ -94,7 +94,7 @@ public class WeaponRenderer : MonoBehaviour
         }
         ChangeAnimationSpeed(attackType);
 
-        _weaponAnimator.SetTrigger("Attack");
+        _weaponAnimator.SetBool("Attack",true);
         _isAttack = true;
     }
 
@@ -102,7 +102,7 @@ public class WeaponRenderer : MonoBehaviour
     {
         if (attackType != AttackType.None)
         {
-            _weaponAnimator.SetTrigger("EndAttack");
+            _weaponAnimator.SetBool("Attack", false);
             _isAttack = false;
         }
     }

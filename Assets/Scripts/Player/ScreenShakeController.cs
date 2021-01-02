@@ -14,6 +14,8 @@ public class ScreenShakeController : MonoBehaviour
     private float _shakeFadeTime;
     private float _shakeRotation;
 
+    private PlayerCamera _playerCamera;
+
     
     void Awake()
     {
@@ -21,6 +23,9 @@ public class ScreenShakeController : MonoBehaviour
             Instance = this;
         else
             Destroy(this);
+
+        _playerCamera = GetComponent<PlayerCamera>();
+
     }
 
     private void LateUpdate()

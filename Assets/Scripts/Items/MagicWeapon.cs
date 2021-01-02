@@ -50,6 +50,13 @@ public class MagicWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
+        JoystickAttack _directionJoystick = InterfaceManager.Instance.joystickAttack;
+        Vector3 direction = new Vector3(
+            _directionJoystick.GetDirection().x,
+            _directionJoystick.GetDirection().y);
+
+        if (direction.magnitude == 0) { return; }
+
         PlayerStat playerStat = CharacterManager.Instance.Stats;
         if (!playerStat.ModifyMana(requiredMana) ||
           !playerStat.ModifyHealth(requiredHealth) ||
@@ -57,10 +64,6 @@ public class MagicWeapon : EquipmentItem
             return;
         var player = PlayerOnScene.Instance;
        
-        Vector3 direction = new Vector3(
-            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
-            InterfaceManager.Instance.joystickAttack.GetDirection().y);
-        
         Transform magic = Instantiate(prefab, 
             player.playerMovement.transform.position + direction, Quaternion.identity);
         magic.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);
