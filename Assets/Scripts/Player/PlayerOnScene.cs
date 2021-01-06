@@ -15,6 +15,8 @@ public class PlayerOnScene : MonoBehaviour
         }
         else
             Destroy(gameObject);
+        
+        Initialize();
     }
     
     #endregion
@@ -43,9 +45,9 @@ public class PlayerOnScene : MonoBehaviour
                 ? equipmentAnimationHandler.ArmorAnimationSprites?[0] : null;
         }
     }
+    
 
-
-    private void Start()
+    private void Initialize()
     {
         // Cache
         stats = GetComponent<PlayerStat>();

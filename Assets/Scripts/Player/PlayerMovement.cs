@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _direction;
     private bool _stopped = false;
     private bool _rangeMoving = false;
+    private bool _isKeyboardAllowed = false;
 
     private PlayerStat _playerStat;
     private bool _isWaiting = false;
@@ -31,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     {
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+        {
+            _isKeyboardAllowed = true;
+        }
 
         if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
         {
@@ -69,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     
     void ProcessInputs()
     {
-        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+        if (_isKeyboardAllowed)
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
