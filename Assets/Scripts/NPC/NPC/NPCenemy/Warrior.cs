@@ -18,12 +18,12 @@ public class Warrior : EnemyAI
     {
         base.Update();
         _direction = lastDirection;
-        _attackPosition = transform.position + _direction;
+        _attackPosition = transform.position + _direction*attackRange;
     }
 
     protected override void Attack()
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRadius, _whatIsEnemy);
         
         for (int i = 0; i < enemiesToDamage.Length; i++)
             enemiesToDamage[i].GetComponent<IDamaged>().
@@ -35,7 +35,7 @@ public class Warrior : EnemyAI
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_attackPosition, attackRange);
+        Gizmos.DrawWireSphere(_attackPosition, attackRadius);
     }
 
     protected override void Die()

@@ -1,61 +1,86 @@
 using System.Collections;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyAI : AI
 {
     protected EnemyStat stats;
-    [SerializeField] protected float attackRange = 0.5f;
+    [SerializeField] protected float attackRadius = 0.5f;
+    [SerializeField] protected float attackRange = 2f;
 
+    protected Vector3 followPosition;
+    private bool _isTriggered = false;
 
     protected override void Start()
     {
         base.Start();
-        
+
         stats = GetComponent<EnemyStat>();
         stats.onDie += Die;
+        state = NPCstate.Hanging;
     }
     
     protected virtual void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, target.transform.position) > attackRange && !isAttack)
-            state = NPCstate.Chasing;
+       /* if (Vector2.Distance(transform.position, target.transform.position) > attackRange && !isAttack
+            && Vector2.Distance(transform.position, target.transform.position) <= detectionRange)
+            state = NPCstate.Chasing;*/
 
         switch (state)
         {
             case NPCstate.Chasing:
-            {
-                StateChasing();
-                break;
-            }
+                {
+                    StateChasing();
+                    break;
+                }
 
             case NPCstate.Attacking:
-            {
-                StateAttack();
-                break;
-            }
+                {
+                    StateAttack();
+                    break;
+                }
             
             case NPCstate.Hanging:
+                {
+                    StateHanging();
+                    break;
+                }
+        }
+    }
+    
+    protected override void UpdatePath()
+    {
+        if (seeker.IsDone())
+        {
+            if(state == NPCstate.Hanging)
+                seeker.StartPath(transform.position, followPosition, OnPathComplete);
+            else
             {
-                StateHanging();
-                break;
+                seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
             }
         }
     }
 
-    private void StateHanging()
+    protected virtual void StateHanging()
     {
         if (path != null)
         {
-            //Hangout
-
-            EnemyTrigger();
+            if (!_isTriggered)
+            {
+                StopMoving();
+                EnemyTrigger();
+            }
         }
     }
     
     private void EnemyTrigger()
     {
         if (Vector2.Distance(transform.position, target.transform.position) < detectionRange)
+        {
             state = NPCstate.Chasing;
+            _isTriggered = true;
+            StartMoving();
+        }
     }
 
     protected override void StateChasing()
@@ -84,8 +109,16 @@ public class EnemyAI : AI
         yield return new WaitForSeconds(attackCoolDown);
         OnAttacked?.Invoke();
         yield return new WaitForSeconds(attackDuration);
+        state = NPCstate.Chasing;
         Attack();
         StartMoving();
     }
-    
+
+    protected void GenerateFollowPosition(Vector2 position)
+    {
+        if (AstarPath.active.data.gridGraph.GetNearest(position, new NNConstraint()).node != null)
+        {
+            followPosition = position;
+        }
+    }
 }

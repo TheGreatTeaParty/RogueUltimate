@@ -21,7 +21,6 @@ public class NPCAnimationHandler : MonoBehaviour
         {
 
             _npc.OnAttacked += Attack;
-
             _stats = GetComponent<EnemyStat>();
             _stats.onDamaged += GetDamage;
             _stats.onDie += Die;
@@ -38,8 +37,12 @@ public class NPCAnimationHandler : MonoBehaviour
         _velocity = _npc.GetVelocity();
         ProcessInputs();
 
-        _animator.SetFloat("Horizontal", _dir.x);
-        _animator.SetFloat("Vertical", _dir.y);
+        if (!_npc.IsStopped)
+        {
+            _animator.SetFloat("Horizontal", _dir.x);
+            _animator.SetFloat("Vertical", _dir.y);
+        }
+
         _animator.SetFloat("Speed", _movementSpeed);
     }
 
