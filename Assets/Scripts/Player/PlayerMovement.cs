@@ -32,10 +32,10 @@ public class PlayerMovement : MonoBehaviour
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
 
-        /*if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
+        if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
         {
             InterfaceManager.Instance.DisableView();
-        }*/
+        }
     }
 
     /*There we receive input information*/
@@ -69,18 +69,18 @@ public class PlayerMovement : MonoBehaviour
     
     void ProcessInputs()
     {
-       /*
+       
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
         }
 		else
-        { */
+        { 
             _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
             movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
             _movementDirection.Normalize();
-        //}
+        }
 
     }
     
