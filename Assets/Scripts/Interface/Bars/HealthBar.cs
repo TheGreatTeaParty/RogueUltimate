@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class HealthBar : Bar
 {
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.0001f);
         CharacterManager.Instance.Stats.OnHealthChanged += ChangeSliderValue;
     }
 

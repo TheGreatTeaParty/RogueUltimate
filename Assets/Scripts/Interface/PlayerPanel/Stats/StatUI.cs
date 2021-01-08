@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -21,8 +22,10 @@ public class StatUI : MonoBehaviour
    public TMP_Text magicProtectionPoints;
    
    
-   private void Start()
+   private IEnumerator Start()
    {
+      yield return new WaitForSeconds(0.0001f);
+      
       _playerStat = CharacterManager.Instance.Stats;
       _playerStat.onChangeCallback += UpdateUI;
       

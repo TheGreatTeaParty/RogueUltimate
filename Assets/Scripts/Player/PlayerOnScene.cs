@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class PlayerOnScene : MonoBehaviour
 {
@@ -31,6 +33,7 @@ public class PlayerOnScene : MonoBehaviour
     [HideInInspector] public EquipmentAnimationHandler equipmentAnimationHandler;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public AudioSource audioSource;
+    [HideInInspector] public AudioSource dialogueAudioSource;
     [HideInInspector] public InteractDetaction interactDetaction; 
     
     public Sprite PlayerSprite => spriteRenderer.sprite;
@@ -56,10 +59,18 @@ public class PlayerOnScene : MonoBehaviour
         playerFX = Instance.GetComponent<PlayerFX>();
         equipmentAnimationHandler = Instance.GetComponentInChildren<EquipmentAnimationHandler>();
         playerMovement = Instance.GetComponent<PlayerMovement>();
-        audioSource = Instance.GetComponent<AudioSource>();
+        
+        var audioSources = GetComponents<AudioSource>();
+        audioSource = audioSources[0];
+        dialogueAudioSource = audioSources[1];
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         interactDetaction = Instance.GetComponentInChildren<InteractDetaction>();
-        //Set stats to CharacterManager
+
+    }
+
+    private void Start()
+    {
         SetStats();
     }
 
@@ -74,6 +85,10 @@ public class PlayerOnScene : MonoBehaviour
         spriteRenderer.enabled = true;
         equipmentAnimationHandler.gameObject.SetActive(true);
     }
+    
+    /// <summary>
+    /// Set stats to CharacterManager
+    /// </summary>
     public void SetStats()
     {
         CharacterManager.Instance.SetStats(stats);
