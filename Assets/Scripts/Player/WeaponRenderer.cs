@@ -11,7 +11,8 @@ public class WeaponRenderer : MonoBehaviour
     private int _prevIndex;
     private PlayerStat _playerStat;
     private bool _isAttack = false;
-    
+
+    public int PrevIndex => _prevIndex;
     private void Start()
     {
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
