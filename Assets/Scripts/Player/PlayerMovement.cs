@@ -50,13 +50,13 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate() 
     {
         //Save the direction of player movement
-        if (!_rangeMoving && _movementDirection.x != 0 || _movementDirection.y != 0 && !_stopped)
+        if (!_rangeMoving && (_movementDirection.x != 0 || _movementDirection.y != 0) && !_stopped)
         {
             animator.SetFloat("Horizontal", _movementDirection.x);
             animator.SetFloat("Vertical", _movementDirection.y);
             _direction = _movementDirection;
         }
-        else if(_rangeMoving && !_stopped)
+        else if(_rangeMoving && !_stopped && _rangeJoystick.GetDirection().x!= 0 && _rangeJoystick.GetDirection().y != 0)
         {
             animator.SetFloat("Horizontal", _rangeJoystick.GetDirection().x);
             animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
@@ -69,16 +69,25 @@ public class PlayerMovement : MonoBehaviour
     
     void ProcessInputs()
     {
+       
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            if (!_stopped)
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            else
+                movementSpeed = 0f;
         }
 		else
-        { 
-            _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
-            _movementDirection.Normalize();
+        {
+            if (!_stopped)
+            {
+                _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+                _movementDirection.Normalize();
+            }
+            else
+                movementSpeed = 0f;
         }
 
     }
@@ -123,6 +132,10 @@ public class PlayerMovement : MonoBehaviour
         _stopped = false;
     }
 
+    public bool IsStopped()
+    {
+        return _stopped;
+    }
     public IEnumerator DisablePlayerControll(float time)
     {
         StopMoving();

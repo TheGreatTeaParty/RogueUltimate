@@ -16,10 +16,10 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.None: { animator.SetTrigger("Attack"); break; }
-            case AttackType.Melee: { animator.SetTrigger("WeaponAttack"); break; }
-            case AttackType.Range: { animator.SetTrigger("WeaponAttack"); break; }
-            case AttackType.Magic: { animator.SetTrigger("WeaponAttack"); break; }
+            case AttackType.None:  { animator.SetBool("Attack", true); break; }
+            case AttackType.Melee: { animator.SetBool("WeaponAttack", true); break; }
+            case AttackType.Range: { animator.SetBool("WeaponAttack", true); break; }
+            case AttackType.Magic: { animator.SetBool("WeaponAttack", true); break; }
 
             /*case AttackType.Windblow:
             {
@@ -35,10 +35,10 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.None: { animator.SetTrigger("EndAttack"); break; }
-            case AttackType.Melee: { animator.SetTrigger("EndWeaponAttack"); break; }
-            case AttackType.Range: { animator.SetTrigger("EndWeaponAttack"); break; }
-            case AttackType.Magic: { animator.SetTrigger("EndWeaponAttack"); break; }
+            case AttackType.None:  { animator.SetBool("Attack", false); break; }
+            case AttackType.Melee: { animator.SetBool("WeaponAttack", false); break; }
+            case AttackType.Range: { animator.SetBool("WeaponAttack",false); break; }
+            case AttackType.Magic: { animator.SetBool("WeaponAttack", false); break; }
         }
     }
 }

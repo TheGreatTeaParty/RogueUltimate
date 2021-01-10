@@ -25,9 +25,12 @@ public class MeleeWeapon : EquipmentItem
     [SerializeField] private int requiredStamina;
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredHealth;
+    [Space]
+    public Transform HitEffect;
 
     private LayerMask _whatIsEnemy;
     private Vector2 _attackPosition;
+    private WeaponRenderer _weaponRenderer;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;
@@ -45,6 +48,8 @@ public class MeleeWeapon : EquipmentItem
             stats.KnockBack.AddModifier(new StatModifier(knockBackModifier, StatModifierType.Flat, this));
         if (pushForceMofifier != 0)
             stats.PushForce.AddModifier(new StatModifier(pushForceMofifier, StatModifierType.Flat, this));
+
+        _weaponRenderer = PlayerOnScene.Instance.GetComponentInChildren<WeaponRenderer>();
 
     }
 
@@ -75,7 +80,20 @@ public class MeleeWeapon : EquipmentItem
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, CharacterManager.Instance.Stats.AttackRange.Value, _whatIsEnemy);
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
+            //If take damage returns true -> play hit effect:
             enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(physicalDamage, magicDamage);
+
+            //Create Visual Effect:
+            if (HitEffect)
+            {
+                Transform Effect = Instantiate(HitEffect, enemiesToDamage[i].GetComponent<Collider2D>().bounds.center, Quaternion.identity);
+                if (_weaponRenderer.PrevIndex == 1)
+                    Effect.rotation = Quaternion.Euler(0, 0, 90f);
+                Effect.GetComponent<SpriteRenderer>().sortingOrder = enemiesToDamage[i].GetComponent<SpriteRenderer>().sortingOrder + 1;
+            }
+            else
+                Debug.LogWarning("No Hit effect assigned to the weapon!");
+
             enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * 100 * playerStat.KnockBack.Value);
         }
         if(enemiesToDamage.Length > 0)

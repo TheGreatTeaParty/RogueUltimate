@@ -6,6 +6,7 @@ public class Kaban : EnemyAI
 {
     public float rageSpeed;
     public float stunTime = 2.5f;
+    public float knockBackForce = 18f;
 
     private Vector2 _position;
     private Vector3 _finalPos;
@@ -82,9 +83,11 @@ public class Kaban : EnemyAI
     IEnumerator Stun()
     {
         _animator.SetBool("Stunned", true);
+        StopMoving();
         yield return new WaitForSeconds(stunTime);
         isAttack = false;
         _animator.SetBool("Stunned", false);
+        StopMoving();
     }
 
     private void DestroyAllComponents()
