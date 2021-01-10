@@ -69,8 +69,8 @@ public class WeaponRenderer : MonoBehaviour
             {
                 if (j >= WeaponAttackAnim.Length)
                 {
-                    Debug.LogWarning($"Sprite with Index: {j} does not exist in Animation Sprites!");
-                    _weaponSprite.sprite = null;
+                    Debug.Log($"Sprite with Index: {j} does not exist in Animation Sprites!");
+                   // _weaponSprite.sprite = null;
                 }
                 else
                 {   //Need to be added;

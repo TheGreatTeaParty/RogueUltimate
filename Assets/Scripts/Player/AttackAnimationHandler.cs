@@ -16,7 +16,7 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.None: { animator.SetTrigger("Attack"); break; }
+            case AttackType.None:  { animator.SetBool("Attack", true); break; }
             case AttackType.Melee: { animator.SetBool("WeaponAttack", true); break; }
             case AttackType.Range: { animator.SetBool("WeaponAttack", true); break; }
             case AttackType.Magic: { animator.SetBool("WeaponAttack", true); break; }
@@ -35,7 +35,7 @@ public class AttackAnimationHandler : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.None: { animator.SetBool("WeaponAttack", false); break; }
+            case AttackType.None:  { animator.SetBool("Attack", false); break; }
             case AttackType.Melee: { animator.SetBool("WeaponAttack", false); break; }
             case AttackType.Range: { animator.SetBool("WeaponAttack",false); break; }
             case AttackType.Magic: { animator.SetBool("WeaponAttack", false); break; }

@@ -4,6 +4,8 @@ using UnityEngine.Serialization;
 public class FlyingObject : MonoBehaviour
 {
     public float speed;
+    [Space]
+    public Transform HitEffect;
     [FormerlySerializedAs("HitName")] [SerializeField]
     private string _hitName;
     private float _physicalDamage;
@@ -36,6 +38,12 @@ public class FlyingObject : MonoBehaviour
         if (collision.GetComponent<IDamaged>() != null)
         {
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
+            //Check if enemy takes damage
+            if (HitEffect)
+            {
+                Transform Effect = Instantiate(HitEffect, collision.GetComponent<Collider2D>().bounds.center, Quaternion.identity);
+                Effect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
+            }
             collision.GetComponent<Rigidbody2D>().AddForce(_direction * 100 * _knockBack);
         }
         Destroy(gameObject);

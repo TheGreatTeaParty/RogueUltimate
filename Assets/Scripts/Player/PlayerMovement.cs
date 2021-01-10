@@ -73,13 +73,21 @@ public class PlayerMovement : MonoBehaviour
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            if (!_stopped)
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            else
+                movementSpeed = 0f;
         }
 		else
-        { 
-            _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
-            _movementDirection.Normalize();
+        {
+            if (!_stopped)
+            {
+                _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+                _movementDirection.Normalize();
+            }
+            else
+                movementSpeed = 0f;
         }
 
     }
@@ -124,6 +132,10 @@ public class PlayerMovement : MonoBehaviour
         _stopped = false;
     }
 
+    public bool IsStopped()
+    {
+        return _stopped;
+    }
     public IEnumerator DisablePlayerControll(float time)
     {
         StopMoving();

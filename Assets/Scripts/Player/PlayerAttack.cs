@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
         Equipment equipment = CharacterManager.Instance.Equipment;
         EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
 
-        if (!_isAttacking)
+        if (!_isAttacking && !_playerMovement.IsStopped())
         {
             _isAttacking = true;
 
