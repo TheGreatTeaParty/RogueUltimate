@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CutsceneDialogueManager : MonoBehaviour, IDialogueManager
+public class IntroDialogueManager : MonoBehaviour, IDialogueManager
 {
     [SerializeField] private TextMeshProUGUI characterName;
     [SerializeField] private TextMeshProUGUI text;
@@ -18,7 +18,9 @@ public class CutsceneDialogueManager : MonoBehaviour, IDialogueManager
     // Arrays that store the local position of DialogueUI elements.
     [SerializeField] private Vector2[] leftLayoutPositions;
     [SerializeField] private Vector2[] rightLayoutPositions;
-
+    
+    public static event Action DialogueEnded;
+    
     private int _lineIndex = 0;
     private Dialogue _currentDialogue;
 
@@ -36,6 +38,7 @@ public class CutsceneDialogueManager : MonoBehaviour, IDialogueManager
         UI.enabled = false;
         _currentDialogue = dialogue;
         ChangeDialogueUIState(true);
+        CutsceneManager.StartNextTimeline();
         NextLine();
     }
     
@@ -47,6 +50,7 @@ public class CutsceneDialogueManager : MonoBehaviour, IDialogueManager
         {
             ChangeDialogueUIState(false);
             UI.enabled = true;
+            DialogueEnded?.Invoke();
         }
 
         try
@@ -68,13 +72,20 @@ public class CutsceneDialogueManager : MonoBehaviour, IDialogueManager
 
     public void HandleButton()
     {
-        if (_typer.IsActive)
+        try
         {
-            SkipLine();
+            if (_typer.IsActive)
+            {
+                SkipLine();
+            }
+            else
+            {
+                NextLine();
+            }
         }
-        else
+        catch
         {
-            NextLine();
+            Debug.Log("There is no active dialogue.");
         }
     }
 

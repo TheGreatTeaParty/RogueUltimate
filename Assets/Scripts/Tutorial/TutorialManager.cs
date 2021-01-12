@@ -2,20 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private CutsceneDialogueManager cutsceneDialogueManager;
-
-    private void Start()
+    [SerializeField] private IntroDialogueManager introDialogueManager;
+    
+    public void StartDialogue(Dialogue dialogue)
     {
-        StartDialogue();
-    }
-
-    private void StartDialogue()
-    {
-        var dialogue = Resources.Load<Dialogue>("Dialogues/Tutorial");
-        cutsceneDialogueManager.StartDialogue(dialogue);
+        introDialogueManager.StartDialogue(dialogue);
     }
 }
