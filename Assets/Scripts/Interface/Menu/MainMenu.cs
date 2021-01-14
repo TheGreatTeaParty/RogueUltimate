@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour {
     public void NewGame()
     {
         SaveManager.DeletePlayer();
-        LevelManager.LoadScene("StartTavern");
+        LevelManager.LoadScene("CutScene");
     }
 
     public void ResumeGame()

@@ -106,6 +106,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         
         image.color = _shadowColor;
         OnBeginDragEvent?.Invoke(this);
+        Debug.Log("Highlite !");
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
