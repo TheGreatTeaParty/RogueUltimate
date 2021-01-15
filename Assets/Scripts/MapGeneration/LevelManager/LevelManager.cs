@@ -12,6 +12,7 @@ public static class LevelManager
         DB1,
         DB2,
         DB3,
+        StartTavern,
     }
 
     public static void LoadScene(Scenes scenes, Vector3 position = new Vector3())

@@ -48,7 +48,8 @@ public class InteractDetaction : MonoBehaviour
     public void DeleteInteractionData()
     {
         TurnOFFOutline();
-        interactionUI.SetActive(false);
+        if (interactionUI)
+            interactionUI.SetActive(false);
         interactable = null;
     }
 
