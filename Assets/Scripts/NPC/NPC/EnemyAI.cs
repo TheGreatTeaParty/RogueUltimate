@@ -116,7 +116,7 @@ public class EnemyAI : AI
 
     protected void GenerateFollowPosition(Vector2 position)
     {
-        if (AstarPath.active.data.gridGraph.GetNearest(position, new NNConstraint()).node != null)
+        if (AstarPath.active.data.gridGraph.GetNearest(position).node.Walkable)
         {
             followPosition = position;
         }

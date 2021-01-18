@@ -80,10 +80,10 @@ public class AI : MonoBehaviour
   
     private void RayCastToDirection()
     {
-        int angle = 90;
+        int angle = 120;
         float sum = 0;
         int number = 0;
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < 9; i++)
         {
             Vector2 detactRay = Quaternion.AngleAxis(angle, Vector3.forward) * nextPointDir;
             RaycastHit2D ray = Physics2D.Raycast(_collider.bounds.center, detactRay, colliderDetactionRadius);

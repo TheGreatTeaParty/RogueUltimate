@@ -80,6 +80,7 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnHealthChanged;
     public Action<float> OnStaminaChanged;
     public Action<float> OnManaChanged;
+    public Action<float> OnXPChanged;
 
     
     
@@ -115,6 +116,7 @@ public class PlayerStat : CharacterStat, IDamaged
         }
         
         onChangeCallback.Invoke();
+        OnXPChanged?.Invoke(_xp);
     }
     
     private void LevelUp()

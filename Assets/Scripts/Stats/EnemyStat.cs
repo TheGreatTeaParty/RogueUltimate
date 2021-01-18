@@ -4,7 +4,11 @@ using System.Collections;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
+    //[SerializeField] Transform coin;
+    //[SerializeField] Transform XPOrb;
+
     [SerializeField] private int gainedXP;
+    [SerializeField] private int gainedGold;
     private EnemyAI _enemyAi;
     
     
@@ -68,6 +72,7 @@ public class EnemyStat : CharacterStat, IDamaged
     public override void Die()
     {
         CharacterManager.Instance.Stats.GainXP(gainedXP);
+        //
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
         _rigidbody2D.Sleep();

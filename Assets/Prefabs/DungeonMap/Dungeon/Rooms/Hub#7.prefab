@@ -1372,7 +1372,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.010317087, y: 0.40237832}
+  m_Offset: {x: 0.010317087, y: 0.41463947}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1383,7 +1383,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2587218, y: 2.3825307}
+  m_Size: {x: 2.2587218, y: 2.3580084}
   m_EdgeRadius: 0
 --- !u!1 &7626717484135402236
 GameObject:
@@ -1457,7 +1457,8 @@ SpriteRenderer:
   m_SortingLayerID: -1330409655
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 8123850778842550151, guid: d49e044ca8861442585f7f5e818b1154,
+    type: 3}
   m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0.6862745}
   m_FlipX: 0
   m_FlipY: 0
@@ -1465,7 +1466,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8734528539699010829
@@ -1481,6 +1482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightParent: {fileID: 6628798796785456137}
+  DoorParent: {fileID: 8554043406327323295}
   TurnOff: 1
   sprite: {fileID: 0}
   _roomLight: {fileID: 8505964591798484043}
@@ -1501,7 +1503,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.125}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1592,7 +1594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 21.54
-  height: 20.82
+  height: 20.5
   position: {x: 1.9, y: -2.84, z: 0}
 --- !u!1 &8926685426562201038
 GameObject:
@@ -5520,7 +5522,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -540908
+      value: -1899926
       objectReference: {fileID: 0}
     - target: {fileID: 386478549220441501, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -5695,7 +5697,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -540990
+      value: -1899996
       objectReference: {fileID: 0}
     - target: {fileID: 386478549220441501, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -5944,7 +5946,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -541066
+      value: -1900072
       objectReference: {fileID: 0}
     - target: {fileID: 386478549220441501, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -6119,7 +6121,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -541136
+      value: -1900142
       objectReference: {fileID: 0}
     - target: {fileID: 386478549220441501, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -7071,22 +7073,22 @@ PrefabInstance:
     - target: {fileID: 7626084204012368293, guid: c485d7934c7174bc08f64ab61579b9d2,
         type: 3}
       propertyPath: m_Offset.y
-      value: 4.0000095
+      value: 3.5206766
       objectReference: {fileID: 0}
     - target: {fileID: 7626084204012368293, guid: c485d7934c7174bc08f64ab61579b9d2,
         type: 3}
       propertyPath: m_Offset.x
-      value: 0.288558
+      value: 0.16872549
       objectReference: {fileID: 0}
     - target: {fileID: 7626084204012368293, guid: c485d7934c7174bc08f64ab61579b9d2,
         type: 3}
       propertyPath: m_Size.x
-      value: 27.734701
+      value: 21.743069
       objectReference: {fileID: 0}
     - target: {fileID: 7626084204012368293, guid: c485d7934c7174bc08f64ab61579b9d2,
         type: 3}
       propertyPath: m_Size.y
-      value: 28.88895
+      value: 21.219664
       objectReference: {fileID: 0}
     - target: {fileID: 7783349556658700901, guid: c485d7934c7174bc08f64ab61579b9d2,
         type: 3}

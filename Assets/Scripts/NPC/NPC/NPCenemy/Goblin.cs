@@ -22,7 +22,7 @@ public class Goblin : Warrior
         base.StateHanging();
         if (path != null)
         {
-            if(Vector2.Distance(transform.position,followPosition) > 0.1f)
+            if(Vector2.Distance(transform.position,followPosition) > 0.2f)
                 rb.MovePosition(transform.position + (Vector3)direction * movementSpeed * Time.deltaTime);
             else
             {

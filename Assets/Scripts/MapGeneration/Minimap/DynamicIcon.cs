@@ -4,6 +4,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class DynamicIcon : MonoBehaviour
 {
     public GameObject LightParent;
+    public GameObject DoorParent;
+
+
     [SerializeField]
     bool TurnOff = true;
 
@@ -13,6 +16,7 @@ public class DynamicIcon : MonoBehaviour
     [SerializeField]
     private Light2D _roomLight;
     private Light2D[] _lights;
+    private SpriteRenderer[] _doorIcons;
 
     private float IntencityOut = 0.7f;
     private bool _triggeredOn = false;
@@ -23,7 +27,8 @@ public class DynamicIcon : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         _lights = LightParent.GetComponentsInChildren<Light2D>();
-
+        _doorIcons = DoorParent.GetComponentsInChildren<SpriteRenderer>();
+        SetDoorsIconState(false);
 
         if (TurnOff)
         {
@@ -63,9 +68,13 @@ public class DynamicIcon : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (!sprite.enabled)
-                sprite.enabled = true;
-            sprite.color = new Color(0.6f, 0.6f, 0.6f);
+            if (sprite)
+            {
+                if (!sprite.enabled)
+                    sprite.enabled = true;
+                sprite.color = new Color(0.6f, 0.6f, 0.6f);
+            }
+            SetDoorsIconState(true);
 
             //Discover a new room tirn the light on
             SetLightsState(true);
@@ -86,9 +95,24 @@ public class DynamicIcon : MonoBehaviour
 
     private void SetLightsState(bool state)
     {
-        for(int i = 0; i < _lights.Length; i++)
+        if (_lights != null)
         {
-            _lights[i].gameObject.SetActive(state);
+            for (int i = 0; i < _lights.Length; i++)
+            {
+                _lights[i].gameObject.SetActive(state);
+            }
+        }
+    }
+
+    private void SetDoorsIconState(bool state)
+    {
+        if (_doorIcons != null)
+        {
+            for (int i = 0; i < _doorIcons.Length; i++)
+            {
+                if (_doorIcons[i].gameObject.layer == 10)
+                    _doorIcons[i].enabled = state;
+            }
         }
     }
 }

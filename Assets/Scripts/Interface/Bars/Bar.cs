@@ -17,7 +17,7 @@ public class Bar : MonoBehaviour
         slider.value = value;
     }
     
-    public void SetMaxValue(float value)
+    public virtual void SetMaxValue(float value)
     {
         slider.maxValue = value;
     }

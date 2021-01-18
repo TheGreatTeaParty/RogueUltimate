@@ -2498,7 +2498,8 @@ SpriteRenderer:
   m_SortingLayerID: -1330409655
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7735507076791200642, guid: d49e044ca8861442585f7f5e818b1154,
+    type: 3}
   m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0.7372549}
   m_FlipX: 0
   m_FlipY: 0
@@ -2506,7 +2507,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &5925370382687200922
@@ -2526,7 +2527,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.125}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2548,6 +2549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightParent: {fileID: 2014534711217314950}
+  DoorParent: {fileID: 2255115279414351236}
   TurnOff: 1
   sprite: {fileID: 0}
   _roomLight: {fileID: 1498325635667899067}
@@ -2868,6 +2870,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 6986301081905027540, guid: f6e6527555e7e4d99b57d9e8acc48f8e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.156
+      objectReference: {fileID: 0}
     - target: {fileID: 7329337194707824153, guid: f6e6527555e7e4d99b57d9e8acc48f8e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3108,6 +3115,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8826356377846705720, guid: 63ebc416360b44009b21fe65f0a8b69f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.147
+      objectReference: {fileID: 0}
     - target: {fileID: 8979215267343117747, guid: 63ebc416360b44009b21fe65f0a8b69f,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3205,7 +3217,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -249368
+      value: -3450614
       objectReference: {fileID: 0}
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -3464,7 +3476,7 @@ PrefabInstance:
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
       propertyPath: m_InstanceId
-      value: -249444
+      value: -3450690
       objectReference: {fileID: 0}
     - target: {fileID: -4252739003873998690, guid: ff24c3f6a88fa4d5498a640d86637342,
         type: 3}
@@ -3665,6 +3677,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682915203205167139, guid: 2fa2730fa14ac4c129a8bfb56e781557,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4699052472410913863, guid: 2fa2730fa14ac4c129a8bfb56e781557,
         type: 3}
@@ -4054,6 +4071,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 51817019012761994, guid: e3b51a7f5a17e445b91a5542ec447cb6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.143
       objectReference: {fileID: 0}
     - target: {fileID: 503940897989574465, guid: e3b51a7f5a17e445b91a5542ec447cb6,
         type: 3}
