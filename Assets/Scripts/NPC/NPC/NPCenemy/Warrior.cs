@@ -11,7 +11,7 @@ public class Warrior : EnemyAI
     protected override void Start()
     {
         base.Start();
-        _whatIsEnemy = LayerMask.GetMask("Player");
+        _whatIsEnemy = LayerMask.GetMask("Player","EnvObjects");
     }
 
     protected override void Update()

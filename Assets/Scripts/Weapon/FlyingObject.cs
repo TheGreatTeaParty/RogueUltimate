@@ -44,7 +44,9 @@ public class FlyingObject : MonoBehaviour
                 Transform Effect = Instantiate(HitEffect, collision.GetComponent<Collider2D>().bounds.center, Quaternion.identity);
                 Effect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
             }
-            collision.GetComponent<Rigidbody2D>().AddForce(_direction * 100 * _knockBack);
+            Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
+            if(rigidbody)
+                rigidbody.AddForce(_direction * 100 * _knockBack);
         }
         Destroy(gameObject);
     }

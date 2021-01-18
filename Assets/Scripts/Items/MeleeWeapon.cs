@@ -72,7 +72,7 @@ public class MeleeWeapon : EquipmentItem
             return;
         var player = PlayerOnScene.Instance;
         
-        _whatIsEnemy = LayerMask.GetMask("Enemy");
+        _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
         Vector3 direction = player.playerMovement.GetDirection();
         _attackPosition = player.transform.position + direction;
 

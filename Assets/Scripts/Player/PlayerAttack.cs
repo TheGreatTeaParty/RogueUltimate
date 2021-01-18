@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
-        _whatIsEnemy = LayerMask.GetMask("Enemy");
+        _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
     }
 
     private void Start()
