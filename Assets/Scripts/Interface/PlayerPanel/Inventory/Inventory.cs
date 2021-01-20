@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private Transform inventoryParent;
     [SerializeField] private Transform quickSlotsParent;
+    [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private ItemSlot[] itemSlots;
     [SerializeField] private QuickSlot[] quickSlots;
     [SerializeField] private List<Item> items;
@@ -123,6 +125,14 @@ public class Inventory : MonoBehaviour
             quickSlots[j].Item = null;
             quickSlots[j].Amount = 0;
         }
+        
+        gold.SetText(Gold.ToString());
+
+    }
+
+    public void UpdateGold()
+    {
+        gold.SetText(Gold.ToString());
     }
 
 }

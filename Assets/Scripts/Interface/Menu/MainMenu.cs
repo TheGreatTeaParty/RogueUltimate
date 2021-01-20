@@ -11,18 +11,34 @@ public class MainMenu : MonoBehaviour {
     private GameObject playerInterface;
     [SerializeField]
     private Button resumeButton;
-
+    [SerializeField]
+    private GameObject confirmWindow;
+    [SerializeField]
+    private GameObject mainMenu;
+    private bool _canStartNewGame = true;
     
     private void Start()
     {
         string path = Application.persistentDataPath + "/player.dat";
-        if (File.Exists(path)) resumeButton.interactable = true;
+        if (File.Exists(path)) {
+            resumeButton.interactable = true;
+            _canStartNewGame = false;
+        }
     }
 
     public void NewGame()
     {
-        SaveManager.DeletePlayer();
-        LevelManager.LoadScene("CutScene");
+        if (_canStartNewGame)
+        {
+            SaveManager.DeletePlayer();
+            LevelManager.LoadScene("CutScene");
+
+        }
+        else
+        {
+            confirmWindow.SetActive(true);
+            mainMenu.SetActive(false);
+        }
     }
 
     public void ResumeGame()
@@ -53,6 +69,5 @@ public class MainMenu : MonoBehaviour {
         Debug.Log("Trying to exit game doesn't work in Editor");
         Application.Quit();
     }
-
     
 }

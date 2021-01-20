@@ -70,6 +70,8 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public event Action<ItemSlot> OnDragEvent;
     public event Action<ItemSlot> OnEndDragEvent;
     public event Action<ItemSlot> OnDropEvent;
+    public event Action<ItemSlot> OnBeginHighlightEvent;
+    public event Action<ItemSlot> OnEndHighlightEvent;
 
 
     protected virtual void Awake()
@@ -125,5 +127,16 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         OnDropEvent?.Invoke(this);
     }
+
+    public virtual void OnBeginHighlight(PointerEventData eventData)
+    {
+        OnBeginHighlightEvent?.Invoke(this);
+    }
+    
+    public virtual void OnEndHighlight(PointerEventData eventData)
+    {
+        OnEndHighlightEvent.Invoke(this);
+    }
+
     
 }
