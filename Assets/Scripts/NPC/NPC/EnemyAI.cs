@@ -102,7 +102,7 @@ public class EnemyAI : AI
 
     }
     
-    IEnumerator AttackWait()
+    protected virtual IEnumerator AttackWait()
     {
         isAttack = true;
         StopMoving();
@@ -120,5 +120,14 @@ public class EnemyAI : AI
         {
             followPosition = position;
         }
+    }
+
+    protected bool IsPositionAvailable(Vector2 position)
+    {
+        if (AstarPath.active.data.gridGraph.GetNearest(position).node.Walkable)
+        {
+            return true;
+        }
+        return false;
     }
 }

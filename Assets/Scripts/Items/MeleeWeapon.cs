@@ -81,20 +81,25 @@ public class MeleeWeapon : EquipmentItem
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
             //If take damage returns true -> play hit effect:
-            enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(physicalDamage, magicDamage);
-
-            //Create Visual Effect:
-            if (HitEffect)
+            if (enemiesToDamage[i].gameObject != player.gameObject)
             {
-                Transform Effect = Instantiate(HitEffect, enemiesToDamage[i].GetComponent<Collider2D>().bounds.center, Quaternion.identity);
-                if (_weaponRenderer.PrevIndex == 1)
-                    Effect.rotation = Quaternion.Euler(0, 0, 90f);
-                Effect.GetComponent<SpriteRenderer>().sortingOrder = enemiesToDamage[i].GetComponent<SpriteRenderer>().sortingOrder + 1;
-            }
-            else
-                Debug.LogWarning("No Hit effect assigned to the weapon!");
+                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(physicalDamage, magicDamage);
 
-            enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * 100 * playerStat.KnockBack.Value);
+                //Create Visual Effect:
+                if (HitEffect)
+                {
+                    Transform Effect = Instantiate(HitEffect, enemiesToDamage[i].GetComponent<Collider2D>().bounds.center, Quaternion.identity);
+                    if (_weaponRenderer.PrevIndex == 1)
+                        Effect.rotation = Quaternion.Euler(0, 0, 90f);
+                    Effect.GetComponent<SpriteRenderer>().sortingOrder = enemiesToDamage[i].GetComponent<SpriteRenderer>().sortingOrder + 1;
+                }
+                else
+                    Debug.LogWarning("No Hit effect assigned to the weapon!");
+
+                Rigidbody2D rigidbody = enemiesToDamage[i].GetComponent<Rigidbody2D>();
+                if (rigidbody)
+                    rigidbody.AddForce(direction * 100 * playerStat.KnockBack.Value);
+            }
         }
         if(enemiesToDamage.Length > 0)
             ScreenShakeController.Instance.StartShake(.09f, .05f + playerStat.PushForce.Value / 1000);

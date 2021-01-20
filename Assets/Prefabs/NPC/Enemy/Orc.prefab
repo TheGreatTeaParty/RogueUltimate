@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2969126813485017447}
   - component: {fileID: 4452840553849684515}
   - component: {fileID: 2969126813485017434}
-  - component: {fileID: 7008089830817396999}
+  - component: {fileID: 2879224966400727602}
   - component: {fileID: -244161455613779257}
   - component: {fileID: -1515456594398467978}
   - component: {fileID: 827094623995903760}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4999
-  m_Sprite: {fileID: 8749302817991680212, guid: 1ebf941cef3fe4a7d87445b2ba2fddd0,
+  m_Sprite: {fileID: 3799508404887519019, guid: 1ebf941cef3fe4a7d87445b2ba2fddd0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
     baseValue: 0
   maxHealth: 100
   gainedXP: 100
+  gainedGold: 0
 --- !u!114 &2969126813485017447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +170,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7008089830817396999
+--- !u!114 &2879224966400727602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2969126813485017444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32849f1f7d5914e079ee35a628b95e4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 49e51fc75b7244331ab5b3f851d8b33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 0.5
@@ -186,7 +187,7 @@ MonoBehaviour:
   detectionRange: 5
   followRange: 10
   waitTime: 2
-  attackCoolDown: 1.7
+  attackCoolDown: 1.2
   attackDuration: 0.4
   colliderDetactionRadius: 0.4
   attackRadius: 0.55
@@ -597,6 +598,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511770840368774502, guid: a0ec7e01616c648dfbe68655fb280d8f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511770840368774502, guid: a0ec7e01616c648dfbe68655fb280d8f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6646338381809150210, guid: a0ec7e01616c648dfbe68655fb280d8f,
         type: 3}

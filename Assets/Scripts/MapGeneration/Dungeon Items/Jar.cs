@@ -20,11 +20,12 @@ public class Jar : MonoBehaviour, IDamaged
         _sprite.GetPropertyBlock(_collideMaterial);
     }
 
-    public void TakeDamage(float phyDamage, float magDamage)
+    public bool TakeDamage(float phyDamage, float magDamage)
     {
         _collideMaterial.SetFloat("Damaged", 1f);
         _sprite.SetPropertyBlock(_collideMaterial);
         StartCoroutine(WaitAndDestroy());
+        return true;
     }
 
     private IEnumerator WaitAndDestroy()

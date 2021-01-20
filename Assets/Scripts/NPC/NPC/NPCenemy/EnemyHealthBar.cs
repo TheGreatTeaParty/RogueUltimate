@@ -14,6 +14,7 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] private TextMeshPro level;
     [SerializeField] private Slider sliderHealth;
     [SerializeField] private Slider _damagedSlider;
+    [SerializeField] private GameObject UI;
 
     
     void Start()
@@ -26,22 +27,28 @@ public class EnemyHealthBar : MonoBehaviour
         enemyName.text = _enemyStat.CharacterName;
         shadow.text = enemyName.text;
         level.text = _enemyStat.Level.ToString();
+        TurnOffAllElements();
     }
 
     private void Update()
     {
-        damagedHealthShrinkTimer -= Time.deltaTime;
-        if(damagedHealthShrinkTimer < 0)
+        if (UI.activeSelf)
         {
-            if(sliderHealth.value < _damagedSlider.value)
+            damagedHealthShrinkTimer -= Time.deltaTime;
+            if (damagedHealthShrinkTimer < 0)
             {
-                float shrinkSpeed = 100f;
-                _damagedSlider.value -= shrinkSpeed * Time.deltaTime;
+                if (sliderHealth.value < _damagedSlider.value)
+                {
+                    float shrinkSpeed = 100f;
+                    _damagedSlider.value -= shrinkSpeed * Time.deltaTime;
+                }
             }
         }
     }
     private void ChangeHealth(float damage)
     {
+        if (!UI.activeSelf)
+            TurnOnAllElements();
         damagedHealthShrinkTimer = DAMAGED_HEALTH_SHRINK_TIMER_MAX;
         sliderHealth.value = _enemyStat.CurrentHealth;
         
@@ -51,5 +58,13 @@ public class EnemyHealthBar : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    
+
+    private void TurnOnAllElements()
+    {
+        UI.SetActive(true);
+    }
+    private void TurnOffAllElements()
+    {
+        UI.SetActive(false);
+    }
 }

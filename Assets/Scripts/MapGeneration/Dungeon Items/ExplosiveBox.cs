@@ -20,7 +20,7 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
 
     void Start()
     {
-        layerMask = LayerMask.GetMask("Enemy", "Player");
+        layerMask = LayerMask.GetMask("Enemy", "Player","EnvObjects");
         _sprite = GetComponent<SpriteRenderer>();
         _particle = GetComponent<ParticleSystem>();
 
@@ -45,7 +45,7 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
         if (_timeLeft < 0 && !_courutineStarted)
             StartCoroutine(WaitAndDestroy());
     }
-    public void TakeDamage(float phyDamage, float magDamage)
+    public bool TakeDamage(float phyDamage, float magDamage)
     {
         if (_isTriggered && !_courutineStarted)
             StartCoroutine(WaitAndDestroy());
@@ -54,6 +54,7 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
             _isTriggered = true;
             StartCoroutine(Blink());
         }
+        return true;
     }
 
     private IEnumerator WaitAndDestroy()

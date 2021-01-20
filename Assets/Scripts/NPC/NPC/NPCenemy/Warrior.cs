@@ -3,9 +3,9 @@ using Pathfinding;
 
 public class Warrior : EnemyAI
 {
-    private LayerMask _whatIsEnemy;
-    private Vector2 _attackPosition;
-    private Vector3 _direction;
+    protected LayerMask _whatIsEnemy;
+    protected Vector2 _attackPosition;
+    protected Vector3 _direction;
 
 
     protected override void Start()
@@ -24,10 +24,13 @@ public class Warrior : EnemyAI
     protected override void Attack()
     {
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRadius, _whatIsEnemy);
-        
+
         for (int i = 0; i < enemiesToDamage.Length; i++)
-            enemiesToDamage[i].GetComponent<IDamaged>().
-                TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
+        {
+            if(enemiesToDamage[i]!= gameObject)
+                enemiesToDamage[i].GetComponent<IDamaged>().
+                    TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
+        }
         
         isAttack = false;
     }

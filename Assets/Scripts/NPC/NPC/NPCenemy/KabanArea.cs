@@ -29,8 +29,16 @@ public class KabanArea : MonoBehaviour
             _kaban.SetHit(true);
         }
 
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Door"))
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            _parentAnimator.SetTrigger("Crash");
+            _parentAnimator.SetBool("HitPlayer", false);
+            _kaban.SetHit(false);
+        }
+
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("EnvObjects"))
+        {
+            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
             _parentAnimator.SetTrigger("Crash");
             _parentAnimator.SetBool("HitPlayer", false);
             _kaban.SetHit(false);

@@ -28,10 +28,10 @@ public class DynamicIcon : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         _lights = LightParent.GetComponentsInChildren<Light2D>();
         _doorIcons = DoorParent.GetComponentsInChildren<SpriteRenderer>();
-        SetDoorsIconState(false);
 
         if (TurnOff)
         {
+            SetDoorsIconState(false);
             sprite.enabled = false;
             SetLightsState(false);
             if (_roomLight)

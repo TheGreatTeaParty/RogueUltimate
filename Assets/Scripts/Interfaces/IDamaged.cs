@@ -1,5 +1,5 @@
 ﻿public interface IDamaged
 {
-    void TakeDamage(float phyDamage, float magDamage);
+    bool TakeDamage(float phyDamage, float magDamage);
     
 }

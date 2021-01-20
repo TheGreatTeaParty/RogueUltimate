@@ -10,11 +10,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
     private JoystickAttack _rangeJoystick;
+    private TargetLock _targetLock;
     [SerializeField]
     private Vector2 _movementDirection;
     private Vector2 _direction;
     private bool _stopped = false;
     private bool _rangeMoving = false;
+    private bool _LockMovement = false;
 
     private PlayerStat _playerStat;
     private bool _isWaiting = false;
@@ -31,8 +33,9 @@ public class PlayerMovement : MonoBehaviour
     {
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
+        _targetLock = GetComponentInChildren<TargetLock>();
 
-        if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
         {
             InterfaceManager.Instance.DisableView();
         }
@@ -63,6 +66,14 @@ public class PlayerMovement : MonoBehaviour
             if(_rangeJoystick.GetDirection()!= Vector2.zero)
                 _direction = _rangeJoystick.GetDirection();
         }
+
+        else if(!_stopped && _LockMovement)
+        {
+            animator.SetFloat("Horizontal", _targetLock.GetDir().x);
+            animator.SetFloat("Vertical", _targetLock.GetDir().y);
+            _direction = _targetLock.GetDir();
+        }
+
         animator.SetFloat("Speed", movementSpeed);
         MoveCharacter();
     }
@@ -145,6 +156,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetRangeMoving(bool state)
     {
         _rangeMoving = state;
+    }
+    public void SetLockMoving(bool state)
+    {
+        _LockMovement = state;
     }
     public void SetRangeJoystick(JoystickAttack joystick)
     {

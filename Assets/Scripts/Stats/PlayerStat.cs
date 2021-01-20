@@ -257,13 +257,16 @@ public class PlayerStat : CharacterStat, IDamaged
         return _xpToNextLevel[level - 1];
     }
 
-    public override void TakeDamage(float phyDamage, float magDamage)
+    //RETURNS TRUE or FALSE to make a function of EVADES,BLOCK, etc.
+    public override bool TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
+        //TRUE 
         OnHealthChanged?.Invoke(currentHealth);
         animator.SetTrigger("Taking Dmg");
         //Take Damage -> Screen shake MAYBE it will be removed later!
         ScreenShakeController.Instance.StartShake(0.17f, 1f);
+        return true;
     }
 
     public override void Die()

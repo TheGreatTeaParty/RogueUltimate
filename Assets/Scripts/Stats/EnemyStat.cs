@@ -49,15 +49,18 @@ public class EnemyStat : CharacterStat, IDamaged
     }
 
    
-    public override void TakeDamage(float phyDamage, float magDamage)
+    public override bool TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
-     
+
+        //If we need to do armor or evades check character stats!
+
         onReceivedDamage?.Invoke(damageReceived);
         onDamaged?.Invoke();
 
         //Make enemy blinding
         StartCoroutine(WaitAndChangeProperty());
+        return true;
     }
 
     public void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)

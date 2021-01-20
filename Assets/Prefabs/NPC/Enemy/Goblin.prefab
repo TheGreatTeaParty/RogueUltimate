@@ -119,6 +119,7 @@ MonoBehaviour:
     baseValue: 0
   maxHealth: 100
   gainedXP: 50
+  gainedGold: 0
 --- !u!114 &959214771665855267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,12 +476,13 @@ MonoBehaviour:
   movementSpeed: 3
   detectionRange: 7
   followRange: 10
-  waitTime: 1.5
+  waitTime: 0.8
   attackCoolDown: 1.2
   attackDuration: 0.5
   colliderDetactionRadius: 0.38
   attackRadius: 0.4
   attackRange: 1
+  RollForce: 10
   RunBack: 1.3
 --- !u!1001 &4136981887192372037
 PrefabInstance:

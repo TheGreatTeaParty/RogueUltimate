@@ -1,9 +1,10 @@
 ﻿public class BossStats : EnemyStat
 {
-    public override void TakeDamage(float phyDamage, float magDamage)
+    public override bool TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
         BossFightPortal.Instance.SetBossHealth(CurrentHealth);
+        return true;
     }
     
     public override void Die()
