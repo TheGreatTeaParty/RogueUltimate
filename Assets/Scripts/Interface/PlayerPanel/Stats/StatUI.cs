@@ -19,9 +19,20 @@ public class StatUI : MonoBehaviour
    public TMP_Text magicDamagePoints;
    public TMP_Text physicalProtectionPoints;
    public TMP_Text magicProtectionPoints;
-   
-   
-   private void Start()
+   [Space]
+   public TMP_Text critDamage;
+   public TMP_Text dmgResistance;
+   [Space]
+   public TMP_Text magicalcritDamage;
+   public TMP_Text effectResistance;
+   [Space]
+    public TMP_Text critChance;
+    public TMP_Text dodgeChance;
+   [Space]
+    public TMP_Text points;
+
+
+    private void Start()
    {
       _playerStat = CharacterManager.Instance.Stats;
       _playerStat.onChangeCallback += UpdateUI;
@@ -33,20 +44,30 @@ public class StatUI : MonoBehaviour
       UpdateUI();
    }
 
-   private void UpdateUI()
-   {
-      // HP, SP, MP
-      maxHealthPoints.SetText(_playerStat.MaxHealth.ToString(CultureInfo.CurrentUICulture));
-      maxStaminaPoints.SetText(_playerStat.MaxStamina.ToString(CultureInfo.CurrentUICulture));
-      maxManaPoints.SetText(_playerStat.MaxMana.ToString(CultureInfo.CurrentUICulture));
-      maxWillPoints.SetText(_playerStat.MaxWill.ToString(CultureInfo.CurrentUICulture));
+    private void UpdateUI()
+    {
+        // HP, SP, MP
+        maxHealthPoints.SetText(_playerStat.Strength.MaxHealth.Value.ToString(CultureInfo.CurrentUICulture));
+        maxStaminaPoints.SetText(_playerStat.Agility.MaxStamina.Value.ToString(CultureInfo.CurrentUICulture));
+        maxManaPoints.SetText(_playerStat.Intelligence.MaxMana.Value.ToString(CultureInfo.CurrentUICulture));
+        //maxWillPoints.SetText(_playerStat.MaxWill.ToString(CultureInfo.CurrentUICulture));
 
-      // Protection & damage
-      physicalDamagePoints.SetText(_playerStat.PhysicalDamage.Value.ToString(CultureInfo.CurrentUICulture));
-      physicalProtectionPoints.SetText(_playerStat.PhysicalProtection.Value.ToString(CultureInfo.CurrentUICulture));
-      magicDamagePoints.SetText(_playerStat.MagicDamage.Value.ToString(CultureInfo.CurrentUICulture));
-      magicProtectionPoints.SetText(_playerStat.MagicProtection.Value.ToString(CultureInfo.CurrentUICulture));
-      
-   }
+        // Protection & damage
+        physicalDamagePoints.SetText(_playerStat.PhysicalDamage.Value.ToString(CultureInfo.CurrentUICulture));
+        physicalProtectionPoints.SetText(_playerStat.PhysicalProtection.Value.ToString(CultureInfo.CurrentUICulture));
+        magicDamagePoints.SetText(_playerStat.MagicDamage.Value.ToString(CultureInfo.CurrentUICulture));
+        magicProtectionPoints.SetText(_playerStat.MagicProtection.Value.ToString(CultureInfo.CurrentUICulture));
+
+        //Stats:
+        critDamage.SetText(_playerStat.Strength.CritDamage.Value.ToString(CultureInfo.CurrentUICulture));
+        dmgResistance.SetText(_playerStat.Strength.PoisonEffectResistance.Value.ToString(CultureInfo.CurrentUICulture));
+        magicalcritDamage.SetText(_playerStat.Intelligence.MagicalCrit.Value.ToString(CultureInfo.CurrentUICulture));
+        effectResistance.SetText(_playerStat.Intelligence.DazeResistance.Value.ToString(CultureInfo.CurrentUICulture));
+        critChance.SetText(_playerStat.Agility.CritChance.Value.ToString(CultureInfo.CurrentUICulture));
+        dodgeChance.SetText(_playerStat.Agility.dodgeChance.Value.ToString(CultureInfo.CurrentUICulture));
+
+        //Points:
+        points.SetText(_playerStat.StatPoints.ToString(CultureInfo.CurrentUICulture));
+    }
    
 }

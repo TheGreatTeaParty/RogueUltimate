@@ -30,9 +30,9 @@ public class CharacterSelection : MonoBehaviour
                 {
                     //Change slider value (We can chane options to prefabs later, when we will create more characters)
                     NameText.text = prefabs[i].GetComponent<PlayerStat>().CharacterName;
-                    healthStat.value = prefabs[i].GetComponent<PlayerStat>().MaxHealth;
-                    staminaStat.value = prefabs[i].GetComponent<PlayerStat>().MaxStamina;
-                    manaStat.value = prefabs[i].GetComponent<PlayerStat>().MaxMana;
+                    healthStat.value = prefabs[i].GetComponent<PlayerStat>().Strength.MaxHealth.Value;
+                    staminaStat.value = prefabs[i].GetComponent<PlayerStat>().Agility.MaxStamina.Value;
+                    manaStat.value = prefabs[i].GetComponent<PlayerStat>().Intelligence.MaxMana.Value;
                     _isChanged = true;
                 }
             }

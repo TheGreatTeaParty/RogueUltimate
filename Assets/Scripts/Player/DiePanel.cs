@@ -42,9 +42,9 @@ public class DiePanel : MonoBehaviour
         var UI = InterfaceManager.Instance;
         var stats = CharacterManager.Instance.Stats;
         
-        stats.ModifyHealth(stats.MaxHealth);
-        stats.ModifyMana(stats.MaxMana);
-        stats.ModifyStamina(stats.MaxStamina);
+        stats.ModifyHealth(stats.Strength.MaxHealth.Value);
+        stats.ModifyMana(stats.Intelligence.MaxMana.Value);
+        stats.ModifyStamina(stats.Agility.MaxStamina.Value);
         
         stats.gameObject.layer = 12;
         stats.gameObject.tag = "Player";

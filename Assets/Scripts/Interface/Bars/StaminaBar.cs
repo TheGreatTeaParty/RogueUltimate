@@ -19,7 +19,7 @@ public class StaminaBar : Bar
             }
         }
 
-        SetMaxValue(CharacterManager.Instance.Stats.MaxStamina);
+        SetMaxValue(CharacterManager.Instance.Stats.Agility.MaxStamina.Value);
     }
 
     private void SetStaminaValue(float value)

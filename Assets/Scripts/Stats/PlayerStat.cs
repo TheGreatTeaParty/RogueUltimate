@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 
 public class PlayerStat : CharacterStat, IDamaged
 {
     private float STAMINA_REGINERATION_DEALY = 2;
     private float _regenerationCoolDown;
+    private float _manaRegenCoolDown;
+    private float _healthRegenCoolDown;
+
     private int _xp;
     private int[] _xpToNextLevel = 
     {
@@ -25,18 +29,11 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _statPoints = 0;
+    private int _statPoints = 6;
     private float _currentMana;
     private float _currentStamina;
 
-    [SerializeField] private float maxMana;
-    [SerializeField] private float maxStamina;
-    [SerializeField] private float maxWill;
-    [Space] 
-    [SerializeField] private Stat physique;
-    [SerializeField] private Stat will;
-    [SerializeField] private Stat mind;
-    [SerializeField] private Stat reaction;
+ 
     [Space]
     [SerializeField] private Stat attackRange;
     [SerializeField] private Stat pushForce;
@@ -44,20 +41,17 @@ public class PlayerStat : CharacterStat, IDamaged
     [SerializeField] private Stat attackSpeed;
     [SerializeField] private Stat blockStrength;
     [SerializeField] private Stat castSpeed;
-    [SerializeField] private Stat dodgeChance;
-    [SerializeField] private Stat critDamage;
-    [SerializeField] private Stat critChance;
-    [Space]
-    [SerializeField] private float regenerationSpeed;  //Make it stat?
+ 
     [Space]
     // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
 
-    public Stat Physique => physique;
-    public Stat Will => will;
-    public Stat Mind => mind;
-    public Stat Reaction => reaction;
+
+    //Attributes:
+    public StrengthAttribute Strength;
+    public AgilityAttribute Agility;
+    public IntelligenceAttribute Intelligence;
 
     public Stat AttackRange => attackRange;
     public Stat PushForce => pushForce;
@@ -67,9 +61,6 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public float CurrentMana => _currentMana;
     public float CurrentStamina => _currentStamina;
-    public float MaxMana => maxMana;
-    public float MaxStamina => maxStamina;
-    public float MaxWill => maxWill;
     public int XP => _xp;
     public int StatPoints => _statPoints;
 
@@ -87,11 +78,12 @@ public class PlayerStat : CharacterStat, IDamaged
     private void Start()
     {
         _regenerationCoolDown = 0;
-        regenerationSpeed = 2;
+        _healthRegenCoolDown = 0;
+        _manaRegenCoolDown = 0;
 
-        currentHealth = maxHealth;
-        _currentStamina = maxStamina;
-        _currentMana = maxMana;
+        currentHealth = Strength.MaxHealth.Value;
+        _currentStamina = Agility.MaxStamina.Value;
+        _currentMana = Intelligence.MaxMana.Value;
         
         _xp = 0;
         level = 1;
@@ -102,6 +94,8 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         base.Update();
         RegenerateStamina();
+        RegenerateMana();
+        RegenerateHealth();
     }
 
     public void GainXP(int gainedXP)
@@ -131,41 +125,45 @@ public class PlayerStat : CharacterStat, IDamaged
     
     public void AddAttributePoint(StatType statType)
     {
-        switch (statType)
+
+        if (_statPoints - 1 >= 0)
         {
-            case StatType.Will:
+            _statPoints--;
+            switch (statType)
             {
-                will.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
+                case StatType.Will:
+                    {
+                        break;
+                    }
+
+                case StatType.Physique:
+                    {
+                        Strength.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        break;
+                    }
+
+                case StatType.Mind:
+                    {
+                        Intelligence.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        break;
+                    }
+
+                case StatType.Reaction:
+                    {
+                        Agility.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        break;
+                    }
             }
-         
-            case StatType.Physique:
-            {
-                physique.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-         
-            case StatType.Mind:
-            {
-                mind.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-         
-            case StatType.Reaction:
-            {
-                reaction.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
+
+            onChangeCallback.Invoke();
         }
-
-        onChangeCallback.Invoke();
     }
-
+    /*
     public void AddAttributePoint(StatType statType, int value)
     {
         for (int i = 0; i < value; i++)
             AddAttributePoint(statType);
-    }
+    }*/
 
     protected override void TakeEffectDamage(Effect effect)
     {
@@ -187,10 +185,12 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
 
         currentHealth += value;
-        if (currentHealth > maxHealth)
-            currentHealth = maxHealth;
+        if (currentHealth > Strength.MaxHealth.Value)
+            currentHealth = Strength.MaxHealth.Value;
 
         onChangeCallback?.Invoke();
+        if (value < 0)
+            _healthRegenCoolDown = 0;
         return true;
     }
     
@@ -200,8 +200,8 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
 
         _currentStamina += value;
-        if (_currentStamina > maxStamina)
-            _currentStamina = maxStamina;
+        if (_currentStamina > Agility.MaxStamina.Value)
+            _currentStamina = Agility.MaxStamina.Value;
 
         onChangeCallback?.Invoke();
         OnStaminaChanged?.Invoke(_currentStamina);
@@ -217,11 +217,13 @@ public class PlayerStat : CharacterStat, IDamaged
         if (_currentMana + value < 0)
             return false;
         _currentMana += value;
-        if (_currentMana > maxMana)
-            _currentMana = maxMana;
+        if (_currentMana > Intelligence.MaxMana.Value)
+            _currentMana = Intelligence.MaxMana.Value;
 
         onChangeCallback?.Invoke();
         OnManaChanged?.Invoke(_currentMana);
+        if (value < 0)
+            _manaRegenCoolDown = 0;
         return true;
     }
     public bool CheckHealth(float value)
@@ -242,13 +244,34 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
         return true;
     }
+
     public void RegenerateStamina()
     {
         if(_regenerationCoolDown <= STAMINA_REGINERATION_DEALY)
             _regenerationCoolDown += Time.deltaTime;
         else if (_regenerationCoolDown > STAMINA_REGINERATION_DEALY)
         {
-            ModifyStamina(regenerationSpeed);
+            ModifyStamina(Agility.StaminaRegeniration.Value);
+        }
+    }
+
+    public void RegenerateMana()
+    {
+        if (_manaRegenCoolDown <= STAMINA_REGINERATION_DEALY)
+            _manaRegenCoolDown += Time.deltaTime;
+        else if (_manaRegenCoolDown > STAMINA_REGINERATION_DEALY)
+        {
+            ModifyMana(Intelligence.ManaRegeniration.Value);
+        }
+    }
+
+    public void RegenerateHealth()
+    {
+        if (_healthRegenCoolDown <= STAMINA_REGINERATION_DEALY)
+            _healthRegenCoolDown += Time.deltaTime;
+        else if (_healthRegenCoolDown > STAMINA_REGINERATION_DEALY)
+        {
+            ModifyHealth(Strength.HPRegeneration.Value);
         }
     }
 
@@ -260,13 +283,19 @@ public class PlayerStat : CharacterStat, IDamaged
     //RETURNS TRUE or FALSE to make a function of EVADES,BLOCK, etc.
     public override bool TakeDamage(float phyDamage, float magDamage)
     {
-        base.TakeDamage(phyDamage, magDamage);
-        //TRUE 
-        OnHealthChanged?.Invoke(currentHealth);
-        animator.SetTrigger("Taking Dmg");
-        //Take Damage -> Screen shake MAYBE it will be removed later!
-        ScreenShakeController.Instance.StartShake(0.17f, 1f);
-        return true;
+        //Check dodge here:
+
+        if (!Dodge())
+        {
+            base.TakeDamage(phyDamage, magDamage);
+            //TRUE 
+            OnHealthChanged?.Invoke(currentHealth);
+            animator.SetTrigger("Taking Dmg");
+            //Take Damage -> Screen shake MAYBE it will be removed later!
+            ScreenShakeController.Instance.StartShake(0.17f, 1f);
+            return true;
+        }
+        return false;
     }
 
     public override void Die()
@@ -284,5 +313,13 @@ public class PlayerStat : CharacterStat, IDamaged
         //Destroy(InterfaceManager.Instance.gameObject);
         //SceneManager.LoadScene("Menu");
     }
-    
+
+    private bool Dodge()
+    {
+        if(UnityEngine.Random.value > Agility.dodgeChance.Value)
+        {
+            return false;
+        }
+        return true;
+    }
 }

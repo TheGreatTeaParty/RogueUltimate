@@ -556,17 +556,6 @@ MonoBehaviour:
   magicDamage:
     baseValue: 0
   maxHealth: 100
-  maxMana: 100
-  maxStamina: 100
-  maxWill: 0
-  physique:
-    baseValue: 0
-  will:
-    baseValue: 0
-  mind:
-    baseValue: 0
-  reaction:
-    baseValue: 0
   attackRange:
     baseValue: 0
   pushForce:
@@ -579,16 +568,38 @@ MonoBehaviour:
     baseValue: 0
   castSpeed:
     baseValue: 0
-  dodgeChance:
-    baseValue: 0
-  critDamage:
-    baseValue: 0
-  critChance:
-    baseValue: 0
-  regenerationSpeed: 0
   animator: {fileID: 304746976}
   LevelUpEffect: {fileID: 5267075721743264303, guid: 1a947a02e99fb4bf99a6afcb223bfc4c,
     type: 3}
+  Strength:
+    MaxHealth:
+      baseValue: 8
+    HPRegeneration:
+      baseValue: 0.5
+    PoisonEffectResistance:
+      baseValue: 0
+    CritDamage:
+      baseValue: 0.4
+  Agility:
+    MaxStamina:
+      baseValue: 10
+    StaminaRegeniration:
+      baseValue: 1
+    "\u0421onsternationResistance":
+      baseValue: 0
+    CritChance:
+      baseValue: 0
+    dodgeChance:
+      baseValue: 0
+  Intelligence:
+    MaxMana:
+      baseValue: 10
+    ManaRegeniration:
+      baseValue: 1
+    DazeResistance:
+      baseValue: 0
+    MagicalCrit:
+      baseValue: 0.4
 --- !u!114 &9134001256983752150
 MonoBehaviour:
   m_ObjectHideFlags: 0

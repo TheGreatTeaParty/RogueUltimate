@@ -33,6 +33,10 @@ public class EquipmentItem : Item
     [SerializeField] protected float physicalProtectionPercentBonus;
     [SerializeField] protected float magicDamagePercentBonus;
     [SerializeField] protected float magicProtectionPercentBonus;
+    [Space]
+    [SerializeField] protected int requiredStrength;
+    [SerializeField] protected int requiredIntelligence;
+    [SerializeField] protected int requiredAgility;
 
     public EquipmentType EquipmentType
     {
@@ -58,14 +62,14 @@ public class EquipmentItem : Item
             stats.MagicDamage.AddModifier(new StatModifier(magicDamageBonus, StatModifierType.Flat, this));
         if (magicProtectionBonus != 0) 
             stats.MagicProtection.AddModifier(new StatModifier(magicProtectionBonus, StatModifierType.Flat, this));
-        if (willBonus != 0)
-            stats.Will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
+        //if (willBonus != 0)
+           // stats.Will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
         if (vitalityBonus != 0)
-            stats.Physique.AddModifier(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
+            stats.Strength.ModifyAttribute(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
         if (mindBonus != 0)
-            stats.Mind.AddModifier(new StatModifier(mindBonus, StatModifierType.Flat, this));
+            stats.Intelligence.ModifyAttribute(new StatModifier(mindBonus, StatModifierType.Flat, this));
         if (agilityBonus != 0)
-            stats.Reaction.AddModifier(new StatModifier(agilityBonus, StatModifierType.Flat, this));
+            stats.Agility.ModifyAttribute(new StatModifier(agilityBonus, StatModifierType.Flat, this));
         
         if (physicalDamagePercentBonus != 0) 
             stats.PhysicalDamage.AddModifier(new StatModifier(physicalDamagePercentBonus, StatModifierType.PercentMult, this));
@@ -84,10 +88,11 @@ public class EquipmentItem : Item
         stats.PhysicalProtection.RemoveAllModifiersFromSource(this);
         stats.MagicDamage.RemoveAllModifiersFromSource(this);
         stats.MagicProtection.RemoveAllModifiersFromSource(this);
-        stats.Will.RemoveAllModifiersFromSource(this);
-        stats.Physique.RemoveAllModifiersFromSource(this);
-        stats.Mind.RemoveAllModifiersFromSource(this);
-        stats.Reaction.RemoveAllModifiersFromSource(this);
+        //stats.Will.RemoveAllModifiersFromSource(this);
+        //stats.Physique.RemoveAllModifiersFromSource(this);
+        stats.Strength.RemoveAttribute(this);
+        stats.Intelligence.RemoveAttribute(this);
+        stats.Agility.RemoveAttribute(this);
     }
 
     public virtual void Attack(float physicalDamage, float magicDamage)

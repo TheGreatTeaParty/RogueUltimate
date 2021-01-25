@@ -43,6 +43,11 @@ public class Stat
         this.baseValue = baseValue;
     }
 
+    public void SETBASE(float value)
+    {
+        baseValue = value;
+    }
+
     protected virtual float CalculateFinalValue()
     {
         float finalValue = baseValue;
