@@ -9,20 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a45a9f308cf74f189069df1ee980f1c, type: 3}
-  m_Name: Smith Hammer
+  m_Script: {fileID: 11500000, guid: 77da48f186c134af4b86d0d3406c9899, type: 3}
+  m_Name: Heavy crossbow
   m_EditorClassIdentifier: 
-  ID: 6
+  ID: 28
   tier: 1
-  price: 50
-  itemName: Smith Hammer
-  description: +14 Physical Damage
-  sprite: {fileID: -5971942374765049077, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
+  price: 0
+  itemName: Heavy crossbow
+  description: +6 Damage
+  sprite: {fileID: -3694533877916086887, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
   equipmentType: 0
-  equipmentAnimations: {fileID: 9100000, guid: 0643ff251214a4a76959d4027dc9617a, type: 2}
+  equipmentAnimations: {fileID: 0}
   animation: []
-  physicalDamageBonus: 14
+  physicalDamageBonus: 6
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -34,12 +34,12 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
-  attackSpeedMofifier: 2
-  attackRangeMofifier: 0.9
-  knockBackModifier: 80
-  pushForceMofifier: 40
-  requiredStamina: -30
+  attackSpeedMofifier: 1.5
+  knockBackModifier: 50
+  pushForceMofifier: -5
+  requiredStamina: -15
   requiredMana: 0
   requiredHealth: 0
-  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
+  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
     type: 3}
+  prepareSound: {fileID: 8300000, guid: 103be5ef3bea649448b38065b9b1d4cb, type: 3}
