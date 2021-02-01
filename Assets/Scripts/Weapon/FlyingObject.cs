@@ -6,19 +6,27 @@ public class FlyingObject : MonoBehaviour
     public float speed;
     [Space]
     public Transform HitEffect;
-    [FormerlySerializedAs("HitName")] [SerializeField]
-    private string _hitName;
+    public AudioClip FlyingAudio;
+    [SerializeField]
+    private AudioClip _hitAudio;
+    private AudioSource _audioSource;
     private float _physicalDamage;
     private float _magicDamage;
     private float _knockBack;
     private Rigidbody2D _rb;
     private Vector2 _direction;
+    private SpriteRenderer _spriteRenderer;
 
     
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = speed * _direction;
+        _audioSource = GetComponent<AudioSource>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(FlyingAudio)
+            _audioSource.PlayOneShot(FlyingAudio);
 
         //Change the rotation of the object according to the vector;
         transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
@@ -34,7 +42,8 @@ public class FlyingObject : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        AudioManager.Instance.Play(_hitName);
+        _audioSource.PlayOneShot(_hitAudio);
+
         if (collision.GetComponent<IDamaged>() != null)
         {
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
@@ -48,7 +57,9 @@ public class FlyingObject : MonoBehaviour
             if(rigidbody)
                 rigidbody.AddForce(_direction * 100 * _knockBack);
         }
-        Destroy(gameObject);
+        _rb.Sleep();
+        _spriteRenderer.sprite = null;
+        Destroy(gameObject,0.5f);
     }
     
 }
