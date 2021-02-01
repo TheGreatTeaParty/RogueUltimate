@@ -35,6 +35,9 @@ public class MeleeWeapon : EquipmentItem
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
+    [Space]
+    public AudioClip StartAttackSound;
+    public AudioClip EndAttackSound;
 
     public override void Equip(PlayerStat stats)
     {

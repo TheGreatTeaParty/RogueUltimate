@@ -36,14 +36,14 @@ public class CharacterAudio : MonoBehaviour
     }
     public void DamageSound()
     {
-        
-        source[1].PlayOneShot(take_damage);
+        if(take_damage)
+            source[1].PlayOneShot(take_damage);
         
     }
     public void DeathSound()
     {
-       
-        source[1].PlayOneShot(death);
+        if(death)
+            source[1].PlayOneShot(death);
         
     }
     public void AttackSound(Type type)

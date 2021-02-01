@@ -13,10 +13,12 @@ public class RangeWeapon : EquipmentItem
     [SerializeField] private int requiredStamina;
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredHealth;
+
     [Space]
     public Transform arrowPrefab;
     [Space]
     public AudioClip prepareSound;
+    public AudioClip ReleaseSound;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;

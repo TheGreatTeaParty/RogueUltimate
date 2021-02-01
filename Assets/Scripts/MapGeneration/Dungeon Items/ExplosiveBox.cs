@@ -7,6 +7,7 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
     public float Radius = 2.5f;
     private SpriteRenderer _sprite;
     private ParticleSystem _particle;
+    private AudioSource _audioSource;
     [SerializeField] ParticleSystem _sparks;
 
     private LayerMask layerMask;
@@ -23,6 +24,7 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
         layerMask = LayerMask.GetMask("Enemy", "Player","EnvObjects");
         _sprite = GetComponent<SpriteRenderer>();
         _particle = GetComponent<ParticleSystem>();
+        _audioSource = GetComponent<AudioSource>();
 
         //Material:
         _collideMaterial = new MaterialPropertyBlock();
@@ -62,6 +64,8 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
         _courutineStarted = true;
 
         _sprite.sprite = null;
+
+        _audioSource.Play();
         _particle.Play();
         _sparks.Play();
         Explode();

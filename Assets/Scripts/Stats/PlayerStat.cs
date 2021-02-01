@@ -95,7 +95,7 @@ public class PlayerStat : CharacterStat, IDamaged
         base.Update();
         RegenerateStamina();
         RegenerateMana();
-        RegenerateHealth();
+        //RegenerateHealth();
     }
 
     public void GainXP(int gainedXP)
@@ -189,6 +189,7 @@ public class PlayerStat : CharacterStat, IDamaged
             currentHealth = Strength.MaxHealth.Value;
 
         onChangeCallback?.Invoke();
+        OnHealthChanged?.Invoke(currentHealth);
         if (value < 0)
             _healthRegenCoolDown = 0;
         return true;
@@ -251,7 +252,7 @@ public class PlayerStat : CharacterStat, IDamaged
             _regenerationCoolDown += Time.deltaTime;
         else if (_regenerationCoolDown > STAMINA_REGINERATION_DEALY)
         {
-            ModifyStamina(Agility.StaminaRegeniration.Value);
+            ModifyStamina(Agility.StaminaRegeniration.Value / 10f);
         }
     }
 
@@ -259,7 +260,7 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         if (_manaRegenCoolDown <= STAMINA_REGINERATION_DEALY)
             _manaRegenCoolDown += Time.deltaTime;
-        else if (_manaRegenCoolDown > STAMINA_REGINERATION_DEALY)
+        else if (_manaRegenCoolDown > STAMINA_REGINERATION_DEALY / 10f)
         {
             ModifyMana(Intelligence.ManaRegeniration.Value);
         }
@@ -269,7 +270,7 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         if (_healthRegenCoolDown <= STAMINA_REGINERATION_DEALY)
             _healthRegenCoolDown += Time.deltaTime;
-        else if (_healthRegenCoolDown > STAMINA_REGINERATION_DEALY)
+        else if (_healthRegenCoolDown > STAMINA_REGINERATION_DEALY / 10f)
         {
             ModifyHealth(Strength.HPRegeneration.Value);
         }
@@ -316,7 +317,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
     private bool Dodge()
     {
-        if(UnityEngine.Random.value > Agility.dodgeChance.Value)
+        if(UnityEngine.Random.value > Agility.dodgeChance.Value/100f)
         {
             return false;
         }

@@ -28,9 +28,11 @@ public class PlayerMovement : MonoBehaviour
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
     private Vector3 _prevDragDir;
+    private CharacterAudio characterAudio;
 
     public void Start()
     {
+        characterAudio = GetComponent<CharacterAudio>();
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
         _targetLock = GetComponentInChildren<TargetLock>();
@@ -177,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         if (_playerStat.ModifyStamina(-15))
         {
             animator.SetTrigger("Roll");
+            characterAudio.PlayExtra(0);
             rb2D.AddForce(dir * rb2D.mass * 600);
             StartCoroutine(DisablePlayerControll(ROLL_TIME));
         }

@@ -25,6 +25,7 @@ public class EnemyStat : CharacterStat, IDamaged
     private Rigidbody2D _rigidbody2D;
     private CapsuleCollider2D _capsuleCollider2D;
     private FloatingNumber _floatingNumber;
+    private CharacterAudio _characterAudio;
 
     //Material
     private MaterialPropertyBlock _collideMaterial;
@@ -38,6 +39,7 @@ public class EnemyStat : CharacterStat, IDamaged
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         _floatingNumber = GetComponent<FloatingNumber>();
+        _characterAudio = GetComponent<CharacterAudio>();
 
         maxHealth += level * 10;
         currentHealth = maxHealth;
@@ -60,6 +62,8 @@ public class EnemyStat : CharacterStat, IDamaged
 
         //Make enemy blinding
         StartCoroutine(WaitAndChangeProperty());
+        if(_characterAudio)
+            _characterAudio.DamageSound();
         return true;
     }
 

@@ -42,9 +42,9 @@ public class WeaponRenderer : MonoBehaviour
 
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new.EquipmentType == EquipmentType.Weapon)
+        if (_new && _new.EquipmentType == EquipmentType.Weapon)
         {
-            if (_new && _new.Animation.Length != 0)
+            if (_new.Animation.Length != 0)
             {
                 WeaponAttackAnim = _new.Animation;
             }

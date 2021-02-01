@@ -12,14 +12,16 @@ public class MagicWeapon : EquipmentItem
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredStamina;
     [SerializeField] private int requiredHealth;
-    [Space]
-    public Transform prefab;
-    [Space]
-    public AudioClip prepareSound;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
+
+    [Space]
+    public Transform prefab;
+    [Space]
+    public AudioClip prepareSound;
+    public AudioClip ReleaseSound;
 
     private void Awake()
     {

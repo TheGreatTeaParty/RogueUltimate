@@ -10,7 +10,13 @@ public class DoorVisual : MonoBehaviour
 
     private bool _isOpen = false;
     private bool _isBlocked = false;
+    private AudioSource _audioSource;
 
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Open()
     {
@@ -18,6 +24,7 @@ public class DoorVisual : MonoBehaviour
         {
             ClosedDoor.SetActive(false);
             OpenDoor.SetActive(true);
+            _audioSource.Play();
             _isOpen = true;
         }
     }
@@ -34,6 +41,7 @@ public class DoorVisual : MonoBehaviour
     {
         ClosedDoor.SetActive(true);
         OpenDoor.SetActive(false);
+        _audioSource.Play();
         _isBlocked = true;
     }
 
