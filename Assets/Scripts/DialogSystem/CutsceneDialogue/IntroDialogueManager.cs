@@ -12,7 +12,7 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
     [SerializeField] private Image image;
     [SerializeField] private Image background;
 
-    [SerializeField] private Canvas UI;
+    private Canvas UI;
 
     // Desperate times call for desperate measures.
     // Arrays that store the local position of DialogueUI elements.
@@ -23,6 +23,11 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
     
     private int _lineIndex = 0;
     private Dialogue _currentDialogue;
+
+    private void Awake()
+    {
+        UI = FindObjectOfType<InterfaceManager>().GetComponent<Canvas>();
+    }
 
     private void Start()
     {
@@ -35,7 +40,7 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
     /// <param name="dialogue">Dialogue that need to be shown.</param>
     public void StartDialogue(Dialogue dialogue)
     {
-        UI.enabled = false;
+        // UI.enabled = false;
         _currentDialogue = dialogue;
         ChangeDialogueUIState(true);
         CutsceneManager.StartNextTimeline();
@@ -49,8 +54,9 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
         if (_lineIndex >= _currentDialogue.Lines.Length)
         {
             ChangeDialogueUIState(false);
-            UI.enabled = true;
+            // UI.enabled = true;
             DialogueEnded?.Invoke();
+            Destroy(gameObject);
         }
 
         try
@@ -137,19 +143,19 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
     {
         switch (position)
         {
-                case Line.Position.Left:
-                    characterName.rectTransform.localPosition = leftLayoutPositions[0];
-                    text.rectTransform.localPosition = leftLayoutPositions[1];
-                    text.alignment = TextAlignmentOptions.Left;
-                    image.rectTransform.localPosition = leftLayoutPositions[2];
-                    break;
+            case Line.Position.Left:
+                characterName.rectTransform.localPosition = leftLayoutPositions[0];
+                text.rectTransform.localPosition = leftLayoutPositions[1];
+                text.alignment = TextAlignmentOptions.Left;
+                image.rectTransform.localPosition = leftLayoutPositions[2]; 
+                break;
                 
-                case Line.Position.Right:
-                    characterName.rectTransform.localPosition = rightLayoutPositions[0];
-                    text.rectTransform.localPosition = rightLayoutPositions[1];
-                    text.alignment = TextAlignmentOptions.Right;
-                    image.rectTransform.localPosition = rightLayoutPositions[2];
-                    break;
+            case Line.Position.Right:
+                characterName.rectTransform.localPosition = rightLayoutPositions[0];
+                text.rectTransform.localPosition = rightLayoutPositions[1];
+                text.alignment = TextAlignmentOptions.Right;
+                image.rectTransform.localPosition = rightLayoutPositions[2];
+                break;
         }
     }
 }

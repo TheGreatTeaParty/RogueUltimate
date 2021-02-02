@@ -7,10 +7,24 @@ using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private IntroDialogueManager introDialogueManager;
-    
+    private IntroDialogueManager introDialogueManager;
+    [SerializeField] private GameObject dialogueInterface;
+    [SerializeField] private Canvas mainUI;
+
+    private void Start()
+    {
+        mainUI = InterfaceManager.Instance.GetComponent<Canvas>();
+    }
+
     public void StartDialogue(Dialogue dialogue)
     {
+        var interfaceInstance = Instantiate(dialogueInterface);
+        introDialogueManager = interfaceInstance.GetComponent<IntroDialogueManager>();
         introDialogueManager.StartDialogue(dialogue);
+    }
+
+    public void ChangeUIState(bool state)
+    {
+        mainUI.enabled = state;
     }
 }
