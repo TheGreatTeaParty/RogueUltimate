@@ -53,10 +53,7 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
     {
         if (_lineIndex >= _currentDialogue.Lines.Length)
         {
-            ChangeDialogueUIState(false);
-            // UI.enabled = true;
-            DialogueEnded?.Invoke();
-            Destroy(gameObject);
+            EndDialogue();
         }
 
         try
@@ -74,6 +71,14 @@ public class IntroDialogueManager : MonoBehaviour, IDialogueManager
             PlaySound();
             _coroutine = StartTyper(0.03f);
         }
+    }
+
+    private void EndDialogue()
+    {
+        ChangeDialogueUIState(false);
+        // UI.enabled = true;
+        DialogueEnded?.Invoke();
+        Destroy(gameObject);
     }
 
     public void HandleButton()

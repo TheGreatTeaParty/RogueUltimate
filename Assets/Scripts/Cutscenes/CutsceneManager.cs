@@ -25,11 +25,15 @@ public class CutsceneManager : MonoBehaviour
     
     public void ChangeTimelineHandler()
     {
-        if (timelineCounter < timelineSequence.Length)
+        if (timelineCounter + 1 < timelineSequence.Length)
         {
             timelineSequence[timelineCounter].Stop();
             timelineCounter++;
             timelineSequence[timelineCounter].Play();
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

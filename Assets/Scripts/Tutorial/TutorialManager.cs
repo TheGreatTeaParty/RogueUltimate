@@ -7,6 +7,26 @@ using UnityEngine.Serialization;
 
 public class TutorialManager : MonoBehaviour
 {
+    #region Singleton
+
+    public static TutorialManager Instance;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("Second instance of " + this.ToString() + "was created!");
+            Destroy(gameObject);
+        }
+    }
+    
+
+    #endregion
+    
     private IntroDialogueManager introDialogueManager;
     [SerializeField] private GameObject dialogueInterface;
     [SerializeField] private Canvas mainUI;
