@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4619121452226697780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -148,7 +148,8 @@ MonoBehaviour:
   speed: 11
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
-  _hitName: SpellHit
+  FlyingAudio: {fileID: 0}
+  _hitAudio: {fileID: 8300000, guid: a3ce68ea3ce839e40bf5e9d39756272c, type: 3}
 --- !u!82 &2431227462568191794
 AudioSource:
   m_ObjectHideFlags: 0
@@ -159,9 +160,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5fee572349a886e4a8318e6640773eed, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.41
   m_Pitch: 1
   Loop: 0
   Mute: 0
