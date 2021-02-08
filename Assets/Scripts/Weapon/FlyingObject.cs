@@ -13,6 +13,7 @@ public class FlyingObject : MonoBehaviour
     private float _physicalDamage;
     private float _magicDamage;
     private float _knockBack;
+    private bool _crit;
     private Rigidbody2D _rb;
     private Vector2 _direction;
     private SpriteRenderer _spriteRenderer;
@@ -32,12 +33,13 @@ public class FlyingObject : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
     }
     
-    public void SetData(float physicalDamage, float magicDamage, Vector2 direction,float knockback = 0)
+    public void SetData(float physicalDamage, float magicDamage, Vector2 direction, bool crit,float knockback = 0)
     {
         _physicalDamage = physicalDamage;
         _magicDamage = magicDamage;
         _direction = direction;
         _knockBack = knockback;
+        _crit = crit;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,7 +48,7 @@ public class FlyingObject : MonoBehaviour
 
         if (collision.GetComponent<IDamaged>() != null)
         {
-            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
+            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage, _crit);
             //Check if enemy takes damage
             if (HitEffect)
             {

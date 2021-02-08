@@ -12,7 +12,7 @@ public class EnemyStat : CharacterStat, IDamaged
     private EnemyAI _enemyAi;
     
     
-    public delegate void OnReceivedDamage(float damage);
+    public delegate void OnReceivedDamage(float damage,bool _isCrit);
     public OnReceivedDamage onReceivedDamage;
 
     public delegate void OnDamaged();
@@ -57,7 +57,7 @@ public class EnemyStat : CharacterStat, IDamaged
 
         //If we need to do armor or evades check character stats!
 
-        onReceivedDamage?.Invoke(damageReceived);
+        onReceivedDamage?.Invoke(damageReceived,false);
         onDamaged?.Invoke();
 
         //Make enemy blinding
@@ -67,15 +67,45 @@ public class EnemyStat : CharacterStat, IDamaged
         return true;
     }
 
+    public bool TakeDamage(float phyDamage, float magDamage,bool _isCrit)
+    {
+        base.TakeDamage(phyDamage, magDamage);
+
+        //If we need to do armor or evades check character stats!
+
+        onReceivedDamage?.Invoke(damageReceived, _isCrit);
+        onDamaged?.Invoke();
+
+        //Make enemy blinding
+        StartCoroutine(WaitAndChangeProperty());
+        if (_characterAudio)
+            _characterAudio.DamageSound();
+        return true;
+    }
+
     public void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
     {
         base.TakeDamage(receivedPhyDmg, receivedMagDmg);
         
-        onReceivedDamage?.Invoke(damageReceived);
+        onReceivedDamage?.Invoke(damageReceived,false);
         _rigidbody2D.AddForce(bounceDirection * power);
         onDamaged?.Invoke();
     }
+    public void TakeDamage(float damage)
+    {
+        //If we need to do armor or evades check character stats!
+        currentHealth -= damageReceived;
+        if (currentHealth <= 0)
+            Die();
 
+        onReceivedDamage?.Invoke(damageReceived,false);
+        onDamaged?.Invoke();
+
+        //Make enemy blinding
+        StartCoroutine(WaitAndChangeProperty());
+        if (_characterAudio)
+            _characterAudio.DamageSound();
+    }
     public override void Die()
     {
         CharacterManager.Instance.Stats.GainXP(gainedXP);

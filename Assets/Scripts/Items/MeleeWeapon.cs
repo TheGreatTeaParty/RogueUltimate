@@ -86,7 +86,8 @@ public class MeleeWeapon : EquipmentItem
             //If take damage returns true -> play hit effect:
             if (enemiesToDamage[i].gameObject != player.gameObject)
             {
-                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(physicalDamage, magicDamage);
+                var crit = playerStat.GetPhysicalCritDamage();
+                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(crit.Item1, magicDamage,crit.Item2);
 
                 //Create Visual Effect:
                 if (HitEffect)

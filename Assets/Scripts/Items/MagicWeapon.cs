@@ -68,7 +68,8 @@ public class MagicWeapon : EquipmentItem
        
         Transform magic = Instantiate(prefab, 
             player.playerMovement.transform.position + direction, Quaternion.identity);
-        magic.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);
+        var crit = playerStat.GetMagicalCritDamage();
+        magic.GetComponent<FlyingObject>().SetData(physicalDamage,crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value);
     }
     
     public override AttackType Echo()

@@ -9,7 +9,7 @@ public class IntelligenceAttribute
 
     public Stat MaxMana;
     public Stat ManaRegeniration;
-    public Stat DazeResistance;
+    public Stat ElementalEffectResistance;
     public Stat MagicalCrit;
 
     public IntelligenceAttribute()
@@ -17,7 +17,7 @@ public class IntelligenceAttribute
         baseValue = new Stat();
         MaxMana = new Stat();
         ManaRegeniration = new Stat();
-        DazeResistance = new Stat();
+        ElementalEffectResistance = new Stat();
         MagicalCrit = new Stat();
     }
 
@@ -37,7 +37,7 @@ public class IntelligenceAttribute
     {
         MaxMana.SETBASE(10 + baseValue.Value + baseValue.Value * 5);
         ManaRegeniration.SETBASE(1 + baseValue.Value * 0.6f);
-        DazeResistance.SETBASE(baseValue.Value * 0.02f);
-        MagicalCrit.SETBASE(0.40f + baseValue.Value * .05f);
+        ElementalEffectResistance.SETBASE(baseValue.Value * 0.02f);
+        MagicalCrit.SETBASE(0.5f + baseValue.Value * .05f);
     }
 }

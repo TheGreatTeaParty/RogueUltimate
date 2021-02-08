@@ -60,9 +60,9 @@ public class StatUI : MonoBehaviour
 
         //Stats:
         critDamage.SetText(_playerStat.Strength.CritDamage.Value.ToString(CultureInfo.CurrentUICulture));
-        dmgResistance.SetText(_playerStat.Strength.PoisonEffectResistance.Value.ToString(CultureInfo.CurrentUICulture));
+        dmgResistance.SetText(_playerStat.Strength.PhysicalEffectResistance.Value.ToString(CultureInfo.CurrentUICulture));
         magicalcritDamage.SetText(_playerStat.Intelligence.MagicalCrit.Value.ToString(CultureInfo.CurrentUICulture));
-        effectResistance.SetText(_playerStat.Intelligence.DazeResistance.Value.ToString(CultureInfo.CurrentUICulture));
+        effectResistance.SetText(_playerStat.Intelligence.ElementalEffectResistance.Value.ToString(CultureInfo.CurrentUICulture));
         critChance.SetText(_playerStat.Agility.CritChance.Value.ToString(CultureInfo.CurrentUICulture));
         dodgeChance.SetText(_playerStat.Agility.dodgeChance.Value.ToString(CultureInfo.CurrentUICulture));
 

@@ -1,32 +1,42 @@
 using UnityEngine;
 
 
+
 public enum EffectType
 {
-    None = 0,
-    Burning = 1,
-    Freezing = 2,
+    Natural = 0,
+    Physical = 1,
+    Elemental = 2,
 }
 
-
+[System.Serializable]
 public class Effect
 {
-    private float _intensity;
-    private float _time;
-    private EffectType _effectType;
+    protected float _intensity;
+    protected int _ticks;
+    protected EffectType _effectType;
 
     public EffectType EffectType => _effectType;
-    public float Time
+    public int Ticks
     {
-        get => _time;
-        set => _time = value;
+        get => _ticks;
+        set => _ticks = value;
     }
     
-    public Effect(EffectType effectType, float intensity, float time)
+    public Effect(float intensity, int ticks = 0)
     {
-        _effectType = effectType;
         _intensity = intensity;
-        _time = time;
+        _ticks = ticks;
+    }
+
+    public virtual void ApplyEffect()
+    {
+        if (_ticks > 0)
+            _ticks--;
+    }
+    public virtual void RemoveEffect()
+    {
+
     }
 
 }

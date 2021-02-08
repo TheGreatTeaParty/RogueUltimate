@@ -8,16 +8,14 @@ public class StrengthAttribute
     private Stat baseValue;
 
     public Stat MaxHealth;
-    public Stat HPRegeneration;
-    public Stat PoisonEffectResistance;
+    public Stat PhysicalEffectResistance;
     public Stat CritDamage;
 
     public StrengthAttribute()
     {
         baseValue = new Stat();
         MaxHealth = new Stat();
-        HPRegeneration = new Stat();
-        PoisonEffectResistance = new Stat();
+        PhysicalEffectResistance = new Stat();
         CritDamage = new Stat();
     }
     
@@ -38,8 +36,7 @@ public class StrengthAttribute
     {
         //Set Stats base values accordingly
         MaxHealth.SETBASE(8 + baseValue.Value + 6 * baseValue.Value);
-        HPRegeneration.SETBASE(0.5f + baseValue.Value * 0.1f);
-        PoisonEffectResistance.SETBASE(baseValue.Value * 0.02f);
-        CritDamage.SETBASE(0.40f + baseValue.Value * 0.05f);
+        PhysicalEffectResistance.SETBASE(baseValue.Value * 0.02f);
+        CritDamage.SETBASE(0.5f + baseValue.Value * 0.05f);
     }
 }

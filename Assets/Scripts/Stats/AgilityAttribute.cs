@@ -9,7 +9,6 @@ public class AgilityAttribute
 
     public Stat MaxStamina;
     public Stat StaminaRegeniration;
-    public Stat СonsternationResistance;
     public Stat CritChance;
     public Stat dodgeChance;
 
@@ -19,7 +18,6 @@ public class AgilityAttribute
         baseValue = new Stat();
         MaxStamina = new Stat();
         StaminaRegeniration = new Stat();
-        СonsternationResistance = new Stat();
         CritChance = new Stat();
         dodgeChance = new Stat();
     }
@@ -40,7 +38,6 @@ public class AgilityAttribute
     {
         MaxStamina.SETBASE(10 + baseValue.Value + baseValue.Value * 5);
         StaminaRegeniration.SETBASE(1 + baseValue.Value * 0.6f);
-        СonsternationResistance.SETBASE(baseValue.Value * 0.02f);
         CritChance.SETBASE(baseValue.Value + baseValue.Value * 2.5f);
         dodgeChance.SETBASE(baseValue.Value + baseValue.Value * 2.5f);
     }

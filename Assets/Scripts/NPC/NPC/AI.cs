@@ -13,12 +13,12 @@ public enum NPCstate
 public class AI : MonoBehaviour
 {
     [SerializeField] protected float nextWayPointDistance = 1f;
-    [SerializeField] protected float movementSpeed = 4f;
+    [SerializeField] public float movementSpeed = 4f;
     [SerializeField] protected float detectionRange = 7f;
     [SerializeField] protected float followRange = 10f;
     [SerializeField] protected float waitTime = 2f;
     [Space]
-    [SerializeField] protected float attackCoolDown = 1.2f;
+    [SerializeField] public float attackCoolDown = 1.2f;
     [SerializeField] protected float attackDuration = 0.5f;
     public float colliderDetactionRadius = 0.3f;
 

@@ -101,4 +101,9 @@ public class ExplosiveBox : MonoBehaviour, IDamaged
             }
         }
     }
+
+    public bool TakeDamage(float phyDamage, float magDamage, bool crit)
+    {
+       return TakeDamage(phyDamage, magDamage);
+    }
 }

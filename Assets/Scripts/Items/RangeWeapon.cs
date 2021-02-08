@@ -69,7 +69,8 @@ public class RangeWeapon : EquipmentItem
             return;
         Transform arrow = Instantiate(arrowPrefab,
             PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
-        arrow.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);
+        var crit = playerStat.GetPhysicalCritDamage();
+        arrow.GetComponent<FlyingObject>().SetData(crit.Item1, magicDamage, direction,crit.Item2,playerStat.KnockBack.Value);
     }
     
     
