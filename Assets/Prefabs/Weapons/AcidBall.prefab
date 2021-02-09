@@ -120,8 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 9
-  HitEffect: {fileID: 0}
-  _hitName: SpellHit
+  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
+    type: 3}
+  FlyingAudio: {fileID: 0}
+  _hitAudio: {fileID: 8300000, guid: 3b88b674609ecef4a9792daf9ee62999, type: 3}
 --- !u!58 &8755516051330035306
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,9 +150,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 333ba9b16138348d088c15973870961f, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
