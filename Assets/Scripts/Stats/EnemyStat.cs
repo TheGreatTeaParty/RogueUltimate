@@ -94,11 +94,11 @@ public class EnemyStat : CharacterStat, IDamaged
     public void TakeDamage(float damage)
     {
         //If we need to do armor or evades check character stats!
-        currentHealth -= damageReceived;
+        currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
 
-        onReceivedDamage?.Invoke(damageReceived,false);
+        onReceivedDamage?.Invoke(damage, false);
         onDamaged?.Invoke();
 
         //Make enemy blinding
@@ -106,6 +106,33 @@ public class EnemyStat : CharacterStat, IDamaged
         if (_characterAudio)
             _characterAudio.DamageSound();
     }
+
+    public override float GetEffectResult(float intensity, EffectType effectType)
+    {
+        return intensity;
+    }
+    public override void TakeEffectDamage(float intensity)
+    {
+        TakeDamage(intensity);
+    }
+    public override void ModifyMovementSpeed(float intensity)
+    {
+       if(intensity == 1)
+        {
+            _enemyAi.StopMoving();
+        }
+
+       else if (intensity == 0)
+        {
+            _enemyAi.StartMoving();
+        }
+
+        else
+        {
+            _enemyAi.ModifyMovementSpeed(intensity);
+        }
+    }
+
     public override void Die()
     {
         CharacterManager.Instance.Stats.GainXP(gainedXP);

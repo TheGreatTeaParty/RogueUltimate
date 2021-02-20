@@ -13,9 +13,13 @@ public class EffectController
         _effects = new List<Effect>();
     }
 
-    public void AddEffect(Effect effect)
+    public void AddEffect(Effect effect,CharacterStat character)
     {
+        effect._stat = character;
+        if (!character.IsEffectApplied(effect._chance, effect._effectType)) { return; }
+        effect.CreateFX();
         _effects.Add(effect);
+
     }
 
     public void RemoveEffectsOfType(EffectType type)
@@ -24,8 +28,9 @@ public class EffectController
         {
             if (_effects[i].EffectType == type)
             {
-                _effects[i].RemoveEffect();
-                _effects.RemoveAt(i);
+                Effect effect = _effects[i];
+                _effects.Remove(_effects[i]);
+                effect.RemoveEffect();
             }
         }
     }
@@ -35,10 +40,12 @@ public class EffectController
         {
             if (_effects[i].Ticks > 0)
                 _effects[i].ApplyEffect();
-            else
+
+            else if(_effects[i].Ticks == 0)
             {
-                _effects[i].RemoveEffect();
-                _effects.RemoveAt(i);
+                Effect effect = _effects[i];
+                _effects.Remove(_effects[i]);
+                effect.RemoveEffect();
             }
         }
     }

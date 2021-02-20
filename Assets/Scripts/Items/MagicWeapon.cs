@@ -18,6 +18,9 @@ public class MagicWeapon : EquipmentItem
     public int RequiredHealth => requiredHealth;
 
     [Space]
+    [SerializeField] private Effect _effect;
+
+    [Space]
     public Transform prefab;
     [Space]
     public AudioClip prepareSound;
@@ -69,7 +72,10 @@ public class MagicWeapon : EquipmentItem
         Transform magic = Instantiate(prefab, 
             player.playerMovement.transform.position + direction, Quaternion.identity);
         var crit = playerStat.GetMagicalCritDamage();
-        magic.GetComponent<FlyingObject>().SetData(physicalDamage,crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value);
+        if(_effect)
+            magic.GetComponent<FlyingObject>().SetData(physicalDamage,crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value,Instantiate(_effect));
+        else
+            magic.GetComponent<FlyingObject>().SetData(physicalDamage, crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value);
     }
     
     public override AttackType Echo()

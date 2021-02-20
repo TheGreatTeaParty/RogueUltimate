@@ -1,20 +1,36 @@
 using UnityEngine;
-
+using System;
 
 
 public enum EffectType
 {
-    Natural = 0,
-    Physical = 1,
-    Elemental = 2,
+    Poison = 0,
+    Daze,
+    Stun,
+    Bleed,
+    Fire,
+    Freeze,
+    Curse,
+    Natural,
 }
 
 [System.Serializable]
-public class Effect
+public class Effect:ScriptableObject
 {
+    [SerializeField] protected String EffectName;
+    [SerializeField]
     protected float _intensity;
+    [SerializeField]
     protected int _ticks;
-    protected EffectType _effectType;
+
+    public EffectType _effectType;
+    [Range(0f, 1f)]
+    public float _chance;
+    public CharacterStat _stat;
+
+    //Visual Effect:
+    [SerializeField] public Transform _effectFX;
+    public Action OnDelete;
 
     public EffectType EffectType => _effectType;
     public int Ticks
@@ -23,19 +39,28 @@ public class Effect
         set => _ticks = value;
     }
     
-    public Effect(float intensity, int ticks = 0)
-    {
-        _intensity = intensity;
-        _ticks = ticks;
-    }
-
     public virtual void ApplyEffect()
     {
         if (_ticks > 0)
             _ticks--;
     }
+
     public virtual void RemoveEffect()
     {
+        OnDelete?.Invoke();
+        OnDelete = null;
+        _stat = null;
+        Destroy(this);
+    }
+
+    public void CreateFX()
+    {
+        SpriteRenderer sprite = _stat.gameObject.GetComponent<SpriteRenderer>();
+        Transform fx = Instantiate(_effectFX, sprite.transform.position, Quaternion.identity);
+        EffectFX effectFX = fx.GetComponent<EffectFX>();
+        effectFX.target = sprite.gameObject;
+        effectFX.targetSprite = sprite;
+        effectFX.effect = this;
 
     }
 

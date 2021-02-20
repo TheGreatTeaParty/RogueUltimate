@@ -24,7 +24,7 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _statPoints = 6;
+    private int _statPoints = 20;
     private float _currentMana;
     private float _currentStamina;
 
@@ -40,6 +40,7 @@ public class PlayerStat : CharacterStat, IDamaged
     [SerializeField] public Stat HPRegeneration;
 
     [Space]
+
     // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
@@ -70,6 +71,7 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnManaChanged;
     public Action<float> OnXPChanged;
 
+    private PlayerMovement playerMovement;
     
     
     private void Start()
@@ -77,7 +79,7 @@ public class PlayerStat : CharacterStat, IDamaged
         currentHealth = Strength.MaxHealth.Value;
         _currentStamina = Agility.MaxStamina.Value;
         _currentMana = Intelligence.MaxMana.Value;
-        
+        playerMovement = GetComponent<PlayerMovement>();
         _xp = 0;
         level = 1;
         
@@ -230,21 +232,6 @@ public class PlayerStat : CharacterStat, IDamaged
         return _xpToNextLevel[level - 1];
     }
 
-    public float GetEffectResult(float intensity, EffectType effectType)
-    {
-        if (effectType == EffectType.Elemental)
-        {
-            return (1 - Intelligence.ElementalEffectResistance.Value) * intensity;
-        }
-        else if (effectType == EffectType.Physical)
-        {
-            return (1 - Strength.PhysicalEffectResistance.Value) * intensity;
-        }
-        else
-        {
-            return intensity;
-        }
-    }
 
     //RETURNS TRUE or FALSE to make a function of EVADES,BLOCK, etc.
     public override bool TakeDamage(float phyDamage, float magDamage)
@@ -258,7 +245,8 @@ public class PlayerStat : CharacterStat, IDamaged
             OnHealthChanged?.Invoke(currentHealth);
             animator.SetTrigger("Taking Dmg");
             //Take Damage -> Screen shake MAYBE it will be removed later!
-            ScreenShakeController.Instance.StartShake(0.17f, 1f);
+            if(currentHealth > 0)
+                ScreenShakeController.Instance.StartShake(0.17f, 1f);
             return true;
         }
         return false;
@@ -270,10 +258,49 @@ public class PlayerStat : CharacterStat, IDamaged
         //TRUE 
         OnHealthChanged?.Invoke(currentHealth);
         animator.SetTrigger("Taking Dmg");
-        //Take Damage -> Screen shake MAYBE it will be removed later!
         ScreenShakeController.Instance.StartShake(0.17f, 1f);
     }
 
+    //***                                   -----------  Effects: ----------
+    public override float GetEffectResult(float intensity, EffectType effectType)
+    {
+        if (effectType == EffectType.Fire || effectType == EffectType.Freeze|| effectType == EffectType.Curse)
+        {
+            return (1 - Intelligence.ElementalEffectResistance.Value) * intensity;
+        }
+        else if (effectType == EffectType.Poison || effectType == EffectType.Bleed || effectType == EffectType.Stun)
+        {
+            return (1 - Strength.PhysicalEffectResistance.Value) * intensity;
+        }
+        else
+        {
+            return intensity;
+        }
+    }
+
+    public override void TakeEffectDamage(float intensity)
+    {
+        ModifyHealth(-intensity);
+        //TRUE 
+        OnHealthChanged?.Invoke(currentHealth);
+        animator.SetTrigger("Taking Dmg");
+        ScreenShakeController.Instance.StartShake(0.17f, 1f);
+    }
+    public override void ModifyMovementSpeed(float intensity)
+    {
+       if(intensity == 1)
+        {
+            playerMovement.StopMoving();
+        }
+       else if(intensity == 0)
+        {
+            playerMovement.StopMoving();
+        }
+        else
+        {
+            playerMovement.SlowDown(intensity);
+        }
+    }
     public override void Die()
     {
         animator.SetTrigger("Die");

@@ -17,7 +17,7 @@ public class FlyingObject : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _direction;
     private SpriteRenderer _spriteRenderer;
-
+    private Effect _effect;
     
     private void Start()
     {
@@ -33,13 +33,14 @@ public class FlyingObject : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.right, _direction);
     }
     
-    public void SetData(float physicalDamage, float magicDamage, Vector2 direction, bool crit,float knockback = 0)
+    public void SetData(float physicalDamage, float magicDamage, Vector2 direction, bool crit,float knockback = 0, Effect effect = null)
     {
         _physicalDamage = physicalDamage;
         _magicDamage = magicDamage;
         _direction = direction;
         _knockBack = knockback;
         _crit = crit;
+        _effect = effect;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,6 +53,17 @@ public class FlyingObject : MonoBehaviour
             //Check if enemy takes damage
             if (HitEffect)
             {
+                //Assign Effect:
+                if (_effect)
+                {
+                    if (Random.value < _effect._chance)
+                    {
+                        CharacterStat character = collision.GetComponent<CharacterStat>();
+                        if (character)
+                            character.EffectController.AddEffect(Instantiate(_effect), character);
+                    }
+                }
+
                 Transform Effect = Instantiate(HitEffect, collision.GetComponent<Collider2D>().bounds.center, Quaternion.identity);
                 Effect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
             }

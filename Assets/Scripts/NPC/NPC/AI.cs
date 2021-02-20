@@ -133,14 +133,19 @@ public class AI : MonoBehaviour
             rb.MovePosition(transform.position + (Vector3)direction * movementSpeed * Time.deltaTime);
     }
 
-    protected void StopMoving()
+    public void StopMoving()
     {
         isStopped = true;
     }
 
-    protected void StartMoving()
+    public void StartMoving()
     {
         isStopped = false;
+    }
+
+    public void ModifyMovementSpeed(float percent)
+    {
+        movementSpeed *= percent;
     }
 
     protected virtual void Die()

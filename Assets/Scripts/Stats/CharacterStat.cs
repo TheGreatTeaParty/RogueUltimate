@@ -68,16 +68,28 @@ public class CharacterStat : MonoBehaviour
         _timeLeft -= Time.deltaTime;
     }
 
-    protected virtual void TakeEffectDamage(Effect effect)
+    public virtual float GetEffectResult(float intensity, EffectType effectType)
     {
-
+        return 0;
     }
 
-    protected virtual void ChangeEffect(Effect oldEffect, Effect newEffect)
+    public virtual bool IsEffectApplied(float chance, EffectType effectType)
+    {
+        return true;
+    }
+
+    public virtual void ModifyMovementSpeed(float intensity)
     {
         
     }
-    
+
+    public virtual void TakeEffectDamage(float intensity)
+    {
+
+    }
+
+
+
     public virtual bool TakeDamage(float _phyDamage, float _magDamage)
     {
         float phyDamage = (_phyDamage * (100 / (100 + physicalProtection.Value)));
@@ -92,7 +104,7 @@ public class CharacterStat : MonoBehaviour
     public virtual void TakeDamage(float phyDamage, float magDamage, Effect effect)
     {
         TakeDamage(phyDamage, magDamage);
-        EffectController.AddEffect(effect);   
+        EffectController.AddEffect(effect,this);   
     }
 
     public virtual void Die()

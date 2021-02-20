@@ -29,14 +29,12 @@ public class Goblin : Warrior
 
         isAttack = false;
 
-        if (hitted)
-        {
-            state = NPCstate.Hanging;
-            Vector2 direction = (target.transform.position - transform.position);
-            Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
-            if (IsPositionAvailable(runBack))
-                Roll(-direction);
-        }
+        state = NPCstate.Hanging;
+        Vector2 direction = (target.transform.position - transform.position);
+        Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
+        if (IsPositionAvailable(runBack))
+            Roll(-direction);
+
     }
 
   
