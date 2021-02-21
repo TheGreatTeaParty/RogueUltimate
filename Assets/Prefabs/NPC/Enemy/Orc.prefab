@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2969126813485017432}
   - component: {fileID: 2969126813485017433}
-  - component: {fileID: 2969126813485017446}
   - component: {fileID: 2969126813485017447}
   - component: {fileID: 4452840553849684515}
   - component: {fileID: 2969126813485017434}
@@ -22,6 +21,7 @@ GameObject:
   - component: {fileID: 824822416574230489}
   - component: {fileID: 1924165181328397174}
   - component: {fileID: 4968012315996581786}
+  - component: {fileID: 3306532852225733004}
   m_Layer: 8
   m_Name: Orc
   m_TagString: Enemy
@@ -96,30 +96,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2969126813485017446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969126813485017444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Orc
-  physicalDamage:
-    baseValue: 20
-  physicalProtection:
-    baseValue: 10
-  magicProtection:
-    baseValue: 0
-  magicDamage:
-    baseValue: 0
-  maxHealth: 100
-  gainedXP: 100
-  gainedGold: 0
 --- !u!114 &2969126813485017447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +458,32 @@ MonoBehaviour:
   source:
   - {fileID: 824822416574230489}
   - {fileID: 1924165181328397174}
+--- !u!114 &3306532852225733004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969126813485017444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96892449780394caca1f6f8ca24e0f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Orc
+  physicalDamage:
+    baseValue: 0
+  physicalProtection:
+    baseValue: 0
+  magicProtection:
+    baseValue: 0
+  magicDamage:
+    baseValue: 0
+  maxHealth: 100
+  coin: {fileID: 5879709720522722880, guid: e3f82e2f39dd74e45a5805a69ae88444, type: 3}
+  XPOrb: {fileID: 255665308592389911, guid: ee7a2cbf4f8e84f62bf50e17113a11bc, type: 3}
+  gainedXP: 100
+  gainedGold: 8
 --- !u!1001 &2094779383678785793
 PrefabInstance:
   m_ObjectHideFlags: 0

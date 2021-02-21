@@ -4,9 +4,9 @@ using System.Collections;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
-    //[SerializeField] Transform coin;
-    //[SerializeField] Transform XPOrb;
-
+    [Space]
+    [SerializeField] Transform coin;
+    [SerializeField] Transform XPOrb;
     [SerializeField] private int gainedXP;
     [SerializeField] private int gainedGold;
     private EnemyAI _enemyAi;
@@ -41,7 +41,6 @@ public class EnemyStat : CharacterStat, IDamaged
         _floatingNumber = GetComponent<FloatingNumber>();
         _characterAudio = GetComponent<CharacterAudio>();
 
-        maxHealth += level * 10;
         currentHealth = maxHealth;
 
         //Material:
@@ -135,7 +134,12 @@ public class EnemyStat : CharacterStat, IDamaged
 
     public override void Die()
     {
-        CharacterManager.Instance.Stats.GainXP(gainedXP);
+        Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
+        gold.GetComponent<Gold>().GoldAmount = gainedGold;
+
+        Transform Xp = Instantiate(XPOrb, transform.position, Quaternion.identity);
+        Xp.GetComponent<XP>().XPAmount = gainedXP;
+
         //
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
@@ -160,6 +164,11 @@ public class EnemyStat : CharacterStat, IDamaged
 
         _collideMaterial.SetFloat("Damaged", 0f);
         _materialInfo.SetPropertyBlock(_collideMaterial);
+    }
+
+    public virtual void SetLevel(int level)
+    {
+
     }
 
 }

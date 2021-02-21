@@ -6,10 +6,15 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField] private Transform text;
     [SerializeField] private ItemScene itemOnScene;
     bool _isAwake = false;
+    private Rigidbody2D _rigidbody2D;
     
     private void Awake()
     {
+
         itemOnScene = GetComponent<ItemScene>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.AddForce(new Vector2(Random.Range(-2, 2), Random.Range(-2, 2)), ForceMode2D.Impulse);
+
         Invoke("WakeUp", 1f);
     }
 

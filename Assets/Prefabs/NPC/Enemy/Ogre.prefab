@@ -70,7 +70,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5968919584281164102}
   - component: {fileID: 5968919584281164103}
-  - component: {fileID: 5968919584281164152}
   - component: {fileID: 5968919584281164153}
   - component: {fileID: 5055857120499847741}
   - component: {fileID: 5968919584281164100}
@@ -82,6 +81,7 @@ GameObject:
   - component: {fileID: 5968919584281164151}
   - component: {fileID: 5968919584281164150}
   - component: {fileID: 5968919584281164155}
+  - component: {fileID: 5387490527452328348}
   m_Layer: 8
   m_Name: Ogre
   m_TagString: Enemy
@@ -157,30 +157,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5968919584281164152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5968919584281164154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Ogre
-  physicalDamage:
-    baseValue: 30
-  physicalProtection:
-    baseValue: 15
-  magicProtection:
-    baseValue: 0
-  magicDamage:
-    baseValue: 0
-  maxHealth: 120
-  gainedXP: 200
-  gainedGold: 0
 --- !u!114 &5968919584281164153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +524,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5387490527452328348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5968919584281164154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6871abdefefc42768023d161d22086e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Ogre
+  physicalDamage:
+    baseValue: 0
+  physicalProtection:
+    baseValue: 0
+  magicProtection:
+    baseValue: 0
+  magicDamage:
+    baseValue: 0
+  maxHealth: 100
+  coin: {fileID: 5879709720522722880, guid: e3f82e2f39dd74e45a5805a69ae88444, type: 3}
+  XPOrb: {fileID: 255665308592389911, guid: ee7a2cbf4f8e84f62bf50e17113a11bc, type: 3}
+  gainedXP: 200
+  gainedGold: 15
 --- !u!1001 &1707313895017970507
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,11 +19,10 @@ public class Goblin : Warrior
     protected override void Attack()
     {
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRadius, _whatIsEnemy);
-        bool hitted = false;
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
             if (enemiesToDamage[i] != gameObject)
-                hitted = enemiesToDamage[i].GetComponent<IDamaged>().
+                enemiesToDamage[i].GetComponent<IDamaged>().
                         TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
         }
 
@@ -34,6 +33,10 @@ public class Goblin : Warrior
         Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
         if (IsPositionAvailable(runBack))
             Roll(-direction);
+        else
+        {
+            state = NPCstate.Chasing;
+        }
 
     }
 
