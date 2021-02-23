@@ -29,7 +29,7 @@ public class TurretProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
+        // Debug.Log(other.name);
         if (other.gameObject.layer == wallLayer)
         {
             Destroy(gameObject);
