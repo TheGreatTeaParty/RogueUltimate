@@ -10,7 +10,7 @@ public class Turret : MonoBehaviour
     private float _cooldown;
 
     [SerializeField] private GameObject projectile;
-    [SerializeField]private Animator animator;
+    [SerializeField] private Animator animator;
     private static readonly int IsCharging = Animator.StringToHash("IsCharging");
 
     private void Awake()

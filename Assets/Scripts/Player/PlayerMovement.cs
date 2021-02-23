@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
     private Vector3 _prevDragDir;
+    public bool isConrolDisabled = false;
 
     public void Start()
     {
@@ -91,10 +92,9 @@ public class PlayerMovement : MonoBehaviour
     /*This is the main function which calculates Character's movement*/
     void MoveCharacter()
     {
-        if(!_stopped)
-            rb2D.MovePosition((Vector2)transform.position + 
-                            (movementSpeed * BASE_MOVEMENT_SPEED * 
-                                _movementDirection * Time.deltaTime));
+        if (!_stopped)
+            rb2D.MovePosition((Vector2) transform.position +
+                              _movementDirection * (movementSpeed * BASE_MOVEMENT_SPEED * Time.deltaTime));
     }
 
     public void Push(Vector2 push_direction)
@@ -119,11 +119,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMoving()
     {
+        isConrolDisabled = true;
         _stopped = true;
     }
 
     public void StartMoving()
     {
+        isConrolDisabled = false;
         rb2D.velocity = new Vector2(0,0);
         _stopped = false;
     }
@@ -145,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PushToDirection(float PushPower)
     {
-        rb2D.AddForce(PushPower * _direction*100);
+        rb2D.AddForce(_direction * (PushPower * 100));
     }
 
     private void Roll(Vector3 dir)
@@ -154,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         if (_playerStat.ModifyStamina(-15))
         {
             animator.SetTrigger("Roll");
-            rb2D.AddForce(dir * rb2D.mass * 600);
+            rb2D.AddForce(dir * (rb2D.mass * 600));
             StartCoroutine(DisablePlayerControll(ROLL_TIME));
         }
     }

@@ -34,7 +34,7 @@ public class TurretProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == playerLayer)
+        else if (other.gameObject.layer == playerLayer && PlayerOnScene.Instance.playerMovement.isConrolDisabled == false)
         {
             DealDamage();
             Destroy(gameObject);
@@ -43,6 +43,6 @@ public class TurretProjectile : MonoBehaviour
 
     private void DealDamage()
     {
-        PlayerOnScene.Instance.stats.CurrentHealth -= Damage;
+        PlayerOnScene.Instance.stats.TakeDamage(10, 0);
     }
 }
