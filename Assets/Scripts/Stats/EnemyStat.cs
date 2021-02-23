@@ -134,6 +134,10 @@ public class EnemyStat : CharacterStat, IDamaged
 
     public override void Die()
     {
+        //Remove all effects:
+        EffectController.RemoveAll();
+
+        //Spawn Gold and XP
         Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
         gold.GetComponent<Gold>().GoldAmount = gainedGold;
 

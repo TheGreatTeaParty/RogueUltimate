@@ -87,15 +87,19 @@ public class AI : MonoBehaviour
         {
             Vector2 detactRay = Quaternion.AngleAxis(angle, Vector3.forward) * nextPointDir;
             RaycastHit2D ray = Physics2D.Raycast(_collider.bounds.center, detactRay, colliderDetactionRadius);
-            Debug.DrawRay(_collider.bounds.center, detactRay*colliderDetactionRadius, Color.green);
-            if(ray)
+            Debug.DrawRay(_collider.bounds.center, detactRay * colliderDetactionRadius, Color.green);
+            if (ray)
             {
                 Debug.DrawRay(_collider.bounds.center, detactRay * colliderDetactionRadius, Color.red);
                 if (angle >= 0)
                     sum += (angle - 180);
                 else
+                    if (sum > 0)
                     sum += (angle + 180);
+                else
+                    sum -= (angle + 180);
                 number++;
+
             }
 
             angle -= 30;

@@ -17,8 +17,13 @@ public class EffectController
     {
         effect._stat = character;
         if (!character.IsEffectApplied(effect._chance, effect._effectType)) { return; }
-        effect.CreateFX();
-        _effects.Add(effect);
+      
+        Predicate<Effect> temp = cur_effect => cur_effect.EffectType == effect.EffectType;
+        if (!_effects.Find(temp))
+        {
+            _effects.Add(effect);
+            effect.CreateFX();
+        }
 
     }
 
@@ -47,6 +52,14 @@ public class EffectController
                 _effects.Remove(_effects[i]);
                 effect.RemoveEffect();
             }
+        }
+    }
+
+    public void RemoveAll()
+    {
+        for (int i = 0; i < _effects.Count; i++)
+        {
+            _effects[i].RemoveEffect();
         }
     }
     
