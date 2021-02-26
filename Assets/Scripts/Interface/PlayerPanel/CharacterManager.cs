@@ -150,6 +150,7 @@ public class CharacterManager : MonoBehaviour
         draggableItem.sprite = itemSlot.Item.Sprite;
         draggableItem.transform.position = Input.mousePosition;
         draggableItem.enabled = true;
+        BeginHighLight(itemSlot);
     }
     
     private void Drag(ItemSlot itemSlot)
@@ -162,6 +163,7 @@ public class CharacterManager : MonoBehaviour
     {
         _draggedSlot = null;
         draggableItem.enabled = false;
+        EndHighLight();
     }
     
     private void Drop(ItemSlot dropItemSlot)
@@ -250,4 +252,22 @@ public class CharacterManager : MonoBehaviour
     {
         _stats = playerStat;
     }
+
+    private void BeginHighLight(ItemSlot itemSlot)
+    {
+        foreach (EquipmentSlot slot in equipment.equipmentSlots)
+        {
+            if (slot.CanReceiveItem(itemSlot.Item))
+                slot.HighLight();
+        }
+    }
+
+    private void EndHighLight()
+    {
+        foreach (EquipmentSlot slot in equipment.equipmentSlots)
+        {
+            slot.EndHighLight();
+        }
+    }
+
 }
