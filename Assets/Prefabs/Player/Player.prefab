@@ -678,25 +678,23 @@ MonoBehaviour:
     baseValue: 0
   castSpeed:
     baseValue: 0
+  HPRegeneration:
+    baseValue: 0
   animator: {fileID: 304746976}
   LevelUpEffect: {fileID: 5267075721743264303, guid: 1a947a02e99fb4bf99a6afcb223bfc4c,
     type: 3}
   Strength:
     MaxHealth:
       baseValue: 8
-    HPRegeneration:
-      baseValue: 0.5
-    PoisonEffectResistance:
+    PhysicalEffectResistance:
       baseValue: 0
     CritDamage:
-      baseValue: 0.4
+      baseValue: 0.5
   Agility:
     MaxStamina:
       baseValue: 10
     StaminaRegeniration:
       baseValue: 1
-    "\u0421onsternationResistance":
-      baseValue: 0
     CritChance:
       baseValue: 0
     dodgeChance:
@@ -706,10 +704,10 @@ MonoBehaviour:
       baseValue: 10
     ManaRegeniration:
       baseValue: 1
-    DazeResistance:
+    ElementalEffectResistance:
       baseValue: 0
     MagicalCrit:
-      baseValue: 0.4
+      baseValue: 0.5
 --- !u!114 &9134001256983752150
 MonoBehaviour:
   m_ObjectHideFlags: 0

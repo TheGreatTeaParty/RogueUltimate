@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
     private void Roll(Vector3 dir)
     {
         _rollCurrentCD = _rollCD;
-        if (_playerStat.ModifyStamina(-15))
+        if (_playerStat.ModifyStamina(-8))
         {
             animator.SetTrigger("Roll");
             characterAudio.PlayExtra(0);

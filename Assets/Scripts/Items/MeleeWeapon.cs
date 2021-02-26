@@ -36,6 +36,8 @@ public class MeleeWeapon : EquipmentItem
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
     [Space]
+    [SerializeField] private Effect _effect;
+    [Space]
     public AudioClip StartAttackSound;
     public AudioClip EndAttackSound;
 
@@ -86,7 +88,20 @@ public class MeleeWeapon : EquipmentItem
             //If take damage returns true -> play hit effect:
             if (enemiesToDamage[i].gameObject != player.gameObject)
             {
-                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(physicalDamage, magicDamage);
+                var crit = playerStat.GetPhysicalCritDamage();
+                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(crit.Item1, magicDamage,crit.Item2);
+
+                //Assign Effect:
+                if (_effect)
+                {
+                    if (Random.value < _effect._chance)
+                    {
+                        CharacterStat character = enemiesToDamage[i].GetComponent<CharacterStat>();
+                        if(character)
+                            character.EffectController.AddEffect(Instantiate(_effect),character);
+                    }
+                }
+
 
                 //Create Visual Effect:
                 if (HitEffect)

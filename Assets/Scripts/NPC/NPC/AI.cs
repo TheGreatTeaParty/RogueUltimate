@@ -13,12 +13,12 @@ public enum NPCstate
 public class AI : MonoBehaviour
 {
     [SerializeField] protected float nextWayPointDistance = 1f;
-    [SerializeField] protected float movementSpeed = 4f;
+    [SerializeField] public float movementSpeed = 4f;
     [SerializeField] protected float detectionRange = 7f;
     [SerializeField] protected float followRange = 10f;
     [SerializeField] protected float waitTime = 2f;
     [Space]
-    [SerializeField] protected float attackCoolDown = 1.2f;
+    [SerializeField] public float attackCoolDown = 1.2f;
     [SerializeField] protected float attackDuration = 0.5f;
     public float colliderDetactionRadius = 0.3f;
 
@@ -87,15 +87,19 @@ public class AI : MonoBehaviour
         {
             Vector2 detactRay = Quaternion.AngleAxis(angle, Vector3.forward) * nextPointDir;
             RaycastHit2D ray = Physics2D.Raycast(_collider.bounds.center, detactRay, colliderDetactionRadius);
-            Debug.DrawRay(_collider.bounds.center, detactRay*colliderDetactionRadius, Color.green);
-            if(ray)
+            Debug.DrawRay(_collider.bounds.center, detactRay * colliderDetactionRadius, Color.green);
+            if (ray)
             {
                 Debug.DrawRay(_collider.bounds.center, detactRay * colliderDetactionRadius, Color.red);
                 if (angle >= 0)
                     sum += (angle - 180);
                 else
+                    if (sum > 0)
                     sum += (angle + 180);
+                else
+                    sum -= (angle + 180);
                 number++;
+
             }
 
             angle -= 30;
@@ -133,14 +137,19 @@ public class AI : MonoBehaviour
             rb.MovePosition(transform.position + (Vector3)direction * movementSpeed * Time.deltaTime);
     }
 
-    protected void StopMoving()
+    public void StopMoving()
     {
         isStopped = true;
     }
 
-    protected void StartMoving()
+    public void StartMoving()
     {
         isStopped = false;
+    }
+
+    public void ModifyMovementSpeed(float percent)
+    {
+        movementSpeed *= percent;
     }
 
     protected virtual void Die()

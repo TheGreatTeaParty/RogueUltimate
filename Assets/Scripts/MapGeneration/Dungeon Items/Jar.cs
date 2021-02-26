@@ -38,4 +38,9 @@ public class Jar : MonoBehaviour, IDamaged
         yield return new WaitForSeconds(0.31f);
         Destroy(gameObject);
     }
+
+    public bool TakeDamage(float phyDamage, float magDamage, bool crit)
+    {
+        return TakeDamage(phyDamage, magDamage);
+    }
 }

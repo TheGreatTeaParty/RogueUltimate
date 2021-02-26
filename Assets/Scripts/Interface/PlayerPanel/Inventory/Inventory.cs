@@ -71,6 +71,7 @@ public class Inventory : MonoBehaviour
             {
                 itemSlots[i].Item = item;
                 itemSlots[i].Amount++;
+                items.Add(item);
                 return true;
             }
         }
@@ -86,7 +87,10 @@ public class Inventory : MonoBehaviour
             {
                 itemSlots[i].Amount--;
                 if (itemSlots[i].Amount == 0)
+                {
                     itemSlots[i].Item = null;
+                    items.Remove(item);
+                }
                 
                 return true;
             }
@@ -119,6 +123,7 @@ public class Inventory : MonoBehaviour
             itemSlots[i].Item = null;
             itemSlots[i].Amount = 0;
         }
+
 
         for (int j = 0; j < quickSlots.Length; j++)
         {

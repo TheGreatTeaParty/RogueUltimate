@@ -7,5 +7,4 @@ public class TextDamage : MonoBehaviour
     {
         Destroy(gameObject, 1f);
     }
-    
 }

@@ -13,7 +13,8 @@ public class RangeWeapon : EquipmentItem
     [SerializeField] private int requiredStamina;
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredHealth;
-
+    [Space]
+    [SerializeField] private Effect _effect;
     [Space]
     public Transform arrowPrefab;
     [Space]
@@ -69,7 +70,12 @@ public class RangeWeapon : EquipmentItem
             return;
         Transform arrow = Instantiate(arrowPrefab,
             PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
-        arrow.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);
+        var crit = playerStat.GetPhysicalCritDamage();
+
+        if(_effect)
+            arrow.GetComponent<FlyingObject>().SetData(crit.Item1, magicDamage, direction,crit.Item2,playerStat.KnockBack.Value,Instantiate(_effect));
+        else
+            arrow.GetComponent<FlyingObject>().SetData(crit.Item1, magicDamage, direction, crit.Item2, playerStat.KnockBack.Value);
     }
     
     

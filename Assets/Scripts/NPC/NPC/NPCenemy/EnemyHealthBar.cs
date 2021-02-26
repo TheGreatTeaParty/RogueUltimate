@@ -45,7 +45,7 @@ public class EnemyHealthBar : MonoBehaviour
             }
         }
     }
-    private void ChangeHealth(float damage)
+    private void ChangeHealth(float damage,bool crit)
     {
         if (!UI.activeSelf)
             TurnOnAllElements();

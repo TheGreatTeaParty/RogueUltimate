@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 959214771665855260}
   - component: {fileID: 959214771665855261}
-  - component: {fileID: 959214771665855266}
   - component: {fileID: 959214771665855267}
   - component: {fileID: 1850996212774586471}
   - component: {fileID: 959214771665855262}
@@ -22,6 +21,7 @@ GameObject:
   - component: {fileID: 4526020671065479474}
   - component: {fileID: 6956453090368300510}
   - component: {fileID: -8184718325398624010}
+  - component: {fileID: 1475020637242297415}
   m_Layer: 8
   m_Name: Goblin
   m_TagString: Enemy
@@ -96,30 +96,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &959214771665855266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959214771665855264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Goblin
-  physicalDamage:
-    baseValue: 10
-  physicalProtection:
-    baseValue: 0
-  magicProtection:
-    baseValue: 0
-  magicDamage:
-    baseValue: 0
-  maxHealth: 100
-  gainedXP: 50
-  gainedGold: 0
 --- !u!114 &959214771665855267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,11 +455,39 @@ MonoBehaviour:
   waitTime: 0.8
   attackCoolDown: 1.2
   attackDuration: 0.5
-  colliderDetactionRadius: 0.38
+  colliderDetactionRadius: 0.3
   attackRadius: 0.4
   attackRange: 1
   RollForce: 10
   RunBack: 1.3
+--- !u!114 &1475020637242297415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959214771665855264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d270a310264445196cbb56b4cefe3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Goblin
+  physicalDamage:
+    baseValue: 0
+  physicalProtection:
+    baseValue: 0
+  magicProtection:
+    baseValue: 0
+  magicDamage:
+    baseValue: 0
+  maxHealth: 100
+  coin: {fileID: 5879709720522722880, guid: e3f82e2f39dd74e45a5805a69ae88444, type: 3}
+  XPOrb: {fileID: 255665308592389911, guid: ee7a2cbf4f8e84f62bf50e17113a11bc, type: 3}
+  gainedXP: 75
+  gainedGold: 3
+  PoisonChance: 0
+  PoisonEffect: {fileID: 11400000, guid: 2e325a7a7453c4a67930f32074243c21, type: 2}
 --- !u!1001 &4136981887192372037
 PrefabInstance:
   m_ObjectHideFlags: 0

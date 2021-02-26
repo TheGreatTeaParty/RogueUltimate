@@ -19,24 +19,30 @@ public class CharacterStat : MonoBehaviour
     protected float damageReceived;
 
     // Effects 
-    protected EffectController effectController;
+    public EffectController EffectController;
+    protected float _timeLeft;
+    protected const float TICK_TIME = 1f;
 
     public string CharacterName => characterName;
+
     public int Level
     {
         get => level;
         set => level = value;
     }
+
     public float CurrentHealth
     {
         get => currentHealth;
         set => currentHealth = value;
     }
+
     public float MaxHealth
     {
         get => maxHealth;
         set => maxHealth = value;
     }
+
     public Stat PhysicalDamage => physicalDamage;
     public Stat PhysicalProtection => physicalProtection;
     public Stat MagicDamage => magicDamage;
@@ -47,29 +53,43 @@ public class CharacterStat : MonoBehaviour
     // all phyDamage counting, phyDamage intake should be written here
     private void Awake()
     {
-        effectController = gameObject.AddComponent<EffectController>();
-        effectController.OnEffectChanged += ChangeEffect;
-
+        EffectController = new EffectController();
         currentHealth = maxHealth;
+        _timeLeft = TICK_TIME;
     }
 
     protected virtual void Update()
     {
-        if (effectController.Effects.Count > 0)
-            for (int i = 0; i < effectController.Effects.Count; i++)
-                TakeEffectDamage(effectController.Effects[i]);    
+        if(_timeLeft <= 0)
+        {
+            EffectController.Tick();
+            _timeLeft = TICK_TIME;
+        }
+        _timeLeft -= Time.deltaTime;
     }
 
-    protected virtual void TakeEffectDamage(Effect effect)
+    public virtual float GetEffectResult(float intensity, EffectType effectType)
     {
-
+        return 0;
     }
 
-    protected virtual void ChangeEffect(Effect oldEffect, Effect newEffect)
+    public virtual bool IsEffectApplied(float chance, EffectType effectType)
+    {
+        return true;
+    }
+
+    public virtual void ModifyMovementSpeed(float intensity)
     {
         
     }
-    
+
+    public virtual void TakeEffectDamage(float intensity)
+    {
+
+    }
+
+
+
     public virtual bool TakeDamage(float _phyDamage, float _magDamage)
     {
         float phyDamage = (_phyDamage * (100 / (100 + physicalProtection.Value)));
@@ -81,10 +101,10 @@ public class CharacterStat : MonoBehaviour
         return true;
     }
 
-    public virtual void TakeDamage(float phyDamage, float magDamage, EffectType effectType, float effectIntensity, float effectTime)
+    public virtual void TakeDamage(float phyDamage, float magDamage, Effect effect)
     {
         TakeDamage(phyDamage, magDamage);
-        effectController.Add(effectType, effectIntensity, effectTime);   
+        EffectController.AddEffect(effect,this);   
     }
 
     public virtual void Die()

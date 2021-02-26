@@ -4,15 +4,15 @@ using System.Collections;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
-    //[SerializeField] Transform coin;
-    //[SerializeField] Transform XPOrb;
-
+    [Space]
+    [SerializeField] Transform coin;
+    [SerializeField] Transform XPOrb;
     [SerializeField] private int gainedXP;
     [SerializeField] private int gainedGold;
     private EnemyAI _enemyAi;
     
     
-    public delegate void OnReceivedDamage(float damage);
+    public delegate void OnReceivedDamage(float damage,bool _isCrit);
     public OnReceivedDamage onReceivedDamage;
 
     public delegate void OnDamaged();
@@ -41,7 +41,6 @@ public class EnemyStat : CharacterStat, IDamaged
         _floatingNumber = GetComponent<FloatingNumber>();
         _characterAudio = GetComponent<CharacterAudio>();
 
-        maxHealth += level * 10;
         currentHealth = maxHealth;
 
         //Material:
@@ -57,7 +56,7 @@ public class EnemyStat : CharacterStat, IDamaged
 
         //If we need to do armor or evades check character stats!
 
-        onReceivedDamage?.Invoke(damageReceived);
+        onReceivedDamage?.Invoke(damageReceived,false);
         onDamaged?.Invoke();
 
         //Make enemy blinding
@@ -67,18 +66,84 @@ public class EnemyStat : CharacterStat, IDamaged
         return true;
     }
 
+    public bool TakeDamage(float phyDamage, float magDamage,bool _isCrit)
+    {
+        base.TakeDamage(phyDamage, magDamage);
+
+        //If we need to do armor or evades check character stats!
+
+        onReceivedDamage?.Invoke(damageReceived, _isCrit);
+        onDamaged?.Invoke();
+
+        //Make enemy blinding
+        StartCoroutine(WaitAndChangeProperty());
+        if (_characterAudio)
+            _characterAudio.DamageSound();
+        return true;
+    }
+
     public void TakeDamage(float receivedPhyDmg, float receivedMagDmg, Vector2 bounceDirection, float power)
     {
         base.TakeDamage(receivedPhyDmg, receivedMagDmg);
         
-        onReceivedDamage?.Invoke(damageReceived);
+        onReceivedDamage?.Invoke(damageReceived,false);
         _rigidbody2D.AddForce(bounceDirection * power);
         onDamaged?.Invoke();
+    }
+    public void TakeDamage(float damage)
+    {
+        //If we need to do armor or evades check character stats!
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+            Die();
+
+        onReceivedDamage?.Invoke(damage, false);
+        onDamaged?.Invoke();
+
+        //Make enemy blinding
+        StartCoroutine(WaitAndChangeProperty());
+        if (_characterAudio)
+            _characterAudio.DamageSound();
+    }
+
+    public override float GetEffectResult(float intensity, EffectType effectType)
+    {
+        return intensity;
+    }
+    public override void TakeEffectDamage(float intensity)
+    {
+        TakeDamage(intensity);
+    }
+    public override void ModifyMovementSpeed(float intensity)
+    {
+       if(intensity == 1)
+        {
+            _enemyAi.StopMoving();
+        }
+
+       else if (intensity == 0)
+        {
+            _enemyAi.StartMoving();
+        }
+
+        else
+        {
+            _enemyAi.ModifyMovementSpeed(intensity);
+        }
     }
 
     public override void Die()
     {
-        CharacterManager.Instance.Stats.GainXP(gainedXP);
+        //Remove all effects:
+        EffectController.RemoveAll();
+
+        //Spawn Gold and XP
+        Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
+        gold.GetComponent<Gold>().GoldAmount = gainedGold;
+
+        Transform Xp = Instantiate(XPOrb, transform.position, Quaternion.identity);
+        Xp.GetComponent<XP>().XPAmount = gainedXP;
+
         //
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
@@ -103,6 +168,11 @@ public class EnemyStat : CharacterStat, IDamaged
 
         _collideMaterial.SetFloat("Damaged", 0f);
         _materialInfo.SetPropertyBlock(_collideMaterial);
+    }
+
+    public virtual void SetLevel(int level)
+    {
+
     }
 
 }
