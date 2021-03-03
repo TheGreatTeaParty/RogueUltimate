@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Jar : MonoBehaviour, IDamaged
 {
+    [SerializeField] Transform coin;
     private SpriteRenderer _sprite;
     private ParticleSystem _particle;
     private AudioSource _audioSource;
+    private int _gainedGold;
 
     //Material
     private MaterialPropertyBlock _collideMaterial;
@@ -16,6 +18,7 @@ public class Jar : MonoBehaviour, IDamaged
         _sprite = GetComponent<SpriteRenderer>();
         _particle = GetComponent<ParticleSystem>();
         _audioSource = GetComponent<AudioSource>();
+        _gainedGold = Random.Range(0, 16);
 
         //Material:
         _collideMaterial = new MaterialPropertyBlock();
@@ -35,6 +38,9 @@ public class Jar : MonoBehaviour, IDamaged
         _sprite.sprite = null;
         _particle.Play();
         _audioSource.Play();
+        //Creates Gold
+        if (_gainedGold != 0)
+            CreateGold();
         yield return new WaitForSeconds(0.31f);
         Destroy(gameObject);
     }
@@ -43,4 +49,11 @@ public class Jar : MonoBehaviour, IDamaged
     {
         return TakeDamage(phyDamage, magDamage);
     }
+
+    private void CreateGold()
+    {
+        Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
+        gold.GetComponent<Gold>().GoldAmount = _gainedGold;
+    }
+
 }
