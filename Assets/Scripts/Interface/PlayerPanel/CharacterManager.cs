@@ -62,6 +62,8 @@ public class CharacterManager : MonoBehaviour
     // Inventory & equipment
     public void Equip(ItemSlot itemSlot)
     {
+
+        Debug.Log("Equip !");
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
             Equip(equipmentItem);
@@ -94,6 +96,7 @@ public class CharacterManager : MonoBehaviour
     
     public void Unequip(ItemSlot itemSlot)
     {
+        Debug.Log("Unequip !");
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
             Unequip(equipmentItem);
@@ -224,9 +227,11 @@ public class CharacterManager : MonoBehaviour
         int draggedItemAmount = _draggedSlot.Amount;
 
         _draggedSlot.Item = dropItemSlot.Item;
+        _draggedSlot.SetTier(_draggedSlot.Item);
         _draggedSlot.Amount = dropItemSlot.Amount;
 
         dropItemSlot.Item = draggedItem;
+        dropItemSlot.SetTier(dropItemSlot.Item);
         dropItemSlot.Amount = draggedItemAmount;
     }
 
@@ -253,6 +258,7 @@ public class CharacterManager : MonoBehaviour
         _stats = playerStat;
     }
 
+    // HighLight
     private void BeginHighLight(ItemSlot itemSlot)
     {
         foreach (EquipmentSlot slot in equipment.equipmentSlots)

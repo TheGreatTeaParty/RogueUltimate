@@ -70,6 +70,7 @@ public class Inventory : MonoBehaviour
             if (itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
             {
                 itemSlots[i].Item = item;
+                itemSlots[i].SetTier(itemSlots[i].Item);
                 itemSlots[i].Amount++;
                 items.Add(item);
                 return true;
@@ -89,6 +90,7 @@ public class Inventory : MonoBehaviour
                 if (itemSlots[i].Amount == 0)
                 {
                     itemSlots[i].Item = null;
+                    itemSlots[i].SetTier(itemSlots[i].Item);
                     items.Remove(item);
                 }
                 
@@ -117,6 +119,7 @@ public class Inventory : MonoBehaviour
         {
             itemSlots[i].Item = items[i].GetCopy();
             itemSlots[i].Amount = 1;
+            itemSlots[i].SetTier(itemSlots[i].Item);
         }
         for (; i < itemSlots.Length; i++)
         {
@@ -130,8 +133,8 @@ public class Inventory : MonoBehaviour
             quickSlots[j].Item = null;
             quickSlots[j].Amount = 0;
         }
-        
-        gold.SetText(Gold.ToString());
+
+        UpdateGold();
 
     }
 

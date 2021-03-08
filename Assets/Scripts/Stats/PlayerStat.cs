@@ -316,14 +316,7 @@ public class PlayerStat : CharacterStat, IDamaged
         gameObject.layer = 2;
         gameObject.tag = "Untagged";
         InterfaceManager.Instance.HideFaceElements();
-        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
-        //transform.position = new Vector2(100, 100);
-        //Destroy or set Active(false) 
-
-
-        //Destroy(gameObject);
-        //Destroy(InterfaceManager.Instance.gameObject);
-        //SceneManager.LoadScene("Menu");
+        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
     }
 
     private bool Dodge()
