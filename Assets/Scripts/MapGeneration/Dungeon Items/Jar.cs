@@ -9,6 +9,7 @@ public class Jar : MonoBehaviour, IDamaged
     private ParticleSystem _particle;
     private AudioSource _audioSource;
     private int _gainedGold;
+    private int _goldSpawnChance;
 
     //Material
     private MaterialPropertyBlock _collideMaterial;
@@ -18,7 +19,8 @@ public class Jar : MonoBehaviour, IDamaged
         _sprite = GetComponent<SpriteRenderer>();
         _particle = GetComponent<ParticleSystem>();
         _audioSource = GetComponent<AudioSource>();
-        _gainedGold = Random.Range(0, 16);
+        _gainedGold = Random.Range(1, 11);
+        _goldSpawnChance = Random.Range(0, 100);
 
         //Material:
         _collideMaterial = new MaterialPropertyBlock();
@@ -30,7 +32,7 @@ public class Jar : MonoBehaviour, IDamaged
         _collideMaterial.SetFloat("Damaged", 1f);
         _sprite.SetPropertyBlock(_collideMaterial);
         StartCoroutine(WaitAndDestroy());
-        return true;
+        return true;    
     }
 
     private IEnumerator WaitAndDestroy()
@@ -39,8 +41,8 @@ public class Jar : MonoBehaviour, IDamaged
         _particle.Play();
         _audioSource.Play();
         //Creates Gold
-        if (_gainedGold != 0)
-            CreateGold();
+        if (_goldSpawnChance < 5)
+                CreateGold();
         yield return new WaitForSeconds(0.31f);
         Destroy(gameObject);
     }

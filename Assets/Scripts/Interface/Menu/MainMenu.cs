@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject confirmWindow;
     [SerializeField]
     private GameObject mainMenu;
+    private bool _cutSceneAllowed = false;
     private bool _canStartNewGame = true;
     
     private void Start()
@@ -31,7 +32,10 @@ public class MainMenu : MonoBehaviour {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
-            LevelManager.LoadScene("CutScene");
+            if (_cutSceneAllowed)
+                LevelManager.LoadScene("CutScene");
+            else
+                LevelManager.LoadScene("StartTavern");
 
         }
         else
@@ -68,6 +72,11 @@ public class MainMenu : MonoBehaviour {
     {
         Debug.Log("Trying to exit game doesn't work in Editor");
         Application.Quit();
+    }
+
+    public void AllowCutscene()
+    {
+        _cutSceneAllowed = true;
     }
     
 }

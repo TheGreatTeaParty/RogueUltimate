@@ -106,7 +106,6 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         
         image.color = _shadowColor;
         OnBeginDragEvent?.Invoke(this);
-        Debug.Log("Highlite !");
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
@@ -124,6 +123,44 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public virtual void OnDrop(PointerEventData eventData)
     {
         OnDropEvent?.Invoke(this);
+    }
+
+    // Next method sets tier color of an item
+    public virtual void SetTier(Item item)
+    {
+        if (item == null)
+            GetComponent<Image>().color = new Color32(255, 255, 255, 255); // Default
+        else
+        {
+            switch (item.tier)
+            {
+                case Tier.Null:
+                    GetComponent<Image>().color = new Color32(255, 255, 255, 255); // Default
+                    break;
+
+                case Tier.First:
+                    GetComponent<Image>().color = new Color32(128, 128, 128, 255); // Grey
+                    break;
+
+                case Tier.Second:
+                    GetComponent<Image>().color = new Color32(30, 144, 255, 255); // Blue
+                    break;
+
+                case Tier.Third:
+                    GetComponent<Image>().color = new Color32(34, 139, 34, 255); // Green
+                    break;
+
+                case Tier.Fourth:
+                    GetComponent<Image>().color = new Color32(128, 0, 128, 255); // Purple
+                    break;
+
+                case Tier.Fifth:
+                    GetComponent<Image>().color = new Color32(255, 215, 0, 255); // Gold
+                    break;
+            }
+
+        }
+        
     }
 
 }
