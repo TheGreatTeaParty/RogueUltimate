@@ -16,7 +16,14 @@ public enum AttackType
 [CreateAssetMenu(menuName = "Items/MeleeWeapon")]
 public class MeleeWeapon : EquipmentItem
 {
+    public enum MeleType
+    {
+        OneHanded = 0,
+        TwoHanded = 1,
+    }
+
     [Space]
+    public MeleType WeaponType;
     public float attackSpeedMofifier;
     public float attackRangeMofifier;
     public float knockBackModifier;

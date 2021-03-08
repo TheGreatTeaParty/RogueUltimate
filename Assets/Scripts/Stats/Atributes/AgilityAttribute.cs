@@ -34,6 +34,11 @@ public class AgilityAttribute
         RecalculateStats();
     }
 
+    public void MakeAbsolute()
+    {
+        baseValue.SETBASE(0);
+    }
+
     private void RecalculateStats()
     {
         MaxStamina.SETBASE(10 + baseValue.Value + baseValue.Value * 5);

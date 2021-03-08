@@ -4,6 +4,14 @@
 
 public class MagicWeapon : EquipmentItem
 {
+    public enum MagicType
+    {
+        Nature = 0,
+        Fire,
+        Death,
+    }
+    [Space]
+    public MagicType WeaponType;
     [Space]
     public float castSpeedMofifier;
     public float knockBackModifier;

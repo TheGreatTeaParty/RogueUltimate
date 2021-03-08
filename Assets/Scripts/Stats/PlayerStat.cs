@@ -71,11 +71,14 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnManaChanged;
     public Action<float> OnXPChanged;
 
-    private PlayerMovement playerMovement;
+    public TraitHolder PlayerTraits;
+
+    public PlayerMovement playerMovement;
     
     
     private void Start()
     {
+        PlayerTraits = new TraitHolder();
         currentHealth = Strength.MaxHealth.Value;
         _currentStamina = Agility.MaxStamina.Value;
         _currentMana = Intelligence.MaxMana.Value;
@@ -273,14 +276,18 @@ public class PlayerStat : CharacterStat, IDamaged
     //***                                   -----------  Effects: ----------
     public override float GetEffectResult(float intensity, EffectType effectType)
     {
-        if (effectType == EffectType.Fire || effectType == EffectType.Freeze|| effectType == EffectType.Curse)
-        {
-            return (1 - Intelligence.ElementalEffectResistance.Value) * intensity;
-        }
-        else if (effectType == EffectType.Poison || effectType == EffectType.Bleed || effectType == EffectType.Stun)
-        {
-            return (1 - Strength.PhysicalEffectResistance.Value) * intensity;
-        }
+        if (effectType == EffectType.Fire)
+            return (1 - Intelligence.FireResistance.Value) * intensity;
+        else if(effectType == EffectType.Freeze)
+            return (1 - Intelligence.FreezeResistance.Value) * intensity;
+        else if(effectType == EffectType.Curse)
+            return (1 - Intelligence.CurseResistance.Value) * intensity;
+        else if (effectType == EffectType.Poison)
+            return (1 - Strength.PoisonResistance.Value) * intensity;
+        else if (effectType == EffectType.Bleed)
+            return (1 - Strength.BleedResistance.Value) * intensity;
+        else if(effectType == EffectType.Stun)
+            return (1 - Strength.DazeResistance.Value) * intensity;
         else
         {
             return intensity;

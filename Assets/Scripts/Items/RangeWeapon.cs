@@ -4,6 +4,13 @@
 
 public class RangeWeapon : EquipmentItem
 {
+    public enum RangeType
+    {
+        bow = 0,
+        crossbow,
+    }
+    [Space]
+    public RangeType WeaponType;
     [Space]
     public float attackSpeedMofifier;
     public float knockBackModifier;
