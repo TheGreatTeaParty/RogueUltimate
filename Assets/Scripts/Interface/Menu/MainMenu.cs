@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.IO;
 using System.Text;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
@@ -15,6 +17,9 @@ public class MainMenu : MonoBehaviour {
     private GameObject confirmWindow;
     [SerializeField]
     private GameObject mainMenu;
+    [SerializeField]
+    private GameObject LoadingScreen;
+
     private bool _cutSceneAllowed = false;
     private bool _canStartNewGame = true;
     
@@ -27,15 +32,17 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    List<AsyncOperation> asyncOperations = new List<AsyncOperation>();
+
     public void NewGame()
     {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
             if (_cutSceneAllowed)
-                LevelManager.LoadScene("CutScene");
+                LevelManager.Instance.LoadScene("CutScene");
             else
-                LevelManager.LoadScene("StartTavern");
+                LevelManager.Instance.LoadScene("StartTavern");
 
         }
         else
@@ -48,7 +55,7 @@ public class MainMenu : MonoBehaviour {
     public void ResumeGame()
     {
         PlayerData data = SaveManager.LoadPlayer();
-        LevelManager.LoadScene(data.scene);
+        LevelManager.Instance.LoadScene(data.scene);
 
         foreach(GameObject pref in characterPrefabs)
         {
@@ -67,7 +74,6 @@ public class MainMenu : MonoBehaviour {
   
         }
     }   
-
     public void ExitGame()
     {
         Debug.Log("Trying to exit game doesn't work in Editor");
@@ -77,6 +83,11 @@ public class MainMenu : MonoBehaviour {
     public void AllowCutscene()
     {
         _cutSceneAllowed = true;
+    }
+
+    public void OpenBook()
+    {
+        mainMenu.SetActive(true);
     }
     
 }
