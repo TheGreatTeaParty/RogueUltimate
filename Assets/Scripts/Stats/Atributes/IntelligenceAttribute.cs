@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class IntelligenceAttribute
 {
-    private Stat baseValue;
+    private readonly Stat baseValue;
 
     public Stat MaxMana;
     public Stat ManaRegeniration;
@@ -50,5 +50,10 @@ public class IntelligenceAttribute
         FreezeResistance.SETBASE(baseValue.Value * 0.02f);
         CurseResistance.SETBASE(baseValue.Value * 0.02f);
         MagicalCrit.SETBASE(0.5f + baseValue.Value * .05f);
+    }
+
+    public float GetBaseValue()
+    {
+        return baseValue.Value;
     }
 }

@@ -104,5 +104,20 @@ public class EquipmentItem : Item
     {
         return AttackType.None;
     }
+
+    public float GetRequiredStrength()
+    {
+        return requiredStrength;
+    }
+    
+    public float GetRequiredIntelligence()
+    {
+        return requiredIntelligence;
+    }
+    
+    public float GetRequiredAgility()
+    {
+        return requiredAgility;
+    }
     
 }
