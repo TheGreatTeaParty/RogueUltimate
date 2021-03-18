@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class StrengthAttribute 
 {
-    private Stat baseValue;
+    private readonly Stat baseValue;
 
     public Stat MaxHealth;
     public Stat PhysicalEffectResistance;
@@ -39,4 +39,10 @@ public class StrengthAttribute
         PhysicalEffectResistance.SETBASE(baseValue.Value * 0.02f);
         CritDamage.SETBASE(0.5f + baseValue.Value * 0.05f);
     }
+
+    public float GetBaseValue()
+    {
+        return baseValue.Value;
+    }
+
 }

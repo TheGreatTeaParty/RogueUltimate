@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class IntelligenceAttribute
 {
-    private Stat baseValue;
+    private readonly Stat baseValue;
 
     public Stat MaxMana;
     public Stat ManaRegeniration;
@@ -39,5 +39,10 @@ public class IntelligenceAttribute
         ManaRegeniration.SETBASE(1 + baseValue.Value * 0.6f);
         ElementalEffectResistance.SETBASE(baseValue.Value * 0.02f);
         MagicalCrit.SETBASE(0.5f + baseValue.Value * .05f);
+    }
+
+    public float GetBaseValue()
+    {
+        return baseValue.Value;
     }
 }
