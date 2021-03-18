@@ -35,6 +35,11 @@ public class StrengthAttribute
         baseValue.RemoveAllModifiersFromSource(source);
         RecalculateStats();
     }
+    public void RemoveAttribute(StatModifier statModifier)
+    {
+        baseValue.RemoveModifier(statModifier);
+        RecalculateStats();
+    }
 
     public void MakeAbsolute()
     {

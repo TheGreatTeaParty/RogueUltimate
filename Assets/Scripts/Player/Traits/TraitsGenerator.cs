@@ -13,6 +13,9 @@ public class TraitsGenerator : MonoBehaviour
         Hero,
     };
 
+    public Transform Player;
+    public GameObject Interface;
+    [Space]
     [SerializeField]
     private RenownLevel Level;
     
@@ -28,11 +31,34 @@ public class TraitsGenerator : MonoBehaviour
     [Space]
     public List<Trait> OutcomeTraits;
 
+    private PlayerStat characterStat;
+
     private void Start()
     {
         GenerateTrait();
     }
 
+    private void SpawnPlayer()
+    {
+        var player = Instantiate(Player, transform.position, Quaternion.identity);
+        characterStat = player.GetComponent<PlayerStat>();
+    }
+
+    public void CloseMenu()
+    {
+        SpawnPlayer();
+        Interface.SetActive(true);
+        StartCoroutine(Wait());
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        characterStat.PlayerTraits.AddTrait(OutcomeTraits[0]);
+        characterStat.PlayerTraits.AddTrait(OutcomeTraits[1]);
+        characterStat.PlayerTraits.AddTrait(OutcomeTraits[2]);
+        gameObject.SetActive(false);
+    }
     public void GenerateTrait()
     {
         switch (Level)
