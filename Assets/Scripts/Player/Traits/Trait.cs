@@ -8,6 +8,8 @@ public class Trait : ScriptableObject
     public Sprite Icon;
     public string Name;
     public TraitType Type;
+    [TextArea]
+    public string Description;
 
     public enum TraitType
     {

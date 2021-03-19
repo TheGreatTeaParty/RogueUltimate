@@ -20,7 +20,7 @@ public class TraitSlot : MonoBehaviour
         var temp = traitsGenerator.OutcomeTraits[TradeNum];
         _name.text = temp.Name;
         if(_description)
-            _description.text = temp.Name;
+            _description.text = temp.Description;
         _traitIcon.sprite = temp.Icon;
     }
 }
