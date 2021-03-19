@@ -30,6 +30,8 @@ public class TraitsGenerator : MonoBehaviour
     public List<Trait> Skip;
     [Space]
     public List<Trait> OutcomeTraits;
+    [Space]
+    public PointsManager pointsManager;
 
     private PlayerStat characterStat;
 
@@ -57,6 +59,10 @@ public class TraitsGenerator : MonoBehaviour
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[0]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[1]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[2]);
+        pointsManager.SaveChanges();
+        var player = CharacterManager.Instance.Stats;
+        player.SetUpPlayerInfo();
+        yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
     }
     public void GenerateTrait()
@@ -263,43 +269,40 @@ public class TraitsGenerator : MonoBehaviour
                 GenerateLastTrait(list2);
             }
         }
+
+        if (OutcomeTraits.Count == 0)
+        {
+            GenerateTrait();
+        }
     }
 
     private void GenerateLastTrait(List<Trait> list)
     {
-        if (Random.Range(0, 1f) < 0.9f)
+        Trait current_trait = list[Random.Range(0, list.Count)];
+        int Max = 10;
+        while (!IsUsed(current_trait))
         {
-            Trait current_trait = list[Random.Range(0, list.Count)]; ;
-            while (!IsUsed(current_trait))
-            {
-                current_trait = list[Random.Range(0, list.Count)];
-            }
-            OutcomeTraits.Add(current_trait);
+            current_trait = list[Random.Range(0, list.Count)];
+            Max--;
         }
+        if (Max == 0)
+            Debug.Log("Could not find appropriate Trait");
+        OutcomeTraits.Add(current_trait);
 
-        else
-        {
-            OutcomeTraits.Clear();
-            GenerateTrait();
-        }
     }
 
     private void GenerateFirstTrait(List<Trait> list)
     {
-        if (Random.Range(0, 1f) < 0.95f)
+        Trait current_trait = list[Random.Range(0, list.Count)];
+        int Max = 10;
+        while (!IsUsed(current_trait)&& Max > 0)
         {
-            Trait current_trait = list[Random.Range(0, list.Count)]; ;
-            while (!IsUsed(current_trait))
-            {
-                current_trait = list[Random.Range(0, list.Count)];
-            }
-            OutcomeTraits.Add(current_trait);
+            current_trait = list[Random.Range(0, list.Count)];
+            Max--;
         }
+        if(Max == 0)
+            Debug.Log("Could not find appropriate Trait");
+        OutcomeTraits.Add(current_trait);
 
-        else
-        {
-            OutcomeTraits.Clear();
-            GenerateTrait();
-        }
     }
 }

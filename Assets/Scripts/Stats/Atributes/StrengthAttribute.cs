@@ -40,10 +40,17 @@ public class StrengthAttribute
         baseValue.RemoveModifier(statModifier);
         RecalculateStats();
     }
+    public bool RemoveLast()
+    {
+        var result = baseValue.RemoveLast();
+        RecalculateStats();
+        return result;
+    }
 
     public void MakeAbsolute()
     {
         baseValue.SETBASE(0);
+        RecalculateStats();
     }
 
     private void RecalculateStats()

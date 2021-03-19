@@ -79,15 +79,17 @@ public class PlayerStat : CharacterStat, IDamaged
     private void Start()
     {
         PlayerTraits = new TraitHolder();
-        currentHealth = Strength.MaxHealth.Value;
-        _currentStamina = Agility.MaxStamina.Value;
-        _currentMana = Intelligence.MaxMana.Value;
         playerMovement = GetComponent<PlayerMovement>();
         _xp = 0;
         level = 1;
         
     }
-    
+    public void SetUpPlayerInfo()
+    {
+        currentHealth = Strength.MaxHealth.Value;
+        _currentStamina = Agility.MaxStamina.Value;
+        _currentMana = Intelligence.MaxMana.Value;
+    }
     protected override void Update()
     {
         if (_timeLeft <= 0)

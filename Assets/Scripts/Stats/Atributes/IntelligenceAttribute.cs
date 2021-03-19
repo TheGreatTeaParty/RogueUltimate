@@ -36,6 +36,12 @@ public class IntelligenceAttribute
         baseValue.RemoveAllModifiersFromSource(source);
         RecalculateStats();
     }
+    public bool RemoveLast()
+    {
+        var result = baseValue.RemoveLast();
+        RecalculateStats();
+        return result;
+    }
 
     public void MakeAbsolute()
     {

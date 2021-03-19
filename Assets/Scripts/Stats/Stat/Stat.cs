@@ -115,6 +115,18 @@ public class Stat
 
         return false;
     }
+    public virtual bool RemoveLast()
+    {
+        if (_statModifiers.Count > 0)
+        {
+            _statModifiers.RemoveAt(_statModifiers.Count-1);
+            _isDirty = true;
+            return true;
+        }
+
+        return false;
+    }
+
 
     public virtual bool RemoveAllModifiersFromSource(object source)
     {

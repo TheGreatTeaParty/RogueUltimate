@@ -33,7 +33,12 @@ public class AgilityAttribute
         baseValue.RemoveAllModifiersFromSource(source);
         RecalculateStats();
     }
-
+    public bool RemoveLast()
+    {
+        var result = baseValue.RemoveLast();
+        RecalculateStats();
+        return result;
+    }
     public void MakeAbsolute()
     {
         baseValue.SETBASE(0);
