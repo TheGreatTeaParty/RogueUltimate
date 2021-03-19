@@ -38,14 +38,43 @@ public class PointsManager : MonoBehaviour
     private bool _disableStrength = false;
     private bool _disableAgility = false;
     private bool _disableInt = false;
+    private PlayerStat _player;
 
     private void Start()
     {
-        Strength.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
-        Agility.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
-        Intelligence.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
+        if (generator)
+        {
+            Strength.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
+            Agility.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
+            Intelligence.ModifyAttribute(new StatModifier(0, StatModifierType.Flat));
+        }
+        else
+        {
+            _player = CharacterManager.Instance.Stats;
+            Strength.ModifyAttribute(new StatModifier(_player.Strength.GetBaseValue(), StatModifierType.Flat));
+            Agility.ModifyAttribute(new StatModifier(_player.Agility.GetBaseValue(), StatModifierType.Flat));
+            Intelligence.ModifyAttribute(new StatModifier(_player.Intelligence.GetBaseValue(), StatModifierType.Flat));
+            SetPoints();
+            _player.onChangeCallback += SetPoints;
+        }
+
         UpdateUI();
         ChechZero();
+    }
+
+    private void SetPoints()
+    {
+        float sumA = Strength.GetBaseValue() + Intelligence.GetBaseValue() + Agility.GetBaseValue();
+        float sumB = _player.Strength.GetBaseValue() +_player.Intelligence.GetBaseValue() + _player.Agility.GetBaseValue();
+        if (sumA - sumB <= 0)
+            PointsAvailable = _player.StatPoints;
+        if(Strength.GetBaseValue() < _player.Strength.GetBaseValue())
+            Strength.ModifyAttribute(new StatModifier(_player.Strength.GetBaseValue(), StatModifierType.Flat));
+        if (Intelligence.GetBaseValue() < _player.Intelligence.GetBaseValue())
+            Intelligence.ModifyAttribute(new StatModifier(_player.Intelligence.GetBaseValue(), StatModifierType.Flat));
+        if (Agility.GetBaseValue() < _player.Agility.GetBaseValue())
+            Agility.ModifyAttribute(new StatModifier(_player.Agility.GetBaseValue(), StatModifierType.Flat));
+        UpdateUI();
     }
 
     public void IncrementStrength()
@@ -80,11 +109,24 @@ public class PointsManager : MonoBehaviour
 
     public void DecStrength()
     {
-        if (Strength.GetBaseValue() > 0)
+        if (generator)
         {
-            if (Strength.RemoveLast())
+            if (Strength.GetBaseValue() > 0)
             {
-                PointsAvailable++;
+                if (Strength.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
+            }
+        }
+        else
+        {
+            if (Strength.GetBaseValue() > _player.Strength.GetBaseValue())
+            {
+                if (Strength.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
             }
         }
         UpdateStrength();
@@ -92,11 +134,24 @@ public class PointsManager : MonoBehaviour
 
     public void DecAgility()
     {
-        if (Agility.GetBaseValue() > 0)
+        if (generator)
         {
-            if (Agility.RemoveLast())
+            if (Agility.GetBaseValue() > 0)
             {
-                PointsAvailable++;
+                if (Agility.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
+            }
+        }
+        else
+        {
+            if (Agility.GetBaseValue() > _player.Agility.GetBaseValue())
+            {
+                if (Agility.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
             }
         }
         UpdateAgility();
@@ -104,11 +159,24 @@ public class PointsManager : MonoBehaviour
 
     public void DecIntelligence()
     {
-        if (Intelligence.GetBaseValue() > 0)
+        if (generator)
         {
-            if (Intelligence.RemoveLast())
+            if (Intelligence.GetBaseValue() > 0)
             {
-                PointsAvailable++;
+                if (Intelligence.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
+            }
+        }
+        else
+        {
+            if (Intelligence.GetBaseValue() > _player.Intelligence.GetBaseValue())
+            {
+                if (Intelligence.RemoveLast())
+                {
+                    PointsAvailable++;
+                }
             }
         }
         UpdateInt();
@@ -153,9 +221,9 @@ public class PointsManager : MonoBehaviour
     public void SaveChanges()
     {
         var player = CharacterManager.Instance.Stats;
-        player.Strength.ModifyAttribute(new StatModifier(Strength.GetBaseValue(), StatModifierType.Flat));
-        player.Intelligence.ModifyAttribute(new StatModifier(Intelligence.GetBaseValue(), StatModifierType.Flat));
-        player.Agility.ModifyAttribute(new StatModifier(Agility.GetBaseValue(), StatModifierType.Flat));
+        player.AddAttributePoint(StatType.Physique,Strength.GetBaseValue() - player.Strength.GetBaseValue());
+        player.AddAttributePoint(StatType.Mind,Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue());
+        player.AddAttributePoint(StatType.Reaction,Agility.GetBaseValue() - player.Agility.GetBaseValue());
     }
 
     private void ChechZero()

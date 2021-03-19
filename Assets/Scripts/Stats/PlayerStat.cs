@@ -24,7 +24,7 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _statPoints = 6;
+    private int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
 
@@ -175,6 +175,45 @@ public class PlayerStat : CharacterStat, IDamaged
 
             onChangeCallback.Invoke();
         }
+    }
+    public void AddAttributePoint(StatType statType,float value)
+    {
+            switch (statType)
+            {
+                case StatType.Will:
+                    {
+                        break;
+                    }
+
+                case StatType.Physique:
+                    {
+                        float healthPercent = Strength.MaxHealth.Value / currentHealth;
+                        Strength.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        currentHealth = Strength.MaxHealth.Value * healthPercent;
+                        OnHealthChanged?.Invoke(currentHealth);
+                        break;
+                    }
+
+                case StatType.Mind:
+                    {
+                        float ManaPercent = Intelligence.MaxMana.Value / _currentMana;
+                        Intelligence.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        _currentMana = Intelligence.MaxMana.Value * ManaPercent;
+                        OnManaChanged?.Invoke(_currentMana);
+                        break;
+                    }
+
+                case StatType.Reaction:
+                    {
+                        float StaminaPercent = Agility.MaxStamina.Value / _currentStamina;
+                        Agility.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        _currentStamina = Agility.MaxStamina.Value * StaminaPercent;
+                        OnStaminaChanged?.Invoke(_currentStamina);
+                        break;
+                    }
+            }
+
+            onChangeCallback.Invoke();
     }
 
 
