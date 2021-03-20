@@ -147,11 +147,11 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     break;
 
                 case Tier.Third:
-                    GetComponent<Image>().color = new Color32(34, 139, 34, 255); // Green
+                    GetComponent<Image>().color = new Color32(0, 255, 21, 255); // Green
                     break;
 
                 case Tier.Fourth:
-                    GetComponent<Image>().color = new Color32(128, 0, 128, 255); // Purple
+                    GetComponent<Image>().color = new Color32(255, 0, 255, 255); // Purple
                     break;
 
                 case Tier.Fifth:
