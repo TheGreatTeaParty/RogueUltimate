@@ -118,7 +118,7 @@ public class PlayerStat : CharacterStat, IDamaged
             LevelUp();
         }
         
-        onChangeCallback.Invoke();
+        onChangeCallback?.Invoke();
         OnXPChanged?.Invoke(_xp);
     }
     
