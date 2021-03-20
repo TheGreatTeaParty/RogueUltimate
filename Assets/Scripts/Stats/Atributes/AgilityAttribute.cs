@@ -43,7 +43,10 @@ public class AgilityAttribute
     {
         baseValue.SETBASE(0);
     }
-
+    public void ClearAttribute()
+    {
+        baseValue.RemoveAllModifiers();
+    }
     private void RecalculateStats()
     {
         MaxStamina.SETBASE(10 + baseValue.Value + baseValue.Value * 5);

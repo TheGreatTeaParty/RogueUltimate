@@ -52,6 +52,10 @@ public class StrengthAttribute
         baseValue.SETBASE(0);
         RecalculateStats();
     }
+    public void ClearAttribute()
+    {
+        baseValue.RemoveAllModifiers();
+    }
 
     private void RecalculateStats()
     {

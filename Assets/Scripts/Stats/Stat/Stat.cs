@@ -144,5 +144,14 @@ public class Stat
 
         return doneRemove;
     }
+    public virtual bool RemoveAllModifiers()
+    {
+        for (int i = _statModifiers.Count - 1; i >= 0; i--)
+        {
+                _isDirty = true;
+                _statModifiers.RemoveAt(i);
+        }
+        return true;
+    }
 
 }

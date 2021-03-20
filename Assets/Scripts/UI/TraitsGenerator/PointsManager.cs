@@ -34,7 +34,7 @@ public class PointsManager : MonoBehaviour
     public TextMeshProUGUI CritChance;
     public TextMeshProUGUI Evade;
 
-
+    [SerializeField] NavigatorButton[] _navigatorButtons;
     private bool _disableStrength = false;
     private bool _disableAgility = false;
     private bool _disableInt = false;
@@ -54,28 +54,30 @@ public class PointsManager : MonoBehaviour
             Strength.ModifyAttribute(new StatModifier(_player.Strength.GetBaseValue(), StatModifierType.Flat));
             Agility.ModifyAttribute(new StatModifier(_player.Agility.GetBaseValue(), StatModifierType.Flat));
             Intelligence.ModifyAttribute(new StatModifier(_player.Intelligence.GetBaseValue(), StatModifierType.Flat));
-            SetPoints();
-            _player.onChangeCallback += SetPoints;
+            for (int i = 0; i < _navigatorButtons.Length; i++)
+                _navigatorButtons[i].onWindowChanged += ResetValues;
         }
 
         UpdateUI();
         ChechZero();
     }
 
-    private void SetPoints()
+    private void ResetValues(WindowType windowType, NavigatorButton navigatorButton)
     {
-        float sumA = Strength.GetBaseValue() + Intelligence.GetBaseValue() + Agility.GetBaseValue();
-        float sumB = _player.Strength.GetBaseValue() +_player.Intelligence.GetBaseValue() + _player.Agility.GetBaseValue();
-        if (sumA - sumB <= 0)
+        if (windowType == WindowType.Stats)
+        {
             PointsAvailable = _player.StatPoints;
-        if(Strength.GetBaseValue() < _player.Strength.GetBaseValue())
+            Strength.ClearAttribute();
             Strength.ModifyAttribute(new StatModifier(_player.Strength.GetBaseValue(), StatModifierType.Flat));
-        if (Intelligence.GetBaseValue() < _player.Intelligence.GetBaseValue())
+            Intelligence.ClearAttribute();
             Intelligence.ModifyAttribute(new StatModifier(_player.Intelligence.GetBaseValue(), StatModifierType.Flat));
-        if (Agility.GetBaseValue() < _player.Agility.GetBaseValue())
+            Agility.ClearAttribute();
             Agility.ModifyAttribute(new StatModifier(_player.Agility.GetBaseValue(), StatModifierType.Flat));
-        UpdateUI();
+            UpdateUI();
+            ChechZero();
+        }
     }
+    
 
     public void IncrementStrength()
     {
@@ -221,6 +223,7 @@ public class PointsManager : MonoBehaviour
     public void SaveChanges()
     {
         var player = CharacterManager.Instance.Stats;
+        player._statPoints = PointsAvailable;
         player.AddAttributePoint(StatType.Physique,Strength.GetBaseValue() - player.Strength.GetBaseValue());
         player.AddAttributePoint(StatType.Mind,Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue());
         player.AddAttributePoint(StatType.Reaction,Agility.GetBaseValue() - player.Agility.GetBaseValue());

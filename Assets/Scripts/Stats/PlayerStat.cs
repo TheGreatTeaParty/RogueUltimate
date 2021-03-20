@@ -24,7 +24,7 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _statPoints = 0;
+    public int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
 
@@ -173,7 +173,7 @@ public class PlayerStat : CharacterStat, IDamaged
                     }
             }
 
-            onChangeCallback.Invoke();
+            onChangeCallback?.Invoke();
         }
     }
     public void AddAttributePoint(StatType statType,float value)
@@ -213,7 +213,7 @@ public class PlayerStat : CharacterStat, IDamaged
                     }
             }
 
-            onChangeCallback.Invoke();
+            onChangeCallback?.Invoke();
     }
 
 
