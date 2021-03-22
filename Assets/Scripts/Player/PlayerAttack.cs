@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
-        _whatIsEnemy = LayerMask.GetMask("Enemy");
+        _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
     }
 
     private void Start()
@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
         Equipment equipment = CharacterManager.Instance.Equipment;
         EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
 
-        if (!_isAttacking)
+        if (!_isAttacking && !_playerMovement.IsStopped())
         {
             _isAttacking = true;
 
@@ -87,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
             ScreenShakeController.Instance.StartShake(0.05f, 0.03f);
         _playerMovement.PushToDirection(FistPushForce);
         PlayerStop(_currentAttackCD);
+        EndAttack?.Invoke(AttackType.None);
     }
 
     private void OnDrawGizmosSelected()
@@ -121,11 +122,11 @@ public class PlayerAttack : MonoBehaviour
 
         else
         {
-            onAttacked?.Invoke(AttackType.None);
+            if (_playerStat.CheckStamina(FistStaminaCost))
+                onAttacked?.Invoke(AttackType.None);
 
-            yield return new WaitForSeconds(FistAttackSpeed);
+            yield return new WaitForSeconds(FistAttackSpeed - FistAttackSpeed*0.25f);
             FistAttack();
-            EndAttack?.Invoke(AttackType.None);
             _isAttacking = false;
         }
 

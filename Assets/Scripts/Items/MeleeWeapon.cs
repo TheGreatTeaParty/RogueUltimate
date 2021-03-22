@@ -16,7 +16,14 @@ public enum AttackType
 [CreateAssetMenu(menuName = "Items/MeleeWeapon")]
 public class MeleeWeapon : EquipmentItem
 {
+    public enum MeleType
+    {
+        OneHanded = 0,
+        TwoHanded = 1,
+    }
+
     [Space]
+    public MeleType WeaponType;
     public float attackSpeedMofifier;
     public float attackRangeMofifier;
     public float knockBackModifier;
@@ -25,13 +32,19 @@ public class MeleeWeapon : EquipmentItem
     [SerializeField] private int requiredStamina;
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredHealth;
+    [Space]
+    public Transform HitEffect;
 
     private LayerMask _whatIsEnemy;
     private Vector2 _attackPosition;
+    private WeaponRenderer _weaponRenderer;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
+    [Space]
+    public AudioClip StartAttackSound;
+    public AudioClip EndAttackSound;
 
     public override void Equip(PlayerStat stats)
     {
@@ -45,6 +58,8 @@ public class MeleeWeapon : EquipmentItem
             stats.KnockBack.AddModifier(new StatModifier(knockBackModifier, StatModifierType.Flat, this));
         if (pushForceMofifier != 0)
             stats.PushForce.AddModifier(new StatModifier(pushForceMofifier, StatModifierType.Flat, this));
+
+        _weaponRenderer = PlayerOnScene.Instance.GetComponentInChildren<WeaponRenderer>();
 
     }
 
@@ -67,7 +82,7 @@ public class MeleeWeapon : EquipmentItem
             return;
         var player = PlayerOnScene.Instance;
         
-        _whatIsEnemy = LayerMask.GetMask("Enemy");
+        _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
         Vector3 direction = player.playerMovement.GetDirection();
         _attackPosition = player.transform.position + direction;
 
@@ -75,8 +90,39 @@ public class MeleeWeapon : EquipmentItem
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, CharacterManager.Instance.Stats.AttackRange.Value, _whatIsEnemy);
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            enemiesToDamage[i].GetComponent<EnemyStat>().TakeDamage(physicalDamage, magicDamage);
-            enemiesToDamage[i].GetComponent<Rigidbody2D>().AddForce(direction * 100 * playerStat.KnockBack.Value);
+            //If take damage returns true -> play hit effect:
+            if (enemiesToDamage[i].gameObject != player.gameObject)
+            {
+                var crit = playerStat.GetPhysicalCritDamage();
+                enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(crit.Item1, magicDamage,crit.Item2);
+
+                //Assign Effect:
+                if (_effect)
+                {
+                    if (Random.value < _effect._chance)
+                    {
+                        CharacterStat character = enemiesToDamage[i].GetComponent<CharacterStat>();
+                        if(character)
+                            character.EffectController.AddEffect(Instantiate(_effect),character);
+                    }
+                }
+
+
+                //Create Visual Effect:
+                if (HitEffect)
+                {
+                    Transform Effect = Instantiate(HitEffect, enemiesToDamage[i].GetComponent<Collider2D>().bounds.center, Quaternion.identity);
+                    if (_weaponRenderer.PrevIndex == 1)
+                        Effect.rotation = Quaternion.Euler(0, 0, 90f);
+                    Effect.GetComponent<SpriteRenderer>().sortingOrder = enemiesToDamage[i].GetComponent<SpriteRenderer>().sortingOrder + 1;
+                }
+                else
+                    Debug.LogWarning("No Hit effect assigned to the weapon!");
+
+                Rigidbody2D rigidbody = enemiesToDamage[i].GetComponent<Rigidbody2D>();
+                if (rigidbody)
+                    rigidbody.AddForce(direction * 100 * playerStat.KnockBack.Value);
+            }
         }
         if(enemiesToDamage.Length > 0)
             ScreenShakeController.Instance.StartShake(.09f, .05f + playerStat.PushForce.Value / 1000);

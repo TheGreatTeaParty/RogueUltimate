@@ -56,5 +56,10 @@ public class PlayerCamera : MonoBehaviour
         
         //transform.LookAt(_target);
     }
+    public void SetOffset(Vector2 vector)
+    {
+        offset.x = vector.x;
+        offset.y = vector.y;
+    }
     
 }

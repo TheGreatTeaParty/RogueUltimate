@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class EquipmentSlot : ItemSlot, IPointerClickHandler
 {
     [SerializeField] private Image shadowedIcon;
+    [SerializeField] private Image highLight;
     [SerializeField] private EquipmentType equipmentType;
     
     public EquipmentType EquipmentType
@@ -29,7 +30,27 @@ public class EquipmentSlot : ItemSlot, IPointerClickHandler
             return true;
 
         EquipmentItem equipmentItem = item as EquipmentItem;
-        return equipmentItem != null && equipmentItem.EquipmentType == equipmentType;
+        return equipmentItem != null && equipmentItem.EquipmentType == equipmentType && HasNeededStats(equipmentItem);
+    }
+
+    public void HighLight()
+    {
+        highLight.gameObject.SetActive(true);
+    }
+    
+    public void EndHighLight()
+    {
+        highLight.gameObject.SetActive(false);
+    }
+
+    public bool HasNeededStats(EquipmentItem equipmentItem)
+    {
+        if (CharacterManager.Instance.Stats.Agility.GetBaseValue() >= equipmentItem.GetRequiredAgility() && 
+                CharacterManager.Instance.Stats.Strength.GetBaseValue() >= equipmentItem.GetRequiredStrength() && 
+                    CharacterManager.Instance.Stats.Intelligence.GetBaseValue() >= equipmentItem.GetRequiredIntelligence())
+            return true;
+        else 
+            return false;
     }
     
 }

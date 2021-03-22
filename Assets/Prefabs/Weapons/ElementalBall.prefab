@@ -120,7 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 9
-  HitName: SpellHit
+  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
+    type: 3}
+  FlyingSound: {fileID: 0}
+  _hitAudio: {fileID: 8300000, guid: fa9f11072ff2a4672a9ce46bafe093bf, type: 3}
 --- !u!58 &3173147075148359670
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,9 +137,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000011920929, y: -0.00000017881393}
+  m_Offset: {x: 0.22601843, y: 0.0037985146}
   serializedVersion: 2
-  m_Radius: 0.4509226
+  m_Radius: 0.16412583
 --- !u!82 &3387020775665137022
 AudioSource:
   m_ObjectHideFlags: 0
@@ -148,14 +151,14 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 333ba9b16138348d088c15973870961f, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 210
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

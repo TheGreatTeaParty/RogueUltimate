@@ -1,32 +1,68 @@
 using UnityEngine;
+using System;
 
 
 public enum EffectType
 {
-    None = 0,
-    Burning = 1,
-    Freezing = 2,
+    Poison = 0,
+    Daze,
+    Stun,
+    Bleed,
+    Fire,
+    Freeze,
+    Curse,
+    Natural,
 }
 
-
-public class Effect
+[System.Serializable]
+public class Effect:ScriptableObject
 {
-    private float _intensity;
-    private float _time;
-    private EffectType _effectType;
+    public String EffectName;
+    public Sprite Icon;
+    [SerializeField]
+    protected float _intensity;
+    [SerializeField]
+    protected int _ticks;
+
+    public EffectType _effectType;
+    [Range(0f, 1f)]
+    public float _chance;
+    public CharacterStat _stat;
+
+    //Visual Effect:
+    [SerializeField] public Transform _effectFX;
+    public Action OnDelete;
 
     public EffectType EffectType => _effectType;
-    public float Time
+    public int Ticks
     {
-        get => _time;
-        set => _time = value;
+        get => _ticks;
+        set => _ticks = value;
     }
     
-    public Effect(EffectType effectType, float intensity, float time)
+    public virtual void ApplyEffect()
     {
-        _effectType = effectType;
-        _intensity = intensity;
-        _time = time;
+        if (_ticks > 0)
+            _ticks--;
+    }
+
+    public virtual void RemoveEffect()
+    {
+        OnDelete?.Invoke();
+        OnDelete = null;
+        _stat = null;
+        Destroy(this);
+    }
+
+    public void CreateFX()
+    {
+        SpriteRenderer sprite = _stat.gameObject.GetComponent<SpriteRenderer>();
+        Transform fx = Instantiate(_effectFX, sprite.transform.position, Quaternion.identity);
+        EffectFX effectFX = fx.GetComponent<EffectFX>();
+        effectFX.target = sprite.gameObject;
+        effectFX.targetSprite = sprite;
+        effectFX.effect = this;
+
     }
 
 }

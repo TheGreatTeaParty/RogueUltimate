@@ -382,7 +382,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5088
+  m_SortingOrder: 5089
   m_Sprite: {fileID: -2493796387137534669, guid: b57189af0a7b940d3a79d7995ade6ba1,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseLayer: 5000
-  offSet: -3
+  offSet: -4
   runOnlyOnce: 1
 --- !u!1 &2367597315470896070
 GameObject:
@@ -848,7 +848,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4999752, y: -1.1737223}
+  m_Offset: {x: 0.4999752, y: -1.1545916}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -859,7 +859,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9999504, y: 0.7191181}
+  m_Size: {x: 1.9999504, y: 0.6808567}
   m_EdgeRadius: 0
 --- !u!1 &5728676192026581346
 GameObject:
@@ -872,6 +872,7 @@ GameObject:
   - component: {fileID: 5024735112426118320}
   - component: {fileID: 3088863747063612953}
   - component: {fileID: 1522141476176016829}
+  - component: {fileID: -653329740086796306}
   m_Layer: 11
   m_Name: 'Bot_Door '
   m_TagString: Door
@@ -908,7 +909,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.49272865, y: -0.6080475}
+  m_Offset: {x: 0.49272865, y: -0.6960478}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -919,7 +920,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9854573, y: 2.803173}
+  m_Size: {x: 1.9854573, y: 2.9791737}
   m_EdgeRadius: 0
 --- !u!114 &1522141476176016829
 MonoBehaviour:
@@ -935,6 +936,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClosedDoor: {fileID: 5617169345398980304}
   OpenDoor: {fileID: 6873122826331024672}
+--- !u!82 &-653329740086796306
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5728676192026581346}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3527948004e9647258895229e8872220, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 176
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5916296181457600471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1264,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5088
+  m_SortingOrder: 5089
   m_Sprite: {fileID: -938738955366854247, guid: b57189af0a7b940d3a79d7995ade6ba1,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1193,7 +1290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseLayer: 5000
-  offSet: -3
+  offSet: -4
   runOnlyOnce: 1
 --- !u!1 &7710648513695996477
 GameObject:

@@ -1,5 +1,132 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7314196069745072308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237171699953542525}
+  - component: {fileID: 2911620744672155574}
+  m_Layer: 0
+  m_Name: DugeonSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237171699953542525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314196069745072308}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.828752, y: 0.05075814, z: -14.035009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7400259767157858961}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2911620744672155574
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314196069745072308}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: be7d5e274e6374b1b8dfd6c17f099982, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 237
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7400259766052360234
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +438,6 @@ MonoBehaviour:
   - {fileID: 5980778864927504799, guid: 1828831da57ab4b4089e80a3a72e1905, type: 3}
   PossibleEventRooms:
   - {fileID: 820748521538246939, guid: 152160c1430394957a68b9ca47d25751, type: 3}
-  roomGraph: {fileID: 7400259766902441444}
   dungeonName: {fileID: 7400259767200923502}
 --- !u!114 &7400259766902441449
 MonoBehaviour:
@@ -327,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACAn+s3fKQ7RgIAAO4EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMly2zAM/RUPz3XHS5rUvbV24vSQZeJ2ctGFIiGLY4rUcIntZPzvBSgpUtzJSRDwALwHQHpjyvgaRLBu7ZS8sxLYjxEjm30Z9cFbOPCtNRv1Ch3mWclQEognzBMPyqJ/SmneVhCcEj/NVhN4gs5oVGFddS23sLQ+eHQXXHvAkLOBsg263kbsgI/xglKOaM2uyHpFazEZndAUYAK4HtoBO1iDikZoXtUgiXIPnnfoeQMzKKZFEHFhtVa+ZcLCsU5Kn/iRdErFUVVqTdgS1LYMxHCY+FAUHkJLx/HjSjkcTlOR/bLNxCrudw2nF64j9ZhNLr4nQk3Vu/8A42kKF85Wt13j6YSahFKJHVIU3IfBTIfu1Ufm0ey53vFcw3MJ5t6unY1GYjC4SKnRw2zVv75rW5Ygdr2/oXrmjPXnmyENpyT/sNSqyin09aJxbLRNw057B4dr+Y2E01X4tgR6icVfD3/4dng+beBGOR8w1Ko0RC+30RGU3aBBoxcxLK0z4IYFajBch+MjlgnnOzyLfZ51w+lDaZu3se7+z1KSu8dPJmehR7t/X5Yv7f4OfPkQg1YG+klT4B7ntLTGNCc2lNSlbaIruBikbaOSH0+LLRZX08tvMC8uFxc5yHwMOczF5WyRz3J6zFm6PWVQJ9ePDdF2PLg10xc3eGfd/2O0drxO5y4d36/Va2V9j1SmsBvhAMzDhwoeHPbAL1JeS4Xz2UAIyqR1s7eMaSt2ILN3fJaEXh+C41mvPmO1erGBPBlbpv9Fxk7s9A9QSwMEFAAACAgAAICf68unDZVrAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJKlpbmhmWmqcZqZpUlSakqSbmpSqnGymZFlklESiDJWigWqL6ksSPVLzE2F6AlILMlIy8xLycxL13MvykxxBxmtFFsLAFBLAQItABQAAAgIAACAn+s3fKQ7RgIAAO4EAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACAn+vLpw2VawAAAHgAAAAJACQAAAAAAAAAAAAAAJMCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAASQMAAAAA
+    dataString: UEsDBBQAAAgIAACAn+uhL8avRwIAAO8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1v2zAM/SuBzsuQxF277LY5bbpDmqLZ0IsvskTbQmTJ0EeTtMh/HyXbtZuhJ9PkI/keSfuNCGUbYE6btRF8ozmQHxMSbPJlMgTv4UhLrXbiFXrMs+CuCiAaMU/UCY3+eUizugZnBPupShnAM3R6JQpt6lteQqqts+guqLSAIaNdyFboepuQIz6my5ByQmtxE6xXtJazyRlNBsqBGaA9sIe1KK+YpHUDPFAewEmPTlqYQjEdIhBnWkphOybEnZqo9Imegk4uKKqKrQO2AlFWLjAcJ26LwoLr6Bh6WgmDw2krkl+6nVhN7b7l9EKlj82/XyWLyKgtu/kPMZ3HcGF0fd93ns9CF1cJtkeOjFo3GurYvfpI3asDlXuaS3iuQD3otdFecQw640Oqt7BYDa/v4tIK2H7wt1QvnL75fDVBwznqP6ZS1HkIfb1qHTup47Tj4sHgXn4j4XgWtiuB3sDir4U/tBzfTxe4E8Y6DHUqVaCXa28ClNyhEWbPvEu1UWDGBRpQVLrTI5Zxl0u8iH2edUfDl9I172L9B3CREt0Dfja7CD3qw/uybKUPG7DV1jspFAyTDoEHnFOqlWpvbCypT9t5U1A2Siu94B9PiyyXN/Prb5AU18urHHg+hRwSdr1Y5os8PBISb08o1EnlY0u0Gw9uTQ3FFd5Z/wOZrA1t4r1zQw9r8VprOyCFKvSOGQC1/VDBgsEe+EnyWy5wPjtwTqi4bvKWEanZHnj2js+i0NujMzQb1GekES/aBU9G0vjDyMiZnP8BUEsDBBQAAAgIAACAn+vLpw2VawAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSpaW5oZlpqnGamaVJUmpKkm5qUqpxspmRZZJREogyVooFqi+pLEj1S8xNhegJSCzJSMvMS8nMS9dzL8pMcQcZrRRbCwBQSwECLQAUAAAICAAAgJ/roS/Gr0cCAADvBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAgJ/ry6cNlWsAAAB4AAAACQAkAAAAAAAAAAAAAACUAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAEoDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -355,7 +481,39 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
@@ -398,6 +556,7 @@ Transform:
   - {fileID: 7400259766902441451}
   - {fileID: 7400259767200923501}
   - {fileID: 7392238413876637604}
+  - {fileID: 237171699953542525}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

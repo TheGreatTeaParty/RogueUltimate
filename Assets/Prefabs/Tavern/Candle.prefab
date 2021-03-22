@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8955317614219674342}
   - component: {fileID: 7551589203046441248}
   - component: {fileID: 5788977085100329262}
+  - component: {fileID: 4406235729753477904}
   m_Layer: 0
   m_Name: Candle
   m_TagString: Untagged
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1738368889
   m_SortingLayer: 1
-  m_SortingOrder: 15
+  m_SortingOrder: 4947
   m_Sprite: {fileID: 799499250206129770, guid: 99cbf9f09fe975341b143fb2c67f1f7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,6 +125,21 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &4406235729753477904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050633721392543348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: 0.2
+  runOnlyOnce: 1
 --- !u!1 &5252133235515995100
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +208,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1738368889
-  m_SortingLayer: 1
+  m_SortingLayerID: -56992053
+  m_SortingLayer: 2
   m_SortingOrder: 16
   m_Sprite: {fileID: 7489681752275311269, guid: 9a35418a9e6effd41b49e283bbaf6e88,
     type: 3}

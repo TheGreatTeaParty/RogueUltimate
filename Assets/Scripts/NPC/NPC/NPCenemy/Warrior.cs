@@ -3,31 +3,34 @@ using Pathfinding;
 
 public class Warrior : EnemyAI
 {
-    private LayerMask _whatIsEnemy;
-    private Vector2 _attackPosition;
-    private Vector3 _direction;
+    protected LayerMask _whatIsEnemy;
+    protected Vector2 _attackPosition;
+    protected Vector3 _direction;
 
 
     protected override void Start()
     {
         base.Start();
-        _whatIsEnemy = LayerMask.GetMask("Player");
+        _whatIsEnemy = LayerMask.GetMask("Player","EnvObjects");
     }
 
     protected override void Update()
     {
         base.Update();
         _direction = lastDirection;
-        _attackPosition = transform.position + _direction;
+        _attackPosition = transform.position + _direction*attackRange;
     }
 
     protected override void Attack()
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRange, _whatIsEnemy);
-        
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, attackRadius, _whatIsEnemy);
+
         for (int i = 0; i < enemiesToDamage.Length; i++)
-            enemiesToDamage[i].GetComponent<IDamaged>().
-                TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
+        {
+            if(enemiesToDamage[i]!= gameObject)
+                enemiesToDamage[i].GetComponent<IDamaged>().
+                    TakeDamage(stats.PhysicalDamage.Value, stats.MagicDamage.Value);
+        }
         
         isAttack = false;
     }
@@ -35,7 +38,7 @@ public class Warrior : EnemyAI
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_attackPosition, attackRange);
+        Gizmos.DrawWireSphere(_attackPosition, attackRadius);
     }
 
     protected override void Die()

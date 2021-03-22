@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2969126813485017432}
   - component: {fileID: 2969126813485017433}
-  - component: {fileID: 2969126813485017446}
   - component: {fileID: 2969126813485017447}
   - component: {fileID: 4452840553849684515}
   - component: {fileID: 2969126813485017434}
-  - component: {fileID: 7008089830817396999}
+  - component: {fileID: 2879224966400727602}
   - component: {fileID: -244161455613779257}
   - component: {fileID: -1515456594398467978}
   - component: {fileID: 827094623995903760}
@@ -22,6 +21,7 @@ GameObject:
   - component: {fileID: 824822416574230489}
   - component: {fileID: 1924165181328397174}
   - component: {fileID: 4968012315996581786}
+  - component: {fileID: 3306532852225733004}
   m_Layer: 8
   m_Name: Orc
   m_TagString: Enemy
@@ -41,6 +41,7 @@ Transform:
   m_LocalScale: {x: 7.5, y: 7.5, z: 1}
   m_Children:
   - {fileID: 814905997793127733}
+  - {fileID: 8653685793122551725}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4999
-  m_Sprite: {fileID: 8749302817991680212, guid: 1ebf941cef3fe4a7d87445b2ba2fddd0,
+  m_Sprite: {fileID: 3799508404887519019, guid: 1ebf941cef3fe4a7d87445b2ba2fddd0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,29 +96,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2969126813485017446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2969126813485017444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Orc
-  physicalDamage:
-    baseValue: 20
-  physicalProtection:
-    baseValue: 10
-  magicProtection:
-    baseValue: 0
-  magicDamage:
-    baseValue: 0
-  maxHealth: 100
-  gainedXP: 100
 --- !u!114 &2969126813485017447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +146,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7008089830817396999
+--- !u!114 &2879224966400727602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2969126813485017444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32849f1f7d5914e079ee35a628b95e4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 49e51fc75b7244331ab5b3f851d8b33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPointDistance: 0.5
@@ -185,9 +163,11 @@ MonoBehaviour:
   detectionRange: 5
   followRange: 10
   waitTime: 2
-  attackCoolDown: 1.7
+  attackCoolDown: 1.2
   attackDuration: 0.4
-  attackRange: 1.2
+  colliderDetactionRadius: 0.3
+  attackRadius: 0.55
+  attackRange: 1
 --- !u!114 &-244161455613779257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   step_sounds:
   - {fileID: 8300000, guid: ffd837243fe0c45fb97be11f842d444e, type: 3}
-  take_damage: {fileID: 8300000, guid: d82e0707c05d34218bfe9a401b8a3f3a, type: 3}
+  take_damage: {fileID: 8300000, guid: cfacb43bff656427b9aa57081688801b, type: 3}
   death: {fileID: 8300000, guid: b67274d6a15e24be5b92ab49485068af, type: 3}
   attack:
   - {fileID: 8300000, guid: be04b54e4dbd84c0184a3751c4d60713, type: 3}
@@ -478,6 +458,32 @@ MonoBehaviour:
   source:
   - {fileID: 824822416574230489}
   - {fileID: 1924165181328397174}
+--- !u!114 &3306532852225733004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969126813485017444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96892449780394caca1f6f8ca24e0f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Orc
+  physicalDamage:
+    baseValue: 0
+  physicalProtection:
+    baseValue: 0
+  magicProtection:
+    baseValue: 0
+  magicDamage:
+    baseValue: 0
+  maxHealth: 100
+  coin: {fileID: 5879709720522722880, guid: e3f82e2f39dd74e45a5805a69ae88444, type: 3}
+  XPOrb: {fileID: 255665308592389911, guid: ee7a2cbf4f8e84f62bf50e17113a11bc, type: 3}
+  gainedXP: 50
+  gainedGold: 8
 --- !u!1001 &2094779383678785793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -595,6 +601,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4511770840368774502, guid: a0ec7e01616c648dfbe68655fb280d8f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511770840368774502, guid: a0ec7e01616c648dfbe68655fb280d8f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6646338381809150210, guid: a0ec7e01616c648dfbe68655fb280d8f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -696,3 +712,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &6686167468064751148
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2969126813485017432}
+    m_Modifications:
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.081045456
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377064062000100511, guid: 0e8583d299ebc4e0686ece9c9630663b,
+        type: 3}
+      propertyPath: m_Name
+      value: Shadow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e8583d299ebc4e0686ece9c9630663b, type: 3}
+--- !u!4 &8653685793122551725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2653210077538793857, guid: 0e8583d299ebc4e0686ece9c9630663b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6686167468064751148}
+  m_PrefabAsset: {fileID: 0}

@@ -40,9 +40,9 @@ public class PlayerData
         currentMP = stats.CurrentMana;       
         currentSP = stats.CurrentStamina;
 
-        maxHP = stats.MaxHealth;
-        maxMP = stats.MaxMana;
-        maxSP = stats.MaxStamina;        
+        maxHP = stats.Strength.MaxHealth.Value;
+        maxMP = stats.Intelligence.MaxMana.Value;
+        maxSP = stats.Agility.MaxStamina.Value;        
             
         level = stats.Level;
         xp = stats.XP;

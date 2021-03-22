@@ -22,7 +22,7 @@ public class ManaBar : Bar
             }
         }
 
-        SetMaxValue(CharacterManager.Instance.Stats.MaxMana);
+        SetMaxValue(CharacterManager.Instance.Stats.Intelligence.MaxMana.Value);
     }
 
     private void SetManaValue(float value)

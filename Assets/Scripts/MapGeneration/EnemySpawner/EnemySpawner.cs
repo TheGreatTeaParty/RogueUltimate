@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         _spawnPoints = GetComponents<EnemySpawnPoint>();
     }
 
-    public Transform GetEnemy()
+    public Transform GetEnemy(RoomType roomType)
     {
         var sum = firstTierSpawnProbability + secondTierSpawnProbability + thirdTierSpawnProbability; 
         var rand = Random.Range(0f, sum);
@@ -42,11 +42,11 @@ public class EnemySpawner : MonoBehaviour
         
         if (firstInterval <= rand && rand < secondInterval)
             return _enemyList.GenerateSecondTierEnemy();
-        
-        if (secondInterval <= rand && rand <= thirdInterval)
-            return _enemyList.GenerateThirdTierEnemy();
 
-        return null; // uh
+        if (secondInterval <= rand && rand <= thirdInterval && roomType == RoomType.Hub)
+            return _enemyList.GenerateThirdTierEnemy();
+        else
+            return _enemyList.GenerateFirstTierEnemy();
     }
 
     public int GetEnemyLevel()

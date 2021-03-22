@@ -21,7 +21,7 @@ public class HealthBar : Bar
                 changedslider.value -= shrinkSpeed * Time.deltaTime;
             }
         }
-        SetMaxValue(CharacterManager.Instance.Stats.MaxHealth);
+        SetMaxValue(CharacterManager.Instance.Stats.Strength.MaxHealth.Value);
     }
 
     private void ChangeSliderValue(float value)

@@ -128,8 +128,8 @@ public class GolemBoss : EnemyAI
         var rock = 
             Instantiate(rockPrefab, position + (targetPosition - position).normalized*2, Quaternion.identity);
 
-        rock.GetComponent<FlyingObject>().
-            SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value, (targetPosition - position).normalized);
+      //  rock.GetComponent<FlyingObject>().
+          //  SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value, (targetPosition - position).normalized);
     }
     
 }

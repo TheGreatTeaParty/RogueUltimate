@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-
-public static class LevelManager
+public class LevelManager : MonoBehaviour
 {
     public enum Scenes
     {
@@ -12,38 +13,67 @@ public static class LevelManager
         DB1,
         DB2,
         DB3,
+        StartTavern,
     }
 
-    public static void LoadScene(Scenes scenes, Vector3 position = new Vector3())
+
+    public static LevelManager Instance;
+    public GameObject LoadScreen;
+
+    private AsyncOperation asyncOperation;
+
+    void Awake()
     {
-        SceneManager.LoadScene(scenes.ToString());
+        if (Instance != null)
+            return;
+
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
+
+    public void LoadScene(Scenes scenes, Vector3 position = new Vector3())
+    {
+        LoadScreen.gameObject.SetActive(true);
+        asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
+        StartCoroutine(GetSceneLoadProgress());
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player)
             player.transform.position = position;
-        
-        if (PlayerOnScene.Instance) 
+
+        if (PlayerOnScene.Instance)
             PlayerOnScene.Instance.ShowPlayer();
-        
+
         if (InterfaceManager.Instance)
             InterfaceManager.Instance.ShowFaceElements();
     }
-    
-    public static void LoadScene(String scenes, Vector3 position = new Vector3())
+
+    public void LoadScene(String scenes, Vector3 position = new Vector3())
     {
-        SceneManager.LoadScene(scenes);
+        LoadScreen.gameObject.SetActive(true);
+        asyncOperation = SceneManager.LoadSceneAsync(scenes);
+        StartCoroutine(GetSceneLoadProgress());
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player) 
+        if (player)
             player.transform.position = position;
-        
-        if (PlayerOnScene.Instance) 
+
+        if (PlayerOnScene.Instance)
             PlayerOnScene.Instance.ShowPlayer();
-        
+
         if (InterfaceManager.Instance)
             InterfaceManager.Instance.ShowFaceElements();
     }
-    
+
+    private IEnumerator GetSceneLoadProgress()
+    {
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+        LoadScreen.gameObject.SetActive(false);
+    }
+
 }

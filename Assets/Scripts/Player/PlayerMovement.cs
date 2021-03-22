@@ -10,12 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
     private JoystickAttack _rangeJoystick;
+    private TargetLock _targetLock;
     [SerializeField]
     private Vector2 _movementDirection;
     private Vector2 _direction;
     private bool _stopped = false;
     private bool _rangeMoving = false;
+
     private bool _isKeyboardAllowed = false;
+
+    private bool _LockMovement = false;
+
 
     private PlayerStat _playerStat;
     private bool _isWaiting = false;
@@ -29,16 +34,23 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _prevDragDir;
     public bool isConrolDisabled = false;
 
+    private CharacterAudio characterAudio;
+
+
     public void Start()
     {
+        characterAudio = GetComponent<CharacterAudio>();
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
+
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
         {
             _isKeyboardAllowed = true;
         }
 
-        if(SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
+        _targetLock = GetComponentInChildren<TargetLock>();
+
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
         {
             InterfaceManager.Instance.DisableView();
         }
@@ -56,19 +68,27 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate() 
     {
         //Save the direction of player movement
-        if (!_rangeMoving && _movementDirection.x != 0 || _movementDirection.y != 0 && !_stopped)
+        if (!_rangeMoving && (_movementDirection.x != 0 || _movementDirection.y != 0) && !_stopped)
         {
             animator.SetFloat("Horizontal", _movementDirection.x);
             animator.SetFloat("Vertical", _movementDirection.y);
             _direction = _movementDirection;
         }
-        else if(_rangeMoving && !_stopped)
+        else if(_rangeMoving && !_stopped && _rangeJoystick.GetDirection().x!= 0 && _rangeJoystick.GetDirection().y != 0)
         {
             animator.SetFloat("Horizontal", _rangeJoystick.GetDirection().x);
             animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
             if(_rangeJoystick.GetDirection()!= Vector2.zero)
                 _direction = _rangeJoystick.GetDirection();
         }
+
+        else if(!_stopped && _LockMovement)
+        {
+            animator.SetFloat("Horizontal", _targetLock.GetDir().x);
+            animator.SetFloat("Vertical", _targetLock.GetDir().y);
+            _direction = _targetLock.GetDir();
+        }
+
         animator.SetFloat("Speed", movementSpeed);
         MoveCharacter();
     }
@@ -78,13 +98,21 @@ public class PlayerMovement : MonoBehaviour
         if (_isKeyboardAllowed)
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            if (!_stopped)
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+            else
+                movementSpeed = 0f;
         }
 		else
-        { 
-            _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
-            movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
-            _movementDirection.Normalize();
+        {
+            if (!_stopped)
+            {
+                _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+                _movementDirection.Normalize();
+            }
+            else
+                movementSpeed = 0f;
         }
 
     }
@@ -130,6 +158,10 @@ public class PlayerMovement : MonoBehaviour
         _stopped = false;
     }
 
+    public bool IsStopped()
+    {
+        return _stopped;
+    }
     public IEnumerator DisablePlayerControll(float time)
     {
         StopMoving();
@@ -139,6 +171,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetRangeMoving(bool state)
     {
         _rangeMoving = state;
+    }
+    public void SetLockMoving(bool state)
+    {
+        _LockMovement = state;
     }
     public void SetRangeJoystick(JoystickAttack joystick)
     {
@@ -153,10 +189,12 @@ public class PlayerMovement : MonoBehaviour
     private void Roll(Vector3 dir)
     {
         _rollCurrentCD = _rollCD;
-        if (_playerStat.ModifyStamina(-15))
+        if (_playerStat.ModifyStamina(-8))
         {
-            animator.SetTrigger("Roll");
+            animator.SetTrigger("Roll")
             rb2D.AddForce(dir * (rb2D.mass * 600));
+            characterAudio.PlayExtra(0);
+
             StartCoroutine(DisablePlayerControll(ROLL_TIME));
         }
     }

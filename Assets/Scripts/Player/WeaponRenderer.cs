@@ -11,7 +11,8 @@ public class WeaponRenderer : MonoBehaviour
     private int _prevIndex;
     private PlayerStat _playerStat;
     private bool _isAttack = false;
-    
+
+    public int PrevIndex => _prevIndex;
     private void Start()
     {
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
@@ -41,13 +42,16 @@ public class WeaponRenderer : MonoBehaviour
 
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
-        if (_new && _new.Animation.Length!= 0)
+        if (_new && _new.EquipmentType == EquipmentType.Weapon)
         {
+            if (_new.Animation.Length != 0)
+            {
                 WeaponAttackAnim = _new.Animation;
-        }
-        else
-        {
-            WeaponAttackAnim = null;
+            }
+            else
+            {
+                WeaponAttackAnim = null;
+            }
         }
     }
 
@@ -68,8 +72,8 @@ public class WeaponRenderer : MonoBehaviour
             {
                 if (j >= WeaponAttackAnim.Length)
                 {
-                    Debug.LogWarning($"Sprite with Index: {j} does not exist in Animation Sprites!");
-                    _weaponSprite.sprite = null;
+                    Debug.Log($"Sprite with Index: {j} does not exist in Animation Sprites!");
+                   // _weaponSprite.sprite = null;
                 }
                 else
                 {   //Need to be added;
@@ -94,7 +98,7 @@ public class WeaponRenderer : MonoBehaviour
         }
         ChangeAnimationSpeed(attackType);
 
-        _weaponAnimator.SetTrigger("Attack");
+        _weaponAnimator.SetBool("Attack",true);
         _isAttack = true;
     }
 
@@ -102,7 +106,7 @@ public class WeaponRenderer : MonoBehaviour
     {
         if (attackType != AttackType.None)
         {
-            _weaponAnimator.SetTrigger("EndAttack");
+            _weaponAnimator.SetBool("Attack", false);
             _isAttack = false;
         }
     }

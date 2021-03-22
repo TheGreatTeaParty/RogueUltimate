@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.016109712}
+  m_Offset: {x: 0.05989623, y: 0.03156664}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.45227194}
+  m_Size: {x: 0.74882233, y: 0.17404437}
   m_EdgeRadius: 0
 --- !u!114 &4118269376494631273
 MonoBehaviour:
@@ -146,7 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
-  HitName: ArrowHit
+  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
+    type: 3}
+  _hitName: ArrowHit
 --- !u!82 &-4106641612419599420
 AudioSource:
   m_ObjectHideFlags: 0
@@ -159,13 +161,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2e49b637ad0c046e1a52e1e457851766, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.65
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 210
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

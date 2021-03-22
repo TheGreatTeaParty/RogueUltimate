@@ -23,13 +23,22 @@ public class KabanArea : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
+            collision.GetComponent<Rigidbody2D>().AddForce(_kaban.GetDirection() * _kaban.knockBackForce*10000);
             _parentAnimator.SetTrigger("Crash");
             _parentAnimator.SetBool("HitPlayer",true);
             _kaban.SetHit(true);
         }
 
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Door"))
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            _parentAnimator.SetTrigger("Crash");
+            _parentAnimator.SetBool("HitPlayer", false);
+            _kaban.SetHit(false);
+        }
+
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("EnvObjects"))
+        {
+            collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
             _parentAnimator.SetTrigger("Crash");
             _parentAnimator.SetBool("HitPlayer", false);
             _kaban.SetHit(false);

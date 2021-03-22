@@ -3,44 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EffectController : MonoBehaviour
+public class EffectController
 {
     private List<Effect> _effects;
     public List<Effect> Effects => _effects;
 
-    
-    public event Action<Effect, Effect> OnEffectChanged;
-
-
-    private void Awake()
+    public EffectController()
     {
         _effects = new List<Effect>();
     }
 
-    public void Add(EffectType effectType, float intensity, float time)
+    public void AddEffect(Effect effect,CharacterStat character)
     {
-        for (int i = 0; i < _effects.Count; i++)
-            if (effectType == _effects[i].EffectType)
-            {
-                _effects[i].Time = time;
-                return;
-            }
+        effect._stat = character;
+        if (!character.IsEffectApplied(effect._chance, effect._effectType)) { return; }
+      
+        Predicate<Effect> temp = cur_effect => cur_effect.EffectType == effect.EffectType;
+        if (!_effects.Find(temp))
+        {
+            _effects.Add(effect);
+            effect.CreateFX();
+        }
 
-        var effect = new Effect(effectType, intensity, time);
-        _effects.Add(effect);
-        OnEffectChanged?.Invoke(null, effect);
     }
 
-    private void Update()
+    public void RemoveEffectsOfType(EffectType type)
+    {
+        for(int i = 0; i < _effects.Count; i++)
+        {
+            if (_effects[i].EffectType == type)
+            {
+                Effect effect = _effects[i];
+                _effects.Remove(_effects[i]);
+                effect.RemoveEffect();
+            }
+        }
+    }
+    public void Tick()
     {
         for (int i = 0; i < _effects.Count; i++)
         {
-            _effects[i].Time -= Time.deltaTime;
-            if (_effects[i].Time < 0)
+            if (_effects[i].Ticks > 0)
+                _effects[i].ApplyEffect();
+
+            else if(_effects[i].Ticks == 0)
             {
-                OnEffectChanged?.Invoke(_effects[i], null);
-                _effects.RemoveAt(i);
+                Effect effect = _effects[i];
+                _effects.Remove(_effects[i]);
+                effect.RemoveEffect();
             }
+        }
+    }
+
+    public void RemoveAll()
+    {
+        for (int i = 0; i < _effects.Count; i++)
+        {
+            _effects[i].RemoveEffect();
         }
     }
     

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 
 public class PlayerStat : CharacterStat, IDamaged
 {
-    private float STAMINA_REGINERATION_DEALY = 2;
-    private float _regenerationCoolDown;
     private int _xp;
     private int[] _xpToNextLevel = 
     {
@@ -25,18 +24,11 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    private int _statPoints = 0;
+    public int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
 
-    [SerializeField] private float maxMana;
-    [SerializeField] private float maxStamina;
-    [SerializeField] private float maxWill;
-    [Space] 
-    [SerializeField] private Stat physique;
-    [SerializeField] private Stat will;
-    [SerializeField] private Stat mind;
-    [SerializeField] private Stat reaction;
+ 
     [Space]
     [SerializeField] private Stat attackRange;
     [SerializeField] private Stat pushForce;
@@ -44,20 +36,20 @@ public class PlayerStat : CharacterStat, IDamaged
     [SerializeField] private Stat attackSpeed;
     [SerializeField] private Stat blockStrength;
     [SerializeField] private Stat castSpeed;
-    [SerializeField] private Stat dodgeChance;
-    [SerializeField] private Stat critDamage;
-    [SerializeField] private Stat critChance;
+
+    [SerializeField] public Stat HPRegeneration;
+
     [Space]
-    [SerializeField] private float regenerationSpeed;  //Make it stat?
-    [Space]
+
     // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
 
-    public Stat Physique => physique;
-    public Stat Will => will;
-    public Stat Mind => mind;
-    public Stat Reaction => reaction;
+
+    //Attributes:
+    public StrengthAttribute Strength;
+    public AgilityAttribute Agility;
+    public IntelligenceAttribute Intelligence;
 
     public Stat AttackRange => attackRange;
     public Stat PushForce => pushForce;
@@ -67,9 +59,6 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public float CurrentMana => _currentMana;
     public float CurrentStamina => _currentStamina;
-    public float MaxMana => maxMana;
-    public float MaxStamina => maxStamina;
-    public float MaxWill => maxWill;
     public int XP => _xp;
     public int StatPoints => _statPoints;
 
@@ -80,27 +69,42 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnHealthChanged;
     public Action<float> OnStaminaChanged;
     public Action<float> OnManaChanged;
+    public Action<float> OnXPChanged;
 
+    public TraitHolder PlayerTraits;
+
+    public PlayerMovement playerMovement;
     
     
     private void Start()
     {
-        _regenerationCoolDown = 0;
-        regenerationSpeed = 2;
-
-        currentHealth = maxHealth;
-        _currentStamina = maxStamina;
-        _currentMana = maxMana;
-        
+        PlayerTraits = new TraitHolder();
+        playerMovement = GetComponent<PlayerMovement>();
         _xp = 0;
         level = 1;
         
     }
-    
+    public void SetUpPlayerInfo()
+    {
+        currentHealth = Strength.MaxHealth.Value;
+        _currentStamina = Agility.MaxStamina.Value;
+        _currentMana = Intelligence.MaxMana.Value;
+    }
     protected override void Update()
     {
-        base.Update();
-        RegenerateStamina();
+        if (_timeLeft <= 0)
+        {
+            //Health Regen
+            ModifyHealth(HPRegeneration.Value);
+            //Stamina Regen
+            ModifyStamina(Agility.StaminaRegeniration.Value);
+            //MP Regen
+            ModifyMana(Intelligence.ManaRegeniration.Value);
+
+            EffectController.Tick();
+            _timeLeft = TICK_TIME;
+        }
+        _timeLeft -= Time.deltaTime;
     }
 
     public void GainXP(int gainedXP)
@@ -114,7 +118,8 @@ public class PlayerStat : CharacterStat, IDamaged
             LevelUp();
         }
         
-        onChangeCallback.Invoke();
+        onChangeCallback?.Invoke();
+        OnXPChanged?.Invoke(_xp);
     }
     
     private void LevelUp()
@@ -129,55 +134,88 @@ public class PlayerStat : CharacterStat, IDamaged
     
     public void AddAttributePoint(StatType statType)
     {
-        switch (statType)
+
+        if (_statPoints - 1 >= 0)
         {
-            case StatType.Will:
+            _statPoints--;
+            switch (statType)
             {
-                will.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-         
-            case StatType.Physique:
-            {
-                physique.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-         
-            case StatType.Mind:
-            {
-                mind.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-         
-            case StatType.Reaction:
-            {
-                reaction.AddModifier(new StatModifier(1, StatModifierType.Flat));
-                break;
-            }
-        }
+                case StatType.Will:
+                    {
+                        break;
+                    }
 
-        onChangeCallback.Invoke();
-    }
+                case StatType.Physique:
+                    {
+                        float healthPercent = Strength.MaxHealth.Value / currentHealth;
+                        Strength.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        currentHealth = Strength.MaxHealth.Value * healthPercent;
+                        OnHealthChanged?.Invoke(currentHealth);
+                        break;
+                    }
 
-    public void AddAttributePoint(StatType statType, int value)
-    {
-        for (int i = 0; i < value; i++)
-            AddAttributePoint(statType);
-    }
+                case StatType.Mind:
+                    {
+                        float ManaPercent = Intelligence.MaxMana.Value / _currentMana;
+                        Intelligence.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        _currentMana = Intelligence.MaxMana.Value * ManaPercent;
+                        OnManaChanged?.Invoke(_currentMana);
+                        break;
+                    }
 
-    protected override void TakeEffectDamage(Effect effect)
-    {
-        switch (effect.EffectType)
-        {
-            case EffectType.Burning:
-                
-                break;
-            
-            case EffectType.Freezing:
+                case StatType.Reaction:
+                    {
+                        float StaminaPercent = Agility.MaxStamina.Value / _currentStamina;
+                        Agility.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
+                        _currentStamina = Agility.MaxStamina.Value * StaminaPercent;
+                        OnStaminaChanged?.Invoke(_currentStamina);
+                        break;
+                    }
+            }
 
-                break;
+            onChangeCallback?.Invoke();
         }
     }
+    public void AddAttributePoint(StatType statType,float value)
+    {
+            switch (statType)
+            {
+                case StatType.Will:
+                    {
+                        break;
+                    }
+
+                case StatType.Physique:
+                    {
+                        float healthPercent = Strength.MaxHealth.Value / currentHealth;
+                        Strength.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        currentHealth = Strength.MaxHealth.Value * healthPercent;
+                        OnHealthChanged?.Invoke(currentHealth);
+                        break;
+                    }
+
+                case StatType.Mind:
+                    {
+                        float ManaPercent = Intelligence.MaxMana.Value / _currentMana;
+                        Intelligence.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        _currentMana = Intelligence.MaxMana.Value * ManaPercent;
+                        OnManaChanged?.Invoke(_currentMana);
+                        break;
+                    }
+
+                case StatType.Reaction:
+                    {
+                        float StaminaPercent = Agility.MaxStamina.Value / _currentStamina;
+                        Agility.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
+                        _currentStamina = Agility.MaxStamina.Value * StaminaPercent;
+                        OnStaminaChanged?.Invoke(_currentStamina);
+                        break;
+                    }
+            }
+
+            onChangeCallback?.Invoke();
+    }
+
 
     public bool ModifyHealth(float value)
     {
@@ -185,10 +223,13 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
 
         currentHealth += value;
-        if (currentHealth > maxHealth)
-            currentHealth = maxHealth;
+        if (currentHealth > Strength.MaxHealth.Value)
+            currentHealth = Strength.MaxHealth.Value;
 
         onChangeCallback?.Invoke();
+        OnHealthChanged?.Invoke(currentHealth);
+        if (currentHealth <= 0)
+            Die();
         return true;
     }
     
@@ -198,15 +239,12 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
 
         _currentStamina += value;
-        if (_currentStamina > maxStamina)
-            _currentStamina = maxStamina;
+        if (_currentStamina > Agility.MaxStamina.Value)
+            _currentStamina = Agility.MaxStamina.Value;
 
         onChangeCallback?.Invoke();
         OnStaminaChanged?.Invoke(_currentStamina);
 
-        //Set timer to stamina regineration:
-        if(value < 0)
-            _regenerationCoolDown = 0;
         return true;
     }
     
@@ -215,11 +253,12 @@ public class PlayerStat : CharacterStat, IDamaged
         if (_currentMana + value < 0)
             return false;
         _currentMana += value;
-        if (_currentMana > maxMana)
-            _currentMana = maxMana;
+        if (_currentMana > Intelligence.MaxMana.Value)
+            _currentMana = Intelligence.MaxMana.Value;
 
         onChangeCallback?.Invoke();
         OnManaChanged?.Invoke(_currentMana);
+     
         return true;
     }
     public bool CheckHealth(float value)
@@ -240,44 +279,129 @@ public class PlayerStat : CharacterStat, IDamaged
             return false;
         return true;
     }
-    public void RegenerateStamina()
-    {
-        if(_regenerationCoolDown <= STAMINA_REGINERATION_DEALY)
-            _regenerationCoolDown += Time.deltaTime;
-        else if (_regenerationCoolDown > STAMINA_REGINERATION_DEALY)
-        {
-            ModifyStamina(regenerationSpeed);
-        }
-    }
 
     public int GetXPToNextLevel(int level)
     {
         return _xpToNextLevel[level - 1];
     }
 
-    public override void TakeDamage(float phyDamage, float magDamage)
+
+    //RETURNS TRUE or FALSE to make a function of EVADES,BLOCK, etc.
+    public override bool TakeDamage(float phyDamage, float magDamage)
     {
-        base.TakeDamage(phyDamage, magDamage);
+        //Check dodge here:
+
+        if (!Dodge())
+        {
+            base.TakeDamage(phyDamage, magDamage);
+            //TRUE 
+            OnHealthChanged?.Invoke(currentHealth);
+            animator.SetTrigger("Taking Dmg");
+            //Take Damage -> Screen shake MAYBE it will be removed later!
+            if(currentHealth > 0)
+                ScreenShakeController.Instance.StartShake(0.17f, 1f);
+            return true;
+        }
+        return false;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        ModifyHealth(-damage);
+        //TRUE 
         OnHealthChanged?.Invoke(currentHealth);
         animator.SetTrigger("Taking Dmg");
-        //Take Damage -> Screen shake MAYBE it will be removed later!
         ScreenShakeController.Instance.StartShake(0.17f, 1f);
     }
 
+    //***                                   -----------  Effects: ----------
+    public override float GetEffectResult(float intensity, EffectType effectType)
+    {
+        if (effectType == EffectType.Fire)
+            return (1 - Intelligence.FireResistance.Value) * intensity;
+        else if(effectType == EffectType.Freeze)
+            return (1 - Intelligence.FreezeResistance.Value) * intensity;
+        else if(effectType == EffectType.Curse)
+            return (1 - Intelligence.CurseResistance.Value) * intensity;
+        else if (effectType == EffectType.Poison)
+            return (1 - Strength.PoisonResistance.Value) * intensity;
+        else if (effectType == EffectType.Bleed)
+            return (1 - Strength.BleedResistance.Value) * intensity;
+        else if(effectType == EffectType.Stun)
+            return (1 - Strength.DazeResistance.Value) * intensity;
+        else
+        {
+            return intensity;
+        }
+    }
+
+    public override void TakeEffectDamage(float intensity)
+    {
+        ModifyHealth(-intensity);
+        //TRUE 
+        OnHealthChanged?.Invoke(currentHealth);
+        animator.SetTrigger("Taking Dmg");
+        ScreenShakeController.Instance.StartShake(0.17f, 1f);
+    }
+    public override void ModifyMovementSpeed(float intensity)
+    {
+       if(intensity == 1)
+        {
+            playerMovement.StopMoving();
+        }
+       else if(intensity == 0)
+        {
+            playerMovement.StopMoving();
+        }
+        else
+        {
+            playerMovement.SlowDown(intensity);
+        }
+    }
     public override void Die()
     {
         animator.SetTrigger("Die");
         gameObject.layer = 2;
         gameObject.tag = "Untagged";
         InterfaceManager.Instance.HideFaceElements();
-        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerDie(); //Opens Window with a decision |Adverb to continue| or |Humility|
-        //transform.position = new Vector2(100, 100);
-        //Destroy or set Active(false) 
-
-
-        //Destroy(gameObject);
-        //Destroy(InterfaceManager.Instance.gameObject);
-        //SceneManager.LoadScene("Menu");
+        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
     }
-    
+
+    private bool Dodge()
+    {
+        if(UnityEngine.Random.value > Agility.dodgeChance.Value/100f)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public (float, bool) GetPhysicalCritDamage()
+    {
+        if (UnityEngine.Random.value > Agility.CritChance.Value / 100f)
+        {
+            return (PhysicalDamage.Value,false);
+        }
+        else
+        {
+            return (PhysicalDamage.Value * (1+Strength.CritDamage.Value),true);
+        }
+    }
+
+    public (float,bool) GetMagicalCritDamage()
+    {
+        if (UnityEngine.Random.value > Agility.CritChance.Value / 100f)
+        {
+            return (PhysicalDamage.Value,false);
+        }
+        else
+        {
+            return (PhysicalDamage.Value * (1 + Intelligence.MagicalCrit.Value),true);
+        }
+    }
+
+    public bool TakeDamage(float phyDamage, float magDamage, bool crit)
+    {
+        return TakeDamage(phyDamage, magDamage);
+    }
 }

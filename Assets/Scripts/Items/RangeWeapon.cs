@@ -4,6 +4,13 @@
 
 public class RangeWeapon : EquipmentItem
 {
+    public enum RangeType
+    {
+        bow = 0,
+        crossbow,
+    }
+    [Space]
+    public RangeType WeaponType;
     [Space]
     public float attackSpeedMofifier;
     public float knockBackModifier;
@@ -17,10 +24,12 @@ public class RangeWeapon : EquipmentItem
     public Transform arrowPrefab;
     [Space]
     public AudioClip prepareSound;
+    public AudioClip ReleaseSound;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
+
 
     private void Awake()
     {
@@ -52,17 +61,26 @@ public class RangeWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
+        JoystickAttack _directionJoystick = InterfaceManager.Instance.joystickAttack;
+        Vector3 direction = new Vector3(
+            _directionJoystick.GetDirection().x,
+            _directionJoystick.GetDirection().y);
+
+        if(direction.magnitude == 0) { return; }
+
         PlayerStat playerStat = CharacterManager.Instance.Stats;
         if (!playerStat.ModifyMana(requiredMana) ||
           !playerStat.ModifyHealth(requiredHealth) ||
           !playerStat.ModifyStamina(requiredStamina))
             return;
-        Vector3 direction = new Vector3(
-            InterfaceManager.Instance.joystickAttack.GetDirection().x, 
-            InterfaceManager.Instance.joystickAttack.GetDirection().y);
         Transform arrow = Instantiate(arrowPrefab,
             PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
-        arrow.GetComponent<FlyingObject>().SetData(physicalDamage, magicDamage, direction,playerStat.KnockBack.Value);
+        var crit = playerStat.GetPhysicalCritDamage();
+
+        if(_effect)
+            arrow.GetComponent<FlyingObject>().SetData(crit.Item1, magicDamage, direction,crit.Item2,playerStat.KnockBack.Value,Instantiate(_effect));
+        else
+            arrow.GetComponent<FlyingObject>().SetData(crit.Item1, magicDamage, direction, crit.Item2, playerStat.KnockBack.Value);
     }
     
     

@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Text;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
@@ -11,24 +13,49 @@ public class MainMenu : MonoBehaviour {
     private GameObject playerInterface;
     [SerializeField]
     private Button resumeButton;
+    [SerializeField]
+    private GameObject confirmWindow;
+    [SerializeField]
+    private GameObject mainMenu;
+    [SerializeField]
+    private GameObject LoadingScreen;
 
+    private bool _cutSceneAllowed = false;
+    private bool _canStartNewGame = true;
     
     private void Start()
     {
         string path = Application.persistentDataPath + "/player.dat";
-        if (File.Exists(path)) resumeButton.interactable = true;
+        if (File.Exists(path)) {
+            resumeButton.interactable = true;
+            _canStartNewGame = false;
+        }
     }
+
+    List<AsyncOperation> asyncOperations = new List<AsyncOperation>();
 
     public void NewGame()
     {
-        SaveManager.DeletePlayer();
-        LevelManager.LoadScene("Tutorial");
+        if (_canStartNewGame)
+        {
+            SaveManager.DeletePlayer();
+            if (_cutSceneAllowed)
+                LevelManager.Instance.LoadScene("CutScene");
+            else
+                LevelManager.Instance.LoadScene("StartTavern");
+
+        }
+        else
+        {
+            confirmWindow.SetActive(true);
+            mainMenu.SetActive(false);
+        }
     }
 
     public void ResumeGame()
     {
         PlayerData data = SaveManager.LoadPlayer();
-        LevelManager.LoadScene(data.scene);
+        LevelManager.Instance.LoadScene(data.scene);
 
         foreach(GameObject pref in characterPrefabs)
         {
@@ -47,12 +74,20 @@ public class MainMenu : MonoBehaviour {
   
         }
     }   
-
     public void ExitGame()
     {
         Debug.Log("Trying to exit game doesn't work in Editor");
         Application.Quit();
     }
 
+    public void AllowCutscene()
+    {
+        _cutSceneAllowed = true;
+    }
+
+    public void OpenBook()
+    {
+        mainMenu.SetActive(true);
+    }
     
 }

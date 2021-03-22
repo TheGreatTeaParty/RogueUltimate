@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseButton()
     {
-        Time.timeScale = 0f;
-        animator.SetFloat("Kind of animation", 0f);
+        StartCoroutine(WaitAndPause());
     }
 
     public void ResumeButton()
@@ -39,5 +39,11 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    IEnumerator WaitAndPause()
+    {
+        animator.SetFloat("Kind of animation", 0f);
+        yield return new WaitForSeconds(0.3f);
+        Time.timeScale = 0f;
+    }
 }
 

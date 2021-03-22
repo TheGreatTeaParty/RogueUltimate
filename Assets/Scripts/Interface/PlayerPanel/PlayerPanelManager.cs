@@ -127,5 +127,4 @@ public class PlayerPanelManager : MonoBehaviour
         
         Time.timeScale = 1f;
     }
-
 }  
