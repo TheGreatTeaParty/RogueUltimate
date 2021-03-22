@@ -33,6 +33,10 @@ public class PointsManager : MonoBehaviour
     public TextMeshProUGUI SPRegen;
     public TextMeshProUGUI CritChance;
     public TextMeshProUGUI Evade;
+    [Space]
+    public GameObject StrengthChain;
+    public GameObject AgilityChain;
+    public GameObject IntChain;
 
     [SerializeField] NavigatorButton[] _navigatorButtons;
     private bool _disableStrength = false;
@@ -229,6 +233,16 @@ public class PointsManager : MonoBehaviour
         player.AddAttributePoint(StatType.Reaction,Agility.GetBaseValue() - player.Agility.GetBaseValue());
     }
 
+    private void CheckChain()
+    {
+        if (_disableAgility)
+            AgilityChain.SetActive(true);
+        if (_disableStrength)
+            StrengthChain.SetActive(true);
+        if (_disableInt)
+            IntChain.SetActive(true);
+    }
+
     private void ChechZero()
     {
         if (generator)
@@ -242,6 +256,7 @@ public class PointsManager : MonoBehaviour
                 else if (generator.OutcomeTraits[i].Name == "Retarded")
                     _disableAgility = true;
             }
+            CheckChain();
         }
         else
         {
@@ -277,6 +292,7 @@ public class PointsManager : MonoBehaviour
                         _disableInt = false;
                 }
             }
+            CheckChain();
         }
     }
 }
