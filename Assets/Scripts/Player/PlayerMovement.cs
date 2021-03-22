@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
         _rollCurrentCD = _rollCD;
         if (_playerStat.ModifyStamina(-8))
         {
-            animator.SetTrigger("Roll")
+            animator.SetTrigger("Roll");
             rb2D.AddForce(dir * (rb2D.mass * 600));
             characterAudio.PlayExtra(0);
 
