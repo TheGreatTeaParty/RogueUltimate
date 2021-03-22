@@ -26,9 +26,6 @@ public class MagicWeapon : EquipmentItem
     public int RequiredHealth => requiredHealth;
 
     [Space]
-    [SerializeField] private Effect _effect;
-
-    [Space]
     public Transform prefab;
     [Space]
     public AudioClip prepareSound;

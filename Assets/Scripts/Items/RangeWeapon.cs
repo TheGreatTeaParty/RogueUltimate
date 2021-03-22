@@ -21,8 +21,6 @@ public class RangeWeapon : EquipmentItem
     [SerializeField] private int requiredMana;
     [SerializeField] private int requiredHealth;
     [Space]
-    [SerializeField] private Effect _effect;
-    [Space]
     public Transform arrowPrefab;
     [Space]
     public AudioClip prepareSound;

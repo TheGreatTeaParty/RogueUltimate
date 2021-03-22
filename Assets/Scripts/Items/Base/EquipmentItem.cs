@@ -37,6 +37,8 @@ public class EquipmentItem : Item
     [SerializeField] protected int requiredStrength;
     [SerializeField] protected int requiredIntelligence;
     [SerializeField] protected int requiredAgility;
+    [Space]
+    [SerializeField] public Effect _effect;
 
     public EquipmentType EquipmentType
     {

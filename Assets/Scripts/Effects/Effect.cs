@@ -17,7 +17,8 @@ public enum EffectType
 [System.Serializable]
 public class Effect:ScriptableObject
 {
-    [SerializeField] protected String EffectName;
+    public String EffectName;
+    public Sprite Icon;
     [SerializeField]
     protected float _intensity;
     [SerializeField]

@@ -246,14 +246,36 @@ public class PointsManager : MonoBehaviour
         else
         {
             var temp = CharacterManager.Instance.Stats.PlayerTraits.Traits;
+            bool _strengthFounded = false;
+            bool _agilityFounded = false;
+            bool _intFounded = false;
+
             for (int i = 0; i < temp.Count; ++i)
             {
                 if (temp[i].Name == "Dystrophic")
+                {
                     _disableStrength = true;
+                    _strengthFounded = true;
+                }
                 else if (temp[i].Name == "Idiot")
+                {
                     _disableInt = true;
+                    _intFounded = true;
+                }
                 else if (temp[i].Name == "Retarded")
+                {
                     _disableAgility = true;
+                    _agilityFounded = true;
+                }
+                else
+                {
+                    if (!_strengthFounded)
+                        _disableStrength = false;
+                    if (!_agilityFounded)
+                        _disableAgility = false;
+                    if (!_intFounded)
+                        _disableInt = false;
+                }
             }
         }
     }

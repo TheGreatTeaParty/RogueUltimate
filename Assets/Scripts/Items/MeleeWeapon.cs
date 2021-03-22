@@ -43,8 +43,6 @@ public class MeleeWeapon : EquipmentItem
     public int RequiredStamina => requiredStamina;
     public int RequiredHealth => requiredHealth;
     [Space]
-    [SerializeField] private Effect _effect;
-    [Space]
     public AudioClip StartAttackSound;
     public AudioClip EndAttackSound;
 

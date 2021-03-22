@@ -16,6 +16,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
     [SerializeField] private Button optionalButton;
     [SerializeField] private Button closeButton;
     [SerializeField] private Button dropButton;
+    [SerializeField] private Image effectImage;
 
 
     public event Action<Item> DropItem;  
@@ -37,7 +38,17 @@ public class Tooltip : MonoBehaviour, IDragHandler
         itemName.SetText(_item.ItemName);
         itemDescription.SetText(_item.Description);
         image.sprite = _item.Sprite;
-            
+        //Set Effect on the weapon
+        EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
+        if (equipmentItem)
+        {
+            if(equipmentItem._effect)
+            {
+                effectImage.gameObject.SetActive(true);
+                effectImage.sprite = equipmentItem._effect.Icon;
+            }
+        }
+
         if (!(_item is UsableItem)) optionalButton.gameObject.SetActive(false);
     }
 
