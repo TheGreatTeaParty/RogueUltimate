@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class AudioManager : MonoBehaviour
@@ -27,6 +28,23 @@ public class AudioManager : MonoBehaviour
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
+        }
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += TryToChildPlayer;
+    }
+
+    private void TryToChildPlayer(Scene arg0, LoadSceneMode arg1)
+    {
+        try
+        {
+            transform.SetParent(PlayerOnScene.Instance.transform);
+        }
+        catch
+        {
+            Debug.Log("There is no player");
         }
     }
 

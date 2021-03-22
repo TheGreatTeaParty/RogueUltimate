@@ -16,7 +16,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _direction;
     private bool _stopped = false;
     private bool _rangeMoving = false;
+
+    private bool _isKeyboardAllowed = false;
+
     private bool _LockMovement = false;
+
 
     private PlayerStat _playerStat;
     private bool _isWaiting = false;
@@ -28,13 +32,22 @@ public class PlayerMovement : MonoBehaviour
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
     private Vector3 _prevDragDir;
+    public bool isConrolDisabled = false;
+
     private CharacterAudio characterAudio;
+
 
     public void Start()
     {
         characterAudio = GetComponent<CharacterAudio>();
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
+
+        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+        {
+            _isKeyboardAllowed = true;
+        }
+
         _targetLock = GetComponentInChildren<TargetLock>();
 
         if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "true")
@@ -82,8 +95,7 @@ public class PlayerMovement : MonoBehaviour
     
     void ProcessInputs()
     {
-       
-        if (SettingsManager.instance.GetSetting(SettingsManager.SettingsKeys.isKeyboardAllowed) == "True")
+        if (_isKeyboardAllowed)
         {
             _movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (!_stopped)
@@ -108,10 +120,9 @@ public class PlayerMovement : MonoBehaviour
     /*This is the main function which calculates Character's movement*/
     void MoveCharacter()
     {
-        if(!_stopped)
-            rb2D.MovePosition((Vector2)transform.position + 
-                            (movementSpeed * BASE_MOVEMENT_SPEED * 
-                                _movementDirection * Time.deltaTime));
+        if (!_stopped)
+            rb2D.MovePosition((Vector2) transform.position +
+                              _movementDirection * (movementSpeed * BASE_MOVEMENT_SPEED * Time.deltaTime));
     }
 
     public void Push(Vector2 push_direction)
@@ -136,11 +147,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMoving()
     {
+        isConrolDisabled = true;
         _stopped = true;
     }
 
     public void StartMoving()
     {
+        isConrolDisabled = false;
         rb2D.velocity = new Vector2(0,0);
         _stopped = false;
     }
@@ -170,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PushToDirection(float PushPower)
     {
-        rb2D.AddForce(PushPower * _direction*100);
+        rb2D.AddForce(_direction * (PushPower * 100));
     }
 
     private void Roll(Vector3 dir)
@@ -178,9 +191,10 @@ public class PlayerMovement : MonoBehaviour
         _rollCurrentCD = _rollCD;
         if (_playerStat.ModifyStamina(-8))
         {
-            animator.SetTrigger("Roll");
+            animator.SetTrigger("Roll")
+            rb2D.AddForce(dir * (rb2D.mass * 600));
             characterAudio.PlayExtra(0);
-            rb2D.AddForce(dir * rb2D.mass * 600);
+
             StartCoroutine(DisablePlayerControll(ROLL_TIME));
         }
     }
