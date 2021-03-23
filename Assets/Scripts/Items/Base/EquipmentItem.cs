@@ -64,8 +64,6 @@ public class EquipmentItem : Item
             stats.MagicDamage.AddModifier(new StatModifier(magicDamageBonus, StatModifierType.Flat, this));
         if (magicProtectionBonus != 0) 
             stats.MagicProtection.AddModifier(new StatModifier(magicProtectionBonus, StatModifierType.Flat, this));
-        //if (willBonus != 0)
-           // stats.Will.AddModifier(new StatModifier(willBonus, StatModifierType.Flat, this));
         if (vitalityBonus != 0)
             stats.Strength.ModifyAttribute(new StatModifier(vitalityBonus, StatModifierType.Flat, this));
         if (mindBonus != 0)
@@ -90,8 +88,6 @@ public class EquipmentItem : Item
         stats.PhysicalProtection.RemoveAllModifiersFromSource(this);
         stats.MagicDamage.RemoveAllModifiersFromSource(this);
         stats.MagicProtection.RemoveAllModifiersFromSource(this);
-        //stats.Will.RemoveAllModifiersFromSource(this);
-        //stats.Physique.RemoveAllModifiersFromSource(this);
         stats.Strength.RemoveAttribute(this);
         stats.Intelligence.RemoveAttribute(this);
         stats.Agility.RemoveAttribute(this);

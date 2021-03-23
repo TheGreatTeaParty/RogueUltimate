@@ -275,5 +275,4 @@ public class CharacterManager : MonoBehaviour
             slot.EndHighLight();
         }
     }
-
 }

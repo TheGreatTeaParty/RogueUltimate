@@ -17,6 +17,11 @@ public class Tooltip : MonoBehaviour, IDragHandler
     [SerializeField] private Button closeButton;
     [SerializeField] private Button dropButton;
     [SerializeField] private Image effectImage;
+    [Space]
+    [SerializeField] private GameObject _req;
+    [SerializeField] private TextMeshProUGUI _strength;
+    [SerializeField] private TextMeshProUGUI _agility;
+    [SerializeField] private TextMeshProUGUI _int;
 
 
     public event Action<Item> DropItem;  
@@ -38,6 +43,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
         itemName.SetText(_item.ItemName);
         itemDescription.SetText(_item.Description);
         image.sprite = _item.Sprite;
+        if (!(_item is UsableItem)) optionalButton.gameObject.SetActive(false);
         //Set Effect on the weapon
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem)
@@ -47,17 +53,31 @@ public class Tooltip : MonoBehaviour, IDragHandler
                 effectImage.gameObject.SetActive(true);
                 effectImage.sprite = equipmentItem._effect.Icon;
             }
+            //Check do we need to show the req;
+            ShowReq(equipmentItem);
+            //Show the Equip Button:
+            optionalButton.gameObject.SetActive(true);
+            var name = optionalButton.GetComponentInChildren<TextMeshProUGUI>();
+            name.SetText("Equip");
         }
 
-        if (!(_item is UsableItem)) optionalButton.gameObject.SetActive(false);
     }
 
     public void Use()
     {
-        _itemSlot.Item.Use();
-        _itemSlot.Amount--;
-        if (_itemSlot.Amount < 1)
+        if(_itemSlot.Item as EquipmentItem)
+        {
+            //Must be equip logic HERE!
+            //
             CloseSelf();
+        }
+        else
+        {
+            _itemSlot.Item.Use();
+            _itemSlot.Amount--;
+            if (_itemSlot.Amount < 1)
+                CloseSelf();
+        }
     }
     
     public void Drop()
@@ -76,6 +96,25 @@ public class Tooltip : MonoBehaviour, IDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         transform.position += (Vector3) eventData.delta;
+    }
+
+    private void ShowReq(EquipmentItem item)
+    {
+        if(item.GetRequiredAgility() > 0)
+        {
+            _req.SetActive(true);
+            _agility.SetText(item.GetRequiredAgility().ToString());
+        }
+        if(item.GetRequiredStrength() > 0)
+        {
+            _req.SetActive(true);
+            _strength.SetText(item.GetRequiredStrength().ToString());
+        }
+        if(item.GetRequiredIntelligence() > 0)
+        {
+            _req.SetActive(true);
+            _int.SetText(item.GetRequiredIntelligence().ToString());
+        }
     }
 
 }
