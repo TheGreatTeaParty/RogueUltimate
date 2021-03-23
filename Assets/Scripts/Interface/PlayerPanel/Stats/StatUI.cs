@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -12,16 +13,18 @@ public class StatUI : MonoBehaviour
    public TMP_Text magicDamagePoints;
    public TMP_Text physicalProtectionPoints;
    public TMP_Text magicProtectionPoints;
+
    [Space]
    public TMP_Text AttackSpeed;
    public TMP_Text CastSpeed;
    public TMP_Text MovementSpeed;
-    [Space]
-    public TMP_Text Level;
+   [Space]
+   public TMP_Text Level;
 
-
-    private void Start()
+   private IEnumerator Start()
    {
+      yield return new WaitForSeconds(0.0001f);
+      
       _playerStat = CharacterManager.Instance.Stats;
       _playerStat.onChangeCallback += UpdateUI;
      

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Text;
@@ -39,11 +39,13 @@ public class MainMenu : MonoBehaviour {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
+            //LevelManager.Instance.LoadScene("Tutorial");
+
             if (_cutSceneAllowed)
                 LevelManager.Instance.LoadScene("CutScene");
             else
                 LevelManager.Instance.LoadScene("StartTavern");
-
+            
         }
         else
         {
