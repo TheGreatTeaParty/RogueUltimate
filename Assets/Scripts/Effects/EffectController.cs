@@ -7,10 +7,12 @@ public class EffectController
 {
     private List<Effect> _effects;
     public List<Effect> Effects => _effects;
+    public Action<Effect,bool> OnEffectChanged;
 
     public EffectController()
     {
         _effects = new List<Effect>();
+
     }
 
     public void AddEffect(Effect effect,CharacterStat character)
@@ -23,6 +25,7 @@ public class EffectController
         {
             _effects.Add(effect);
             effect.CreateFX();
+            OnEffectChanged?.Invoke(effect,true);
         }
 
     }
@@ -34,6 +37,7 @@ public class EffectController
             if (_effects[i].EffectType == type)
             {
                 Effect effect = _effects[i];
+                OnEffectChanged?.Invoke(effect,false);
                 _effects.Remove(_effects[i]);
                 effect.RemoveEffect();
             }
@@ -49,6 +53,7 @@ public class EffectController
             else if(_effects[i].Ticks == 0)
             {
                 Effect effect = _effects[i];
+                OnEffectChanged?.Invoke(effect, false);
                 _effects.Remove(_effects[i]);
                 effect.RemoveEffect();
             }

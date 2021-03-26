@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
+using TMPro;
+
 public class ManaBar : Bar
 {
-
+    public TextMeshProUGUI Value;
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.0001f);
@@ -30,5 +32,11 @@ public class ManaBar : Bar
         if (slider.value < value)
             changedslider.value = value;
         SetCurrentValue(value);
+        SetTextValue(value);
+    }
+    private void SetTextValue(float _current)
+    {
+        if(Value)
+            Value.SetText(_current + "/" + CharacterManager.Instance.Stats.Intelligence.MaxMana.Value.ToString());
     }
 }

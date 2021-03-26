@@ -32,7 +32,7 @@ public class InterfaceManager : MonoBehaviour
     public float panelTimeScale;
     
     // Cache
-    [SerializeField] public FixedJoystick fixedJoystick;
+    [SerializeField] public DynamicJoystick fixedJoystick;
     [SerializeField] public JoystickAttack joystickAttack;
     [SerializeField] public PlayerButtonCallBack playerButton;
 
@@ -46,7 +46,7 @@ public class InterfaceManager : MonoBehaviour
         StartCoroutine(Init());
 
         // Cache
-        fixedJoystick = Instance.GetComponentInChildren<FixedJoystick>();
+        fixedJoystick = Instance.GetComponentInChildren<DynamicJoystick>();
     }
     
     private IEnumerator Init()
