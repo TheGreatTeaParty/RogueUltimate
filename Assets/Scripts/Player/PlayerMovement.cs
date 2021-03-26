@@ -23,15 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     private PlayerStat _playerStat;
-    private bool _isWaiting = false;
-    private bool _readyForRoll = false;
-
-    private float _timeLeft = 0f;
-    private float _timeToWait = 0.6f;
 
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
-    private Vector3 _prevDragDir;
     public bool isConrolDisabled = false;
 
     private CharacterAudio characterAudio;
@@ -60,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     void Update() 
     {
         ProcessInputs();
-        HandleRollingOptions();
+        if (_rollCurrentCD > 0) _rollCurrentCD -= Time.deltaTime;
     }
     
 
@@ -186,59 +180,19 @@ public class PlayerMovement : MonoBehaviour
         rb2D.AddForce(_direction * (PushPower * 100));
     }
 
-    private void Roll(Vector3 dir)
+    public void Roll()
     {
-        _rollCurrentCD = _rollCD;
-        if (_playerStat.ModifyStamina(-8))
+        if (movementSpeed > 0 && _rollCurrentCD <= 0 && !_stopped)
         {
-            animator.SetTrigger("Roll");
-            rb2D.AddForce(dir * (rb2D.mass * 600));
-            characterAudio.PlayExtra(0);
+            _rollCurrentCD = _rollCD;
+            if (_playerStat.ModifyStamina(-4))
+            {
+                animator.SetTrigger("Roll");
+                rb2D.AddForce(_movementDirection * (rb2D.mass * 600));
+                characterAudio.PlayExtra(0);
 
-            StartCoroutine(DisablePlayerControll(ROLL_TIME));
+                StartCoroutine(DisablePlayerControll(ROLL_TIME));
+            }
         }
-    }
-    private void HandleRollingOptions()
-    {
-        if (_timeLeft > 0)
-            _timeLeft -= Time.deltaTime;
-        else
-        {
-            _timeLeft = 0;
-            _isWaiting = false;
-        }
-
-        if (_rollCurrentCD > 0)
-            _rollCurrentCD -= Time.deltaTime;
-        else
-            _rollCurrentCD = 0;
-
-        if (movementSpeed == 0)
-            _readyForRoll = true;
-
-        //Checking for the second drag to roll
-        if (movementSpeed > 0 && !_isWaiting)
-        {
-            _isWaiting = true;
-            _timeLeft = _timeToWait;
-            _readyForRoll = false;
-            _prevDragDir = _movementDirection;
-        }
-
-        else if (movementSpeed > 0 && _isWaiting
-            && _readyForRoll && _rollCurrentCD == 0 &&
-            !_stopped && CompareDirections())
-            Roll(_movementDirection);
-
-    }
-    private bool CompareDirections()
-    {
-        if ((_movementDirection.x > 0 && _prevDragDir.x < 0) ||
-            _movementDirection.x < 0 && _prevDragDir.x > 0)
-            return false;
-        if ((_movementDirection.y > 0 && _prevDragDir.y < 0) ||
-            _movementDirection.y < 0 && _prevDragDir.y > 0)
-            return false;
-        return true;
     }
 }

@@ -37,6 +37,6 @@ public class StaminaBar : Bar
     private void SetTextValue(float _current)
     {
         if(Value)
-            Value.SetText(_current + "/" + CharacterManager.Instance.Stats.Agility.MaxStamina.Value.ToString());
+            Value.SetText((int)_current + "/" + ((int)CharacterManager.Instance.Stats.Agility.MaxStamina.Value).ToString());
     }
 }

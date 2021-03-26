@@ -37,6 +37,6 @@ public class HealthBar : Bar
     private void SetTextValue(float _current)
     {
         if (Value)
-            Value.SetText(_current + "/" + CharacterManager.Instance.Stats.Strength.MaxHealth.Value.ToString());
+            Value.SetText((int)_current + "/" + ((int)CharacterManager.Instance.Stats.Strength.MaxHealth.Value).ToString());
     }
 }
