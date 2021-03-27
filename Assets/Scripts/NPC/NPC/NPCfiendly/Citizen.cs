@@ -25,8 +25,11 @@ public class Citizen : AI, IInteractable
     protected override void Start()
     {
         base.Start();
-        _currentHangingIndex = Random.Range(0, hangingPoints.Length);
-        target = hangingPoints[_currentHangingIndex];
+        if (hangingPoints.Length > 0)
+        {
+            _currentHangingIndex = Random.Range(0, hangingPoints.Length);
+            target = hangingPoints[_currentHangingIndex];
+        }
         _dialogSystem = GetComponentInChildren<DialogSystem>();
     }
 
@@ -36,6 +39,7 @@ public class Citizen : AI, IInteractable
         {
             case CitizenState.Hanging:
                 {
+                    if (hangingPoints.Length < 1) { _state = CitizenState.Standing; break; }
                     //If the NPC reach the point
                     if (Vector2.Distance(transform.position, hangingPoints[_currentHangingIndex].transform.position) < 0.2f)
                          isStopped = true;

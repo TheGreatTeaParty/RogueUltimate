@@ -28,7 +28,7 @@ public class DialogSystem : MonoBehaviour
     public void StartDialog(Dialog dialog)
     {
         //Return Joystick to 0 position;
-        InterfaceManager.Instance.GetComponentInChildren<FixedJoystick>().ResetInput();
+        InterfaceManager.Instance.GetComponentInChildren<DynamicJoystick>().ResetInput();
         nameText.text = dialog.name;
 
         _sentences.Clear();
