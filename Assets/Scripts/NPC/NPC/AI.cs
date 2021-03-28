@@ -39,7 +39,7 @@ public class AI : MonoBehaviour
     protected bool isAttack = false;
 
     private LayerMask layerMask;
-    private Collider2D _collider;
+    protected Collider2D _collider;
 
     public delegate void OnAttackedEvent();
     public OnAttackedEvent OnAttacked;

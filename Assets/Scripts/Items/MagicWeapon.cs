@@ -78,9 +78,9 @@ public class MagicWeapon : EquipmentItem
             player.playerMovement.transform.position + direction, Quaternion.identity);
         var crit = playerStat.GetMagicalCritDamage();
         if(_effect)
-            magic.GetComponent<FlyingObject>().SetData(physicalDamage,crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value,Instantiate(_effect));
+            magic.GetComponent<FlyingObject>().SetData(magicDamage, crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value,Instantiate(_effect));
         else
-            magic.GetComponent<FlyingObject>().SetData(physicalDamage, crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value);
+            magic.GetComponent<FlyingObject>().SetData(magicDamage, crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value);
     }
     
     public override AttackType Echo()
