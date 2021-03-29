@@ -6,7 +6,8 @@ public enum NPCstate
 {
     Chasing = 0,
     Attacking,
-    Hanging
+    Hanging,
+    Waiting
 }
 
 

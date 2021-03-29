@@ -17,7 +17,7 @@ public class EnemyAI : AI
 
         stats = GetComponent<EnemyStat>();
         stats.onDie += Die;
-        state = NPCstate.Hanging;
+        state = NPCstate.Waiting;
     }
     
     protected virtual void FixedUpdate()
@@ -45,6 +45,18 @@ public class EnemyAI : AI
                     StateHanging();
                     break;
                 }
+            case NPCstate.Waiting:
+                {
+                    StopMoving();
+                    if (!_isTriggered)
+                        EnemyTrigger();
+                    else
+                    {
+                        StartMoving();
+                        state = NPCstate.Chasing;
+                    }
+                    break;
+                }
         }
     }
     
@@ -65,11 +77,15 @@ public class EnemyAI : AI
     {
         if (path != null)
         {
-            if (!_isTriggered)
+            if (Vector2.Distance(_collider.bounds.center,followPosition) < 1f || reachedEnd)
             {
                 StopMoving();
-                EnemyTrigger();
+                state = NPCstate.Waiting;
             }
+
+            if (!isStopped)
+                rb.MovePosition(transform.position + (Vector3)direction * movementSpeed * Time.deltaTime);
+
         }
     }
     
