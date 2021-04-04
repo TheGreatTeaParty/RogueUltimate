@@ -14,6 +14,7 @@ public enum EquipmentType
 [CreateAssetMenu(menuName = "Items/EquipmentItem")]
 public class EquipmentItem : Item
 {
+    public ArmorType EqipmnetArmorType = ArmorType.None;
     [SerializeField] protected EquipmentType equipmentType;
     [SerializeField] protected RuntimeAnimatorController equipmentAnimations;
     [SerializeField] protected Sprite[] animation;
@@ -115,5 +116,10 @@ public class EquipmentItem : Item
     {
         return requiredAgility;
     }
-    
+    public enum ArmorType
+    {
+        None = 0,
+        Magical = 1,
+        Physical = 2,
+    };
 }
