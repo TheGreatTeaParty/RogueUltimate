@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//[CreateAssetMenu(menuName = "Traits/NoBackPack")]
+[CreateAssetMenu(menuName = "Traits/NoBackPack")]
 public class NoBackPack : Trait
 {
     public override void ApplyTrait()
     {
-        //Change Invemtory size here:
+        CharacterManager.Instance.Inventory.ChangeInventoryCapasity(1);
     }
     public override void DeleteTrait()
     {

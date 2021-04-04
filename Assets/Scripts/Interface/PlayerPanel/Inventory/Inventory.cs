@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour
         get => itemSlots;
         set => itemSlots = value;
     }
+    private int InventorySlots = 12;
 
 
     public event Action<ItemSlot> OnClickEvent;
@@ -37,6 +38,7 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         itemSlots = inventoryParent.GetComponentsInChildren<ItemSlot>();
+
         quickSlots = quickSlotsParent.GetComponentsInChildren<QuickSlot>();
     }
     
@@ -136,6 +138,19 @@ public class Inventory : MonoBehaviour
 
         UpdateGold();
 
+    }
+    public void ChangeInventoryCapasity(int capacity)
+    {
+        InventorySlots = capacity;
+        for (int i = InventorySlots; i < itemSlots.Length; ++i)
+        {
+            itemSlots[i].gameObject.SetActive(false);
+        }
+    }
+
+    public int GetInventoryCapacity()
+    {
+        return InventorySlots;
     }
 
     public void UpdateGold()

@@ -70,6 +70,7 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnStaminaChanged;
     public Action<float> OnManaChanged;
     public Action<float> OnXPChanged;
+    public ITraitReqired EquipmentTraitReq;
 
     public TraitHolder PlayerTraits;
 
@@ -403,5 +404,21 @@ public class PlayerStat : CharacterStat, IDamaged
     public bool TakeDamage(float phyDamage, float magDamage, bool crit)
     {
         return TakeDamage(phyDamage, magDamage);
+    }
+
+    public bool CheckRequirenments(EquipmentItem equipmentItem)
+    {
+        if (Agility.GetBaseValue() >= equipmentItem.GetRequiredAgility() &&
+              Strength.GetBaseValue() >= equipmentItem.GetRequiredStrength() &&
+                  Intelligence.GetBaseValue() >= equipmentItem.GetRequiredIntelligence())
+        {
+            if(EquipmentTraitReq!= null)
+            {
+                return EquipmentTraitReq.ISAppropriate(equipmentItem);
+            }
+            return true;
+        }
+        else
+            return false;
     }
 }

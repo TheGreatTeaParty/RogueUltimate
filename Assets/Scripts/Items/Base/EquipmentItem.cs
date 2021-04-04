@@ -8,8 +8,6 @@ public enum EquipmentType
     Amulet = 3,
     Rune = 4,
     Attribute = 5,
-    Lamp = 6
-    
 }
 
 

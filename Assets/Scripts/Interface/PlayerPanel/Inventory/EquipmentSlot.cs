@@ -45,12 +45,7 @@ public class EquipmentSlot : ItemSlot, IPointerClickHandler
 
     public bool HasNeededStats(EquipmentItem equipmentItem)
     {
-        if (CharacterManager.Instance.Stats.Agility.GetBaseValue() >= equipmentItem.GetRequiredAgility() && 
-                CharacterManager.Instance.Stats.Strength.GetBaseValue() >= equipmentItem.GetRequiredStrength() && 
-                    CharacterManager.Instance.Stats.Intelligence.GetBaseValue() >= equipmentItem.GetRequiredIntelligence())
-            return true;
-        else 
-            return false;
+        return CharacterManager.Instance.Stats.CheckRequirenments(equipmentItem);
     }
     
 }
