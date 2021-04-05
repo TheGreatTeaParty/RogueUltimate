@@ -18,7 +18,7 @@ public class Kaban : EnemyAI
 
     [SerializeField]
     private CapsuleCollider2D _damageAreaCollider;
-
+    private KabanArea kabanArea;
     // Cache
     private Animator _animator;
 
@@ -28,6 +28,7 @@ public class Kaban : EnemyAI
         base.Start();
         
         _animator = GetComponent<Animator>();
+        kabanArea = GetComponentInChildren<KabanArea>();
     }
 
     protected override void Update()
@@ -58,6 +59,7 @@ public class Kaban : EnemyAI
         _finalPos = target.transform.position;
         _position = (_finalPos - transform.position).normalized;
         _damageAreaCollider.enabled = true;
+        kabanArea.IgnoreWallForASecond();
         _isRage = true;
         _preparing = false;
     }

@@ -17,6 +17,7 @@ public class CharacterStat : MonoBehaviour
     [SerializeField] protected float maxHealth = 100;
     protected float currentHealth;
     protected float damageReceived;
+    public bool AllowControll = true;
 
     // Effects 
     public EffectController EffectController;

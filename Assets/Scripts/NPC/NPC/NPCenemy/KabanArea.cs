@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class KabanArea : MonoBehaviour
 {
     private float _physicalDamage;
     private float _magicDamage;
+    private bool IgnoreWalls = false;
     private Kaban _kaban;
     
     // Cache
@@ -31,18 +33,31 @@ public class KabanArea : MonoBehaviour
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            _parentAnimator.SetTrigger("Crash");
-            _parentAnimator.SetBool("HitPlayer", false);
-            _kaban.SetHit(false);
+            if (!IgnoreWalls)
+            {
+                _parentAnimator.SetTrigger("Crash");
+                _parentAnimator.SetBool("HitPlayer", false);
+                _kaban.SetHit(false);
+            }
         }
 
         else if(collision.gameObject.layer == LayerMask.NameToLayer("EnvObjects"))
         {
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
-            _parentAnimator.SetTrigger("Crash");
-            _parentAnimator.SetBool("HitPlayer", false);
-            _kaban.SetHit(false);
+            return;
         }
     }
-    
+    public void IgnoreWallForASecond()
+    {
+        StartCoroutine("Wait");
+    }
+
+    public IEnumerator Wait()
+    {
+        IgnoreWalls = true;
+        // Start function WaitAndPrint as a coroutine
+        yield return new WaitForSeconds(1f);
+        IgnoreWalls = false;
+    }
+
 }

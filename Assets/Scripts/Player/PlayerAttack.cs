@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     public OnAttacked onAttacked;
 
     public Action<AttackType> EndAttack;
-
+    public bool AllowedToAttack = true;
     // Cache
     private PlayerStat _playerStat;
     private PlayerMovement _playerMovement;
@@ -50,27 +50,29 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-
-        if (_playerAttackSpeed != _playerStat.AttackSpeed.Value)
-            _playerAttackSpeed = _playerStat.AttackSpeed.Value;
-
-        Equipment equipment = CharacterManager.Instance.Equipment;
-        EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
-
-        if (!_isAttacking && !_playerMovement.IsStopped())
+        if (AllowedToAttack)
         {
-            _isAttacking = true;
+            if (_playerAttackSpeed != _playerStat.AttackSpeed.Value)
+                _playerAttackSpeed = _playerStat.AttackSpeed.Value;
 
-            //Calculate attack time depanding on the item type:
-            if (weapon && weapon.Echo() == AttackType.Magic)
-                _currentAttackCD = _playerStat.CastSpeed.Value;
-            else
-                _currentAttackCD = _playerStat.AttackSpeed.Value;
+            Equipment equipment = CharacterManager.Instance.Equipment;
+            EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
 
-            //Start Attack enumirator:
-            attackCoroutine = AttackAnimationWait(weapon);
-            StartCoroutine(attackCoroutine);
+            if (!_isAttacking && !_playerMovement.IsStopped())
+            {
+                _isAttacking = true;
 
+                //Calculate attack time depanding on the item type:
+                if (weapon && weapon.Echo() == AttackType.Magic)
+                    _currentAttackCD = _playerStat.CastSpeed.Value;
+                else
+                    _currentAttackCD = _playerStat.AttackSpeed.Value;
+
+                //Start Attack enumirator:
+                attackCoroutine = AttackAnimationWait(weapon);
+                StartCoroutine(attackCoroutine);
+
+            }
         }
     }
 

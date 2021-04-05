@@ -70,17 +70,21 @@ public class PlayerStat : CharacterStat, IDamaged
     public Action<float> OnStaminaChanged;
     public Action<float> OnManaChanged;
     public Action<float> OnXPChanged;
+    public Action OnEvadeTriggered;
     public ITraitReqired EquipmentTraitReq;
 
     public TraitHolder PlayerTraits;
 
     public PlayerMovement playerMovement;
+    public PlayerAttack playerAttack;
     
     
     private void Start()
     {
         PlayerTraits = new TraitHolder();
         playerMovement = GetComponent<PlayerMovement>();
+        playerAttack = GetComponent<PlayerAttack>();
+
         _xp = 0;
         level = 1;
         
@@ -93,6 +97,12 @@ public class PlayerStat : CharacterStat, IDamaged
     }
     protected override void Update()
     {
+        //If we are disbled to move and Attack:
+        if (!AllowControll)
+        {
+            playerMovement.StopMoving();
+            playerAttack.AllowedToAttack = false;
+        }
         if (_timeLeft <= 0)
         {
             //Health Regen
@@ -303,6 +313,8 @@ public class PlayerStat : CharacterStat, IDamaged
                 ScreenShakeController.Instance.StartShake(0.17f, 1f);
             return true;
         }
+        //Trigger Evade:
+
         return false;
     }
 
@@ -374,6 +386,7 @@ public class PlayerStat : CharacterStat, IDamaged
         {
             return false;
         }
+        OnEvadeTriggered?.Invoke();
         return true;
     }
 

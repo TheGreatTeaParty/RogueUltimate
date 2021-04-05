@@ -17,6 +17,17 @@ public class Goblin : Warrior
         animator = GetComponent<Animator>();
     }
 
+    protected override void StateWaiting()
+    {
+        StopMoving();
+        if (!_isTriggered)
+            EnemyTrigger();
+        else
+        {
+            return;
+        }
+    }
+
     protected override void Attack()
     {
         GoblinStat _goblinStats = stats as GoblinStat;
@@ -37,11 +48,13 @@ public class Goblin : Warrior
 
         isAttack = false;
 
-        state = NPCstate.Hanging;
+        state = NPCstate.Waiting;
         Vector2 direction = (target.transform.position - transform.position);
         Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
         if (IsPositionAvailable(runBack))
+        { 
             Roll(-direction);
+        }
         else
         {
             state = NPCstate.Chasing;

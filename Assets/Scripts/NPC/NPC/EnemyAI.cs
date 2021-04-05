@@ -9,7 +9,7 @@ public class EnemyAI : AI
     [SerializeField] protected float attackRange = 2f;
 
     protected Vector3 followPosition;
-    private bool _isTriggered = false;
+    protected bool _isTriggered = false;
 
     protected override void Start()
     {
@@ -47,14 +47,11 @@ public class EnemyAI : AI
                 }
             case NPCstate.Waiting:
                 {
-                    StopMoving();
-                    if (!_isTriggered)
-                        EnemyTrigger();
-                    else
-                    {
-                        StartMoving();
-                        state = NPCstate.Chasing;
-                    }
+                    StateWaiting();
+                    break;
+                }
+            case NPCstate.IDLE:
+                {
                     break;
                 }
         }
@@ -88,8 +85,18 @@ public class EnemyAI : AI
 
         }
     }
-    
-    private void EnemyTrigger()
+    protected virtual void StateWaiting()
+    {
+        StopMoving();
+        if (!_isTriggered)
+            EnemyTrigger();
+        else
+        {
+            StartMoving();
+            state = NPCstate.Chasing;
+        }
+    }
+    protected void EnemyTrigger()
     {
         if (Vector2.Distance(transform.position, target.transform.position) < detectionRange)
         {
@@ -145,5 +152,13 @@ public class EnemyAI : AI
             return true;
         }
         return false;
+    }
+    public void DisableControll()
+    {
+        state = NPCstate.IDLE;
+    }
+    public void EnableControll()
+    {
+        state = NPCstate.Chasing;
     }
 }

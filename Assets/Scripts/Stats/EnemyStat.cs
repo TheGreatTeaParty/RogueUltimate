@@ -31,6 +31,7 @@ public class EnemyStat : CharacterStat, IDamaged
     private MaterialPropertyBlock _collideMaterial;
     private SpriteRenderer _materialInfo;
 
+    private bool _hasChanged = false;
     private void Start()
     {
         _enemyAi = GetComponent<EnemyAI>();
@@ -48,8 +49,29 @@ public class EnemyStat : CharacterStat, IDamaged
         _materialInfo = GetComponent<SpriteRenderer>();
         _materialInfo.GetPropertyBlock(_collideMaterial);
     }
+    protected override void Update()
+    {
+        base.Update();
+        if (!AllowControll)
+        {
+            if (_enemyAi)
+            {
+                _hasChanged = true;
+                _enemyAi.StopMoving();
+                _enemyAi.DisableControll();
+            }
+        }
+        else
+        {
+            if (_enemyAi && _hasChanged)
+            {
+                _enemyAi.StartMoving();
+                _enemyAi.EnableControll();
+                _hasChanged = false;
+            }
+        }
+    }
 
-   
     public override bool TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
