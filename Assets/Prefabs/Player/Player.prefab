@@ -572,7 +572,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: cecb379343ca7432989f5e5bc6f85d59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -668,6 +668,7 @@ MonoBehaviour:
   magicDamage:
     baseValue: 0
   maxHealth: 100
+  AllowControll: 1
   _statPoints: 0
   attackRange:
     baseValue: 0
@@ -720,6 +721,7 @@ MonoBehaviour:
     MagicalCrit:
       baseValue: 0
   playerMovement: {fileID: 0}
+  playerAttack: {fileID: 0}
 --- !u!114 &9134001256983752150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,6 +738,7 @@ MonoBehaviour:
   FistAttackRange: 0.3
   FistPushForce: 1.2
   FistStaminaCost: -10
+  AllowedToAttack: 1
 --- !u!114 &1094610556330234598
 MonoBehaviour:
   m_ObjectHideFlags: 0

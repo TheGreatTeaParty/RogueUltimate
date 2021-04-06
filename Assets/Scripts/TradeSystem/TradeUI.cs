@@ -44,15 +44,23 @@ public class TradeUI : MonoBehaviour
             npcSlots[i].Item = null;
         
         i = 0;
-        for (; i < tradeManager.playerInventory.Items.Count && i < playerSlots.Length; i++)
+        for (; i < tradeManager.playerInventory.GetInventoryCapacity(); i++)
         {
-            playerSlots[i].Item = tradeManager.playerInventory.ItemSlots[i].Item;
-            playerSlots[i].Amount = tradeManager.playerInventory.ItemSlots[i].Amount;
+            if (tradeManager.playerInventory.ItemSlots[i])
+            {
+                playerSlots[i].Item = tradeManager.playerInventory.ItemSlots[i].Item;
+                playerSlots[i].Amount = tradeManager.playerInventory.ItemSlots[i].Amount;
+            }
+            else
+            {
+                playerSlots[i].Item = null;
+                playerSlots[i].Amount = 0;
+            }
         }
-        for (; i < playerSlots.Length; i++)
+        
+        for(;i < playerSlots.Length; ++i)
         {
-            playerSlots[i].Item = null;
-            playerSlots[i].Amount = 0;
+            playerSlots[i].gameObject.SetActive(false);
         }
         
         gold.SetText(tradeManager.playerInventory.Gold.ToString());

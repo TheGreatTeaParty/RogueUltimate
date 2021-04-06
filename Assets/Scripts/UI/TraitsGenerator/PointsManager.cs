@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PointsManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PointsManager : MonoBehaviour
     public IntelligenceAttribute Intelligence;
     [Space]
     public TraitsGenerator generator;
+    public Button SaveBtn;
 
     [Space]
     public TextMeshProUGUI Points;
@@ -90,6 +92,7 @@ public class PointsManager : MonoBehaviour
             Strength.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
             PointsAvailable--;
             UpdateStrength();
+            TurnSaveBtn();
         }
     }
 
@@ -100,6 +103,7 @@ public class PointsManager : MonoBehaviour
             Agility.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
             PointsAvailable--;
             UpdateAgility();
+            TurnSaveBtn();
         }
     }
 
@@ -110,6 +114,7 @@ public class PointsManager : MonoBehaviour
             Intelligence.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
             PointsAvailable--;
             UpdateInt();
+            TurnSaveBtn();
         }
     }
 
@@ -223,14 +228,33 @@ public class PointsManager : MonoBehaviour
         UpdateAgility();
         UpdateInt();
     }
+    private void TurnSaveBtn()
+    {
+        if (SaveBtn)
+        {
+            SaveBtn.interactable = true;
+        }
+    }
 
     public void SaveChanges()
     {
         var player = CharacterManager.Instance.Stats;
         player._statPoints = PointsAvailable;
-        player.AddAttributePoint(StatType.Physique,Strength.GetBaseValue() - player.Strength.GetBaseValue());
-        player.AddAttributePoint(StatType.Mind,Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue());
-        player.AddAttributePoint(StatType.Reaction,Agility.GetBaseValue() - player.Agility.GetBaseValue());
+        if (generator)
+        {
+            player.AddAttributePoint(StatType.Physique, Strength.GetBaseValue() - player.Strength.GetBaseValue());
+            player.AddAttributePoint(StatType.Mind, Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue());
+            player.AddAttributePoint(StatType.Reaction, Agility.GetBaseValue() - player.Agility.GetBaseValue());
+        }
+        else
+        {
+            if (Strength.GetBaseValue() - player.Strength.GetBaseValue() > 0)
+                player.AddAttributePoint(StatType.Physique, Strength.GetBaseValue() - player.Strength.GetBaseValue());
+            if (Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue() > 0)
+                player.AddAttributePoint(StatType.Mind, Intelligence.GetBaseValue() - player.Intelligence.GetBaseValue());
+            if (Agility.GetBaseValue() - player.Agility.GetBaseValue() > 0)
+                player.AddAttributePoint(StatType.Reaction, Agility.GetBaseValue() - player.Agility.GetBaseValue());
+        }
     }
 
     private void CheckChain()

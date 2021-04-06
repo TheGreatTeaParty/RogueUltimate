@@ -158,7 +158,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Physique:
                     {
-                        float healthPercent = Strength.MaxHealth.Value / currentHealth;
+                        float healthPercent = currentHealth/ Strength.MaxHealth.Value;
                         Strength.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
                         currentHealth = Strength.MaxHealth.Value * healthPercent;
                         OnHealthChanged?.Invoke(currentHealth);
@@ -167,7 +167,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Mind:
                     {
-                        float ManaPercent = Intelligence.MaxMana.Value / _currentMana;
+                        float ManaPercent = _currentMana / Intelligence.MaxMana.Value;
                         Intelligence.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
                         _currentMana = Intelligence.MaxMana.Value * ManaPercent;
                         OnManaChanged?.Invoke(_currentMana);
@@ -176,7 +176,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Reaction:
                     {
-                        float StaminaPercent = Agility.MaxStamina.Value / _currentStamina;
+                        float StaminaPercent =_currentStamina / Agility.MaxStamina.Value;
                         Agility.ModifyAttribute(new StatModifier(1, StatModifierType.Flat));
                         _currentStamina = Agility.MaxStamina.Value * StaminaPercent;
                         OnStaminaChanged?.Invoke(_currentStamina);
@@ -198,7 +198,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Physique:
                     {
-                        float healthPercent = Strength.MaxHealth.Value / currentHealth;
+                        float healthPercent = currentHealth / Strength.MaxHealth.Value;
                         Strength.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
                         currentHealth = Strength.MaxHealth.Value * healthPercent;
                         OnHealthChanged?.Invoke(currentHealth);
@@ -207,7 +207,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Mind:
                     {
-                        float ManaPercent = Intelligence.MaxMana.Value / _currentMana;
+                        float ManaPercent = _currentMana / Intelligence.MaxMana.Value;
                         Intelligence.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
                         _currentMana = Intelligence.MaxMana.Value * ManaPercent;
                         OnManaChanged?.Invoke(_currentMana);
@@ -216,7 +216,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
                 case StatType.Reaction:
                     {
-                        float StaminaPercent = Agility.MaxStamina.Value / _currentStamina;
+                        float StaminaPercent = _currentStamina / Agility.MaxStamina.Value;
                         Agility.ModifyAttribute(new StatModifier(value, StatModifierType.Flat));
                         _currentStamina = Agility.MaxStamina.Value * StaminaPercent;
                         OnStaminaChanged?.Invoke(_currentStamina);

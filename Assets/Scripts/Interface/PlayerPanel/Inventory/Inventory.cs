@@ -107,6 +107,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
+            if(i == InventorySlots) { return true; }
             if (itemSlots[i].Item == null)
                 return false;
         }
@@ -117,7 +118,7 @@ public class Inventory : MonoBehaviour
     public void SetInventoryOnStart()
     {
         int i = 0;
-        for (; i < items.Count && i < itemSlots.Length; i++)
+        for (; i < items.Count && i < itemSlots.Length && i < InventorySlots; i++)
         {
             itemSlots[i].Item = items[i].GetCopy();
             itemSlots[i].Amount = 1;
