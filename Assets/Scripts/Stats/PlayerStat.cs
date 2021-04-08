@@ -27,7 +27,6 @@ public class PlayerStat : CharacterStat, IDamaged
     public int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
-
  
     [Space]
     [SerializeField] private Stat attackRange;
@@ -255,6 +254,7 @@ public class PlayerStat : CharacterStat, IDamaged
 
         onChangeCallback?.Invoke();
         OnStaminaChanged?.Invoke(_currentStamina);
+        _timeLeft = TICK_TIME;
 
         return true;
     }
@@ -269,7 +269,8 @@ public class PlayerStat : CharacterStat, IDamaged
 
         onChangeCallback?.Invoke();
         OnManaChanged?.Invoke(_currentMana);
-     
+        _timeLeft = TICK_TIME;
+
         return true;
     }
     public bool CheckHealth(float value)
