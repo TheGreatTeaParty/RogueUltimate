@@ -16,13 +16,14 @@ MonoBehaviour:
   tier: 1
   price: 80
   itemName: Longsword
-  description: '+6 Physical Damage '
+  description: '+8 Physical Damage '
   sprite: {fileID: -488721925442295091, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
+  EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 6ede747c3098b4c209d011fc75aacdfe, type: 2}
   animation: []
-  physicalDamageBonus: 6
+  physicalDamageBonus: 8
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -34,7 +35,12 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
-  attackSpeedMofifier: 1
+  requiredStrength: 0
+  requiredIntelligence: 0
+  requiredAgility: 0
+  _effect: {fileID: 0}
+  WeaponType: 0
+  attackSpeedMofifier: 0.5
   attackRangeMofifier: 0.4
   knockBackModifier: 38
   pushForceMofifier: 25
@@ -43,3 +49,5 @@ MonoBehaviour:
   requiredHealth: 0
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
+  StartAttackSound: {fileID: 0}
+  EndAttackSound: {fileID: 0}

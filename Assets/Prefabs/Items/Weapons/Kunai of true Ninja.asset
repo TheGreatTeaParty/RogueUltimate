@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 8
   tier: 3
-  price: 0
+  price: 600
   itemName: Kunai of true Ninja
-  description: 
-  sprite: {fileID: 8033092973025764044, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
+  description: +1 Physical Damage and +10% Physical Protection
+  sprite: {fileID: 21300000, guid: 7c3b78dd1a8a4504c97704a869ff8dc6, type: 3}
   stackMaxSize: 1
+  EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: c2b26662e4ef34248ba610dd937f8804, type: 2}
   animation: []
@@ -34,6 +35,11 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 10
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
+  requiredStrength: 0
+  requiredIntelligence: 0
+  requiredAgility: 4
+  _effect: {fileID: 0}
+  WeaponType: 0
   attackSpeedMofifier: 0.1
   attackRangeMofifier: 0.2
   knockBackModifier: 10
@@ -43,3 +49,5 @@ MonoBehaviour:
   requiredHealth: 0
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
+  StartAttackSound: {fileID: 8300000, guid: 1e910e11263b3422790ce71f4a50fe79, type: 3}
+  EndAttackSound: {fileID: 0}

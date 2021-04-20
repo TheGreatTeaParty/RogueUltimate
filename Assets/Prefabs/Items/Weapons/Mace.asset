@@ -19,6 +19,7 @@ MonoBehaviour:
   description: +7 Physical damage
   sprite: {fileID: -7573354855677281409, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
+  EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 0643ff251214a4a76959d4027dc9617a, type: 2}
   animation: []
@@ -34,12 +35,19 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
-  attackSpeedMofifier: 1.2
+  requiredStrength: 0
+  requiredIntelligence: 0
+  requiredAgility: 0
+  _effect: {fileID: 0}
+  WeaponType: 0
+  attackSpeedMofifier: 0.7
   attackRangeMofifier: 0.5
   knockBackModifier: 50
   pushForceMofifier: 20
-  requiredStamina: -25
+  requiredStamina: -8
   requiredMana: 0
   requiredHealth: 0
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
+  StartAttackSound: {fileID: 0}
+  EndAttackSound: {fileID: 0}
