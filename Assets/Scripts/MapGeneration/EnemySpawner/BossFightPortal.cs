@@ -6,7 +6,7 @@ public class BossFightPortal : MonoBehaviour
     [SerializeField] private GameObject healthbar;
     [SerializeField] private Slider bosshealthSlider;
     [SerializeField] private GameObject portal;
-
+    [SerializeField] private GameObject portalEmpty;
     #region Singleton
     public static BossFightPortal Instance;
     void Awake()
@@ -27,6 +27,7 @@ public class BossFightPortal : MonoBehaviour
     public void TurnThePortal()
     {
         portal.SetActive(true);
+        portalEmpty.SetActive(false);
     }
 
     public void HealthBar(bool value)

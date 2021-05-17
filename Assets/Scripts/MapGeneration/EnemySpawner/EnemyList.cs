@@ -5,6 +5,7 @@ public class EnemyList : MonoBehaviour
     [SerializeField] private Transform[] firstTierEnemies;
     [SerializeField] private Transform[] secondTierEnemies;
     [SerializeField] private Transform[] thirdTierEnemies;
+    [SerializeField] private Transform boss;
 
     
     public Transform GenerateFirstTierEnemy()
@@ -20,6 +21,10 @@ public class EnemyList : MonoBehaviour
     public Transform GenerateThirdTierEnemy()
     {
         return thirdTierEnemies[Mathf.FloorToInt(Random.Range(0, thirdTierEnemies.Length))];
+    }
+    public Transform GenerateBoss()
+    {
+        return boss;
     }
 
 

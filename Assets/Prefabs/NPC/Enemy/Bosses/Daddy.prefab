@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 719039738327203957}
   - component: {fileID: 6622613748488169115}
   - component: {fileID: 152449243862510472}
+  - component: {fileID: 7425186754865548472}
   m_Layer: 8
   m_Name: Daddy
   m_TagString: Enemy
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cecb379343ca7432989f5e5bc6f85d59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5004
   m_Sprite: {fileID: 3275221806766075390, guid: 275f35153e8b547099bc94db3e3760fd,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674341074adb44fe2aaad90dcfde0cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: BOSSSw
+  characterName: Daddy
   physicalDamage:
     baseValue: 20
   physicalProtection:
@@ -114,8 +115,8 @@ MonoBehaviour:
   AllowControll: 1
   coin: {fileID: 0}
   XPOrb: {fileID: 0}
-  gainedXP: 0
-  gainedGold: 0
+  gainedXP: 500
+  gainedGold: 750
 --- !u!114 &8116231467878050934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,8 +143,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0015539806, y: -0.009640138}
-  m_Size: {x: 0.107252, y: 0.1407198}
+  m_Offset: {x: -0.009773382, y: -0.19354935}
+  m_Size: {x: 0.16889758, y: 0.16889758}
   m_Direction: 0
 --- !u!50 &8116231467878050891
 Rigidbody2D:
@@ -194,7 +195,7 @@ MonoBehaviour:
   stageTwoHealth: 180
   stageCharacteristicMult: 1.4
   knockBack: 1
-  rockPrefab: {fileID: 687924321173753339, guid: 7896de16f32ac47fcb9f50bb89b272f8,
+  rockPrefab: {fileID: 6189616361567621523, guid: 7abf43b02d6064e0487d84e84aa0565b,
     type: 3}
 --- !u!114 &6622613748488169115
 MonoBehaviour:
@@ -243,3 +244,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7425186754865548472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116231467878050933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c694a65ae65e404ba37501f73b29d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLayer: 5000
+  offSet: -4.67
+  runOnlyOnce: 0

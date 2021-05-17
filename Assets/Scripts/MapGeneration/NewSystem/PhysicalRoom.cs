@@ -77,15 +77,19 @@ public class PhysicalRoom : MonoBehaviour
         return doors[doorIndex].GetSpawnPosition();
     }
     
-    public void MatchTheDoor(Door.Direction direction)
+    public bool MatchTheDoor(Door.Direction direction)
     {
         SetParent(direction);
-        GameObject doorPos = GetPossibleDoor().gameObject;
+        
+        GameObject doorPos = GetPossibleDoor()?.gameObject;
+        if (!doorPos)
+            return false;
         doorPos.GetComponent<Door>().SetState(Door.State.door);
 
         Vector3 doorPosition = doorPos.transform.position;
         Vector3 offSet = doorPosition - transform.position;
         transform.position = transform.position - offSet;
+        return true;
     }
     public void ConnectNextDoor()
     {
@@ -107,6 +111,8 @@ public class PhysicalRoom : MonoBehaviour
         }
 
         int randomIndex = Random.Range(0, temp.Count);
+        if (temp.Count == 0)
+            return null;
         return temp[randomIndex];
     }
 

@@ -7,6 +7,6 @@ public class Lame : Trait
 {
     public override void ApplyTrait()
     {
-        CharacterManager.Instance.Stats.playerMovement.BASE_MOVEMENT_SPEED /= 2;
+        CharacterManager.Instance.Stats.playerMovement.BASE_MOVEMENT_SPEED /= 1.3f;
     }
 }

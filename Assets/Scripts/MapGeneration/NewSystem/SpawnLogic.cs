@@ -62,10 +62,10 @@ public class SpawnLogic : MonoBehaviour
         else if (room._type == RoomType.Event)
             NextRoom = GenerateRandomRoom(PossibleEventRooms);
 
-        else if (room._type == RoomType.Event)
-            NextRoom = GenerateRandomRoom(PossibleBossRooms);
+        else if (room._type == RoomType.Boss)
+            NextRoom = PossibleBossRooms[0];
 
-        else  //(room._type == RoomType.Normal)
+        else 
             NextRoom = GenerateRandomRoom(PossibleNormalRooms);
 
         //Check the previous room and get empty door
@@ -153,7 +153,11 @@ public class SpawnLogic : MonoBehaviour
             PhysicalRoom currentRoom = newRoom.gameObject.GetComponent<PhysicalRoom>();
             //Move the spawned object to match doors if it is not the first room
             if (position!= Vector3.zero)
-                currentRoom.MatchTheDoor(direction);
+                if(!currentRoom.MatchTheDoor(direction))
+                {
+                    currentRoom.DestroyRoom();
+                    return null;
+                }
 
             //Check does it overlap with something:
             if(currentRoom.CheckOverlapping())

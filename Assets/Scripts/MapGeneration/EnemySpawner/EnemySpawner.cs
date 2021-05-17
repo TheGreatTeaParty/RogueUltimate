@@ -37,6 +37,11 @@ public class EnemySpawner : MonoBehaviour
 
     public Transform GetEnemy(RoomType roomType)
     {
+        if(roomType == RoomType.Boss)
+        {
+            return _enemyList.GenerateBoss();
+        }
+
         ClearedRooms++;
         UpdateTiersBlocks();
         var sum = firstTierSpawnProbability + secondTierSpawnProbability + thirdTierSpawnProbability; 
