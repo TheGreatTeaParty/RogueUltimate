@@ -20,7 +20,13 @@ public class EnemySpawner : MonoBehaviour
     [Range(0f, 1f)] public float firstTierSpawnProbability;
     [Range(0f, 1f)] public float secondTierSpawnProbability;
     [Range(0f, 1f)] public float thirdTierSpawnProbability;
+    [Space]
+    public int NumToUnlockSecondTier = 2;
+    public int NumToUnlockThirdTier = 6;
 
+    private static int ClearedRooms = 0;
+    private bool _blockSecondTier = true;
+    private bool _blockThirdTier = true;
 
     private void Start()
     {
@@ -28,8 +34,11 @@ public class EnemySpawner : MonoBehaviour
         _spawnPoints = GetComponents<EnemySpawnPoint>();
     }
 
+
     public Transform GetEnemy(RoomType roomType)
     {
+        ClearedRooms++;
+        UpdateTiersBlocks();
         var sum = firstTierSpawnProbability + secondTierSpawnProbability + thirdTierSpawnProbability; 
         var rand = Random.Range(0f, sum);
         
@@ -40,10 +49,10 @@ public class EnemySpawner : MonoBehaviour
         if (0 <= rand && rand < firstInterval)
             return _enemyList.GenerateFirstTierEnemy();
         
-        if (firstInterval <= rand && rand < secondInterval)
+        if (firstInterval <= rand && rand < secondInterval && !_blockSecondTier)
             return _enemyList.GenerateSecondTierEnemy();
 
-        if (secondInterval <= rand && rand <= thirdInterval && roomType == RoomType.Hub)
+        if (secondInterval <= rand && rand <= thirdInterval && !_blockThirdTier)
             return _enemyList.GenerateThirdTierEnemy();
         else
             return _enemyList.GenerateFirstTierEnemy();
@@ -69,5 +78,13 @@ public class EnemySpawner : MonoBehaviour
         var index = Random.Range(0, range.Length);
         return range.ElementAt(index);
     }
-    
+
+    //It is made to make spawning enemies with proggression of the player:
+    private void UpdateTiersBlocks()
+    {
+        if (ClearedRooms > NumToUnlockSecondTier)
+            _blockSecondTier = false;
+        if (ClearedRooms > NumToUnlockThirdTier)
+            _blockThirdTier = false;
+    }
 }

@@ -95,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + _direction / 2, _playerStat.AttackRange.Value);
+        Gizmos.DrawWireSphere(PlayerOnScene.Instance.playerMovement.PlayerCollider.bounds.center + _direction.normalized/1.5f, _playerStat.AttackRange.Value);
     }
 
     private IEnumerator AttackAnimationWait(EquipmentItem weapon)

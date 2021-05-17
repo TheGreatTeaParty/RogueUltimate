@@ -35,4 +35,5 @@ public enum RoomType
     Reward,
     Shop,
     Event,
+    Boss,
 };

@@ -6,7 +6,6 @@ using UnityEngine;
 public class RoomGraph : MonoBehaviour
 {
     public int RoomNum;
-   
 
     //Spawn a reward room every 4 rooms
     //Ammount of hubs cant be bigger than the number of rewards
@@ -49,8 +48,11 @@ public class RoomGraph : MonoBehaviour
         }
 
         //Add shop to the end:
-        //Using the list inject the SHop at back:
+        //Using the list inject the Shop and Boss at back:
         AddRoom(RoomType.Shop);
+        rooms[rooms.Count - 2].AddNextRoom(rooms[rooms.Count - 1]);
+
+        AddRoom(RoomType.Boss);
         rooms[rooms.Count - 2].AddNextRoom(rooms[rooms.Count-1]);
 
         //Add event to the graph 2d stage!

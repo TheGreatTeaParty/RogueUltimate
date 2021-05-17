@@ -84,7 +84,7 @@ public class MeleeWeapon : EquipmentItem
         
         _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
         Vector3 direction = player.playerMovement.GetDirection();
-        _attackPosition = player.transform.position + direction;
+        _attackPosition = player.playerMovement.PlayerCollider.bounds.center + direction.normalized / 1.5f;
 
 
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, CharacterManager.Instance.Stats.AttackRange.Value, _whatIsEnemy);

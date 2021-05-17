@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TargetLock : MonoBehaviour
 {
-    private GameObject target;
+    private Collider2D target;
+    private Collider2D _playerColider;
     private PlayerCamera playerCamera;
     private PlayerMovement playerMovement;
     private Vector3 dir;
@@ -16,6 +17,7 @@ public class TargetLock : MonoBehaviour
     {
         playerCamera = PlayerCamera.Instance;
         playerMovement = PlayerOnScene.Instance.playerMovement;
+        _playerColider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -23,8 +25,8 @@ public class TargetLock : MonoBehaviour
     {
         if(target)
         {
-            playerCamera.SetOffset((target.transform.position - transform.position).normalized);
-            dir = (target.transform.position - transform.position).normalized;
+            playerCamera.SetOffset((target.transform.position - _playerColider.bounds.center).normalized);
+            dir = (target.bounds.center - _playerColider.bounds.center).normalized;
         }
         else
         {
@@ -49,7 +51,7 @@ public class TargetLock : MonoBehaviour
                 {
                     if (_currentTime <= 0)
                     {
-                        target = collision.gameObject;
+                        target = collision;
                         playerMovement.SetLockMoving(true);
                         _currentTime = _waitTime;
                     }
@@ -57,13 +59,13 @@ public class TargetLock : MonoBehaviour
             }
             else if (collision.gameObject != target)
             {
-                if ((collision.gameObject.transform.position - transform.position).magnitude < (target.transform.position - transform.position).magnitude)
+                if ((collision.gameObject.transform.position - _playerColider.bounds.center).magnitude < (target.bounds.center - _playerColider.bounds.center).magnitude)
                 {
                     if (CheckForTheWay(collision.gameObject.transform.position))
                     {
                         if (_currentTime <= 0)
                         {
-                            target = collision.gameObject;
+                            target = collision;
                             playerMovement.SetLockMoving(true);
                             _currentTime = _waitTime;
                         }

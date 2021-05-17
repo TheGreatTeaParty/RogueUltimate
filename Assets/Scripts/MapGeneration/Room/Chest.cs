@@ -11,7 +11,7 @@ public class Chest : MonoBehaviour,IInteractable
 
     void Start()
     {
-        itemToDrop = ItemsAsset.instance.GenerateItem();
+        itemToDrop = ItemsAsset.instance.GenerateRareItem();
         _isDropped = false;
         animator = GetComponent<Animator>();
         OpenAudio = GetComponent<AudioSource>();

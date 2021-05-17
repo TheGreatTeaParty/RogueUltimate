@@ -159,14 +159,8 @@ public class EnemyStat : CharacterStat, IDamaged
         //Remove all effects:
         EffectController.RemoveAll();
 
-        //Spawn Gold and XP
-        Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
-        gold.GetComponent<Gold>().GoldAmount = gainedGold;
+        GenerateDrop();
 
-        Transform Xp = Instantiate(XPOrb, transform.position, Quaternion.identity);
-        Xp.GetComponent<XP>().XPAmount = gainedXP;
-
-        //
         onDie?.Invoke();
         _rigidbody2D.velocity = Vector2.zero;
         _rigidbody2D.Sleep();
@@ -194,7 +188,21 @@ public class EnemyStat : CharacterStat, IDamaged
 
     public virtual void SetLevel(int level)
     {
-
+        this.level = level;
     }
 
+    protected void GenerateDrop()
+    {
+        //Spawn Gold and XP
+        Transform gold = Instantiate(coin, transform.position, Quaternion.identity);
+        gold.GetComponent<Gold>().GoldAmount = gainedGold;
+
+        Transform Xp = Instantiate(XPOrb, transform.position, Quaternion.identity);
+        Xp.GetComponent<XP>().XPAmount = gainedXP;
+
+        if (UnityEngine.Random.value < 0.25f)
+        {
+            ItemScene.SpawnItemScene(transform.position, ItemsAsset.instance.GenerateItem());
+        }
+    }
 }

@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float BASE_MOVEMENT_SPEED;
     public float ROLL_TIME = 0.4f;
+    public Collider2D PlayerCollider;
     [SerializeField] private Rigidbody2D rb2D;
     [SerializeField] private Animator animator; 
     [SerializeField] protected Joystick joystick;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public void Start()
     {
         characterAudio = GetComponent<CharacterAudio>();
+        PlayerCollider = GetComponent<Collider2D>();
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
 

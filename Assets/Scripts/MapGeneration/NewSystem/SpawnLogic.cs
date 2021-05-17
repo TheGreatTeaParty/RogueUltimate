@@ -10,6 +10,7 @@ public class SpawnLogic : MonoBehaviour
     public Transform[]   PossibleRewardRooms;
     public Transform[]   PossibleShopRooms;
     public Transform[]   PossibleEventRooms;
+    public Transform[]   PossibleBossRooms;
 
     public DungeonName dungeonName;
 
@@ -60,6 +61,9 @@ public class SpawnLogic : MonoBehaviour
 
         else if (room._type == RoomType.Event)
             NextRoom = GenerateRandomRoom(PossibleEventRooms);
+
+        else if (room._type == RoomType.Event)
+            NextRoom = GenerateRandomRoom(PossibleBossRooms);
 
         else  //(room._type == RoomType.Normal)
             NextRoom = GenerateRandomRoom(PossibleNormalRooms);

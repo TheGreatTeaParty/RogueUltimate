@@ -21,7 +21,8 @@ public class Kaban : EnemyAI
     private KabanArea kabanArea;
     // Cache
     private Animator _animator;
-
+    private Collider2D targetCollider;
+    private Collider2D ogreCollider;
 
     protected override void Start()
     {
@@ -29,6 +30,8 @@ public class Kaban : EnemyAI
         
         _animator = GetComponent<Animator>();
         kabanArea = GetComponentInChildren<KabanArea>();
+        targetCollider = target.GetComponent<Collider2D>();
+        ogreCollider = GetComponent<Collider2D>();
     }
 
     protected override void Update()
@@ -56,14 +59,23 @@ public class Kaban : EnemyAI
         if (_preparing) return;
 
         _preparing = true;
-        _finalPos = target.transform.position;
-        _position = (_finalPos - transform.position).normalized;
+        _finalPos = targetCollider.bounds.center;
+        _position = (_finalPos - ogreCollider.bounds.center).normalized;
         _damageAreaCollider.enabled = true;
         kabanArea.IgnoreWallForASecond();
         _isRage = true;
         _preparing = false;
     }
-
+    protected override IEnumerator AttackWait()
+    {
+        isAttack = true;
+        StopMoving();
+        yield return new WaitForSeconds(attackCoolDown);
+        OnAttacked?.Invoke();
+        yield return new WaitForSeconds(attackDuration);
+        Attack();
+        StartMoving();
+    }
     public override Vector2 GetDirection()
     {
         return _isRage ? _position : direction;
@@ -73,6 +85,8 @@ public class Kaban : EnemyAI
     {
         _hit = true;
         _hitPlayer = hitPlayer;
+        isAttack = true;
+        state = NPCstate.Chasing;
     }
 
     protected override void Die()
@@ -89,7 +103,8 @@ public class Kaban : EnemyAI
         yield return new WaitForSeconds(stunTime);
         isAttack = false;
         _animator.SetBool("Stunned", false);
-        StopMoving();
+        StartMoving();
+        state = NPCstate.Chasing;
     }
 
     private void DestroyAllComponents()
