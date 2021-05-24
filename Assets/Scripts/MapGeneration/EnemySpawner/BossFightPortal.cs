@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class BossFightPortal : MonoBehaviour
 {
-    [SerializeField] private GameObject healthbar;
+    public GameObject healthbar;
     [SerializeField] private Slider bosshealthSlider;
     [SerializeField] private GameObject portal;
     [SerializeField] private GameObject portalEmpty;
@@ -32,7 +32,7 @@ public class BossFightPortal : MonoBehaviour
 
     public void HealthBar(bool value)
     {
-        healthbar.SetActive(value);
+        healthbar?.SetActive(value);
     }
     
 }
