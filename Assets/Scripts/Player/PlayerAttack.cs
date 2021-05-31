@@ -110,12 +110,13 @@ public class PlayerAttack : MonoBehaviour
                 if (weapon.Echo() == AttackType.Melee)
                 {
                     _playerMovement.PushToDirection(_playerStat.PushForce.Value);
-                    PlayerStop(_currentAttackCD*0.9f);
+                    PlayerStop(_currentAttackCD);
                 }
 
-                yield return new WaitForSeconds(_currentAttackCD - CurrentAttackCD*0.2f);
+                yield return new WaitForSeconds(_currentAttackCD - _currentAttackCD*0.8f);
 
                 weapon.Attack(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
+                yield return new WaitForSeconds(_currentAttackCD*0.2f);
                 EndAttack?.Invoke(weapon.Echo());
                 _isAttacking = false;
             }

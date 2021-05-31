@@ -32,34 +32,14 @@ public class EquipmentAnimationHandler : MonoBehaviour
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
     }
-    
+
     private void Update()
     {
         if (_weaponController is null) return;
-     
-        _direction = _playerMovement.GetDirection();
-        int x = 0;
-        int y = 0;
 
-        if (_direction.x > 0.5f)
-        {
-            x = 1;
-            y = 0;
-            weaponAnimator.SetFloat("Horizontal", x);
-            weaponAnimator.SetFloat("Vertical", y);
-        }
-        else if (_direction.x < -0.5f)
-        {
-            x = -1;
-            y = 0;
-            weaponAnimator.SetFloat("Horizontal", x);
-            weaponAnimator.SetFloat("Vertical", y);
-        }
-        else
-        {
-            weaponAnimator.SetFloat("Horizontal", _direction.x);
-            weaponAnimator.SetFloat("Vertical", _direction.y);
-        }
+        _direction = _playerMovement.GetDirection();
+
+        weaponAnimator.SetFloat("Horizontal", _direction.x);
     }
 
     // Take last digits in player sprite and put armor sprites with the same index
@@ -125,17 +105,8 @@ public class EquipmentAnimationHandler : MonoBehaviour
                     else
                     {
                         _weaponRenderer.sprite = _weaponAnimationSprites[j];
+                        _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
 
-                        //Move it on the top of the player Sprite
-                        if (8 <= j && j <= 11 || 24 <= j && j <= 27 || 40 <= j && j <= 43 || 56 <= j && j <= 59
-                            || 72 <= j && j <= 75)
-                        {
-                            _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
-                        }
-                        else
-                        {
-                            _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder - 2;
-                        }
                     }
                 }
             }
