@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
                     PlayerStop(_currentAttackCD);
                 }
 
-                yield return new WaitForSeconds(_currentAttackCD - _currentAttackCD*0.8f);
+                yield return new WaitForSeconds(_currentAttackCD - _currentAttackCD*0.2f);
 
                 weapon.Attack(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
                 yield return new WaitForSeconds(_currentAttackCD*0.2f);

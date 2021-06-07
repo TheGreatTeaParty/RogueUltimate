@@ -17,7 +17,8 @@ public class EquipmentItem : Item
     public ArmorType EqipmnetArmorType = ArmorType.None;
     [SerializeField] protected EquipmentType equipmentType;
     [SerializeField] protected RuntimeAnimatorController equipmentAnimations;
-    [SerializeField] protected Sprite[] animation;
+    [SerializeField] protected Sprite[] IdleAnimation;
+    [SerializeField] public Sprite[] AttackAnimation;
     [Space] 
     [SerializeField] protected int physicalDamageBonus;
     [SerializeField] protected int physicalProtectionBonus;
@@ -44,7 +45,7 @@ public class EquipmentItem : Item
         get => equipmentType;
         set => equipmentType = value;
     }
-    public Sprite[] Animation => animation;
+    public Sprite[] Animation => IdleAnimation;
     public RuntimeAnimatorController EquipmentAnimations => equipmentAnimations;
 
 

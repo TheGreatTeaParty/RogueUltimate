@@ -45,7 +45,7 @@ public class PlayerOnScene : MonoBehaviour
             if (equipmentAnimationHandler == null) return null;
 
             return equipmentAnimationHandler.ArmorAnimationSprites?.Length > 0 
-                ? equipmentAnimationHandler.ArmorAnimationSprites?[0] : null;
+                ? equipmentAnimationHandler.ArmorAnimationSprites?[4] : null;
         }
     }
     

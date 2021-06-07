@@ -6,7 +6,6 @@ public class WeaponRenderer : MonoBehaviour
     private SpriteRenderer _weaponSprite;
     private Animator _weaponAnimator;
     private Sprite[] WeaponAttackAnim;
-    private Sprite[] WaeaponIdleAnim;
     private int _prevIndex;
     private PlayerStat _playerStat;
     private bool _isAttack = false;
@@ -30,20 +29,20 @@ public class WeaponRenderer : MonoBehaviour
     {
         if (_new && _new.EquipmentType == EquipmentType.Weapon)
         {
-            if (_new.Animation.Length != 0)
+            if (_new.AttackAnimation.Length != 0)
             {
-                WaeaponIdleAnim = _new.Animation;
+                WeaponAttackAnim = _new.AttackAnimation;
             }
             else
             {
-                WaeaponIdleAnim = null;
+                WeaponAttackAnim = null;
             }
         }
     }
 
     private void LateUpdate()
     {
-        if (!_isAttack && WaeaponIdleAnim != null)
+        if (_isAttack && WeaponAttackAnim != null)
         {
             string index = "";
             if (_weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 2] != '_')
@@ -56,14 +55,14 @@ public class WeaponRenderer : MonoBehaviour
 
             if (int.TryParse(index, out int j))
             {
-                if (j >= WaeaponIdleAnim.Length)
+                if (j >= WeaponAttackAnim.Length)
                 {
                     Debug.Log($"Sprite with Index: {j} does not exist in Animation Sprites!");
-                   // _weaponSprite.sprite = null;
+                    _weaponSprite.sprite = null;
                 }
                 else
                 {   //Need to be added;
-                    _weaponSprite.sprite = WaeaponIdleAnim[j];
+                    _weaponSprite.sprite = WeaponAttackAnim[j];
 
                 }
             }
