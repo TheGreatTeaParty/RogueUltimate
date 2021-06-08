@@ -161,4 +161,13 @@ public class EnemyAI : AI
     {
         state = NPCstate.Chasing;
     }
+
+    public void StopEnemyAttack()
+    {
+        StopAllCoroutines();
+        isAttack = false;
+        state = NPCstate.Chasing;
+        StartMoving();
+    }
+
 }

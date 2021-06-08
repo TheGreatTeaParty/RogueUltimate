@@ -39,7 +39,7 @@ public class DaddyAnimationHandler : MonoBehaviour
         _velocity = _npc.GetVelocity();
         ProcessInputs();
 
-        if (!_npc.IsStopped)
+        if (!_npc.IsStopped || _npc.IsRange)
         {
             _animator.SetFloat("Horizontal",_dir.x);
         }

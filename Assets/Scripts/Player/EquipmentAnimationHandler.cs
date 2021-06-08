@@ -119,7 +119,7 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.EquipmentType == EquipmentType.Weapon)
+            if (_new.EquipmentType == EquipmentType.Weapon && _new.Animation.Length > 0)
             {
                 _weaponController = _new.EquipmentAnimations;
                 weaponAnimator.runtimeAnimatorController = _weaponController as RuntimeAnimatorController;

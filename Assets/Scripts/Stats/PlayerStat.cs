@@ -24,9 +24,9 @@ public class PlayerStat : CharacterStat, IDamaged
         5340, // 13
         
     };
-    public int _statPoints = 0;
     private float _currentMana;
     private float _currentStamina;
+    public int _statPoints = 0;
  
     [Space]
     [SerializeField] private Stat attackRange;
@@ -56,13 +56,31 @@ public class PlayerStat : CharacterStat, IDamaged
     public Stat AttackSpeed => attackSpeed;
     public Stat CastSpeed => castSpeed;
 
-    public float CurrentMana => _currentMana;
-    public float CurrentStamina => _currentStamina;
-    public int XP => _xp;
-    public int StatPoints => _statPoints;
+    public float CurrentMana
+    {
+        get => _currentMana;
+        set => _currentMana = value;
+    }
+    public float CurrentStamina
+    {
+        get => _currentStamina;
+        set => _currentStamina = value;
+    }
+
+    public int XP
+    {
+        get => _xp;
+        set => _xp = value;
+    }
+
+    public int StatPoints
+    {
+        get => _statPoints;
+        set => _statPoints = value;
+    }
 
 
-    public delegate void OnChangeCallback();
+public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
 
     public Action<float> OnHealthChanged;
@@ -80,7 +98,8 @@ public class PlayerStat : CharacterStat, IDamaged
     
     private void Start()
     {
-        PlayerTraits = new TraitHolder();
+        if(PlayerTraits == null)
+            PlayerTraits = new TraitHolder();
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
 

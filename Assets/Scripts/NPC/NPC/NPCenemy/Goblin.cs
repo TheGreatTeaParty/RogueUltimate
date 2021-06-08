@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Goblin : Warrior
 {
-    public float RollForce = 4f;
+    public float RollForce = 400f;
     public float RunBack = 2f;
 
     private bool _started = false;

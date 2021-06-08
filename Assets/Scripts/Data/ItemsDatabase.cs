@@ -12,6 +12,7 @@ public class ItemsDatabase : MonoBehaviour
             return;
 
         Instance = this;
+        DontDestroyOnLoad(this);
     }
 
     #endregion

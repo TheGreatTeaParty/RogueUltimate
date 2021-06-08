@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class CharacterManager : MonoBehaviour
     
     public void Start()
     {
+        
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
         
         inventory.OnClickEvent += AddTooltip;
@@ -54,9 +56,6 @@ public class CharacterManager : MonoBehaviour
         equipment.OnDragEvent += Drag;
         equipment.OnEndDragEvent += EndDrag;
         equipment.OnDropEvent += Drop;
-        
-        
-        // Load items on save
     }
 
     // Inventory & equipment
@@ -91,6 +90,16 @@ public class CharacterManager : MonoBehaviour
             {
                 inventory.AddItem(item);
             }
+        }
+    }
+
+    private void EquipOnLoad(EquipmentItem item)
+    {
+        EquipmentItem previousItem;
+        if (equipment.AddItem(item, out previousItem))
+        {
+            item.Equip(_stats);
+            _stats.onChangeCallback.Invoke();
         }
     }
     
@@ -273,6 +282,53 @@ public class CharacterManager : MonoBehaviour
         foreach (EquipmentSlot slot in equipment.equipmentSlots)
         {
             slot.EndHighLight();
+        }
+    }
+
+    public void LoadPlayerData(PlayerData data)
+    {
+        PlayerOnScene.Instance.SetStats();
+
+        //Load STATS
+        _stats.AddAttributePoint(StatType.Physique, data.statsData[0]);
+        _stats.AddAttributePoint(StatType.Reaction, data.statsData[1]);
+        _stats.AddAttributePoint(StatType.Mind, data.statsData[2]);
+
+        //LOAD LEVEL / XP / Points Left
+        _stats.currentHealth = data.currentHP;
+        _stats.CurrentMana = data.currentMP;
+        _stats.CurrentStamina = data.currentSP;
+        _stats.Level = data.level;
+        _stats.XP = data.xp;
+        _stats.StatPoints = data.statPoints;
+
+        //TRAITS:
+        TraitsDatabase traitsDB = TraitsDatabase.Instance;
+        _stats.PlayerTraits = new TraitHolder();
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[0]));
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[1]));
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[2]));
+
+        ItemsDatabase itemsDB = ItemsDatabase.Instance;
+        StartCoroutine(WaitAndLoadEquipment(data, itemsDB));
+    }
+
+    IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        //INVENTORY:
+        for (int i = 0; i < data.inventoryData.Length; i++)
+        {
+            inventory.AddItem(itemsDB.GetItemByID(data.inventoryData[i]));
+        }
+
+        //EQUIPMENT:
+        for (int i = 0; i < data.equipmentData.Length; i++)
+        {
+            EquipmentItem equipment = itemsDB.GetItemByID(data.equipmentData[i]) as EquipmentItem;
+            if (equipment != null)
+                EquipOnLoad(equipment);
         }
     }
 }

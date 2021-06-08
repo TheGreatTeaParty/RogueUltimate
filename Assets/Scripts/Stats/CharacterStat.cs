@@ -15,7 +15,7 @@ public class CharacterStat : MonoBehaviour
     [SerializeField] protected Stat magicDamage;
     [Space]
     [SerializeField] protected float maxHealth = 100;
-    protected float currentHealth;
+    public float currentHealth;
     protected float damageReceived;
     public bool AllowControll = true;
 
@@ -23,6 +23,13 @@ public class CharacterStat : MonoBehaviour
     public EffectController EffectController;
     protected float _timeLeft;
     protected const float TICK_TIME = 1f;
+
+    //Stager
+    private const float STAGER_TIME = 1f;
+    protected float _stager_time_left;
+    protected float _stagerDamage;
+    protected float _stagerPercent = 0.25f;
+
 
     public string CharacterName => characterName;
 
@@ -57,6 +64,7 @@ public class CharacterStat : MonoBehaviour
         EffectController = new EffectController();
         currentHealth = maxHealth;
         _timeLeft = TICK_TIME;
+        _stagerDamage = 0;
     }
 
     protected virtual void Update()
@@ -66,7 +74,13 @@ public class CharacterStat : MonoBehaviour
             EffectController.Tick();
             _timeLeft = TICK_TIME;
         }
+
         _timeLeft -= Time.deltaTime;
+
+        if (_stager_time_left > 0)
+            _stager_time_left -= Time.deltaTime;
+
+
     }
 
     public virtual float GetEffectResult(float intensity, EffectType effectType)
@@ -93,9 +107,15 @@ public class CharacterStat : MonoBehaviour
 
     public virtual bool TakeDamage(float _phyDamage, float _magDamage)
     {
+        //Calculate the incoming damage:
         float phyDamage = _phyDamage - physicalProtection.Value;
         float magDamage = _magDamage - magicProtection.Value;
         damageReceived = (phyDamage + magDamage);
+
+        //Trigger the Stager Timer:
+        _stager_time_left = STAGER_TIME;
+        StagerLogic(damageReceived);
+
         currentHealth -= damageReceived;
         if (currentHealth <= 0)
             Die();
@@ -106,6 +126,29 @@ public class CharacterStat : MonoBehaviour
     {
         TakeDamage(phyDamage, magDamage);
         EffectController.AddEffect(effect,this);   
+    }
+
+    protected virtual void StagerLogic(float damage)
+    {
+        _stagerDamage += damage;
+
+        if (_stager_time_left > 0 && _stagerDamage >= maxHealth * _stagerPercent)
+        {
+            Stager();
+            _stager_time_left = 0;
+            _stagerDamage = 0;
+        }
+        else if(_stager_time_left <= 0)
+        {
+            _stagerDamage = 0;
+            _stager_time_left = 0;
+        }
+
+    }
+
+    protected virtual void Stager()
+    {
+
     }
 
     public virtual void Die()

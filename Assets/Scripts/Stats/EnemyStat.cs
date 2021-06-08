@@ -205,4 +205,10 @@ public class EnemyStat : CharacterStat, IDamaged
             ItemScene.SpawnItemScene(transform.position, ItemsAsset.instance.GenerateItem());
         }
     }
+
+    protected override void Stager()
+    {
+        _enemyAi.StopEnemyAttack();
+        onDamaged?.Invoke();
+    }
 }

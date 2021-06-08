@@ -17,8 +17,6 @@ public class MainMenu : MonoBehaviour {
     private GameObject confirmWindow;
     [SerializeField]
     private GameObject mainMenu;
-    [SerializeField]
-    private GameObject LoadingScreen;
 
     private bool _cutSceneAllowed = false;
     private bool _canStartNewGame = true;
@@ -31,8 +29,6 @@ public class MainMenu : MonoBehaviour {
             _canStartNewGame = false;
         }
     }
-
-    List<AsyncOperation> asyncOperations = new List<AsyncOperation>();
 
     public void NewGame()
     {
@@ -68,14 +64,14 @@ public class MainMenu : MonoBehaviour {
             if (sb.ToString() == data.gameObjectName)
             {
                 Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
-                Instantiate(playerInterface);
+                var Interaface = Instantiate(playerInterface);
 
-
+                Interaface.GetComponentInChildren<CharacterManager>().LoadPlayerData(data);
                 break;
             }
   
         }
-    }   
+    }
     public void ExitGame()
     {
         Debug.Log("Trying to exit game doesn't work in Editor");

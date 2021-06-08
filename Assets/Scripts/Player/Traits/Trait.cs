@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Trait : ScriptableObject
 {
+    public int ID;
     public Sprite Icon;
     public string Name;
     public TraitType Type;

@@ -31,7 +31,6 @@ public class Equipment : MonoBehaviour
             equipmentSlots[i].OnDropEvent += OnDropEvent;
         }
     }
-
     public bool AddItem(EquipmentItem item, out EquipmentItem previousItem)
     {
         for (int i = 0; i < equipmentSlots.Length; i++)

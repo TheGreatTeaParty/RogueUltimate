@@ -11,7 +11,7 @@ public enum BossStage
 
 public class GolemBoss : EnemyAI
 {
-    public AnimationCurve curve;
+    public GameObject Lamp;
     [Space]
     public float speed = 4f;
     public float meleRange = 1.4f;
@@ -33,6 +33,7 @@ public class GolemBoss : EnemyAI
     private float range_attack_time_left;
     private float rest_time_left = 0;
     private bool _isJump = false;
+    public bool IsRange = false;
     Vector3 _dir;
     Vector2 endPoint;
     // Cache
@@ -53,7 +54,7 @@ public class GolemBoss : EnemyAI
         _stage = BossStage.Second;
 
         target = GameObject.FindGameObjectWithTag("Player");
-        BossFightPortal.Instance.HealthBar(true);
+        //BossFightPortal.Instance.HealthBar(true);
         state = NPCstate.Chasing;
         range_attack_time_left = RangeAttackCoolDown;
 
@@ -215,6 +216,8 @@ public class GolemBoss : EnemyAI
         isAttack = true;
         StopMoving();
         onRangeAttack?.Invoke();
+        if (_stage == BossStage.First)
+            IsRange = true;
     }
 
 
@@ -230,6 +233,7 @@ public class GolemBoss : EnemyAI
         data.SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value, (targetPosition - position).normalized,false);
 
         isAttack = false;
+        IsRange = false;
         state = NPCstate.Chasing;
         range_attack_time_left = RangeAttackCoolDown;
     }
@@ -276,5 +280,14 @@ public class GolemBoss : EnemyAI
         else
             rb.MovePosition(transform.position + _dir * 10 * Time.deltaTime);
     }
-    
+
+    public void TurnONLamp()
+    {
+        Lamp.SetActive(true);
+    }
+
+    public void TurnOFFLamp()
+    {
+        Lamp.SetActive(false);
+    }
 }

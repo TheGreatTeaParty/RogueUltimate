@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
             quickSlots[i].OnQuickDropEvent += OnQuickDropEvent;
         }
 
-        SetInventoryOnStart();
+       SetInventoryOnStart();
     }
 
     public bool AddItem(Item item)
