@@ -10,7 +10,7 @@ public class DwarfSeller : MonoBehaviour,IInteractable
         var tradeManager = TradeManager.Instance;
 
         tradeManager.Bind(playerInventory, npcInventory);
-        tradeManager.Open();
+        tradeManager.Open(TradeManager.tradeType.dwarf);
     }
 
     public string GetActionName()

@@ -27,8 +27,8 @@ public class PauseMenu : MonoBehaviour
     public void ExitButton()
     {
         SaveManager.SavePlayer();
+        SaveManager.SaveAccount();
         Time.timeScale = 1f;
-        Debug.Log("Quitting game...");
 
         Destroy(PlayerOnScene.Instance.gameObject);
         // null to CharacterManager.Instance.Stats ?

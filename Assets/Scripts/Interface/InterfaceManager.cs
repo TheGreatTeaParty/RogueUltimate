@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InterfaceManager : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class InterfaceManager : MonoBehaviour
     [SerializeField] public JoystickAttack joystickAttack;
     [SerializeField] public PlayerButtonCallBack playerButton;
 
+    //UI elements that should be off while in tavern:
+    public GameObject Bars;
+    public GameObject TavernUI;
+    public GameObject QuickSlots;
 
     private void Start()
     {
@@ -47,6 +52,8 @@ public class InterfaceManager : MonoBehaviour
 
         // Cache
         fixedJoystick = Instance.GetComponentInChildren<DynamicJoystick>();
+
+        ShowTavernUI();
     }
     
     private IEnumerator Init()
@@ -56,6 +63,7 @@ public class InterfaceManager : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         
         quickPanel.SetActive(false);
+
     }
     
     public void DisableView()
@@ -99,6 +107,7 @@ public class InterfaceManager : MonoBehaviour
         faceElements.SetActive(false);
     }
 
+
     public void HideAll()
     {
         // Order matters
@@ -107,4 +116,17 @@ public class InterfaceManager : MonoBehaviour
         HideFaceElements();
     }
 
+    public void ShowTavernUI()
+    {
+        QuickSlots.SetActive(false);
+        Bars.SetActive(false);
+        TavernUI.SetActive(true);
+    }
+
+    public void HideTavernUI()
+    {
+        QuickSlots.SetActive(true);
+        Bars.SetActive(true);
+        TavernUI.SetActive(false);
+    }
 }

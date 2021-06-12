@@ -38,7 +38,8 @@ public class TavernKeeper : AI, IInteractable
     protected override void Start()
     {
         base.Start();
-        target = barPosition;
+        if(barPosition)
+            target = barPosition;
     }
 
     public void FixedUpdate()
@@ -141,7 +142,7 @@ public class TavernKeeper : AI, IInteractable
         var tradeManager = TradeManager.Instance;
 
         tradeManager.Bind(playerInventory, npcInventory);
-        tradeManager.Open();
+        tradeManager.Open(TradeManager.tradeType.tavernKeeper);
         Talk(true);
     }
 

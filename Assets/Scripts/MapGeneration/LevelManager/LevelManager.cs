@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     {
         LoadScreen.gameObject.SetActive(true);
         asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
-        StartCoroutine(GetSceneLoadProgress());
+        StartCoroutine(GetSceneLoadProgress(scenes));
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour
     {
         LoadScreen.gameObject.SetActive(true);
         asyncOperation = SceneManager.LoadSceneAsync(scenes);
-        StartCoroutine(GetSceneLoadProgress());
+        StartCoroutine(GetSceneLoadProgress(scenes));
 
         //Tries to find player and move him to the 0 position
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -74,6 +74,60 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
         LoadScreen.gameObject.SetActive(false);
+
+    }
+
+    private IEnumerator GetSceneLoadProgress(Scenes scene)
+    {
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+
+        LoadScreen.gameObject.SetActive(false);
+
+        //Save data every time Tavern is loaded:
+        if (scene == Scenes.StartTavern)
+            SaveManager.SaveAccount();
+
+        else if (scene == Scenes.Tavern)
+        {
+            SaveManager.SavePlayer();
+            SaveManager.SaveAccount();
+            InterfaceManager.Instance.ShowTavernUI();
+        }
+        else
+        {
+            InterfaceManager.Instance.HideTavernUI();
+        }
+    }
+
+    private IEnumerator GetSceneLoadProgress(string scene)
+    {
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+
+        LoadScreen.gameObject.SetActive(false);
+
+        //Save data every time Tavern is loaded:
+        if (scene == "StartTavern")
+        {
+            SaveManager.SaveAccount();
+        }
+
+        else if (scene == "Tavern")
+        {
+            SaveManager.SavePlayer();
+            SaveManager.SaveAccount();
+            InterfaceManager.Instance.ShowTavernUI();
+        }
+        else
+        {
+            InterfaceManager.Instance.HideTavernUI();
+        }
+        Debug.Log("DATA SAVED!");
     }
 
 }

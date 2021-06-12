@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour {
     
     private void Start()
     {
-        string path = Application.persistentDataPath + "/player.dat";
+        string path = Application.persistentDataPath + "/account.dat";
         if (File.Exists(path)) {
             resumeButton.interactable = true;
             _canStartNewGame = false;
@@ -35,12 +35,8 @@ public class MainMenu : MonoBehaviour {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
-            //LevelManager.Instance.LoadScene("Tutorial");
-
-            if (_cutSceneAllowed)
-                LevelManager.Instance.LoadScene("CutScene");
-            else
-                LevelManager.Instance.LoadScene("StartTavern");
+            SaveManager.DeleteAccount();
+            LevelManager.Instance.LoadScene("StartTavern");
             
         }
         else
@@ -52,29 +48,33 @@ public class MainMenu : MonoBehaviour {
 
     public void ResumeGame()
     {
-        PlayerData data = SaveManager.LoadPlayer();
-        LevelManager.Instance.LoadScene(data.scene);
+        PlayerData pl_data = SaveManager.LoadPlayer();
+        AccountData acc_data = SaveManager.LoadAccount();
+        AccountManager.Instance.LoadData(acc_data);
+        LevelManager.Instance.LoadScene(acc_data.scene);
 
-        foreach(GameObject pref in characterPrefabs)
+        if (pl_data != null)
         {
-            StringBuilder sb = new StringBuilder(pref.name);
-            sb.Append("(Clone)");
-
-            Debug.Log(pref.name + "(Clone)");
-            if (sb.ToString() == data.gameObjectName)
+            foreach (GameObject pref in characterPrefabs)
             {
-                Instantiate(pref, new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
-                var Interaface = Instantiate(playerInterface);
+                StringBuilder sb = new StringBuilder(pref.name);
+                sb.Append("(Clone)");
 
-                Interaface.GetComponentInChildren<CharacterManager>().LoadPlayerData(data);
-                break;
+                Debug.Log(pref.name + "(Clone)");
+                if (sb.ToString() == pl_data.gameObjectName)
+                {
+                    Instantiate(pref, new Vector3(pl_data.position[0], pl_data.position[1], pl_data.position[2]), Quaternion.identity);
+                    var Interaface = Instantiate(playerInterface);
+
+                    Interaface.GetComponentInChildren<CharacterManager>().LoadPlayerData(pl_data);
+                    break;
+                }
+
             }
-  
         }
     }
     public void ExitGame()
     {
-        Debug.Log("Trying to exit game doesn't work in Editor");
         Application.Quit();
     }
 

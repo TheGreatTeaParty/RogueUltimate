@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // Need setters and getters (?)
 public class TradeManager : MonoBehaviour
 {
     #region Singleton
+    public enum tradeType
+    {
+        tavernKeeper = 0,
+        smith,
+        master,
+        dwarf,
+    };
 
     public static TradeManager Instance;
 
@@ -17,89 +25,47 @@ public class TradeManager : MonoBehaviour
     }
 
     #endregion
-    
-    public TradeSlot currentSlot;
-    [Space] 
-    public Inventory playerInventory;
-    public NPCInventory npcInventory;
-    public TradeTooltip tradeTooltip;
-    public GameObject tradeWindow;
 
-    
     public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
 
+    public delegate void OnUpgradeCallBack<tradeType>();
+    public OnUpgradeCallBack<tradeType> onUpgradeCallBack;
 
-    public void Start()
-    {
-        tradeWindow.SetActive(true);
-        EraseTooltip();
-        tradeWindow.SetActive(false);
-    }
+    [Space] 
+    public Inventory playerInventory;
+    public NPCInventory npcInventory;
+    [Space]
+    public TradeWindow KeeperWindow;
+    public TradeWindow SwithWindow;
+    public TradeWindow MasterWindow;
+    public TradeWindow DwarfWindow;
 
-    public void OnSlotClick(TradeSlot tradeSlot)
+
+    public event Action<tradeType> OnTradeUpgraded;
+
+    public void Open(tradeType type)
     {
-        currentSlot = tradeSlot;
-        DrawTooltip();
-        AudioManager.Instance.Play("Click");
+        //Return Joystick to 0 position;
+        InterfaceManager.Instance.fixedJoystick.ResetInput();
+
+        var UI = InterfaceManager.Instance;
         
-        onChangeCallback();
-    }
-    
-    public void DrawTooltip()
-    {
-        tradeTooltip.SetName(currentSlot.Item.ItemName);
-        tradeTooltip.SetSprite(currentSlot.Item.Sprite);
-        tradeTooltip.SetDescription(currentSlot.Item.Description);
-        tradeTooltip.SetPrice(currentSlot.Item.Price);
-    }
+        UI.HideAll();
 
-    public void EraseTooltip()
-    {
-        tradeTooltip.SetName("");
-        tradeTooltip.SetDescription("");
-        tradeTooltip.SetSprite(null);
-        tradeTooltip.SetPrice(-1);
-    }
-
-    public void Trade()
-    {
-        if (currentSlot == null) return;
-
-        // state: true - buy, false - sell
-        if (currentSlot.tradeSlotType == TradeSlotType.NPC)
-            Buy();
-        else
-            Sell();
-    }
-    
-    public void Buy()
-    {
-        if (!playerInventory.IsFull() && playerInventory.Gold >= currentSlot.Item.Price)
+        switch (type)
         {
-            playerInventory.Gold -= currentSlot.Item.Price;
-            playerInventory.AddItem(currentSlot.Item);
-            AudioManager.Instance.Play("Buy");
+            case tradeType.tavernKeeper:
+                {
+                    KeeperWindow.gameObject.SetActive(true);
+                    KeeperWindow.BindData(playerInventory);
+                    break;
+                }
+            default:
+                break;
         }
-        
         onChangeCallback?.Invoke();
-    }
-
-    public void Sell()
-    {
-        playerInventory.Gold += currentSlot.Item.Price;
-        playerInventory.RemoveItem(currentSlot.Item);
-
-        currentSlot.Amount--;
-        if (currentSlot.Amount < 1)
-        {
-            EraseTooltip();
-            currentSlot = null;
-        }
-        
-        
-        onChangeCallback?.Invoke();
-        AudioManager.Instance.Play("Sell");
+        AudioManager.Instance.Play("TradeOpen");
     }
 
     public void Bind(Inventory playerInventory, NPCInventory npcInventory)
@@ -110,38 +76,9 @@ public class TradeManager : MonoBehaviour
         onChangeCallback?.Invoke();
     }
 
-    public void Open()
+    public void UpgradeTradeUI(tradeType type)
     {
-        //Return Joystick to 0 position;
-        InterfaceManager.Instance.fixedJoystick.ResetInput();
-
-        var UI = InterfaceManager.Instance;
-        
-        UI.HideAll();
-        
-        tradeWindow.SetActive(true);
-        
-        onChangeCallback.Invoke();
-        AudioManager.Instance.Play("TradeOpen");
+        OnTradeUpgraded?.Invoke(type);
+        // Should be Animation Here:
     }
-
-    public void Close()
-    {
-        var UI = InterfaceManager.Instance;
-        var playerButton = PlayerOnScene.Instance.GetComponentInChildren<Button>();
-        
-        EraseTooltip();
-        
-        tradeWindow.SetActive(false);
-        
-        UI.ShowFaceElements();
-        
-        currentSlot = null;
-        AudioManager.Instance.Play("TradeClose");
-
-        //No Idea How to make it normal(without null check)
-        if (TavernKeeper.Instance != null)
-            TavernKeeper.Instance.Talk(false);
-    }
-
 } 

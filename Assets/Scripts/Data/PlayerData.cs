@@ -1,15 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-struct InventoryData
-{
-    private int ID;
-    private int Amount;
-    
-}
-
-
 [System.Serializable]
 public class PlayerData
 {
@@ -17,24 +8,19 @@ public class PlayerData
     public float currentMP, maxMP; //Mana
     public float currentSP, maxSP; //Stamina
 
-    public int xp, level, statPoints;
+    public int xp, level, statPoints, gold;
 
     public float[] position;
-    public string scene;
     public string gameObjectName;
 
-    public int[] inventoryData;
+    public int[,] inventoryData; // [i,j], where i - item id, j - ammount
     public int[] equipmentData;
-    public int[] quickSlotsData = new int[3];
+    public int[,] quickSlotsData; // [i,j], where i - item id, j - ammount
     public int[] traitsData = new int[3];
     public float[] statsData = new float[3];
-
-
-    public int gold;
     
     public PlayerData()
     {
-        scene = SceneManager.GetActiveScene().name;
         gameObjectName = CharacterManager.Instance.Stats.gameObject.name;
      
         
@@ -60,19 +46,29 @@ public class PlayerData
         var inventory = CharacterManager.Instance;
         gold = inventory.Inventory.Gold;
 
-       inventoryData = new int[inventory.Inventory.Items.Count];
-       for (int i = 0; i < inventory.Inventory.Items.Count; i++)
-            inventoryData[i] = inventory.Inventory.Items[i].ID;
-        
+        inventoryData = new int[inventory.Inventory.ItemSlots.Length, 2];
+        for (int i = 0; i < inventory.Inventory.ItemSlots.Length; i++)
+            if (inventory.Inventory.ItemSlots[i].Item)
+            {
+                inventoryData[i, 0] = inventory.Inventory.ItemSlots[i].Item.ID;
+                inventoryData[i, 1] = inventory.Inventory.ItemSlots[i].Amount;
+            }
+
+        quickSlotsData = new int[inventory.Inventory.QuickSlots.Length, 2];
+        for (int i = 0; i < inventory.Inventory.QuickSlots.Length; i++)
+            if (inventory.Inventory.QuickSlots[i].Item)
+            {
+                quickSlotsData[i, 0] = inventory.Inventory.QuickSlots[i].Item.ID;
+                quickSlotsData[i, 1] = inventory.Inventory.QuickSlots[i].Amount;
+            }
+
         Equipment equipment = CharacterManager.Instance.Equipment;
         equipmentData = new int[equipment.equipmentSlots.Length];
         for (int i = 0; i < equipment.equipmentSlots.Length; i++)
             // Null check because of currentEquipment structure: array, not list
             if (equipment.equipmentSlots[i].Item != null)
-            {
                 equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
-                Debug.Log("Equipment saved");
-            }
+            
         
 
         

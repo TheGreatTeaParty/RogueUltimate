@@ -1,6 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class TradeUI : MonoBehaviour
 {
@@ -15,11 +15,23 @@ public class TradeUI : MonoBehaviour
     [SerializeField] private TradeManager tradeManager;
     [SerializeField] private Transform playerSlotsParent;
     [SerializeField] private Transform npcSlotsParent;
+    public Button UButton;
+    public TextMeshProUGUI LevelValue;
 
+    private TradeWindow tradeWindow;
+    private AccountManager accountManager;
+    private TavernKeeperUpgrade tavernKeeperUpgrade;
 
     private void Start()
     {
         tradeManager = TradeManager.Instance;
+        tradeManager.onChangeCallback += UpdateUI;
+
+        accountManager = AccountManager.Instance;
+        tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
+
+        tradeWindow = GetComponent<TradeWindow>();
+
         if (playerSlotsParent == null || npcSlotsParent == null) 
             Debug.Log("Null pointer in TradeUI");
         
@@ -27,15 +39,15 @@ public class TradeUI : MonoBehaviour
         playerSlots = playerSlotsParent.GetComponentsInChildren<TradeSlot>();
         
         for (int i = 0; i < playerSlots.Length; i++)
-            playerSlots[i].OnClick += tradeManager.OnSlotClick;
+            playerSlots[i].OnClick += tradeWindow.OnSlotClick;
 
         for (int i = 0; i < npcSlots.Length; i++)
-            npcSlots[i].OnClick += tradeManager.OnSlotClick;
+            npcSlots[i].OnClick += tradeWindow.OnSlotClick;
 
-        tradeManager.onChangeCallback += UpdateUI;
+        UpdateUI();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
@@ -62,13 +74,24 @@ public class TradeUI : MonoBehaviour
         {
             playerSlots[i].gameObject.SetActive(false);
         }
-        
+
+        if (UButton)
+        {
+            if (accountManager.Renown >= tavernKeeperUpgrade.GetReqiredPrice(tradeWindow.Type)
+                && !tavernKeeperUpgrade.IsMaxLevel(tradeWindow.Type))
+                UButton.interactable = true;
+            else
+                UButton.interactable = false;
+            LevelValue.text = tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type).ToString();
+        }
+
+        tradeManager.playerInventory.UpdateGold();
         gold.SetText(tradeManager.playerInventory.Gold.ToString());
         relation.SetText(tradeManager.npcInventory.GetRelation().ToString());
         
-        if (tradeManager.currentSlot == null) return;
-        action.SetText(tradeManager.currentSlot.tradeSlotType == TradeSlotType.NPC ? "Buy" : "Sell");
-        price.SetText(tradeManager.currentSlot.Item.Price.ToString());
+        if (tradeWindow.currentSlot == null) return;
+        action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? "Buy" : "Sell");
+        price.SetText(tradeWindow.currentSlot.Item.Price.ToString());
     }
 
 } 

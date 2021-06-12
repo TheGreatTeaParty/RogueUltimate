@@ -9,5 +9,9 @@ public class PlayerButtonCallBack : MonoBehaviour
     {
         onStateChanged?.Invoke();
     }
+    public void ShowPanel()
+    {
+        InterfaceManager.Instance.ShowPlayerPanel();
+    }
     
 }

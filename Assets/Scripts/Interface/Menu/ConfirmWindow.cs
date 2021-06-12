@@ -7,6 +7,7 @@ public class ConfirmWindow : MonoBehaviour {
     public void StartNewGame()
     {
         SaveManager.DeletePlayer();
-        LevelManager.Instance.LoadScene("CutScene");
+        SaveManager.DeleteAccount();
+        LevelManager.Instance.LoadScene("StartTavern");
     }
 }

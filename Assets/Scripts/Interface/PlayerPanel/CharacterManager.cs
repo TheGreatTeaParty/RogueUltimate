@@ -294,13 +294,14 @@ public class CharacterManager : MonoBehaviour
         _stats.AddAttributePoint(StatType.Reaction, data.statsData[1]);
         _stats.AddAttributePoint(StatType.Mind, data.statsData[2]);
 
-        //LOAD LEVEL / XP / Points Left
+        //LOAD LEVEL / XP / Points Left / GOLD
         _stats.currentHealth = data.currentHP;
         _stats.CurrentMana = data.currentMP;
         _stats.CurrentStamina = data.currentSP;
         _stats.Level = data.level;
         _stats.XP = data.xp;
         _stats.StatPoints = data.statPoints;
+        inventory.Gold = data.gold;
 
         //TRAITS:
         TraitsDatabase traitsDB = TraitsDatabase.Instance;
@@ -316,19 +317,35 @@ public class CharacterManager : MonoBehaviour
     IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
     {
         yield return new WaitForSeconds(0.1f);
-
+        
         //INVENTORY:
-        for (int i = 0; i < data.inventoryData.Length; i++)
+        for (int i = 0; i < data.inventoryData.GetLength(0); i++)
         {
-            inventory.AddItem(itemsDB.GetItemByID(data.inventoryData[i]));
+            Item item = itemsDB.GetItemByID(data.inventoryData[i, 0]);
+            if (item)
+            {
+                for(int j = 0; j < data.inventoryData[i, 1]; ++j)
+                    inventory.AddItem(item);
+            }
         }
 
         //EQUIPMENT:
         for (int i = 0; i < data.equipmentData.Length; i++)
         {
             EquipmentItem equipment = itemsDB.GetItemByID(data.equipmentData[i]) as EquipmentItem;
-            if (equipment != null)
+            if (equipment)
                 EquipOnLoad(equipment);
+        }
+
+        //Quick Slots:
+        for (int i = 0; i < data.quickSlotsData.GetLength(0); i++)
+        {
+            Item item = itemsDB.GetItemByID(data.quickSlotsData[i, 0]);
+            if (item)
+            {
+                for(int j = 0; j < data.quickSlotsData[i, 1]; ++j)
+                    inventory.AddQuickSlotItemOnLoad(item);
+            }
         }
     }
 }

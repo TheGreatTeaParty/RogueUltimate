@@ -24,6 +24,10 @@ public class Inventory : MonoBehaviour
         get => itemSlots;
         set => itemSlots = value;
     }
+    public QuickSlot[] QuickSlots
+    {
+        get => quickSlots;
+    }
     private int InventorySlots = 12;
 
 
@@ -33,6 +37,7 @@ public class Inventory : MonoBehaviour
     public event Action<ItemSlot> OnEndDragEvent;
     public event Action<ItemSlot> OnDropEvent;
     public event Action<QuickSlot> OnQuickDropEvent;
+    public event Action<float> OnGoldChanged;
     
     
     private void Awake()
@@ -61,8 +66,7 @@ public class Inventory : MonoBehaviour
             quickSlots[i].OnEndDragEvent += OnEndDragEvent;
             quickSlots[i].OnQuickDropEvent += OnQuickDropEvent;
         }
-
-       SetInventoryOnStart();
+        SetInventoryOnStart();
     }
 
     public bool AddItem(Item item)
@@ -79,6 +83,21 @@ public class Inventory : MonoBehaviour
             }
         }
         
+        return false;
+    }
+    public bool AddQuickSlotItemOnLoad(Item item)
+    {
+        for (int i = 0; i < quickSlots.Length; i++)
+        {
+            if (quickSlots[i].Item == null || (quickSlots[i].Item.ID == item.ID && quickSlots[i].Amount < item.StackMaxSize))
+            {
+                quickSlots[i].Item = item;
+                quickSlots[i].SetTier(quickSlots[i].Item);
+                quickSlots[i].Amount++;
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -157,6 +176,7 @@ public class Inventory : MonoBehaviour
     public void UpdateGold()
     {
         gold.SetText(Gold.ToString());
+        OnGoldChanged?.Invoke(Gold);
     }
 
 }
