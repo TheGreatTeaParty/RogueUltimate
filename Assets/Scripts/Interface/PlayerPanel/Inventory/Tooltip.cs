@@ -69,6 +69,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
         {
             //Must be equip logic HERE!
             //
+            CharacterManager.Instance.Equip(_itemSlot);
             CloseSelf();
         }
         else

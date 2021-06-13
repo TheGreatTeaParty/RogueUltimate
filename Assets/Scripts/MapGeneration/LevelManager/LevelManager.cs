@@ -34,6 +34,12 @@ public class LevelManager : MonoBehaviour
     public void LoadScene(Scenes scenes, Vector3 position = new Vector3())
     {
         LoadScreen.gameObject.SetActive(true);
+        if(scenes != Scenes.Tavern && scenes != Scenes.StartTavern)
+        {
+            SaveManager.SavePlayer();
+            SaveManager.SaveAccount();
+        }
+
         asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
         StartCoroutine(GetSceneLoadProgress(scenes));
 
@@ -52,6 +58,12 @@ public class LevelManager : MonoBehaviour
     public void LoadScene(String scenes, Vector3 position = new Vector3())
     {
         LoadScreen.gameObject.SetActive(true);
+        if(scenes != "Tavern" && scenes != "StartTavern")
+        {
+            SaveManager.SavePlayer();
+            SaveManager.SaveAccount();
+        }
+
         asyncOperation = SceneManager.LoadSceneAsync(scenes);
         StartCoroutine(GetSceneLoadProgress(scenes));
 

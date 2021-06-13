@@ -80,11 +80,13 @@ public class CharacterManager : MonoBehaviour
                     inventory.AddItem(previousItem);
                     previousItem.Unequip(_stats);
                     _stats.onChangeCallback.Invoke();
+                    onEquipmentChanged?.Invoke(item, previousItem);
                 }
 
                 AudioManager.Instance.Play("Equip");
                 item.Equip(_stats);
                 _stats.onChangeCallback.Invoke();
+                onEquipmentChanged?.Invoke(item, null);
             }
             else
             {
@@ -100,6 +102,7 @@ public class CharacterManager : MonoBehaviour
         {
             item.Equip(_stats);
             _stats.onChangeCallback.Invoke();
+            onEquipmentChanged?.Invoke(item, null);
         }
     }
     
@@ -108,7 +111,9 @@ public class CharacterManager : MonoBehaviour
         Debug.Log("Unequip !");
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
+        {
             Unequip(equipmentItem);
+        }
     }
     
     private void Unequip(EquipmentItem item)
@@ -117,6 +122,7 @@ public class CharacterManager : MonoBehaviour
         {
             inventory.AddItem(item);
             AudioManager.Instance.Play("Unequip");
+            onEquipmentChanged?.Invoke(null, item);
         }
     }
 

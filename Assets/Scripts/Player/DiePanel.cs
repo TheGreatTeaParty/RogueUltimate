@@ -28,10 +28,9 @@ public class DiePanel : MonoBehaviour
     {
         SaveManager.DeletePlayer();
         Destroy(InterfaceManager.Instance.gameObject);
-        Destroy(AudioManager.Instance.gameObject);
         Destroy(CharacterManager.Instance.Stats.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("StartTavern");
     }
 
 }

@@ -27,6 +27,7 @@ public class PlayerStat : CharacterStat, IDamaged
     private float _currentMana;
     private float _currentStamina;
     public int _statPoints = 0;
+    public int Kills = 0;
  
     [Space]
     [SerializeField] private Stat attackRange;
@@ -43,7 +44,7 @@ public class PlayerStat : CharacterStat, IDamaged
     // Change script for these two guys ?
     [SerializeField] private Animator animator;
     [SerializeField] private Transform LevelUpEffect;
-
+    private bool _isDeathStarted = false;
 
     //Attributes:
     public StrengthAttribute Strength;
@@ -88,6 +89,7 @@ public delegate void OnChangeCallback();
     public Action<float> OnManaChanged;
     public Action<float> OnXPChanged;
     public Action OnEvadeTriggered;
+    public Action OnKillChanged;
     public ITraitReqired EquipmentTraitReq;
 
     public TraitHolder PlayerTraits;
@@ -393,11 +395,16 @@ public delegate void OnChangeCallback();
     }
     public override void Die()
     {
-        animator.SetTrigger("Die");
-        gameObject.layer = 2;
-        gameObject.tag = "Untagged";
-        InterfaceManager.Instance.HideFaceElements();
-        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
+        if (!_isDeathStarted)
+        {
+            _isDeathStarted = true;
+            animator.SetTrigger("Die");
+            gameObject.layer = 2;
+            gameObject.tag = "Untagged";
+            AccountManager.Instance.Renown += (Kills * 10);
+            InterfaceManager.Instance.HideFaceElements();
+            InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
+        }
     }
 
     private bool Dodge()

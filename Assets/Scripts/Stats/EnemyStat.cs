@@ -159,6 +159,10 @@ public class EnemyStat : CharacterStat, IDamaged
         //Remove all effects:
         EffectController.RemoveAll();
 
+        PlayerStat playerStat = CharacterManager.Instance.Stats;
+        playerStat.Kills++;
+        playerStat.OnKillChanged?.Invoke();
+
         GenerateDrop();
 
         onDie?.Invoke();

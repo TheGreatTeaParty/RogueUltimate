@@ -61,6 +61,24 @@ public class TradeManager : MonoBehaviour
                     KeeperWindow.BindData(playerInventory);
                     break;
                 }
+            case tradeType.smith:
+                {
+                    SwithWindow.gameObject.SetActive(true);
+                    SwithWindow.BindData(playerInventory);
+                    break;
+                }
+            case tradeType.master:
+                {
+                    MasterWindow.gameObject.SetActive(true);
+                    MasterWindow.BindData(playerInventory);
+                    break;
+                }
+            case tradeType.dwarf:
+                {
+                    DwarfWindow.gameObject.SetActive(true);
+                    DwarfWindow.BindData(playerInventory);
+                    break;
+                }
             default:
                 break;
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 
 public enum TaverKeeperState
@@ -33,6 +34,12 @@ public class TavernKeeper : AI, IInteractable
     [Space]
     public GameObject[] hangingPoints;
     public GameObject barPosition;
+    [Space]
+    public List<Item> List2;
+    public List<Item> List3;
+
+    private TavernKeeperUpgrade keeperUpgrade;
+    private NPCInventory npcInventory;
 
 
     protected override void Start()
@@ -40,6 +47,11 @@ public class TavernKeeper : AI, IInteractable
         base.Start();
         if(barPosition)
             target = barPosition;
+        TradeManager.Instance.OnTradeUpgraded += Upgrade;
+        npcInventory = GetComponent<NPCInventory>();
+        keeperUpgrade = TavernKeeperUpgrade.Instance;
+
+        SetInvenotyOnStart();
     }
 
     public void FixedUpdate()
@@ -138,7 +150,6 @@ public class TavernKeeper : AI, IInteractable
     {
         // Bind the info for TradeManager
         var playerInventory = CharacterManager.Instance.Inventory;
-        var npcInventory = GetComponent<NPCInventory>();
         var tradeManager = TradeManager.Instance;
 
         tradeManager.Bind(playerInventory, npcInventory);
@@ -149,6 +160,30 @@ public class TavernKeeper : AI, IInteractable
     public string GetActionName()
     {
         return "Trade";
+    }
+
+    public void Upgrade(TradeManager.tradeType type)
+    {
+        if( type == TradeManager.tradeType.tavernKeeper)
+        {
+            if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 2)
+            {
+                npcInventory.items = List2;
+                Interact();
+            }
+            else
+            {
+                npcInventory.items = List3;
+                Interact();
+            }
+        }
+    }
+    public void SetInvenotyOnStart()
+    {
+        if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 2)
+            npcInventory.items = List2;
+        else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 3)
+            npcInventory.items = List3;
     }
     
 }

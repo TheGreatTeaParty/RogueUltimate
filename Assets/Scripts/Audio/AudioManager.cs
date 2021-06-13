@@ -31,23 +31,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SceneManager.sceneLoaded += TryToChildPlayer;
-    }
-
-    private void TryToChildPlayer(Scene arg0, LoadSceneMode arg1)
-    {
-        try
-        {
-            transform.SetParent(PlayerOnScene.Instance.transform);
-        }
-        catch
-        {
-            Debug.Log("There is no player");
-        }
-    }
-
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);

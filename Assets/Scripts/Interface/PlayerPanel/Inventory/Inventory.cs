@@ -9,9 +9,11 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform inventoryParent;
     [SerializeField] private Transform quickSlotsParent;
     [SerializeField] private TextMeshProUGUI gold;
+    [SerializeField] private TextMeshProUGUI kills;
     [SerializeField] private ItemSlot[] itemSlots;
     [SerializeField] private QuickSlot[] quickSlots;
     [SerializeField] private List<Item> items;
+    private PlayerStat playerStat;
  
     public int Gold { get; set; } = 100;
     public List<Item> Items
@@ -67,6 +69,9 @@ public class Inventory : MonoBehaviour
             quickSlots[i].OnQuickDropEvent += OnQuickDropEvent;
         }
         SetInventoryOnStart();
+        playerStat = CharacterManager.Instance.Stats;
+
+        playerStat.OnKillChanged += UpdateKillCount;
     }
 
     public bool AddItem(Item item)
@@ -177,6 +182,11 @@ public class Inventory : MonoBehaviour
     {
         gold.SetText(Gold.ToString());
         OnGoldChanged?.Invoke(Gold);
+    }
+
+    private void UpdateKillCount()
+    {
+        kills.SetText(playerStat.Kills.ToString());
     }
 
 }
