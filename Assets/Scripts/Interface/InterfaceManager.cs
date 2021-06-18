@@ -114,6 +114,15 @@ public class InterfaceManager : MonoBehaviour
         HidePlayerPanel();
         HideQuickPanel();
         HideFaceElements();
+        HideTavernUI();
+    }
+    public void ShowAll()
+    {
+        // Order matters
+        ShowPlayerPanel();
+        ShowQuickPanel();
+        ShowFaceElements();
+        ShowTavernUI();
     }
 
     public void ShowTavernUI()
