@@ -98,11 +98,14 @@ public class EnemyAI : AI
     }
     protected void EnemyTrigger()
     {
-        if (Vector2.Distance(transform.position, target.transform.position) < detectionRange)
+        if (target)
         {
-            state = NPCstate.Chasing;
-            _isTriggered = true;
-            StartMoving();
+            if (Vector2.Distance(transform.position, target.transform.position) < detectionRange)
+            {
+                state = NPCstate.Chasing;
+                _isTriggered = true;
+                StartMoving();
+            }
         }
     }
 

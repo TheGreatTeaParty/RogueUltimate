@@ -25,6 +25,7 @@ public class DiePanel : MonoBehaviour
     }
     public void SpawnResults()
     {
+        image.SetActive(false);
         Instantiate(results);
     }
 
