@@ -17,10 +17,17 @@ public class TradeUI : MonoBehaviour
     [SerializeField] private Transform npcSlotsParent;
     public Button UButton;
     public TextMeshProUGUI LevelValue;
+    [Space]
+    public TextMeshProUGUI levelValue;
+    public TextMeshProUGUI priceValue;
+    public GameObject parent;
+    public Transform template;
 
     private TradeWindow tradeWindow;
     private AccountManager accountManager;
     private TavernKeeperUpgrade tavernKeeperUpgrade;
+
+    private bool _isSet = false;
 
     private void Start()
     {
@@ -94,4 +101,53 @@ public class TradeUI : MonoBehaviour
         price.SetText(tradeWindow.currentSlot.Item.Price.ToString());
     }
 
+    public void SetUpUpgradeData()
+    {
+        if (!_isSet)
+        {
+            levelValue.text = (tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type)+1).ToString();
+            priceValue.text = tavernKeeperUpgrade.GetReqiredPrice(tradeWindow.Type).ToString();
+            GetUnlock();
+        }
+        _isSet = true;
+    }
+    private void GetUnlock()
+    {
+        switch (tradeWindow.Type)
+        {
+            case TradeManager.tradeType.tavernKeeper:
+                {
+                    var unlock = tradeManager.npcInventory.gameObject.GetComponent<TavernKeeper>().GetList();
+                    for(int i = 0; i < unlock.Count; ++i)
+                    {
+                        var temp = Instantiate(template, parent.transform);
+                        temp.GetComponentsInChildren<Image>()[1].sprite = unlock[i].Sprite;
+                    }
+                    break;
+                }
+            case TradeManager.tradeType.smith:
+                {
+                    var unlock = tradeManager.npcInventory.gameObject.GetComponent<Smith>().GetList();
+                    for (int i = 0; i < unlock.Count; ++i)
+                    {
+                        var temp = Instantiate(template, parent.transform);
+                        temp.GetComponentsInChildren<Image>()[1].sprite = unlock[i].Sprite;
+                    }
+                    break;
+                }
+            case TradeManager.tradeType.master:
+                {
+
+                    break;
+                }
+        }
+    }
+    public void UpgradeButton()
+    {
+        _isSet = false;
+        foreach (Transform child in parent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 } 

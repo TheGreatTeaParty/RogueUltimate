@@ -178,6 +178,17 @@ public class TavernKeeper : AI, IInteractable
             }
         }
     }
+    public List<Item> GetList()
+    {
+        if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 1)
+        {
+            return List2;
+        }
+        else
+        {
+            return List3;
+        }
+    }
     public void SetInvenotyOnStart()
     {
         if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 2)
