@@ -7,16 +7,18 @@ public class Berserk : ActiveAbility
     private float _counter = 0;
     private float _lastHealth;
     private float _currentHealth;
-    public float effectTime; 
+    [SerializeField]
+    private Effect immortalEffect;
     
     
     public override void Activate()
     {
         base.Activate();
-        _counter = effectTime;
         
         _currentHealth = PlayerOnScene.Instance.stats.CurrentHealth;
         _lastHealth = _currentHealth;
+        var _stats = PlayerOnScene.Instance.stats;
+        _stats.EffectController.AddEffect(Instantiate(immortalEffect), _stats);
     }
 
     protected override void Update()

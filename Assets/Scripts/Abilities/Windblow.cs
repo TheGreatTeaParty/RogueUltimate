@@ -12,7 +12,7 @@ public class Windblow : ActiveAbility
         base.Activate();
 
         var player = PlayerOnScene.Instance;
-        var position = player.gameObject.transform.position;
+         var position = player.gameObject.transform.position;
         
         if (player.playerAttack.CurrentAttackCD <= 0)
         {

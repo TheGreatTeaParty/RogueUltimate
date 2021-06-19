@@ -68,6 +68,8 @@ public class PlayerData
             // Null check because of currentEquipment structure: array, not list
             if (equipment.equipmentSlots[i].Item != null)
                 equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
+
+        // TODO: save skills
             
         
 

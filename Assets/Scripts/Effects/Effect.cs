@@ -12,6 +12,7 @@ public enum EffectType
     Freeze,
     Curse,
     Natural,
+    Fury,
 }
 
 [System.Serializable]

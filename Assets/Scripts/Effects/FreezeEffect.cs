@@ -17,6 +17,7 @@ public class FreezeEffect : Effect
         if (!_isApplied)
         {
             _stat.ModifyMovementSpeed(_slowDown);
+            _isApplied = true;
         }
     }
 
