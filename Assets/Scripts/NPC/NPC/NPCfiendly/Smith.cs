@@ -63,4 +63,16 @@ public class Smith : AI, IInteractable
         else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.smith) == 3)
             npcInventory.items = List3;
     }
+
+    public List<Item> GetList()
+    {
+        if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.smith) == 1)
+        {
+            return List2;
+        }
+        else
+        {
+            return List3;
+        }
+    }
 }

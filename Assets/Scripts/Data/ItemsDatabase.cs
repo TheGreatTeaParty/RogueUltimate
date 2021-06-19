@@ -24,6 +24,8 @@ public class ItemsDatabase : MonoBehaviour
     public Item[] tierThree;
     public Item[] tierFour;
     public Item[] tierFive;
+    [Space]
+    public Item[] treasures;
 
 
     public Item GetItemByID(int ID)
