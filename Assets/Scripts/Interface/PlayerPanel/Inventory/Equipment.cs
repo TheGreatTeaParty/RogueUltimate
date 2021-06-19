@@ -37,8 +37,13 @@ public class Equipment : MonoBehaviour
         {
             if (equipmentSlots[i].EquipmentType == item.EquipmentType)
             {
+                if (!equipmentSlots[i].Item)
+                    equipmentSlots[i].Amount++;
+
                 previousItem = (EquipmentItem) equipmentSlots[i].Item;
                 equipmentSlots[i].Item = item;
+                equipmentSlots[i].SetTier(item);
+                
                 return true;
             }
         }

@@ -6,7 +6,7 @@ public class TraitsGenerator : MonoBehaviour
 {
     enum RenownLevel
     {
-        Scum = 0,
+        Scum = 1,
         MurderHobo,
         BattleSeasoned,
         Adventurer,
@@ -37,6 +37,7 @@ public class TraitsGenerator : MonoBehaviour
 
     private void Start()
     {
+        Level = (RenownLevel)AccountManager.Instance.MasterLevel;
         GenerateTrait();
     }
 

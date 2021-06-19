@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class DiePanel : MonoBehaviour
@@ -11,6 +10,7 @@ public class DiePanel : MonoBehaviour
     private GameObject background;
     [SerializeField]
     private GameObject image;
+    public Transform results;
 
 
     public void PlayerStartDie()
@@ -23,14 +23,9 @@ public class DiePanel : MonoBehaviour
         dieAnimator.SetTrigger("Die");
 
     }
-
-    private void PlayerEndDie()
+    public void SpawnResults()
     {
-        SaveManager.DeletePlayer();
-        Destroy(InterfaceManager.Instance.gameObject);
-        Destroy(CharacterManager.Instance.Stats.gameObject);
-        Destroy(PlayerCamera.Instance.gameObject);
-        SceneManager.LoadScene("StartTavern");
+        Instantiate(results);
     }
 
 }
