@@ -17,6 +17,7 @@ public class MiniGameUI : MonoBehaviour
     {
         InterfaceManager.Instance.HideFaceElements();
         InterfaceManager.Instance.HideTavernUI();
+        InterfaceManager.Instance.QuickSlots.gameObject.SetActive(false);
         miniGameWindow.gameObject.SetActive(true);
     }
 
@@ -25,6 +26,7 @@ public class MiniGameUI : MonoBehaviour
         miniGameWindow.gameObject.SetActive(false);
         InterfaceManager.Instance.ShowFaceElements();
         InterfaceManager.Instance.ShowTavernUI();
+        InterfaceManager.Instance.QuickSlots.gameObject.SetActive(true);
 
     }
 
@@ -38,5 +40,10 @@ public class MiniGameUI : MonoBehaviour
     {
         CloseMiniGame();
          // shows victory window
+    }
+
+    public void ChangeButtonText(string text)
+    {
+        buttonThrow.GetComponentInChildren<TextMeshProUGUI>().SetText(text);
     }
 }

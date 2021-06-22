@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MiniGame : MonoBehaviour, IInteractable
 {
@@ -9,11 +8,11 @@ public class MiniGame : MonoBehaviour, IInteractable
     private int _cube1;
     private int _cube2;
     private short _moneyPlayer = 0;
-    private short _moneyAI1 = 20;
-    private short _moneyAI2 = 20;
+    private short _moneyAI1 = 10;
+    private short _moneyAI2 = 10;
+    private bool _isPlayerTurn = false;
     private bool _isAI1Turn = false;
     private bool _isAI2Turn = false;
-    private bool _isPlayerTurn = false;
 
 
     public string GetActionName()
@@ -29,6 +28,9 @@ public class MiniGame : MonoBehaviour, IInteractable
             _moneyPlayer = 10;
             _isPlayerTurn = true;
             UI.OpenMiniGame();
+            UI.turnUI.SetText("");
+            UI.amountUI.SetText("");
+            UI.ChangeButtonText("Throw");
         }
         else
         {
@@ -49,24 +51,18 @@ public class MiniGame : MonoBehaviour, IInteractable
 
         if (_isPlayerTurn)
         {
-            UI.turnUI.SetText("Your turn");
             money = _moneyPlayer;
         }
 
-        if (_isAI1Turn)
+        else if (_isAI1Turn)
         {
-            UI.turnUI.SetText("1# Khajiit's turn");
             money = _moneyAI1;
         }
 
-        if (_isAI2Turn)
+        else if (_isAI2Turn)
         {
-            UI.turnUI.SetText("2# Khajiit's turn");
             money = _moneyAI2;
         }
-
-
-        UI.amountUI.SetText(cubeSum.ToString());
 
         // PlayAnimation(_cube1, _cube2);
 
@@ -101,7 +97,7 @@ public class MiniGame : MonoBehaviour, IInteractable
              // "Wedding" field can store more than 1 coin
             case 7:
                 money--;
-                Wedding(cubeSum);
+                Wedding();
                 Debug.Log("-- Wedding field --");
                 break;
              // "King's field takes all coins from the desk, including "Wedding" field
@@ -124,21 +120,47 @@ public class MiniGame : MonoBehaviour, IInteractable
                 CloseGame();
             }
 
-            _isPlayerTurn = false;
+            Debug.Log("Player's Turn");
+            Debug.Log(" -- Player's money : " + _moneyPlayer + " -- ");
+
+            _isPlayerTurn = false;  
             _isAI1Turn = CanContinuePlay(_moneyAI1);
             _isAI2Turn = CanContinuePlay(_moneyAI2);
+
+            UI.turnUI.SetText("You thrown");
+            UI.amountUI.SetText(cubeSum.ToString());
+            UI.ChangeButtonText("Next");
         }
 
         else if (_isAI1Turn)
         {
             _moneyAI1 = money;
-            _isAI1Turn = CanContinuePlay(_moneyAI1);
+            _isAI1Turn = false;
+            Debug.Log("AI #1 Turn");
+            Debug.Log(" -- AI #1 money : "  + _moneyAI1 + " -- ");
+
+            if (!CanContinuePlay(_moneyAI2))
+            {
+                _isPlayerTurn = true;
+                UI.ChangeButtonText("Throw");
+            }
+
+            UI.turnUI.SetText("First Khajiit thrown");
+            UI.amountUI.SetText(cubeSum.ToString());
+
         }
 
         else if (_isAI2Turn)
         {
             _moneyAI2 = money;
             _isPlayerTurn = CanContinuePlay(_moneyPlayer);
+
+            UI.turnUI.SetText("Second Khajiit thrown");
+            UI.amountUI.SetText(cubeSum.ToString());
+            UI.ChangeButtonText("Throw");
+
+            Debug.Log("AI #2 Turn");
+            Debug.Log(" -- AI #2 money : " + _moneyAI2 + " -- ");
         }
 
         if (CanContinuePlay(_moneyPlayer) && !CanContinuePlay(_moneyAI1) && !CanContinuePlay(_moneyAI2))
@@ -165,10 +187,11 @@ public class MiniGame : MonoBehaviour, IInteractable
         return sum;
     }
 
-    private void Wedding(int cubeSum)
+    private void Wedding()
     {
         _fields[4]++;
-        UI.fieldImages[cubeSum - 3].sprite = UI.coinSprites[_fields[4]];
+        UI.fieldImages[4].sprite = UI.coinSprites[_fields[4]];
+        if (_fields[4] > 3) UI.fieldImages[4].SetNativeSize();
     }
 
     private short King()
@@ -180,6 +203,7 @@ public class MiniGame : MonoBehaviour, IInteractable
             sum += _fields[i];
             _fields[i] = 0;
             UI.fieldImages[i].sprite = UI.coinSprites[0];
+            UI.fieldImages[i].SetNativeSize();
         }
 
         return sum;
@@ -216,15 +240,14 @@ public class MiniGame : MonoBehaviour, IInteractable
     private void CloseGame()
     {
 
-        for (ushort i = 0; i < _fields.Length; i++)
-        {
-            _fields[i] = 0;
-            UI.fieldImages[i].sprite = UI.coinSprites[0];
-        }
+        King();
+
+        CharacterManager.Instance.Inventory.Gold += _moneyPlayer;
+        CharacterManager.Instance.Inventory.UpdateGold();
 
         _moneyPlayer = 0;
-        _moneyAI1 = 20;
-        _moneyAI2 = 20;
+        _moneyAI1 = 10;
+        _moneyAI2 = 10;
         _isPlayerTurn = false;
         _isAI1Turn = false;
         _isAI2Turn = false;
@@ -232,8 +255,9 @@ public class MiniGame : MonoBehaviour, IInteractable
 
     private void Victory()
     {
-        Debug.Log("U won");
+
         _moneyPlayer += King();
+        Debug.Log("U won & earned " + _moneyPlayer);
         CharacterManager.Instance.Inventory.Gold += _moneyPlayer;
         CharacterManager.Instance.Inventory.UpdateGold();
         CloseGame();
