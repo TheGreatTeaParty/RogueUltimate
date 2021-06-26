@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TraitsGenerator : MonoBehaviour
 {
-    enum RenownLevel
+    public enum RenownLevel
     {
         Scum = 1,
         MurderHobo,

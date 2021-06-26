@@ -19,11 +19,11 @@ public class Master : AI, IInteractable
     public void Interact()
     {
         // Bind the info for TradeManager
-        var playerInventory = CharacterManager.Instance.Inventory;
+        var playerContracts = CharacterManager.Instance.Stats.PlayerContracts;
         var npcInventory = GetComponent<NPCInventory>();
         var tradeManager = TradeManager.Instance;
 
-        tradeManager.Bind(playerInventory, npcInventory);
+        tradeManager.Bind(playerContracts, npcInventory);
         tradeManager.Open(TradeManager.tradeType.master);
     }
 

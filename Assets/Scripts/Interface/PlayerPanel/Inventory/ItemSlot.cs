@@ -19,7 +19,7 @@ public class ItemSlot : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private readonly Color _disabledColor = Color.clear;
     
 
-    public Item Item
+    public virtual Item Item
     {
         get => item;
         set 

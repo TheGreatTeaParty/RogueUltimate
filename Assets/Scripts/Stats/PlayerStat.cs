@@ -94,6 +94,8 @@ public delegate void OnChangeCallback();
 
     public TraitHolder PlayerTraits;
 
+    public ContractHolder PlayerContracts;
+
     public PlayerMovement playerMovement;
     public PlayerAttack playerAttack;
     
@@ -102,6 +104,10 @@ public delegate void OnChangeCallback();
     {
         if(PlayerTraits == null)
             PlayerTraits = new TraitHolder();
+
+        if (PlayerContracts == null)
+            PlayerContracts = new ContractHolder();
+
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
 

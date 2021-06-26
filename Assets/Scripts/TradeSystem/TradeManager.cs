@@ -34,11 +34,12 @@ public class TradeManager : MonoBehaviour
 
     [Space] 
     public Inventory playerInventory;
+    public ContractHolder playerContracts;
     public NPCInventory npcInventory;
     [Space]
     public TradeWindow KeeperWindow;
     public TradeWindow SwithWindow;
-    public TradeWindow MasterWindow;
+    public ContractTradeWindow MasterWindow;
     public TradeWindow DwarfWindow;
 
 
@@ -70,7 +71,7 @@ public class TradeManager : MonoBehaviour
             case tradeType.master:
                 {
                     MasterWindow.gameObject.SetActive(true);
-                    MasterWindow.BindData(playerInventory);
+                    MasterWindow.BindData(playerContracts);
                     break;
                 }
             case tradeType.dwarf:
@@ -89,6 +90,14 @@ public class TradeManager : MonoBehaviour
     public void Bind(Inventory playerInventory, NPCInventory npcInventory)
     {
         this.playerInventory = playerInventory;
+        this.npcInventory = npcInventory;
+
+        onChangeCallback?.Invoke();
+    }
+
+    public void Bind(ContractHolder playerContracts, NPCInventory npcInventory)
+    {
+        this.playerContracts = playerContracts;
         this.npcInventory = npcInventory;
 
         onChangeCallback?.Invoke();
