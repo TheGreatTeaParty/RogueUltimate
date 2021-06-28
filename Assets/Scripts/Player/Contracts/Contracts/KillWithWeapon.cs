@@ -20,7 +20,7 @@ public class KillWithWeapon : Contract
     private void UpdateKills()
     {
         EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
-        if (weapon.Echo() == WeaponType)
+        if (weapon.Echo() == WeaponType && _currentScore < AimScore)
             _currentScore++;
     }
 }
