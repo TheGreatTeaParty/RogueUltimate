@@ -23,7 +23,7 @@ public class TraitsUI : MonoBehaviour
         {
             for(int i = 0; i < playerStat.PlayerTraits.Traits.Count; ++i)
             {
-                slots[i].SetTraitProperties(playerStat.PlayerTraits.Traits[i].Icon, playerStat.PlayerTraits.Traits[i].Name, playerStat.PlayerTraits.Traits[i].Description);
+                slots[i].SetTraitProperties(playerStat.PlayerTraits.Traits[i].Icon, playerStat.PlayerTraits.Traits[i].Name, playerStat.PlayerTraits.Traits[i].BriefDescription);
             }
         }
     }

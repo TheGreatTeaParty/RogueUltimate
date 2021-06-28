@@ -28,6 +28,7 @@ public class Effect:ScriptableObject
     public EffectType _effectType;
     [Range(0f, 1f)]
     public float _chance;
+    [HideInInspector]
     public CharacterStat _stat;
 
     //Visual Effect:

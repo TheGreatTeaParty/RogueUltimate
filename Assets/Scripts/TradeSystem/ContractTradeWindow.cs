@@ -61,18 +61,19 @@ public class ContractTradeWindow : MonoBehaviour
         {
             playerContracts.Add(Instantiate(currentSlot.Item as Contract));
             AudioManager.Instance.Play("Buy");
+            tradeManager.npcInventory.items.Remove(currentSlot.Item);
+            EraseTooltip();
+            currentSlot = null;
         }
-
         tradeManager.onChangeCallback?.Invoke();
     }
 
     public void Sell()
     {
         playerContracts.Remove(currentSlot.Item as Contract);
-
         EraseTooltip();
+        tradeManager.npcInventory.items.Add(currentSlot.Item);
         currentSlot = null;
-
         tradeManager.onChangeCallback?.Invoke();
         AudioManager.Instance.Play("Sell");
     }
@@ -80,7 +81,6 @@ public class ContractTradeWindow : MonoBehaviour
     public void Close()
     {
         var UI = InterfaceManager.Instance;
-
         EraseTooltip();
 
 

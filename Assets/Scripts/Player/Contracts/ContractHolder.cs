@@ -38,6 +38,8 @@ public class ContractHolder
 
     public void Remove(Contract contract)
     {
+        if (contract.type == Contract.contractType.Major)
+            _hasMainContract = false;
         contracts.Remove(contract);
     }
 }

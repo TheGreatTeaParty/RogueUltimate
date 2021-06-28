@@ -63,9 +63,7 @@ public class ContractTradeIUI : MonoBehaviour
             npcSlots[i].Item = null;
 
         i = 0;
-
         int j = 0;
-
         for (; i < tradeWindow.playerContracts.contracts.Capacity; i++)
         {
             if (i < tradeWindow.playerContracts.contracts.Count)
@@ -75,15 +73,19 @@ public class ContractTradeIUI : MonoBehaviour
                     playerSlots[j].Item = tradeWindow.playerContracts.contracts[i];
                     ++j;
                 }
-                else
-                {
-                    playerSlots[3].Item = tradeWindow.playerContracts.contracts[i];
-                }
             }
             else
             {
                 playerSlots[j].Item = null;
+                ++j;
             }
+            
+        }
+        i = 0;
+        for (; i < tradeWindow.playerContracts.contracts.Count; i++)
+        {
+            if (tradeWindow.playerContracts.contracts[i].type == Contract.contractType.Major)
+                playerSlots[3].Item = tradeWindow.playerContracts.contracts[i];
         }
 
         if (UButton)

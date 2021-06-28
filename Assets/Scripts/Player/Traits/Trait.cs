@@ -11,6 +11,8 @@ public class Trait : ScriptableObject
     public TraitType Type;
     [TextArea]
     public string Description;
+    [TextArea]
+    public string BriefDescription;
 
     public enum TraitType
     {
