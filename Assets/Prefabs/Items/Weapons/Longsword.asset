@@ -22,24 +22,9 @@ MonoBehaviour:
   EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 6ede747c3098b4c209d011fc75aacdfe, type: 2}
-  animation:
-  - {fileID: -3510125067134375314, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 5606933586976399163, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -621236458986162762, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 6474728519088027090, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 2515928377386940391, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 4320694075733705750, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -5909343226099458783, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -4545658271988120839, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 5107139478529573243, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -1746034283480205550, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -3473476798193834928, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 50305788491289754, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -1659159837001021047, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: 1205167061173335897, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -8556756532683679497, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  - {fileID: -2512997269613081905, guid: 8a2614d42e1f3402e9a18a258e33e69d, type: 3}
-  physicalDamageBonus: 8
+  IdleAnimation: []
+  AttackAnimation: []
+  physicalDamageBonus: 6
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -60,10 +45,10 @@ MonoBehaviour:
   attackRangeMofifier: 0.4
   knockBackModifier: 38
   pushForceMofifier: 25
-  requiredStamina: -20
+  requiredStamina: -8
   requiredMana: 0
   requiredHealth: 0
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
-  StartAttackSound: {fileID: 0}
+  StartAttackSound: {fileID: 8300000, guid: dcdc30f74cca14c5896ca928943618ee, type: 3}
   EndAttackSound: {fileID: 0}
