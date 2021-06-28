@@ -10,6 +10,9 @@ public class Contract : Item
         Major = 1,
     };
     public contractType type;
+    public int _currentScore;
+
+    public int AimScore = 10;
 
     public virtual void StartContract()
     {

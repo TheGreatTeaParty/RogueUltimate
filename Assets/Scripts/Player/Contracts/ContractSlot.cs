@@ -8,6 +8,9 @@ public class ContractSlot : TradeSlot
     public GameObject Child;
     public TextMeshProUGUI Description;
     public TextMeshProUGUI Value;
+    [Space]
+    public TextMeshProUGUI CurrentValue;
+    public TextMeshProUGUI AimValue;
 
     [Space]
     public Contract.contractType type;
@@ -31,6 +34,11 @@ public class ContractSlot : TradeSlot
                 Child.SetActive(true);
                 Description.text = (item as Contract).Description;
                 Value.text = (item as Contract).Price.ToString();
+                if(CurrentValue && AimValue)
+                {
+                    CurrentValue.text = (item as Contract)._currentScore.ToString();
+                    AimValue.text = (item as Contract).AimScore.ToString();
+                }
             }
 
         }
