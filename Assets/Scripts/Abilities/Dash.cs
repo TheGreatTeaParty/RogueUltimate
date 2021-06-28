@@ -12,7 +12,7 @@ public class Dash : ActiveAbility
         var player = PlayerOnScene.Instance;
 
         if (player.playerAttack.CurrentAttackCD <= 0)
-            player.rb.AddForce(Vector3.right * bounce);
+            player.rb.AddForce(player.playerMovement.GetDirection() * bounce);
     }
     
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ImmortalEffect : Effect
 {
     private bool _isApplied = false;
-    private float _lastHealtBeforeApply;
+    private float _lastHealthBeforeApply;
 
     public override void ApplyEffect()
     {
@@ -17,14 +17,14 @@ public class ImmortalEffect : Effect
         if (!_isApplied)
         {
             _stat.PhysicalProtection.AddModifier(new StatModifier(10000f, StatModifierType.Flat));
-            _lastHealtBeforeApply = PlayerOnScene.Instance.stats.CurrentHealth;
+            _lastHealthBeforeApply = PlayerOnScene.Instance.stats.CurrentHealth;
             _isApplied = true;
         }
     }
 
     public override void RemoveEffect()
     {
-        PlayerOnScene.Instance.stats.CurrentHealth = _lastHealtBeforeApply;
+        PlayerOnScene.Instance.stats.CurrentHealth = _lastHealthBeforeApply;
         _stat.PhysicalProtection.RemoveLast();
         base.RemoveEffect();
     }
