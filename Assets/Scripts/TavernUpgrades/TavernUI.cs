@@ -36,7 +36,7 @@ public class TavernUI : MonoBehaviour
     {
         if (_prevRenown != renown)
         {
-            animator.SetTrigger("RenownChanged");
+            animator?.SetTrigger("RenownChanged");
             _prevRenown = renown;
         }
         RenownValue.text = renown.ToString();
