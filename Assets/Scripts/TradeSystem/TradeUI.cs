@@ -1,11 +1,13 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TradeUI : MonoBehaviour
 {
     public TradeSlot[] playerSlots;
-    public TradeSlot[] npcSlots;
+    public List <TradeSlot> npcSlots;
+    public Transform TradeSlot;
 
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI relation;
@@ -33,7 +35,7 @@ public class TradeUI : MonoBehaviour
     {
         tradeManager = TradeManager.Instance;
         tradeManager.onChangeCallback += UpdateUI;
-
+        tradeManager.npcInventory.onItemAdded += AddTradeSlot;
         accountManager = AccountManager.Instance;
         tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
 
@@ -41,14 +43,14 @@ public class TradeUI : MonoBehaviour
 
         if (playerSlotsParent == null || npcSlotsParent == null) 
             Debug.Log("Null pointer in TradeUI");
-        
-        npcSlots = npcSlotsParent.GetComponentsInChildren<TradeSlot>();
+        npcSlots = new List<TradeSlot>();
+        npcSlots.AddRange(npcSlotsParent.GetComponentsInChildren<TradeSlot>());
         playerSlots = playerSlotsParent.GetComponentsInChildren<TradeSlot>();
         
         for (int i = 0; i < playerSlots.Length; i++)
             playerSlots[i].OnClick += tradeWindow.OnSlotClick;
 
-        for (int i = 0; i < npcSlots.Length; i++)
+        for (int i = 0; i < npcSlots.Count; i++)
             npcSlots[i].OnClick += tradeWindow.OnSlotClick;
 
         UpdateUI();
@@ -59,7 +61,7 @@ public class TradeUI : MonoBehaviour
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
             npcSlots[i].Item = tradeManager.npcInventory.items[i];
-        for (; i < npcSlots.Length; i++)
+        for (; i < npcSlots.Count; i++)
             npcSlots[i].Item = null;
         
         i = 0;
@@ -148,6 +150,33 @@ public class TradeUI : MonoBehaviour
         foreach (Transform child in parent.transform)
         {
             Destroy(child.gameObject);
+        }
+        UpdateUI();
+    }
+
+    private void AddTradeSlot()
+    {
+        var slot = Instantiate(TradeSlot, npcSlotsParent);
+        TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
+        tradeSlot.OnClick += tradeWindow.OnSlotClick;
+        tradeSlot.Item = null;
+        npcSlots.Add(tradeSlot);
+    }
+
+    public void AddTradeSlot(Item item)
+    {
+        if (npcSlots.Count < tradeManager.npcInventory.items.Count)
+        {
+            var slot = Instantiate(TradeSlot, npcSlotsParent);
+            TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
+            tradeSlot.OnClick += tradeWindow.OnSlotClick;
+            tradeSlot.Item = item;
+            npcSlots.Add(tradeSlot);
+
+            // If we want to add by 4 Slots, if not Delete the bottom Functions: 
+            AddTradeSlot();
+            AddTradeSlot();
+            AddTradeSlot();
         }
     }
 } 

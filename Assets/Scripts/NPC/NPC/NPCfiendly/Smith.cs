@@ -45,12 +45,19 @@ public class Smith : AI, IInteractable
         {
             if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.smith) == 2)
             {
-                npcInventory.items = List2;
+                foreach (var item in List2)
+                {
+                    npcInventory.AddItem(item);
+                }
                 Interact();
             }
             else
             {
-                npcInventory.items = List3;
+
+                foreach (var item in List3)
+                {
+                    npcInventory.AddItem(item);
+                }
                 Interact();
             }
         }
