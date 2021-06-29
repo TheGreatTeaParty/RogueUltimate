@@ -17,7 +17,6 @@ public class TeleportStone : UsableItem
         }
 
         base.Use();
-        Time.timeScale = 0;
         var UI = InterfaceManager.Instance;
         UI.HideAll();
         Instantiate(VictoryPanel);

@@ -61,18 +61,22 @@ public class VictoryPanel : MonoBehaviour
                     if (treasures[j].Item1 == null)
                     {
                         treasures[j] = Tuple.Create(characterManager.Inventory.Items[i], 1);
-                        characterManager.Inventory.Items.Remove(characterManager.Inventory.Items[i]);
                         TOTAL++;
                         break;
                     }
                     else if (treasures[j].Item1 == characterManager.Inventory.Items[i])
                     {
                         treasures[j] = Tuple.Create(characterManager.Inventory.Items[i], treasures[j].Item2 + 1);
-                        characterManager.Inventory.Items.Remove(characterManager.Inventory.Items[i]);
                         break;
                     }
                 }
             }
+        }
+
+        foreach (var item in treasures)
+        {
+            if(item.Item1 != null)
+                characterManager.Inventory.RemoveItemCompletly(item.Item1);
         }
     }
 
@@ -93,7 +97,7 @@ public class VictoryPanel : MonoBehaviour
     {
         if (tuple.Item2 >= 1)
         {
-            SpawnTreasure(tuple.Item1);
+            SpawnTreasure(tuple.Item1, tuple.Item2);
             StartCoroutine(WaitAndCalculate(tuple.Item1, tuple.Item2));
         }
     }
@@ -103,10 +107,11 @@ public class VictoryPanel : MonoBehaviour
         StartCoroutine(WaitAndCalculate(item));
     }
 
-    private void SpawnTreasure(Item item)
+    private void SpawnTreasure(Item item, int count)
     {
        var CreatedItem = Instantiate(template, TreasureParent.transform);
        CreatedItem.GetComponentsInChildren<Image>()[1].sprite = item.Sprite;
+       CreatedItem.GetComponentInChildren<TextMeshProUGUI>().text = "x" + count.ToString();
     }
     private void SpawnContract(Item item) {
         var CreatedItem = Instantiate(template, ContractParent.transform);
