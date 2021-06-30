@@ -22,6 +22,8 @@ public class PlayerStat : CharacterStat, IDamaged
         4000, // 11
         4640, // 12
         5340, // 13
+        6220, // 14
+        7400, // 15
         
     };
     private float _currentMana;

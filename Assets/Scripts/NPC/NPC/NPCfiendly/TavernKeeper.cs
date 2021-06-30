@@ -200,9 +200,19 @@ public class TavernKeeper : AI, IInteractable
     public void SetInvenotyOnStart()
     {
         if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 2)
-            npcInventory.items = List2;
-        else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 3)
-            npcInventory.items = List3;
+        {
+            foreach (var item in List2)
+            {
+                npcInventory.AddItem(item);
+            }
+        }
+        else if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 3)
+        {
+            foreach (var item in List3)
+            {
+                npcInventory.AddItem(item);
+            }
+        }
     }
     
 }

@@ -21,8 +21,8 @@ public class EnemySpawner : MonoBehaviour
     [Range(0f, 1f)] public float secondTierSpawnProbability;
     [Range(0f, 1f)] public float thirdTierSpawnProbability;
     [Space]
-    public int NumToUnlockSecondTier = 2;
-    public int NumToUnlockThirdTier = 6;
+    private int NumToUnlockSecondTier = 3;
+    private int NumToUnlockThirdTier = 6;
 
     private static int ClearedRooms = 0;
     private bool _blockSecondTier = true;

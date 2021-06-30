@@ -54,7 +54,7 @@ public class ContractTradeIUI : MonoBehaviour
 
         for (int i = 0; i < npcSlots.Count; i++)
             npcSlots[i].OnClick += tradeWindow.OnSlotClick;
-
+        CheckSlots();
         UpdateUI();
     }
 
@@ -149,6 +149,20 @@ public class ContractTradeIUI : MonoBehaviour
             AddTradeSlot();
             AddTradeSlot();
             AddTradeSlot();
+        }
+    }
+    private void CheckSlots()
+    {
+        if (npcSlots.Count < tradeManager.npcInventory.items.Count)
+        {
+            for (int i = npcSlots.Count; i < tradeManager.npcInventory.items.Count; ++i)
+            {
+                var slot = Instantiate(TradeSlot, npcSlotsParent);
+                TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
+                tradeSlot.OnClick += tradeWindow.OnSlotClick;
+                tradeSlot.Item = tradeManager.npcInventory.items[i];
+                npcSlots.Add(tradeSlot);
+            }
         }
     }
 }
