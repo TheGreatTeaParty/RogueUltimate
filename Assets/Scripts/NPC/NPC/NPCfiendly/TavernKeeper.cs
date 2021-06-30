@@ -173,7 +173,6 @@ public class TavernKeeper : AI, IInteractable
                 {
                     npcInventory.AddItem(item);
                 }
-                Interact();
             }
             else
             {
@@ -182,7 +181,6 @@ public class TavernKeeper : AI, IInteractable
                 {
                     npcInventory.AddItem(item);
                 }
-                Interact();
             }
         }
     }

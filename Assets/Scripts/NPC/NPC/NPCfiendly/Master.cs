@@ -49,7 +49,6 @@ public class Master : AI, IInteractable
                 {
                     npcInventory.AddItem(item);
                 }
-                Interact();
             }
             else
             {
@@ -58,7 +57,6 @@ public class Master : AI, IInteractable
                 {
                     npcInventory.AddItem(item);
                 }
-                Interact();
             }
         }
     }

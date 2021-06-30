@@ -59,6 +59,8 @@ public class TradeUI : MonoBehaviour
 
     public void UpdateUI()
     {
+        if (gameObject.activeSelf == false) return;
+
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
             npcSlots[i].Item = tradeManager.npcInventory.items[i];
