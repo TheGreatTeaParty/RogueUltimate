@@ -33,8 +33,6 @@ public class ContractTradeIUI : MonoBehaviour
     private void Start()
     {
         tradeManager = TradeManager.Instance;
-        tradeManager.onChangeCallback += UpdateUI;
-        tradeManager.npcInventory.onItemAdded += AddTradeSlot;
 
         accountManager = AccountManager.Instance;
         tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
@@ -47,6 +45,9 @@ public class ContractTradeIUI : MonoBehaviour
         npcSlots = new List<TradeSlot>();
         npcSlots.AddRange(npcSlotsParent.GetComponentsInChildren<TradeSlot>());
 
+        tradeManager.onChangeCallback += UpdateUI;
+        tradeManager.npcInventory.onItemAdded += AddTradeSlot;
+
         playerSlots = playerSlotsParent.GetComponentsInChildren<ContractSlot>();
 
         for (int i = 0; i < playerSlots.Length; i++)
@@ -55,11 +56,14 @@ public class ContractTradeIUI : MonoBehaviour
         for (int i = 0; i < npcSlots.Count; i++)
             npcSlots[i].OnClick += tradeWindow.OnSlotClick;
 
+        CheckSlots();
         UpdateUI();
     }
 
     public void UpdateUI()
     {
+        if (gameObject.activeSelf == false) return;
+
         var i = 0;
         for (; i < tradeManager.npcInventory.items.Count; i++)
             npcSlots[i].Item = tradeManager.npcInventory.items[i];
@@ -149,6 +153,20 @@ public class ContractTradeIUI : MonoBehaviour
             AddTradeSlot();
             AddTradeSlot();
             AddTradeSlot();
+        }
+    }
+    private void CheckSlots()
+    {
+        if (npcSlots.Count < tradeManager.npcInventory.items.Count)
+        {
+            for (int i = npcSlots.Count; i < tradeManager.npcInventory.items.Count; ++i)
+            {
+                var slot = Instantiate(TradeSlot, npcSlotsParent);
+                TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
+                tradeSlot.OnClick += tradeWindow.OnSlotClick;
+                tradeSlot.Item = tradeManager.npcInventory.items[i];
+                npcSlots.Add(tradeSlot);
+            }
         }
     }
 }

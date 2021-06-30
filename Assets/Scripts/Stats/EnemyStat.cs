@@ -206,7 +206,7 @@ public class EnemyStat : CharacterStat, IDamaged
 
         if (UnityEngine.Random.value < 0.25f)
         {
-            ItemScene.SpawnItemScene(transform.position, ItemsAsset.instance.GenerateItem());
+            ItemScene.SpawnItemScene(transform.position, ItemsAsset.instance.GenerateItemBasedLevel(CharacterManager.Instance.Stats.Level));
         }
     }
 

@@ -317,6 +317,17 @@ public class CharacterManager : MonoBehaviour
         _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[2]));
 
         ItemsDatabase itemsDB = ItemsDatabase.Instance;
+        //CONTRACTS:
+        _stats.PlayerContracts = new ContractHolder();
+        for (int i = 0; i < data.contractsData.GetLength(0); ++i)
+        {
+            if (itemsDB.GetContractByID(data.contractsData[i, 0]))
+            {
+                _stats.PlayerContracts.Add(Instantiate(itemsDB.GetContractByID(data.contractsData[i, 0])));
+                _stats.PlayerContracts.contracts[i]._currentScore = data.contractsData[i, 1];
+            }
+        }
+
         StartCoroutine(WaitAndLoadEquipment(data, itemsDB));
     }
 

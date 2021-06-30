@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Contracts/KillTemplate")]
 public class KillWithWeapon : Contract
 {
-    [HideInInspector]
     
     public AttackType WeaponType;
 

@@ -90,14 +90,20 @@ public class SpawnLogic : MonoBehaviour
             //Compare new id to the existing one
             //DOES NOT WORK
             int RoomId = possibilities[newId].gameObject.GetComponent<PhysicalRoom>().id;
-            unique = true;
-            _exisitingId.Add(RoomId);
-
-            /*if (_exisitingId.Find(id => id == RoomId) == 0)
-             {
-                 unique = true;
-                 _exisitingId.Add(RoomId);
-             }*/
+            
+            if (possibilities[newId].gameObject.GetComponent<PhysicalRoom>().roomType == RoomType.Event)
+            {
+                if (_exisitingId.Find(id => id == RoomId) == 0)
+                {
+                    unique = true;
+                    _exisitingId.Add(RoomId);
+                }
+            }
+            else
+            {
+                unique = true;
+                _exisitingId.Add(RoomId);
+            }
         }
         return possibilities[newId];
     }
