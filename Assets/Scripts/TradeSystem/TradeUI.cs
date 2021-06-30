@@ -167,6 +167,9 @@ public class TradeUI : MonoBehaviour
     {
         if (npcSlots.Count < tradeManager.npcInventory.items.Count)
         {
+            var rect = npcSlotsParent.GetComponent<RectTransform>().rect.height;
+            npcSlotsParent.GetComponent<RectTransform>().sizeDelta = new Vector2(360, rect + 80);
+            npcSlotsParent.GetComponent<GridLayoutGroup>().padding.top = 15;
             var slot = Instantiate(TradeSlot, npcSlotsParent);
             TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
             tradeSlot.OnClick += tradeWindow.OnSlotClick;

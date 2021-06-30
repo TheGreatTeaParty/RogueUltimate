@@ -27,7 +27,7 @@ public class TavernUI : MonoBehaviour
     {
         if (_prevGold != gold)
         {
-            animator.SetTrigger("GoldChanged");
+            if (animator != null) animator.SetTrigger("GoldChanged");
             _prevGold = gold;
         }
         CoinsValue.text = gold.ToString();
@@ -36,7 +36,7 @@ public class TavernUI : MonoBehaviour
     {
         if (_prevRenown != renown)
         {
-            animator?.SetTrigger("RenownChanged");
+            if (animator != null) animator.SetTrigger("RenownChanged");
             _prevRenown = renown;
         }
         RenownValue.text = renown.ToString();
