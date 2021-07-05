@@ -108,11 +108,12 @@ public class CharacterManager : MonoBehaviour
     
     public void Unequip(ItemSlot itemSlot)
     {
-        Debug.Log("Unequip !");
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
         {
             Unequip(equipmentItem);
+            itemSlot.Item = null;
+            itemSlot.Amount = 0;
         }
     }
     
@@ -120,21 +121,30 @@ public class CharacterManager : MonoBehaviour
     {
         if (!inventory.IsFull() && equipment.RemoveItem(item))
         {
+            item.Unequip(_stats);
             inventory.AddItem(item);
             AudioManager.Instance.Play("Unequip");
+            _stats.onChangeCallback.Invoke();
             onEquipmentChanged?.Invoke(null, item);
         }
     }
 
-    public void DropFromInventory(Item item)
+    public void DropFromInventory(ItemSlot itemSlot)
     {
         //Call spawn function on the player's position
         var position = PlayerOnScene.Instance.transform.position;
         Vector3 newPosition = new Vector3(position.x + 1f, position.y, 0f);
         Collider2D checkWall = Physics2D.OverlapCircle(newPosition, 0.25f, LayerMask.GetMask("Wall"));
-        ItemScene.SpawnItemScene(checkWall == null ? newPosition : new Vector3(position.x - 1f, position.y, 0f), item);
+        ItemScene.SpawnItemScene(checkWall == null ? newPosition : new Vector3(position.x - 1f, position.y, 0f), itemSlot.Item);
 
-        inventory.RemoveItem(item);
+        if (itemSlot is EquipmentSlot)
+        {
+            onEquipmentChanged?.Invoke(null, itemSlot.Item as EquipmentItem);
+            equipment.RemoveItem(itemSlot.Item as EquipmentItem);
+            _stats.onChangeCallback.Invoke();
+        }
+        else
+            inventory.RemoveItem(itemSlot.Item);
     }
 
     public void AddTooltip(ItemSlot itemSlot)

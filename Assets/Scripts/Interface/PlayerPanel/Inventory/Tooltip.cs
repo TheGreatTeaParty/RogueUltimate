@@ -24,7 +24,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
     [SerializeField] private TextMeshProUGUI _int;
 
 
-    public event Action<Item> DropItem;  
+    public event Action<ItemSlot> DropItem;  
     public event Action<Tooltip> CloseTooltip;
 
 
@@ -83,7 +83,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
     
     public void Drop()
     {
-        DropItem?.Invoke(_item);
+        DropItem?.Invoke(_itemSlot);
         CloseSelf();
     }
     
