@@ -9,7 +9,7 @@ public class DoorsController : MonoBehaviour
     public float width;
     public event EventHandler onDoorChanged;
     private bool _isSent = false;
-
+    private bool _ON = false;
     // Cache
     private BoxCollider2D[] _doorColliders;
 
@@ -38,6 +38,11 @@ public class DoorsController : MonoBehaviour
                     _isSent = true;
                 }
             }
+            if (!_ON)
+            {
+                DungeonMusic.Instance.TurnTheCombatMusic();
+                _ON = true;
+            }
             Minimap.instance.HideMap();
         }
         else
@@ -51,6 +56,11 @@ public class DoorsController : MonoBehaviour
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
                     _isSent = false;
                 }
+            }
+            if (_ON)
+            {
+                DungeonMusic.Instance.TurnTheCombatMusicOFF();
+                _ON = false;
             }
             Minimap.instance.ShowMap();
         }
