@@ -57,7 +57,7 @@ public class DungeonMusic : MonoBehaviour
     {
         if (_fadeOUT && Combat.volume < volume)
         {
-            Combat.volume += 0.005f;
+            Combat.volume += 0.05f * Time.deltaTime;
         }
         else if(_fadeOUT && Combat.volume >= volume)
         {
@@ -66,7 +66,7 @@ public class DungeonMusic : MonoBehaviour
 
         else if(_fadeIN && Combat.volume > 0)
         {
-            Combat.volume -= 0.005f;
+            Combat.volume -= 0.025f * Time.deltaTime;
         }
         else if (_fadeIN && Combat.volume <= 0)
         {

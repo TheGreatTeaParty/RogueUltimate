@@ -7,12 +7,12 @@ public class NextLevelTrigger : MonoBehaviour
     [SerializeField] private Vector3 NextLevelposition = Vector3.zero;
     [SerializeField] private Animator transition;
     [SerializeField] private Type type;
-
+    private bool _isLoaded = false;
     
     public enum Type
     {
         portal = 0,
-        stairs,
+        door,
     }
 
 
@@ -24,13 +24,13 @@ public class NextLevelTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !_isLoaded)
         {
             PlayerOnScene.Instance.interactDetaction.DeleteInteractionData();
             InterfaceManager.Instance.fixedJoystick.ResetInput();
             PlayerOnScene.Instance.HidePlayer();
             InterfaceManager.Instance.HideAll();
-
+            _isLoaded = true;
             LoadNextLevel();
         }
     }
@@ -46,7 +46,8 @@ public class NextLevelTrigger : MonoBehaviour
         {
             AudioManager.Instance.Play("Teleport");
         }
-        
+        else if (type == Type.door)
+            AudioManager.Instance.Play("TavernExit");
         //Dungeon sound/Door sound 
 
         transition.SetTrigger("Start");

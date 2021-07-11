@@ -31,6 +31,7 @@ public class QuickSlot : ItemSlot
     {
         OnQuickDropEvent?.Invoke(this);
         quickSlotOnScene.SetItem(this);
+        AudioManager.Instance.Play("QuickSlot");
     }
 
 }

@@ -34,14 +34,10 @@ public class DoorsController : MonoBehaviour
                 //Send info to change visualisation
                 if (!_isSent)
                 {
+                    _ON = true;
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
                     _isSent = true;
                 }
-            }
-            if (!_ON)
-            {
-                DungeonMusic.Instance.TurnTheCombatMusic();
-                _ON = true;
             }
             Minimap.instance.HideMap();
         }
@@ -53,14 +49,14 @@ public class DoorsController : MonoBehaviour
 
                 if (_isSent)
                 {
+                    if (_ON)
+                    {
+                        DungeonMusic.Instance.TurnTheCombatMusicOFF();
+                        _ON = false;
+                    }
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
                     _isSent = false;
                 }
-            }
-            if (_ON)
-            {
-                DungeonMusic.Instance.TurnTheCombatMusicOFF();
-                _ON = false;
             }
             Minimap.instance.ShowMap();
         }

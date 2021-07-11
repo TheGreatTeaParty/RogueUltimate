@@ -32,7 +32,6 @@ public class PlayerEnterCheck : MonoBehaviour
         for (int i = 0; i < _eSpawnPoints.Length; i++)
             _eSpawnPoints[i].SpawnEnemy(_eSpawner.GetEnemy(roomType), enemyLevel);
         _isSpawned = true;
-        DungeonMusic.Instance.TurnTheCombatMusic();
         Destroy(gameObject);
         
     }

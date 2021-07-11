@@ -27,6 +27,7 @@ public class ContractTradeIUI : MonoBehaviour
     private ContractTradeWindow tradeWindow;
     private AccountManager accountManager;
     private TavernKeeperUpgrade tavernKeeperUpgrade;
+    private AudioManager audioManager;
 
     private bool _isSet = false;
 
@@ -36,6 +37,7 @@ public class ContractTradeIUI : MonoBehaviour
 
         accountManager = AccountManager.Instance;
         tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
+        audioManager = AudioManager.Instance;
 
         tradeWindow = GetComponent<ContractTradeWindow>();
 
@@ -168,5 +170,9 @@ public class ContractTradeIUI : MonoBehaviour
                 npcSlots.Add(tradeSlot);
             }
         }
+    }
+    public void Click()
+    {
+        audioManager.Play("UIclick");
     }
 }

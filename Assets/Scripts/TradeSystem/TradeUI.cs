@@ -28,6 +28,7 @@ public class TradeUI : MonoBehaviour
     private TradeWindow tradeWindow;
     private AccountManager accountManager;
     private TavernKeeperUpgrade tavernKeeperUpgrade;
+    private AudioManager audioManager;
 
     private bool _isSet = false;
 
@@ -37,6 +38,7 @@ public class TradeUI : MonoBehaviour
         tradeManager.onChangeCallback += UpdateUI;
         accountManager = AccountManager.Instance;
         tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
+        audioManager = AudioManager.Instance;
 
         tradeWindow = GetComponent<TradeWindow>();
 

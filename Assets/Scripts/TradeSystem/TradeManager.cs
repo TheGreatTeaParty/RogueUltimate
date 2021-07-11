@@ -107,5 +107,6 @@ public class TradeManager : MonoBehaviour
     {
         OnTradeUpgraded?.Invoke(type);
         // Should be Animation Here:
+        AudioManager.Instance.Play("Upgrade");
     }
 } 

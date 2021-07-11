@@ -90,7 +90,6 @@ public class DynamicIcon : MonoBehaviour
             sprite.color = new Color(0.3f, 0.3f, 0.3f);
             if (_roomLight)
                 _triggeredOff = true;
-            DungeonMusic.Instance.TurnTheCombatMusicOFF();
         }
     }
 

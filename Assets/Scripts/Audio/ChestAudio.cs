@@ -18,6 +18,7 @@ public class ChestAudio : MonoBehaviour
 
     public void OpenSound()
     {
+        AudioManager.Instance.Play("Lock");
         source.PlayOneShot(open_sound);
     }
     public void MoneySound()
