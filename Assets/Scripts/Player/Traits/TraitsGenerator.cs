@@ -74,6 +74,7 @@ public class TraitsGenerator : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
     }
+
     public void GenerateTrait()
     {
         switch (Level)
