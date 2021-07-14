@@ -5,10 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Contracts/KillTemplate")]
 public class KillWithWeapon : Contract
 {
-    [HideInInspector]
-    public int _currentKills;
-
-    public int ToKill = 10;
+    
     public AttackType WeaponType;
 
     private Equipment equipment;
@@ -22,7 +19,7 @@ public class KillWithWeapon : Contract
     private void UpdateKills()
     {
         EquipmentItem weapon = equipment.equipmentSlots[5].Item as EquipmentItem;
-        if (weapon.Echo() == WeaponType)
-            _currentKills++;
+        if (weapon.Echo() == WeaponType && _currentScore < AimScore)
+            _currentScore++;
     }
 }

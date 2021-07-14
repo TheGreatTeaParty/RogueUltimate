@@ -31,7 +31,6 @@ public class PlayerEnterCheck : MonoBehaviour
         int enemyLevel = _eSpawner.GetEnemyLevel();
         for (int i = 0; i < _eSpawnPoints.Length; i++)
             _eSpawnPoints[i].SpawnEnemy(_eSpawner.GetEnemy(roomType), enemyLevel);
-
         _isSpawned = true;
         Destroy(gameObject);
         

@@ -8,6 +8,13 @@ public class TraitsStageControll : MonoBehaviour
     public GameObject Stage2;
     public GameObject Stage3;
 
+    private AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = AudioManager.Instance;
+    }
+
     public void TurnONStage1()
     {
         Stage1.SetActive(true);
@@ -34,6 +41,15 @@ public class TraitsStageControll : MonoBehaviour
         Stage3.SetActive(false);
     }
 
+    public void FlipSound()
+    {
+        audioManager.Play("PageFlip");
+    }
+
+    public void OpenSound()
+    {
+        audioManager.Play("Book");
+    }
 
 
 }

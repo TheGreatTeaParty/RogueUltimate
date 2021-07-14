@@ -69,9 +69,6 @@ public class GolemBoss : EnemyAI
 
         if (stats.CurrentHealth <= stageTwoHealth * stats.MaxHealth && !_stageChanged)
             SwitchStage();
-        
-        //Should be changed in the inherited EnemyStat class
-        BossFightPortal.Instance.SetBossHealth(stats.CurrentHealth);
 
         if (stats.CurrentHealth <= 0)
         {

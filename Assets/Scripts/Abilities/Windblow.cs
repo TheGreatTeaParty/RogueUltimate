@@ -12,12 +12,13 @@ public class Windblow : ActiveAbility
         base.Activate();
 
         var player = PlayerOnScene.Instance;
-         var position = player.gameObject.transform.position;
+        var position = player.gameObject.transform.position;
         
         if (player.playerAttack.CurrentAttackCD <= 0)
         {
             _enemyMask = LayerMask.GetMask("Enemy");
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(position, attackRange, _enemyMask);
+
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
                 var vector = enemiesToDamage[i].gameObject.transform.position - player.transform.position;

@@ -45,13 +45,18 @@ public class Master : AI, IInteractable
         {
             if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.master) == 2)
             {
-                npcInventory.items = List2;
-                Interact();
+                foreach (var item in List2)
+                {
+                    npcInventory.AddItem(item);
+                }
             }
             else
             {
-                npcInventory.items = List3;
-                Interact();
+
+                foreach (var item in List3)
+                {
+                    npcInventory.AddItem(item);
+                }
             }
         }
     }
@@ -59,9 +64,19 @@ public class Master : AI, IInteractable
     public void SetInvenotyOnStart()
     {
         if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.master) == 2)
-            npcInventory.items = List2;
+        {
+            foreach (var item in List2)
+            {
+                npcInventory.AddItem(item);
+            }
+        }
         else if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.master) == 3)
-            npcInventory.items = List3;
+        {
+            foreach (var item in List3)
+            {
+                npcInventory.AddItem(item);
+            }
+        }
     }
 
 }

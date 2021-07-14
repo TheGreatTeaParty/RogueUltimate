@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
+            if (itemSlots[i].gameObject.activeSelf && itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
             {
                 itemSlots[i].Item = item;
                 itemSlots[i].SetTier(itemSlots[i].Item);
@@ -124,6 +124,21 @@ public class Inventory : MonoBehaviour
             }
         }
         
+        return false;
+    }
+    public bool RemoveItemCompletly(Item item)
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (itemSlots[i].Item == item)
+            {
+                itemSlots[i].Amount = 0;
+                itemSlots[i].Item = null;
+                itemSlots[i].SetTier(itemSlots[i].Item);
+                items.Remove(item);
+                return true;
+            }
+        }
         return false;
     }
 

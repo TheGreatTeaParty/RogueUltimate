@@ -13,13 +13,16 @@ public class LosePanel : MonoBehaviour
 
     private Animator animator;
     private CharacterManager characterManager;
+    private AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = AudioManager.Instance;
         animator = GetComponent<Animator>();
         characterManager = CharacterManager.Instance;
         button.interactable = false;
+        audioManager.Play("Lose");
     }
 
     private void DisplayKills()
@@ -32,6 +35,7 @@ public class LosePanel : MonoBehaviour
     private IEnumerator WaitAndCalculate()
     {
         yield return new WaitForSeconds(0.5f);
+        audioManager.Play("Renown");
         animator.SetTrigger("KillCount");
         KillValue.text = (characterManager.Stats.Kills * 10).ToString();
         button.interactable = true;

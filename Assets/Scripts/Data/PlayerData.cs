@@ -17,6 +17,7 @@ public class PlayerData
     public int[] equipmentData;
     public int[,] quickSlotsData; // [i,j], where i - item id, j - ammount
     public int[] traitsData = new int[3];
+    public int[,] contractsData;
     public float[] statsData = new float[3];
     
     public PlayerData()
@@ -61,6 +62,12 @@ public class PlayerData
                 quickSlotsData[i, 0] = inventory.Inventory.QuickSlots[i].Item.ID;
                 quickSlotsData[i, 1] = inventory.Inventory.QuickSlots[i].Amount;
             }
+        contractsData = new int[stats.PlayerContracts.contracts.Count, 2];
+        for(int i = 0; i < stats.PlayerContracts.contracts.Count; ++i)
+        {
+            contractsData[i, 0] = stats.PlayerContracts.contracts[i].ID;
+            contractsData[i, 1] = stats.PlayerContracts.contracts[i]._currentScore;
+        }
 
         Equipment equipment = CharacterManager.Instance.Equipment;
         equipmentData = new int[equipment.equipmentSlots.Length];
