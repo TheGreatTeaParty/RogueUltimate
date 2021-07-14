@@ -42,8 +42,15 @@ public class TradeManager : MonoBehaviour
     public ContractTradeWindow MasterWindow;
     public TradeWindow DwarfWindow;
 
+    private AudioManager audioManager;
+
 
     public event Action<tradeType> OnTradeUpgraded;
+
+    private void Start()
+    {
+        audioManager = AudioManager.Instance;
+    }
 
     public void Open(tradeType type)
     {
@@ -60,12 +67,14 @@ public class TradeManager : MonoBehaviour
                 {
                     KeeperWindow.gameObject.SetActive(true);
                     KeeperWindow.BindData(playerInventory);
+                    audioManager.Play("Keeper");
                     break;
                 }
             case tradeType.smith:
                 {
                     SwithWindow.gameObject.SetActive(true);
                     SwithWindow.BindData(playerInventory);
+                    audioManager.Play("Smith");
                     break;
                 }
             case tradeType.master:
