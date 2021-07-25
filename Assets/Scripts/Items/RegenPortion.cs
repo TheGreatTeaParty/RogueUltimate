@@ -11,8 +11,10 @@ public class RegenPortion : UsableItem
 
     public override void ModifyStats()
     {
-        base.ModifyStats();
-        CharacterManager.Instance.Stats.EffectController.AddEffect(Instantiate(effect), CharacterManager.Instance.Stats);
+        var newEffect = Instantiate(effect);
+        newEffect.Ticks = Ticks;
+        newEffect.Intensity = EffectIntensity;
+        CharacterManager.Instance.Stats.EffectController.AddEffect(newEffect, CharacterManager.Instance.Stats);
         AudioManager.Instance.Play("Bottle");
     }
 }

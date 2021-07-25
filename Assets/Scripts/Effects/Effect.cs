@@ -13,6 +13,7 @@ public enum EffectType
     Curse,
     Natural,
     Fury,
+    Positive,
 }
 
 [System.Serializable]
@@ -40,6 +41,11 @@ public class Effect:ScriptableObject
     {
         get => _ticks;
         set => _ticks = value;
+    }
+    public float Intensity
+    {
+        get => _intensity;
+        set => _intensity = value;
     }
     
     public virtual void ApplyEffect()
