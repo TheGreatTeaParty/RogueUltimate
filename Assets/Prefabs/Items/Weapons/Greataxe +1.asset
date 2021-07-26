@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77da48f186c134af4b86d0d3406c9899, type: 3}
-  m_Name: Heavy Crossbow +2
+  m_Script: {fileID: 11500000, guid: 8a45a9f308cf74f189069df1ee980f1c, type: 3}
+  m_Name: Greataxe +1
   m_EditorClassIdentifier: 
-  ID: 39
-  tier: 3
+  ID: 50
+  tier: 2
   price: 0
-  itemName: Darksteel Crossbow
-  description: +16 Damage
-  sprite: {fileID: -3694533877916086887, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
-  stackMaxSize: 1
+  itemName: Orcish Greataxe
+  description: 
+  sprite: {fileID: 1801263428120863714, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
+  stackMaxSize: 0
   EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 0}
@@ -39,15 +39,16 @@ MonoBehaviour:
   requiredStrength: 0
   requiredIntelligence: 0
   requiredAgility: 0
-  _effect: {fileID: 11400000, guid: c87f0e3bfd37c42188cdaedf1fbb9490, type: 2}
-  WeaponType: 1
-  attackSpeedMofifier: 1.5
-  knockBackModifier: 50
-  pushForceMofifier: -5
-  requiredStamina: -12
+  _effect: {fileID: 11400000, guid: 7fb3d4895e30942aa8a3aba73503981c, type: 2}
+  WeaponType: 0
+  attackSpeedMofifier: 0.8
+  attackRangeMofifier: 0.7
+  knockBackModifier: 60
+  pushForceMofifier: 40
+  requiredStamina: -15
   requiredMana: 0
   requiredHealth: 0
-  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
+  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
-  prepareSound: {fileID: 8300000, guid: 103be5ef3bea649448b38065b9b1d4cb, type: 3}
-  ReleaseSound: {fileID: 0}
+  StartAttackSound: {fileID: 0}
+  EndAttackSound: {fileID: 0}

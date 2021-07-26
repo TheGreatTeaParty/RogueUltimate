@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77da48f186c134af4b86d0d3406c9899, type: 3}
-  m_Name: Heavy Crossbow +2
+  m_Script: {fileID: 11500000, guid: 197df76cb84484b39bcb72109a441c9a, type: 3}
+  m_Name: Staff of fire +2
   m_EditorClassIdentifier: 
-  ID: 39
+  ID: 71
   tier: 3
   price: 0
-  itemName: Darksteel Crossbow
-  description: +16 Damage
-  sprite: {fileID: -3694533877916086887, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
-  stackMaxSize: 1
+  itemName: Staff of Burning
+  description: 
+  sprite: {fileID: -4261047623482395726, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
+  stackMaxSize: 0
   EqipmnetArmorType: 0
   equipmentType: 0
-  equipmentAnimations: {fileID: 0}
+  equipmentAnimations: {fileID: 9100000, guid: 0b522372ffb00471f8ec2afa20d3e5a2, type: 2}
   IdleAnimation: []
   AttackAnimation: []
-  physicalDamageBonus: 16
+  physicalDamageBonus: 0
   physicalProtectionBonus: 0
-  magicDamageBonus: 0
+  magicDamageBonus: 6
   magicProtectionBonus: 0
   willBonus: 0
   vitalityBonus: 0
@@ -39,15 +39,14 @@ MonoBehaviour:
   requiredStrength: 0
   requiredIntelligence: 0
   requiredAgility: 0
-  _effect: {fileID: 11400000, guid: c87f0e3bfd37c42188cdaedf1fbb9490, type: 2}
+  _effect: {fileID: 11400000, guid: 1a124df62815760409f4f47901668c7f, type: 2}
   WeaponType: 1
-  attackSpeedMofifier: 1.5
-  knockBackModifier: 50
-  pushForceMofifier: -5
-  requiredStamina: -12
-  requiredMana: 0
+  castSpeedMofifier: 0.2
+  knockBackModifier: 25
+  pushForceMofifier: -30
+  requiredMana: -8
+  requiredStamina: 0
   requiredHealth: 0
-  arrowPrefab: {fileID: 734146943821345808, guid: 4128cf821f7e74f6e9a12fd1f1507498,
-    type: 3}
-  prepareSound: {fileID: 8300000, guid: 103be5ef3bea649448b38065b9b1d4cb, type: 3}
+  prefab: {fileID: 0}
+  prepareSound: {fileID: 0}
   ReleaseSound: {fileID: 0}
