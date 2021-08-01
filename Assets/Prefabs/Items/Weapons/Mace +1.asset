@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a45a9f308cf74f189069df1ee980f1c, type: 3}
   m_Name: Mace +1
   m_EditorClassIdentifier: 
-  ID: 0
-  tier: 0
+  ID: 22
+  tier: 2
   price: 0
-  itemName: Mace +1
+  itemName: Heavy Mace
   description: 
-  sprite: {fileID: 0}
-  stackMaxSize: 0
+  sprite: {fileID: -7573354855677281409, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
+  stackMaxSize: 1
   EqipmnetArmorType: 0
   equipmentType: 0
   equipmentAnimations: {fileID: 9100000, guid: 0643ff251214a4a76959d4027dc9617a, type: 2}
@@ -40,7 +40,7 @@ MonoBehaviour:
   - {fileID: -8731135494470535161, guid: aec77d0adef7c4eb3a29c7b5bc393ffc, type: 3}
   - {fileID: 7457713441170635898, guid: aec77d0adef7c4eb3a29c7b5bc393ffc, type: 3}
   AttackAnimation: []
-  physicalDamageBonus: 0
+  physicalDamageBonus: 12
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -55,15 +55,16 @@ MonoBehaviour:
   requiredStrength: 0
   requiredIntelligence: 0
   requiredAgility: 0
-  _effect: {fileID: 0}
+  _effect: {fileID: 11400000, guid: c87f0e3bfd37c42188cdaedf1fbb9490, type: 2}
   WeaponType: 0
-  attackSpeedMofifier: 0
-  attackRangeMofifier: 0
-  knockBackModifier: 0
-  pushForceMofifier: 0
-  requiredStamina: 0
+  attackSpeedMofifier: 0.7
+  attackRangeMofifier: 0.5
+  knockBackModifier: 50
+  pushForceMofifier: 20
+  requiredStamina: -13
   requiredMana: 0
   requiredHealth: 0
-  HitEffect: {fileID: 0}
+  HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
+    type: 3}
   StartAttackSound: {fileID: 0}
   EndAttackSound: {fileID: 0}
