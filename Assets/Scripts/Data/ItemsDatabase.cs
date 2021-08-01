@@ -22,25 +22,28 @@ public class ItemsDatabase : MonoBehaviour
 
         foreach (var item in allItems)
         {
-            if(item.tier == Tier.First)
+            if (item)
             {
-                tierOne.Add(item);
-            }
-            else if(item.tier == Tier.Second)
-            {
-                tierTwo.Add(item);
-            }
-            else if (item.tier == Tier.Third)
-            {
-                tierThree.Add(item);
-            }
-            else if (item.tier == Tier.Fourth)
-            {
-                tierFour.Add(item);
-            }
-            else if (item.tier == Tier.Fifth)
-            {
-                tierFive.Add(item);
+                if (item.tier == Tier.First)
+                {
+                    tierOne.Add(item);
+                }
+                else if (item.tier == Tier.Second)
+                {
+                    tierTwo.Add(item);
+                }
+                else if (item.tier == Tier.Third)
+                {
+                    tierThree.Add(item);
+                }
+                else if (item.tier == Tier.Fourth)
+                {
+                    tierFour.Add(item);
+                }
+                else if (item.tier == Tier.Fifth)
+                {
+                    tierFive.Add(item);
+                }
             }
         }
     }
