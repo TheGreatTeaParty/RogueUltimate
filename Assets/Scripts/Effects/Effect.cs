@@ -67,9 +67,12 @@ public class Effect:ScriptableObject
         SpriteRenderer sprite = _stat.gameObject.GetComponent<SpriteRenderer>();
         Transform fx = Instantiate(_effectFX, sprite.transform.position, Quaternion.identity);
         EffectFX effectFX = fx.GetComponent<EffectFX>();
-        effectFX.target = sprite.gameObject;
-        effectFX.targetSprite = sprite;
-        effectFX.effect = this;
+        if (effectFX)
+        {
+            effectFX.target = sprite.gameObject;
+            effectFX.targetSprite = sprite;
+            effectFX.effect = this;
+        }
 
     }
 

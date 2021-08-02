@@ -14,6 +14,7 @@ public class RegenPortion : UsableItem
         var newEffect = Instantiate(effect);
         newEffect.Ticks = Ticks;
         newEffect.Intensity = EffectIntensity;
+        newEffect.Icon = sprite;
         CharacterManager.Instance.Stats.EffectController.AddEffect(newEffect, CharacterManager.Instance.Stats);
         AudioManager.Instance.Play("Bottle");
     }
