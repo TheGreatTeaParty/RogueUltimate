@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Effects/ImmortalEffect")]
-public class ImmortalEffect : Effect
+[CreateAssetMenu(menuName = "Effects/FuryEffect")]
+public class FuryEffect : Effect
 {
     private bool _isApplied = false;
     private float _lastHealthBeforeApply;
@@ -11,8 +11,6 @@ public class ImmortalEffect : Effect
     public override void ApplyEffect()
     {
         base.ApplyEffect();
-
-
 
         if (!_isApplied)
         {
