@@ -117,6 +117,11 @@ public class EquipmentItem : Item
     {
         return requiredAgility;
     }
+
+    public float GetDamageBonus()
+    {
+        return physicalDamageBonus;
+    }
     public enum ArmorType
     {
         None = 0,

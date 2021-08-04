@@ -34,7 +34,7 @@ public class TurretProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == playerLayer && PlayerOnScene.Instance.playerMovement.isConrolDisabled == false)
+        else if (other.gameObject.layer == playerLayer && PlayerOnScene.Instance.playerMovement.isControlDisabled == false)
         {
             DealDamage();
             Destroy(gameObject);

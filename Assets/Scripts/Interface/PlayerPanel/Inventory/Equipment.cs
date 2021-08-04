@@ -66,4 +66,9 @@ public class Equipment : MonoBehaviour
         return false;
     }
 
+    public EquipmentItem GetWeaponItem()
+    {
+        return equipmentSlots[5].Item as EquipmentItem;
+    }
+
 }

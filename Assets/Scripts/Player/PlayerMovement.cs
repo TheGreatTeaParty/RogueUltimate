@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
-    public bool isConrolDisabled = false;
+    public bool isControlDisabled = false;
 
     private CharacterAudio characterAudio;
 
@@ -145,13 +145,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMoving()
     {
-        isConrolDisabled = true;
+        isControlDisabled = true;
         _stopped = true;
     }
 
     public void StartMoving()
     {
-        isConrolDisabled = false;
+        isControlDisabled = false;
         rb2D.velocity = new Vector2(0,0);
         _stopped = false;
     }

@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Recklessness : MonoBehaviour
+public class Recklessness : ActiveAbility
 {
     [SerializeField]
     private Effect recklessnessEffect;
 
-
-    void Update()
+    public override void Activate()
     {
-        
+        base.Activate();
+
+        PlayerOnScene.Instance.stats.EffectController.
+            AddEffect(Instantiate(recklessnessEffect), PlayerOnScene.Instance.stats);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 }
