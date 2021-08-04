@@ -59,6 +59,7 @@ public class Equipment : MonoBehaviour
             if (equipmentSlots[i].Item == item)
             {
                 equipmentSlots[i].Item = null;
+                equipmentSlots[i].SetTier(equipmentSlots[i].Item);
                 return true;
             }
         }

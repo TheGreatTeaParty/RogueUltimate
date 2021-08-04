@@ -35,6 +35,8 @@ public class DoorManager : MonoBehaviour
             if (!_isSent)
             {
                 Minimap.instance.HideMap();
+                DungeonMusic.Instance.TurnTheCombatMusic();
+
                 for (int i = 0; i < _doors.Length; i++)
                 {
                     //Send info to change visualisation
@@ -48,6 +50,7 @@ public class DoorManager : MonoBehaviour
             if (_isSent)
             {
                 Minimap.instance.ShowMap();
+                DungeonMusic.Instance.TurnTheCombatMusicOFF();
 
                 for (int i = 0; i < _doors.Length; i++)
                 {

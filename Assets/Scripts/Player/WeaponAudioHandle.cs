@@ -49,6 +49,11 @@ public class WeaponAudioHandle : MonoBehaviour
                     }
             }
         }
+        else if(!_new && _old && _old.EquipmentType == EquipmentType.Weapon)
+        {
+            _startAudio = null;
+            _endAudio = null;
+        }
     }
     private void OnAttacked(AttackType attackType)
     {

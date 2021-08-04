@@ -19,6 +19,8 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance;
     public GameObject LoadScreen;
+    public int LoadsToAds = 4;
+    private int _levelLoaded = 0;
 
     private AsyncOperation asyncOperation;
 
@@ -39,7 +41,15 @@ public class LevelManager : MonoBehaviour
             SaveManager.SavePlayer();
             SaveManager.SaveAccount();
         }
-
+        else if(scenes == Scenes.Tavern || scenes == Scenes.StartTavern)
+        {
+            _levelLoaded++;
+            if(_levelLoaded >= LoadsToAds)
+            {
+                _levelLoaded = 0;
+                AdsCore.ShowInterstitialAd();
+            }
+        }
         asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
         StartCoroutine(GetSceneLoadProgress(scenes));
 
@@ -62,6 +72,15 @@ public class LevelManager : MonoBehaviour
         {
             SaveManager.SavePlayer();
             SaveManager.SaveAccount();
+        }
+        else if (scenes == "Tavern" || scenes == "StartTavern")
+        {
+            _levelLoaded++;
+            if (_levelLoaded >= LoadsToAds)
+            {
+                _levelLoaded = 0;
+                AdsCore.ShowInterstitialAd();
+            }
         }
 
         asyncOperation = SceneManager.LoadSceneAsync(scenes);
@@ -139,7 +158,6 @@ public class LevelManager : MonoBehaviour
         {
             InterfaceManager.Instance.HideTavernUI();
         }
-        Debug.Log("DATA SAVED!");
     }
 
 }

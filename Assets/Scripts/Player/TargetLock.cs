@@ -86,7 +86,7 @@ public class TargetLock : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            if (collision.gameObject == target)
+            if (collision == target)
             {
                 playerMovement.SetLockMoving(false);
                 target = null;

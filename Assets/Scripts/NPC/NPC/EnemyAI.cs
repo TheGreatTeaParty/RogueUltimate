@@ -59,13 +59,16 @@ public class EnemyAI : AI
     
     protected override void UpdatePath()
     {
-        if (seeker.IsDone())
+        if (target)
         {
-            if(state == NPCstate.Hanging)
-                seeker.StartPath(transform.position, followPosition, OnPathComplete);
-            else
+            if (seeker.IsDone())
             {
-                seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+                if (state == NPCstate.Hanging)
+                    seeker.StartPath(transform.position, followPosition, OnPathComplete);
+                else
+                {
+                    seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+                }
             }
         }
     }
@@ -111,10 +114,13 @@ public class EnemyAI : AI
 
     protected override void StateChasing()
     {
-        base.StateChasing();
-        
-        if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
-            state = NPCstate.Attacking;
+        if (target)
+        {
+            base.StateChasing();
+
+            if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+                state = NPCstate.Attacking;
+        }
     }
 
     protected void StateAttack()

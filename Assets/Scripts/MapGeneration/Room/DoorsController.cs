@@ -9,7 +9,7 @@ public class DoorsController : MonoBehaviour
     public float width;
     public event EventHandler onDoorChanged;
     private bool _isSent = false;
-
+    private bool _ON = false;
     // Cache
     private BoxCollider2D[] _doorColliders;
 
@@ -34,6 +34,7 @@ public class DoorsController : MonoBehaviour
                 //Send info to change visualisation
                 if (!_isSent)
                 {
+                    _ON = true;
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
                     _isSent = true;
                 }
@@ -48,6 +49,11 @@ public class DoorsController : MonoBehaviour
 
                 if (_isSent)
                 {
+                    if (_ON)
+                    {
+                        DungeonMusic.Instance.TurnTheCombatMusicOFF();
+                        _ON = false;
+                    }
                     onDoorChanged?.Invoke(this, EventArgs.Empty);
                     _isSent = false;
                 }

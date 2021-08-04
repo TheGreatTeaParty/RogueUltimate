@@ -49,6 +49,8 @@ public class TavernKeeperUpgrade : MonoBehaviour
         _currentMasterLevel = account.MasterLevel;
         TradeManager.Instance.OnTradeUpgraded += Upgrade;
         SetTavernLevel();
+        SetSmithLevel();
+        SetMasterLevel();
     }
 
     private void Upgrade(TradeManager.tradeType type)

@@ -6,4 +6,12 @@ public class UISound : MonoBehaviour
     {
         AudioManager.Instance.Play("UIclick");
     }
+    public void NewGameSound()
+    {
+        AudioManager.Instance.Play("NewGame");
+    }
+    public void ResumeSound()
+    {
+        AudioManager.Instance.Play("Continue");
+    }
 }

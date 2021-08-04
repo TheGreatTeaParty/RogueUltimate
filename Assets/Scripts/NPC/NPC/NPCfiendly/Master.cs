@@ -72,6 +72,10 @@ public class Master : AI, IInteractable
         }
         else if (keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.master) == 3)
         {
+            foreach (var item in List2)
+            {
+                npcInventory.AddItem(item);
+            }
             foreach (var item in List3)
             {
                 npcInventory.AddItem(item);

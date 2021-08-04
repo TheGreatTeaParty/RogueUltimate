@@ -30,9 +30,12 @@ public class VictoryPanel : MonoBehaviour
     private int _displayIndex = 0;
     private int TOTAL = 0;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = AudioManager.Instance;
         animator = GetComponent<Animator>();
         characterManager = CharacterManager.Instance;
         treasures = new Tuple<Item, int>[5];
@@ -45,6 +48,7 @@ public class VictoryPanel : MonoBehaviour
 
         CountTreasures();
         CountContracts();
+        audioManager.Play("Win");
     }
 
     private void CountTreasures()
@@ -98,12 +102,14 @@ public class VictoryPanel : MonoBehaviour
         if (tuple.Item2 >= 1)
         {
             SpawnTreasure(tuple.Item1, tuple.Item2);
+            audioManager.Play("Treasure");
             StartCoroutine(WaitAndCalculate(tuple.Item1, tuple.Item2));
         }
     }
     private void DisplayContract(Item item)
     {
         SpawnContract(item);
+        audioManager.Play("Quest");
         StartCoroutine(WaitAndCalculate(item));
     }
 

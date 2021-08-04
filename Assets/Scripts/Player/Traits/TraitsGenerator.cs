@@ -34,6 +34,7 @@ public class TraitsGenerator : MonoBehaviour
     public PointsManager pointsManager;
 
     private PlayerStat characterStat;
+    private int _PlayerStartMoney;
 
     private void Start()
     {
@@ -43,10 +44,17 @@ public class TraitsGenerator : MonoBehaviour
 
     private void SpawnPlayer()
     {
+        _PlayerStartMoney = GenerateStartGold();
         var player = Instantiate(Player, transform.position, Quaternion.identity);
         characterStat = player.GetComponent<PlayerStat>();
+        Invoke("GiveMoney", 0.1f);
     }
-
+    private void GiveMoney()
+    {
+        var inventory = CharacterManager.Instance.Inventory;
+        inventory.Gold = _PlayerStartMoney;
+        inventory.UpdateGold();
+    }
     public void CloseMenu()
     {
         SpawnPlayer();
@@ -66,6 +74,7 @@ public class TraitsGenerator : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
     }
+
     public void GenerateTrait()
     {
         switch (Level)
@@ -172,6 +181,38 @@ public class TraitsGenerator : MonoBehaviour
         }
     }
 
+    private int GenerateStartGold()
+    {
+        switch (Level)
+        {
+            case RenownLevel.Scum: // -6 ; -4 ; +2;
+                {
+                    return 100;
+                }
+
+            case RenownLevel.MurderHobo: // -6 ; -4/+4 ; +2;
+                {
+                    return 240;
+                }
+
+            case RenownLevel.BattleSeasoned: // -6/+6 ; -4/+4 ; +2/+2;
+                {
+                    return 400;
+                }
+
+            case RenownLevel.Adventurer: // +6/-6 ; +4 ; -2;
+                {
+                    return 600;
+                }
+
+            case RenownLevel.Hero: //   +6 ; +4/-4 ; +2;
+                {
+                    return 850;
+                }
+            default:
+                return 100;
+        }
+    }
 
     private bool IsUsed(Trait trait) 
     {

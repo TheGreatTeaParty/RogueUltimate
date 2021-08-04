@@ -28,6 +28,7 @@ public class TradeUI : MonoBehaviour
     private TradeWindow tradeWindow;
     private AccountManager accountManager;
     private TavernKeeperUpgrade tavernKeeperUpgrade;
+    private AudioManager audioManager;
 
     private bool _isSet = false;
 
@@ -37,6 +38,7 @@ public class TradeUI : MonoBehaviour
         tradeManager.onChangeCallback += UpdateUI;
         accountManager = AccountManager.Instance;
         tavernKeeperUpgrade = TavernKeeperUpgrade.Instance;
+        audioManager = AudioManager.Instance;
 
         tradeWindow = GetComponent<TradeWindow>();
 
@@ -191,11 +193,7 @@ public class TradeUI : MonoBehaviour
         {
             for(int i = npcSlots.Count; i < tradeManager.npcInventory.items.Count; ++i)
             {
-                var slot = Instantiate(TradeSlot, npcSlotsParent);
-                TradeSlot tradeSlot = slot.GetComponent<TradeSlot>();
-                tradeSlot.OnClick += tradeWindow.OnSlotClick;
-                tradeSlot.Item = tradeManager.npcInventory.items[i];
-                npcSlots.Add(tradeSlot);
+                AddTradeSlot(tradeManager.npcInventory.items[i]);
             }
         }
     }

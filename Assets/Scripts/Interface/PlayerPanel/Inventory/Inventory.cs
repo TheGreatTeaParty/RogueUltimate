@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
+            if (itemSlots[i].gameObject.activeSelf && itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
             {
                 itemSlots[i].Item = item;
                 itemSlots[i].SetTier(itemSlots[i].Item);
