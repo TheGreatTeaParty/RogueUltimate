@@ -7,7 +7,7 @@ public class Kaban : EnemyAI
     public float rageSpeed;
     public float stunTime = 2.5f;
     public float knockBackForce = 18f;
-
+    public float RageLength = 2.2f;
     private Vector2 _position;
     private Vector3 _finalPos;
     private bool _isRage;
@@ -17,8 +17,9 @@ public class Kaban : EnemyAI
     private bool _hitPlayer = false;
 
     [SerializeField]
-    private CapsuleCollider2D _damageAreaCollider;
-    private KabanArea kabanArea;
+    private CapsuleCollider2D _damageAreaCollider1;
+    [SerializeField]
+    private KabanArea kabanArea1;
     // Cache
     private Animator _animator;
     private Collider2D targetCollider;
@@ -29,7 +30,6 @@ public class Kaban : EnemyAI
         base.Start();
         
         _animator = GetComponent<Animator>();
-        kabanArea = GetComponentInChildren<KabanArea>();
         targetCollider = target.GetComponent<Collider2D>();
         ogreCollider = GetComponent<Collider2D>();
     }
@@ -40,10 +40,9 @@ public class Kaban : EnemyAI
        
         if (_isRage)
             rb.MovePosition(rb.position + _position* rageSpeed * Time.deltaTime);
-
         if (_hit)
         {
-            _damageAreaCollider.enabled = false;
+            _damageAreaCollider1.enabled = false;
             _isRage = false;
             _hit = false;
             if (!_hitPlayer)
@@ -61,10 +60,21 @@ public class Kaban : EnemyAI
         _preparing = true;
         _finalPos = targetCollider.bounds.center;
         _position = (_finalPos - ogreCollider.bounds.center).normalized;
-        _damageAreaCollider.enabled = true;
-        kabanArea.IgnoreWallForASecond();
-        _isRage = true;
+        _damageAreaCollider1.enabled = true;
+        kabanArea1.IgnoreWallForASecond();
+        StartCoroutine(RageTime());
         _preparing = false;
+    }
+    protected IEnumerator RageTime()
+    {
+        if (!_isRage)
+        {
+            _isRage = true;
+            yield return new WaitForSeconds(RageLength);
+            _animator.SetTrigger("Crash");
+            _animator.SetBool("HitPlayer", false);
+            SetHit(false);
+        }
     }
     protected override IEnumerator AttackWait()
     {
@@ -87,11 +97,12 @@ public class Kaban : EnemyAI
         _hitPlayer = hitPlayer;
         isAttack = true;
         state = NPCstate.Chasing;
+        StopAllCoroutines();
     }
 
     protected override void Die()
     {
-        _damageAreaCollider.gameObject.SetActive(false);
+        _damageAreaCollider1.gameObject.SetActive(false);
         DestroyAllComponents();
         Destroy(this);
     }

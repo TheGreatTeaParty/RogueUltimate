@@ -35,6 +35,7 @@ public class AdsCore : MonoBehaviour, IUnityAdsListener
     void ShowRewardedVideo()
     {
         Advertisement.Show(mySurfacingId);
+        AccountManager.Instance.Renown += 200;
     }
 
     public static void ShowInterstitialAd()
@@ -66,7 +67,7 @@ public class AdsCore : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            AccountManager.Instance.Renown += 200;
+            
         }
         else if (showResult == ShowResult.Skipped)
         {

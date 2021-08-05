@@ -17,7 +17,8 @@ public class Archer : EnemyAI
     protected override void Update()
     {
         base.Update();
-        _shootDir = Vector3.Normalize(_playerCollider.bounds.center - _collider.bounds.center);
+        if(_playerCollider)
+            _shootDir = Vector3.Normalize(_playerCollider.bounds.center - _collider.bounds.center);
     }
     
     protected override void Attack()

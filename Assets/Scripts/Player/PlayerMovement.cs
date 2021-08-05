@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
                 _direction = _rangeJoystick.GetDirection();
         }
 
-        else if(!_stopped && _LockMovement)
+        else if(_LockMovement)
         {
             animator.SetFloat("Horizontal", _targetLock.GetDir().x);
             animator.SetFloat("Vertical", _targetLock.GetDir().y);
@@ -173,6 +173,14 @@ public class PlayerMovement : MonoBehaviour
     public void SetLockMoving(bool state)
     {
         _LockMovement = state;
+    }
+    public bool GetLockMoving()
+    {
+        return _LockMovement;
+    }
+    public TargetLock GetTargetLock()
+    {
+        return _targetLock;
     }
     public void SetRangeJoystick(JoystickAttack joystick)
     {
