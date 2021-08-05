@@ -83,7 +83,9 @@ public class MeleeWeapon : EquipmentItem
         var player = PlayerOnScene.Instance;
         
         _whatIsEnemy = LayerMask.GetMask("Enemy","EnvObjects");
-        Vector3 direction = player.playerMovement.GetDirection();
+        Vector3 direction;
+        if (player.playerMovement.GetLockMoving() == true) { direction = player.playerMovement.GetTargetLock().GetDir(); }
+        else { direction = player.playerMovement.GetDirection(); }
         _attackPosition = player.playerMovement.PlayerCollider.bounds.center + direction.normalized / 1.5f;
 
 
@@ -121,7 +123,7 @@ public class MeleeWeapon : EquipmentItem
 
                 Rigidbody2D rigidbody = enemiesToDamage[i].GetComponent<Rigidbody2D>();
                 if (rigidbody)
-                    rigidbody.AddForce(direction * 100 * playerStat.KnockBack.Value);
+                    rigidbody.AddForce(direction * 10000 * playerStat.KnockBack.Value);
             }
         }
         if(enemiesToDamage.Length > 0)

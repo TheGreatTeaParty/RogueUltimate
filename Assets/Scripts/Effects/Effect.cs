@@ -70,6 +70,7 @@ public class Effect:ScriptableObject
         if (effectFX)
         {
             effectFX.target = sprite.gameObject;
+            OnDelete += effectFX.DeleteEffect;
             effectFX.targetSprite = sprite;
             effectFX.effect = this;
         }

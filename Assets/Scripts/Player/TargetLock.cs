@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetLock : MonoBehaviour
 {
+    public Transform TargetCircle;
+
     private Collider2D target;
     private Collider2D _playerColider;
     private PlayerCamera playerCamera;
@@ -11,6 +13,10 @@ public class TargetLock : MonoBehaviour
     private Vector3 dir;
     private float _waitTime = 0.8f;
     private float _currentTime = 0.8f;
+    private GameObject current_circle;
+
+    private Vector3 _offset;
+    private Vector3 _basePos;
 
     // Start is called before the first frame update
     void Start()
@@ -18,18 +24,30 @@ public class TargetLock : MonoBehaviour
         playerCamera = PlayerCamera.Instance;
         playerMovement = PlayerOnScene.Instance.playerMovement;
         _playerColider = GetComponent<Collider2D>();
-    }
 
+        _basePos = new Vector3(1000, 1000, 0);
+        _offset = new Vector3(0, -0.45f, 0);
+        current_circle = Instantiate(TargetCircle, _basePos, Quaternion.identity).gameObject;
+    }
+    public Vector3 GetEnemyDir()
+    {
+        return dir;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
         if(target)
         {
+            if(current_circle.transform.position!= target.transform.position + _offset)
+                current_circle.transform.position = target.transform.position + _offset;
+
             playerCamera.SetOffset((target.transform.position - _playerColider.bounds.center).normalized);
             dir = (target.bounds.center - _playerColider.bounds.center).normalized;
         }
         else
         {
+            if (current_circle.transform.position != _basePos)
+                current_circle.transform.position = _basePos;
             playerCamera.SetOffset(Vector2.zero);
         }
 

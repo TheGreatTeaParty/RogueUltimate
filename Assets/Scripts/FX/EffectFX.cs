@@ -19,11 +19,13 @@ public class EffectFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!effect._stat)
+            Destroy(gameObject);
         transform.position = target.transform.position;
         _effectSprite.sortingOrder = targetSprite.sortingOrder + 1;
     }
 
-    void DeleteEffect()
+    public void DeleteEffect()
     {
         Destroy(gameObject);
     }
