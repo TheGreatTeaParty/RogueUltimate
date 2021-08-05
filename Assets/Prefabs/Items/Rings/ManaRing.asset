@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: ManaRing
   m_EditorClassIdentifier: 
   ID: 150
-  tier: 0
+  tier: 2
   price: 150
   itemName: Ring of mana
   description: 
   sprite: {fileID: -7375459094207900620, guid: 7439898c88899c34a85acafca593b8c8, type: 3}
   stackMaxSize: 1
+  EqipmnetArmorType: 0
   equipmentType: 2
-  EquipmentAnimations: {fileID: 0}
-  Animation: []
+  equipmentAnimations: {fileID: 0}
+  IdleAnimation: []
+  AttackAnimation: []
   physicalDamageBonus: 0
   physicalProtectionBonus: 0
   magicDamageBonus: 0
@@ -34,3 +36,7 @@ MonoBehaviour:
   physicalProtectionPercentBonus: 0
   magicDamagePercentBonus: 0
   magicProtectionPercentBonus: 0
+  requiredStrength: 0
+  requiredIntelligence: 0
+  requiredAgility: 0
+  _effect: {fileID: 0}

@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27861dc848e964c86b32533ea26002dc, type: 3}
   m_Name: Amulet of Bloodthirst
   m_EditorClassIdentifier: 
-  ID: 0
-  tier: 0
-  price: 0
+  ID: 132
+  tier: 2
+  price: 150
   itemName: Amulet of Bloodthirst
-  description: 
+  description: +50% to Physical and Magic Damage but -50% Physical and Magic Protection
   sprite: {fileID: 21300000, guid: 4cd92273f10761a45a7e5cb41b5ad3b0, type: 3}
-  stackMaxSize: 0
-  EqipmnetArmorType: 0
+  stackMaxSize: 1
+  EqipmnetArmorType: 2
   equipmentType: 3
   equipmentAnimations: {fileID: 0}
-  animation: []
+  IdleAnimation: []
+  AttackAnimation: []
   physicalDamageBonus: 0
   physicalProtectionBonus: 0
   magicDamageBonus: 0
@@ -31,10 +32,10 @@ MonoBehaviour:
   vitalityBonus: 0
   mindBonus: 0
   agilityBonus: 0
-  physicalDamagePercentBonus: 0
-  physicalProtectionPercentBonus: 0
-  magicDamagePercentBonus: 0
-  magicProtectionPercentBonus: 0
+  physicalDamagePercentBonus: 50
+  physicalProtectionPercentBonus: -50
+  magicDamagePercentBonus: 50
+  magicProtectionPercentBonus: -50
   requiredStrength: 0
   requiredIntelligence: 0
   requiredAgility: 0
