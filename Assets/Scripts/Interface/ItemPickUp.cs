@@ -29,7 +29,7 @@ public class ItemPickUp : MonoBehaviour
                 AudioManager.Instance.Play("Collect");
                 //Crete text:
                 Transform name = Instantiate(text, transform.position + new Vector3(1f,1f), Quaternion.identity);
-                name.GetComponent<TextMeshPro>().text = "+ " + itemOnScene.GetItem().GetCopy().name;
+                name.GetComponent<TextMeshPro>().text = "+ " + itemOnScene.GetItem().GetCopy().ItemName;
                 Destroy(gameObject);
             }
         }

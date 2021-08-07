@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Abilities/Recklessness")]
 public class Recklessness : ActiveAbility
 {
     [SerializeField]

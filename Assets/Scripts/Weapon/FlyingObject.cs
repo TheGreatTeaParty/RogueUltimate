@@ -19,9 +19,11 @@ public class FlyingObject : MonoBehaviour
     private Vector2 _direction;
     private SpriteRenderer _spriteRenderer;
     private Effect _effect;
+    private Collider2D _collider;
     
     private void Start()
     {
+        _collider = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = speed * _direction;
         _audioSource = GetComponent<AudioSource>();
@@ -47,6 +49,10 @@ public class FlyingObject : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        _rb.Sleep();
+        _collider.enabled = false;
+        _spriteRenderer.sprite = null;
+
         _audioSource.PlayOneShot(_hitAudio);
 
         if (collision.GetComponent<IDamaged>() != null)
@@ -76,8 +82,6 @@ public class FlyingObject : MonoBehaviour
             if(rigidbody)
                 rigidbody.AddForce(_direction * 100 * _knockBack);
         }
-        _rb.Sleep();
-        _spriteRenderer.sprite = null;
         Destroy(gameObject,0.5f);
     }
     
