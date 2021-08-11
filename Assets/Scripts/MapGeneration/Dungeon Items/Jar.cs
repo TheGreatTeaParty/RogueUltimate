@@ -63,6 +63,6 @@ public class Jar : MonoBehaviour, IDamaged
     }
     private void CreatTreasure()
     {
-        ItemScene.SpawnItemScene(transform.position, ItemsDatabase.Instance.treasures[Random.Range(0, ItemsDatabase.Instance.treasures.Length-1)]);
+        ItemScene.SpawnItemScene(transform.position, ItemsDatabase.Instance.GetRandomTreasure());
     }
 }

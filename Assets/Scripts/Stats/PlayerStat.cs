@@ -5,7 +5,7 @@ using System.Collections;
 
 public class PlayerStat : CharacterStat, IDamaged
 {
-    private int _xp;
+    private int _xp = 0;
     private int[] _xpToNextLevel = 
     {
         // multiplied by 3
@@ -28,8 +28,9 @@ public class PlayerStat : CharacterStat, IDamaged
     };
     private float _currentMana;
     private float _currentStamina;
-    public int _statPoints = 0;
     public int Kills = 0;
+    private int _skillPoints = 1;
+    private int _statPoints = 0;
  
     [Space]
     [SerializeField] private Stat attackRange;
@@ -81,9 +82,18 @@ public class PlayerStat : CharacterStat, IDamaged
         get => _statPoints;
         set => _statPoints = value;
     }
+    public int SkillPoints
+    {
+        get => _skillPoints;
+        set
+        {
+            _skillPoints = value;
+            OnSkillPointGained?.Invoke();
+        }
+    }
 
 
-public delegate void OnChangeCallback();
+    public delegate void OnChangeCallback();
     public OnChangeCallback onChangeCallback;
 
     public Action<float> OnHealthChanged;
@@ -93,6 +103,7 @@ public delegate void OnChangeCallback();
     public Action OnEvadeTriggered;
     public Action OnKillChanged;
     public ITraitReqired EquipmentTraitReq;
+    public Action OnSkillPointGained;
 
     public TraitHolder PlayerTraits;
 
@@ -112,10 +123,6 @@ public delegate void OnChangeCallback();
 
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
-
-        _xp = 0;
-        level = 1;
-        
     }
     public void SetUpPlayerInfo()
     {

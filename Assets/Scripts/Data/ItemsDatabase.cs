@@ -63,22 +63,43 @@ public class ItemsDatabase : MonoBehaviour
     [HideInInspector]
     public List<Item> tierFive;
     [Space]
-    public Item[] treasures;
-    public Contract[] contracts;
+    [SerializeField]
+    private Item[] treasures;
+    [SerializeField]
+    private Contract[] contracts;
+    [SerializeField]
+    private Ability[] abilities;
 
 
     public Item GetItemByID(int ID)
     {
         for (int i = 0; i < allItems.Length; i++)
-            if (ID == allItems[i].ID) return allItems[i];
-        
+        {
+            if(allItems[i])
+                if (ID == allItems[i].ID) return allItems[i];
+        }
         return null;
     }
     public Contract GetContractByID(int ID)
     {
         for (int i = 0; i < contracts.Length; i++)
-            if (ID == contracts[i].ID) return contracts[i];
-
+        {
+            if(contracts[i])
+                if (ID == contracts[i].ID) return contracts[i];
+        }
         return null;
+    }
+    public Ability GetAbilityByID(int ID)
+    {
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i])
+                if (ID == abilities[i].ID) return abilities[i];
+        }
+        return null;
+    }
+    public Item GetRandomTreasure()
+    {
+        return treasures[Random.Range(0, treasures.Length - 1)];
     }
 }
