@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class AbilityManager : MonoBehaviour
 
     [SerializeField] private AbilityQuickSlot[] abilityQuickSlots;
     [SerializeField] private AbilityTooltip _abilityTooltip;
+    [Space]
+    [SerializeField] private TextMeshProUGUI _pointsValue;
     
 
     private void Start()
@@ -43,6 +46,7 @@ public class AbilityManager : MonoBehaviour
         if(_unlockedAbilities == null)
             _unlockedAbilities = new List<Ability>();
         _playerStat = CharacterManager.Instance.Stats;
+        _playerStat.OnSkillPointGained += UpdatePoints;
 
         for (int i = 0; i < abilitySlots.Length; i++)
         {
@@ -163,6 +167,10 @@ public class AbilityManager : MonoBehaviour
                 tree.UnlockUpgradedAbility(ability);
             }
         }
+    }
+    private void UpdatePoints()
+    {
+        _pointsValue.text = (_playerStat.SkillPoints).ToString();
     }
     public void CreateAbilityList()
     {

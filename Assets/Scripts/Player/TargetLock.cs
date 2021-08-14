@@ -123,4 +123,13 @@ public class TargetLock : MonoBehaviour
     {
         return dir;
     }
+    public Vector3 GetTargetPosition()
+    {
+        if (target)
+            return target.transform.position;
+        else
+        {
+            return Vector3.zero;
+        }
+    }
 }

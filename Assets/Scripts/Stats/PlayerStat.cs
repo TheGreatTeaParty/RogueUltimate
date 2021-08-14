@@ -31,6 +31,7 @@ public class PlayerStat : CharacterStat, IDamaged
     public int Kills = 0;
     private int _skillPoints = 1;
     private int _statPoints = 0;
+    private InterfaceManager _interfaceManager;
  
     [Space]
     [SerializeField] private Stat attackRange;
@@ -123,6 +124,8 @@ public class PlayerStat : CharacterStat, IDamaged
 
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
+        _interfaceManager = InterfaceManager.Instance;
+        level = 1;
     }
     public void SetUpPlayerInfo()
     {
@@ -158,7 +161,7 @@ public class PlayerStat : CharacterStat, IDamaged
         if (level >= 20) return; // max level
         
         _xp += gainedXP;
-        while (_xp > _xpToNextLevel[level - 1]) 
+        if (_xp > _xpToNextLevel[level - 1])
         {
             _xp -= _xpToNextLevel[level - 1];
             LevelUp();
@@ -172,7 +175,15 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         level++;
         _statPoints += 1;
+        _interfaceManager.HighlightPanelButton?.Invoke(WindowType.Stats);
 
+        if (level % 3 == 0)
+        {
+            ++_skillPoints;
+            _interfaceManager.HighlightPanelButton?.Invoke(WindowType.SkillTree);
+        }
+
+        _interfaceManager.HighlightNavButton?.Invoke();
         //Sound + LevelUpFX
         AudioManager.Instance.Play("LevelUp");
         PlayerOnScene.Instance.playerFX.SpawnEffect(LevelUpEffect);

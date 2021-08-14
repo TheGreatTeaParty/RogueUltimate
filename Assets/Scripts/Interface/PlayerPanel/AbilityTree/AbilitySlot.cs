@@ -15,12 +15,13 @@ public class AbilitySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     [SerializeField]
     protected Image _image;
     private Image _outline;
-
+    private AudioManager audioManager;
 
     private readonly Color _normalColor = Color.white;
     private readonly Color _shadowColor = new Color(0.8f, 0.8f, 0.8f, 0.8f);
     private readonly Color _disabledColor = Color.clear;
     private readonly Color _locked = Color.grey;
+
 
     public Ability Ability
     {
@@ -74,6 +75,7 @@ public class AbilitySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         _image = images[2];
         _outline = GetComponent<Image>();
         _outline.enabled = false;
+        audioManager = AudioManager.Instance;
 
         if (_ability != null)
         {
@@ -85,7 +87,11 @@ public class AbilitySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_ability != null)
+        {
+            if(audioManager)
+                audioManager.Play("UIclick");
             OnClickEvent?.Invoke(this);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -124,5 +130,6 @@ public class AbilitySlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandle
         _isUpgraded = true;
         _image.color = _normalColor;
         _outline.enabled = false;
+        audioManager.Play("Upgrade");
     }
 }

@@ -29,6 +29,7 @@ public class BookButton : MonoBehaviour
         else
         {
             sprite.color = Color.white;
+            AudioManager.Instance.Play("UIclick");
         }
     }
 }

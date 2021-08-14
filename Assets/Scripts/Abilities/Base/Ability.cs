@@ -10,6 +10,7 @@ public class Ability : ScriptableObject
     public SkillTree.TreeType Type;
 
     [SerializeField] protected String abilityName;
+    [TextArea]
     [SerializeField] protected String description;
     [SerializeField] protected Sprite sprite;
 

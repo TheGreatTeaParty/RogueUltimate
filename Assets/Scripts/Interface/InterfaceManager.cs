@@ -37,6 +37,12 @@ public class InterfaceManager : MonoBehaviour
     [SerializeField] public JoystickAttack joystickAttack;
     [SerializeField] public PlayerButtonCallBack playerButton;
 
+    public delegate void OnChangeMade();
+    public OnChangeMade HighlightNavButton;
+
+    public delegate void OnPanelHighlight(WindowType window);
+    public OnPanelHighlight HighlightPanelButton;
+
     //UI elements that should be off while in tavern:
     public GameObject Bars;
     public GameObject TavernUI;
