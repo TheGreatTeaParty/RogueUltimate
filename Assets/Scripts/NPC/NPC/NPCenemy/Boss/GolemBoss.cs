@@ -54,13 +54,13 @@ public class GolemBoss : EnemyAI
         _stage = BossStage.Second;
 
         target = GameObject.FindGameObjectWithTag("Player");
-        //BossFightPortal.Instance.HealthBar(true);
         state = NPCstate.Chasing;
         range_attack_time_left = RangeAttackCoolDown;
 
         // Cache
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _whatIsEnemy = LayerMask.GetMask("Player");
+        BossFightPortal.Instance.HealthBar(true);
     }
 
     protected override void Update()
@@ -69,12 +69,6 @@ public class GolemBoss : EnemyAI
 
         if (stats.CurrentHealth <= stageTwoHealth * stats.MaxHealth && !_stageChanged)
             SwitchStage();
-
-        if (stats.CurrentHealth <= 0)
-        {
-            BossFightPortal.Instance.HealthBar(false);
-            BossFightPortal.Instance.TurnThePortal();
-        }
 
         if (range_attack_time_left > 0)
             range_attack_time_left -= Time.deltaTime;
