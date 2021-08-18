@@ -6,7 +6,11 @@ using UnityEngine;
 public class Ability : ScriptableObject
 {
     protected LayerMask _enemyMask;
+    public int ID;
+    public SkillTree.TreeType Type;
+
     [SerializeField] protected String abilityName;
+    [TextArea]
     [SerializeField] protected String description;
     [SerializeField] protected Sprite sprite;
 

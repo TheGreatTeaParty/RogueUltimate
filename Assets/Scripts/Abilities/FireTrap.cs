@@ -20,7 +20,7 @@ public class FireTrap : MonoBehaviour
             if (damaged != null)
             {
                 // Calculating dmg formula (5 * Int. + Fire effect I)
-                damaged.TakeDamage(0, _baseDamagValue * stats.Intelligence.GetBaseValue());
+                damaged.TakeDamage(0, stats.Intelligence.GetBaseValue());
                 character.EffectController.AddEffect(Instantiate(_fireEffect), character);
             }
 

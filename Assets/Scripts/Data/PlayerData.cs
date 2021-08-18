@@ -19,6 +19,9 @@ public class PlayerData
     public int[] traitsData = new int[3];
     public int[,] contractsData;
     public float[] statsData = new float[3];
+    public int abilityPoints;
+    public int[] abillities;
+    public int[] quickSlotAbilities = new int[3];
     
     public PlayerData()
     {
@@ -38,6 +41,7 @@ public class PlayerData
         level = stats.Level;
         xp = stats.XP;
         statPoints = stats.StatPoints;
+        abilityPoints = stats.SkillPoints;
 
         traitsData[0] = stats.PlayerTraits.Traits[0].ID;
         traitsData[1] = stats.PlayerTraits.Traits[1].ID;
@@ -69,16 +73,35 @@ public class PlayerData
             contractsData[i, 1] = stats.PlayerContracts.contracts[i]._currentScore;
         }
 
+        AbilityManager abilityManager = AbilityManager.Instance;
+        if (abilityManager.GetQuickSlots()[0].Ability)
+            quickSlotAbilities[0] = abilityManager.GetQuickSlots()[0].Ability.ID;
+        else
+            quickSlotAbilities[0] = 0;
+
+        if (abilityManager.GetQuickSlots()[1].Ability)
+            quickSlotAbilities[1] = abilityManager.GetQuickSlots()[1].Ability.ID;
+        else
+            quickSlotAbilities[1] = 0;
+
+        if (abilityManager.GetQuickSlots()[2].Ability)
+            quickSlotAbilities[2] = abilityManager.GetQuickSlots()[2].Ability.ID;
+        else
+            quickSlotAbilities[2] = 0;
+
+        abillities = new int[abilityManager.GetUnlockedAbilities().Count];
+        for (int i = 0; i < abilityManager.GetUnlockedAbilities().Count; ++i)
+        {
+            abillities[i] = abilityManager.GetUnlockedAbilities()[i].ID;
+        }
+
         Equipment equipment = CharacterManager.Instance.Equipment;
         equipmentData = new int[equipment.equipmentSlots.Length];
         for (int i = 0; i < equipment.equipmentSlots.Length; i++)
             // Null check because of currentEquipment structure: array, not list
             if (equipment.equipmentSlots[i].Item != null)
                 equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
-
-        // TODO: save skills
-            
-        
+          
 
         
         var transformPosition = CharacterManager.Instance.Stats.transform.position;

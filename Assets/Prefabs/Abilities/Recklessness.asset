@@ -9,10 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06cc38c535ca4c968ed21f468cb886c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e7bdecc387118e44b5976c0fc13c7d2, type: 3}
   m_Name: Recklessness
   m_EditorClassIdentifier: 
+  ID: 3
+  Type: 1
   abilityName: Recklessness
-  description: 
-  sprite: {fileID: 8622565975479090758, guid: 0b8241f79aac1450ebff872c0080a43c, type: 3}
+  description: 'Increases your damage, besides, decreases your protection
+
+    -20
+    * %(Strength)  to Damage
+
+    -5%(Strength) - 20 to Protection
+
+    - Duration:
+    10 sec
+
+    - Cooldown: 10 sec'
+  sprite: {fileID: 7326919709651748116, guid: 1c8855c36572443a4be3ae45aca5620c, type: 3}
   coolDownTime: 10
+  recklessnessEffect: {fileID: 11400000, guid: 43f2ae6b811834d3692cfac31f1c770f, type: 2}

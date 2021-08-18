@@ -9,18 +9,21 @@ public class BossFightPortal : MonoBehaviour
     [SerializeField] private GameObject portalEmpty;
     #region Singleton
     public static BossFightPortal Instance;
-    void Awake()
+    void Start()
     {
         if (Instance != null)
             return;
 
         Instance = this;
+        if(healthbar)
+            healthbar.SetActive(false);
     }
     #endregion
 
     public void SetBossHealth(float health)
     {
-        bosshealthSlider.value = health;
+        if(bosshealthSlider)
+            bosshealthSlider.value = health;
     }
 
     
@@ -32,7 +35,8 @@ public class BossFightPortal : MonoBehaviour
 
     public void HealthBar(bool value)
     {
-        healthbar?.SetActive(value);
+        if(healthbar)
+            healthbar.SetActive(value);
     }
     
 }

@@ -28,13 +28,18 @@ public class PlayerPanelManager : MonoBehaviour
 
     public event Action ClosePanel;
 
+    private InterfaceManager interfaceManager;
+
+    public NavigatorButton stats;
+    public NavigatorButton skills;
 
     private void Start()
     {
         _navigatorButtons = navigator.GetComponentsInChildren<NavigatorButton>();
         for (int i = 0; i < _navigatorButtons.Length; i++)
             _navigatorButtons[i].onWindowChanged += ChangeWindow;
-
+        interfaceManager = InterfaceManager.Instance;
+        interfaceManager.HighlightPanelButton += HighlightPanel;
         StartCoroutine(Init());
     }
 
@@ -115,6 +120,8 @@ public class PlayerPanelManager : MonoBehaviour
     {
         Time.timeScale = InterfaceManager.Instance.panelTimeScale;
         navigator.SetActive(true);
+        skills.CheckAnimator();
+        stats.CheckAnimator();
     }
 
     public void CloseSelf()
@@ -126,5 +133,14 @@ public class PlayerPanelManager : MonoBehaviour
         CharacterManager.Instance.RemoveTooltip();
         
         Time.timeScale = 1f;
+    }
+
+    private void HighlightPanel(WindowType type)
+    {
+        if (type == WindowType.Stats)
+            stats.TurnOn();
+        
+        else if (type == WindowType.SkillTree)
+            skills.TurnOn();
     }
 }  

@@ -239,7 +239,7 @@ public class PointsManager : MonoBehaviour
     public void SaveChanges()
     {
         var player = CharacterManager.Instance.Stats;
-        player._statPoints = PointsAvailable;
+        player.StatPoints = PointsAvailable;
         if (generator)
         {
             player.AddAttributePoint(StatType.Physique, Strength.GetBaseValue() - player.Strength.GetBaseValue());

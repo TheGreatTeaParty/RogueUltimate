@@ -14,7 +14,7 @@ public class FuryEffect : Effect
 
         if (!_isApplied)
         {
-            _stat.PhysicalProtection.AddModifier(new StatModifier(10000f, StatModifierType.Flat));
+            _stat.PhysicalProtection.AddModifier(new StatModifier(10000f, StatModifierType.Flat,this));
             _lastHealthBeforeApply = PlayerOnScene.Instance.stats.CurrentHealth;
             _isApplied = true;
         }
@@ -23,7 +23,7 @@ public class FuryEffect : Effect
     public override void RemoveEffect()
     {
         PlayerOnScene.Instance.stats.CurrentHealth = _lastHealthBeforeApply;
-        _stat.PhysicalProtection.RemoveLast();
+        _stat.PhysicalProtection.RemoveAllModifiersFromSource(this);
         base.RemoveEffect();
     }
 }

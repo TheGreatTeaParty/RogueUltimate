@@ -10,7 +10,6 @@ public class ActiveAbility : Ability
 
     protected virtual void Update()
     {
-        Debug.Log("update");
         if (_timeUntilCast > 0)
         {
             _timeUntilCast -= Time.deltaTime;

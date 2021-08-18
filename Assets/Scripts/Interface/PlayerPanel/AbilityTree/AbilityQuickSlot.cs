@@ -11,11 +11,11 @@ public class AbilityQuickSlot : AbilitySlot
         abilitySlotOnScene.OnClickEvent += Activate;
     }
 
-    public void SetAbility(AbilityQuickSlot quickSlot)
+    public void SetAbility(Ability ability)
     {
-        if (quickSlot.Ability != null)
+        if (ability != null)
         {
-            _image.sprite = quickSlot.Ability.Sprite;
+            _image.sprite = ability.Sprite;
             _image.color = Color.white;
             return;
         }

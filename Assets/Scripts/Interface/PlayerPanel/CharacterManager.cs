@@ -317,6 +317,7 @@ public class CharacterManager : MonoBehaviour
         _stats.Level = data.level;
         _stats.XP = data.xp;
         _stats.StatPoints = data.statPoints;
+        _stats.SkillPoints = data.abilityPoints;
         inventory.Gold = data.gold;
 
         //TRAITS:
@@ -372,6 +373,28 @@ public class CharacterManager : MonoBehaviour
             {
                 for(int j = 0; j < data.quickSlotsData[i, 1]; ++j)
                     inventory.AddQuickSlotItemOnLoad(item);
+            }
+        }
+
+        //Skills:
+        AbilityManager abilityManager = AbilityManager.Instance;
+        abilityManager.CreateAbilityList();
+        for (int i = 0; i < data.abillities.Length; i++)
+        {
+            Ability ability = itemsDB.GetAbilityByID(data.abillities[i]);
+            if (ability)
+            {
+                abilityManager.AddSavedAbility(ability);
+            }
+        }
+
+        //QuickSkills:
+        for(int i = 0; i < data.quickSlotAbilities.Length; ++i)
+        {
+            Ability ability = itemsDB.GetAbilityByID(data.quickSlotAbilities[i]);
+            if (ability)
+            {
+                abilityManager.AddQuickSlotAbility(ability, i);
             }
         }
     }
