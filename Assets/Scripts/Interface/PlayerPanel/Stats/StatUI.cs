@@ -20,8 +20,9 @@ public class StatUI : MonoBehaviour
    public TMP_Text MovementSpeed;
    [Space]
    public TMP_Text Level;
+   public TMP_Text Name;
 
-   private IEnumerator Start()
+    private IEnumerator Start()
    {
       yield return new WaitForSeconds(0.0001f);
       
@@ -46,6 +47,7 @@ public class StatUI : MonoBehaviour
 
         //Points:
         Level.SetText(_playerStat.Level.ToString(CultureInfo.CurrentUICulture));
+        Name.SetText(_playerStat.CharacterName);
     }
    
 }

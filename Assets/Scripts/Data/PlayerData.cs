@@ -12,6 +12,7 @@ public class PlayerData
 
     public float[] position;
     public string gameObjectName;
+    public string avatarName;
 
     public int[,] inventoryData; // [i,j], where i - item id, j - ammount
     public int[] equipmentData;
@@ -42,6 +43,8 @@ public class PlayerData
         xp = stats.XP;
         statPoints = stats.StatPoints;
         abilityPoints = stats.SkillPoints;
+
+        avatarName = stats.CharacterName;
 
         traitsData[0] = stats.PlayerTraits.Traits[0].ID;
         traitsData[1] = stats.PlayerTraits.Traits[1].ID;

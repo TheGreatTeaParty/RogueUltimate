@@ -304,6 +304,7 @@ public class CharacterManager : MonoBehaviour
     public void LoadPlayerData(PlayerData data)
     {
         PlayerOnScene.Instance.SetStats();
+        _stats.Level = data.level;
 
         //Load STATS
         _stats.AddAttributePoint(StatType.Physique, data.statsData[0]);
@@ -311,6 +312,7 @@ public class CharacterManager : MonoBehaviour
         _stats.AddAttributePoint(StatType.Mind, data.statsData[2]);
 
         //LOAD LEVEL / XP / Points Left / GOLD
+        _stats.SetName(data.avatarName);
         _stats.currentHealth = data.currentHP;
         _stats.CurrentMana = data.currentMP;
         _stats.CurrentStamina = data.currentSP;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TraitsGenerator : MonoBehaviour
 {
@@ -36,10 +37,18 @@ public class TraitsGenerator : MonoBehaviour
     private PlayerStat characterStat;
     private int _PlayerStartMoney;
 
+    [SerializeField]
+    private NamesGenerator namesGenerator;
+    private string _playerName;
+    [SerializeField]
+    private TextMeshProUGUI _currentName;
+
     private void Start()
     {
         Level = (RenownLevel)AccountManager.Instance.MasterLevel;
         GenerateTrait();
+        _playerName = namesGenerator.GetName();
+        _currentName.text = _playerName;
     }
 
     private void SpawnPlayer()
@@ -65,6 +74,7 @@ public class TraitsGenerator : MonoBehaviour
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(0.1f);
+        characterStat.SetName(_playerName);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[0]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[1]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[2]);

@@ -155,5 +155,9 @@ public class CharacterStat : MonoBehaviour
     {
      
     }
+    public void SetName(string name)
+    {
+        characterName = name;
+    }
 
 }
