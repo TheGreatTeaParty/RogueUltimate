@@ -13,6 +13,7 @@ public class PlayerData
     public float[] position;
     public string gameObjectName;
     public string avatarName;
+    public int avatarSkinID;
 
     public int[,] inventoryData; // [i,j], where i - item id, j - ammount
     public int[] equipmentData;
@@ -45,6 +46,7 @@ public class PlayerData
         abilityPoints = stats.SkillPoints;
 
         avatarName = stats.CharacterName;
+        avatarSkinID = CharacterManager.Instance.Skin.GetID();
 
         traitsData[0] = stats.PlayerTraits.Traits[0].ID;
         traitsData[1] = stats.PlayerTraits.Traits[1].ID;

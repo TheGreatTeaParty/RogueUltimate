@@ -10,7 +10,16 @@ public class NamesGenerator : MonoBehaviour
         "Emma",
         "Eva",
         "Rose",
-        "Anna",
+        "William",
+        "John",
+        "Robert",
+        "Henry",
+        "Ralph",
+        "Thomas",
+        "Walter",
+        "Roger",
+        "Hugh",
+
     };
    
     public string GetName()

@@ -26,6 +26,7 @@ public class PlayerOnScene : MonoBehaviour
     
     // Cache
     [HideInInspector] public PlayerStat stats;
+    [HideInInspector] public PlayerSkin skin;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public PlayerAttack playerAttack;
@@ -54,6 +55,7 @@ public class PlayerOnScene : MonoBehaviour
     {
         // Cache
         stats = GetComponent<PlayerStat>();
+        skin = GetComponent<PlayerSkin>();
         rb = Instance.GetComponent<Rigidbody2D>();
         playerAttack = Instance.GetComponent<PlayerAttack>();
         playerFX = Instance.GetComponent<PlayerFX>();
@@ -72,6 +74,7 @@ public class PlayerOnScene : MonoBehaviour
     private void Start()
     {
         SetStats();
+        SetSkin();
     }
 
     public void HidePlayer()
@@ -92,5 +95,9 @@ public class PlayerOnScene : MonoBehaviour
     public void SetStats()
     {
         CharacterManager.Instance.SetStats(stats);
+    }
+    public void SetSkin()
+    {
+        CharacterManager.Instance.SetSkin(skin);
     }
 }

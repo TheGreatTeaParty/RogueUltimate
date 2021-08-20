@@ -42,6 +42,8 @@ public class TraitsGenerator : MonoBehaviour
     private string _playerName;
     [SerializeField]
     private TextMeshProUGUI _currentName;
+    [SerializeField]
+    private CharacterSkinCreator skinCreator;
 
     private void Start()
     {
@@ -80,6 +82,8 @@ public class TraitsGenerator : MonoBehaviour
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[2]);
         pointsManager.SaveChanges();
         var player = CharacterManager.Instance.Stats;
+        PlayerSkin playerSkin = CharacterManager.Instance.Skin;
+        playerSkin.SetSkin(skinCreator.GetSkin(), skinCreator.GetSkinID());
         player.SetUpPlayerInfo();
         yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);

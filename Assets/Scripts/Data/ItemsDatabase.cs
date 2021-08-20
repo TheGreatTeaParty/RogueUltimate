@@ -69,6 +69,8 @@ public class ItemsDatabase : MonoBehaviour
     private Contract[] contracts;
     [SerializeField]
     private Ability[] abilities;
+    [SerializeField]
+    private Skins[] skins;
 
 
     public Item GetItemByID(int ID)
@@ -102,4 +104,20 @@ public class ItemsDatabase : MonoBehaviour
     {
         return treasures[Random.Range(0, treasures.Length - 1)];
     }
+    public Sprite[] GetSkinAnimation(int index)
+    {
+        if(index < skins.Length)
+            return skins[index].skin;
+        return null;
+    }
+    public int GetSkinLength()
+    {
+        return skins.Length;
+    }
+}
+
+[System.Serializable]
+public struct Skins
+{
+    public Sprite[] skin;
 }

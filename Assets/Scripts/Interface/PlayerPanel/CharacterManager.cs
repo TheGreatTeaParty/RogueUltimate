@@ -34,7 +34,7 @@ public class CharacterManager : MonoBehaviour
     public Inventory Inventory => inventory;
     public Equipment Equipment => equipment;
     public PlayerStat Stats => _stats;
-
+    public PlayerSkin Skin;
 
     public event Action<EquipmentItem, EquipmentItem> onEquipmentChanged; 
     
@@ -61,7 +61,6 @@ public class CharacterManager : MonoBehaviour
     // Inventory & equipment
     public void Equip(ItemSlot itemSlot)
     {
-
         Debug.Log("Equip !");
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
@@ -282,7 +281,10 @@ public class CharacterManager : MonoBehaviour
     {
         _stats = playerStat;
     }
-
+    public void SetSkin(PlayerSkin playerSkin)
+    {
+        Skin = playerSkin;
+    }
     // HighLight
     private void BeginHighLight(ItemSlot itemSlot)
     {
@@ -347,7 +349,10 @@ public class CharacterManager : MonoBehaviour
     IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
     {
         yield return new WaitForSeconds(0.1f);
-        
+
+        //SKIN
+        Skin.SetSkin(itemsDB.GetSkinAnimation(data.avatarSkinID), data.avatarSkinID);
+
         //INVENTORY:
         for (int i = 0; i < data.inventoryData.GetLength(0); i++)
         {
