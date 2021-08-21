@@ -16,7 +16,7 @@ public class RecklessnessEffect : Effect
         if(!_isApplied)
         {
             _stat.PhysicalDamage.AddModifier(new StatModifier(
-                (20 * player.Strength.GetBaseValue()) / 100, StatModifierType.PercentAdd,this));
+                (20 * player.Strength.GetBaseValue()) / 100, StatModifierType.PercentAdd, this));
             _stat.PhysicalProtection.AddModifier(new StatModifier(
                 (20 * player.Strength.GetBaseValue()) - 5 * player.Strength.GetBaseValue() / 100, StatModifierType.PercentAdd,this));
             _isApplied = true;

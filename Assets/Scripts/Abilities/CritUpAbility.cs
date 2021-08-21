@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Recklessness")]
-public class Recklessness : ActiveAbility
+[CreateAssetMenu(menuName ="Abilities/CritUp")]
+public class CritUpAbility : ActiveAbility
 {
     [SerializeField]
-    private Effect _recklessnessEffect;
-
+    private Effect _backstabEffect;
     public override void Activate()
     {
         base.Activate();
 
         PlayerOnScene.Instance.stats.EffectController.
-            AddEffect(Instantiate(_recklessnessEffect), PlayerOnScene.Instance.stats);
+            AddEffect(Instantiate(_backstabEffect), PlayerOnScene.Instance.stats);
     }
 
     protected override void Update()
