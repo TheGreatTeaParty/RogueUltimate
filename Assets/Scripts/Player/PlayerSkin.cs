@@ -56,4 +56,11 @@ public class PlayerSkin : MonoBehaviour
     {
         return skinID;
     }
+    public Sprite GetCurrentSkin()
+    {
+        if (_currentSkin != null)
+            return _currentSkin[0];
+        else
+            return ItemsDatabase.Instance.GetSkinAnimation(0)[0];
+    }
 }

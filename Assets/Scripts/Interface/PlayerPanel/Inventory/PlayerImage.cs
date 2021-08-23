@@ -13,9 +13,6 @@ public class PlayerImage : MonoBehaviour
 
     private void Start()
     {
-        _playerImage.sprite = PlayerOnScene.Instance.PlayerSprite;
-        _playerImage.color = _normalColor;
-        
         if (PlayerOnScene.Instance.ArmorSprite != null)
         {
             _armorImage.sprite = PlayerOnScene.Instance.ArmorSprite;
@@ -25,8 +22,13 @@ public class PlayerImage : MonoBehaviour
             _armorImage.color = _disabledColor;
         
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
+        Invoke("LoadPlayerPicture", 0.5f);
     }
-
+    private void LoadPlayerPicture()
+    {
+        _playerImage.sprite = CharacterManager.Instance.Skin.GetCurrentSkin();
+        _playerImage.color = _normalColor;
+    }
     private void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
     {
         if (oldItem)
