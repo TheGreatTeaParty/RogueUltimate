@@ -113,7 +113,14 @@ public class InterfaceManager : MonoBehaviour
         faceElements.SetActive(false);
     }
 
-
+    public void HideSkillSlots()
+    {
+        QuickSlots.SetActive(false);
+    }
+    public void ShowSkillSlots()
+    {
+        QuickSlots.SetActive(true);
+    }
     public void HideAll()
     {
         // Order matters

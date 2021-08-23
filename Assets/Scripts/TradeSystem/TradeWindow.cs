@@ -92,6 +92,8 @@ public class TradeWindow : MonoBehaviour
 
 
         UI.ShowFaceElements();
+        if (Type == TradeManager.tradeType.dwarf)
+            UI.ShowSkillSlots();
 
         currentSlot = null;
         AudioManager.Instance.Play("TradeClose");

@@ -49,7 +49,9 @@ public class Goblin : Warrior
         isAttack = false;
 
         state = NPCstate.Waiting;
-        Vector2 direction = (target.transform.position - transform.position);
+        Vector2 direction = Vector2.zero;
+        if (target)
+            direction = (target.transform.position - transform.position);
         Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
         if (IsPositionAvailable(runBack))
         { 

@@ -58,8 +58,10 @@ public class TradeManager : MonoBehaviour
         InterfaceManager.Instance.fixedJoystick.ResetInput();
 
         var UI = InterfaceManager.Instance;
-        
+
         UI.HideAll();
+        if (type == tradeType.dwarf)
+            UI.HideSkillSlots();
 
         switch (type)
         {
