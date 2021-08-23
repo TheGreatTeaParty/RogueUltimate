@@ -9,6 +9,9 @@
     
     public override void Die()
     {
+        Contract killBoss = CharacterManager.Instance.Stats.PlayerContracts.FindContract(3);
+        if (killBoss)
+            killBoss._currentScore++;
         BossFightPortal.Instance.TurnThePortal();
         BossFightPortal.Instance.HealthBar(false);
         base.Die();

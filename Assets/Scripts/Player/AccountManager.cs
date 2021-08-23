@@ -19,7 +19,7 @@ public class AccountManager : MonoBehaviour
 
     #endregion
 
-    private float _renown = 500;
+    private float _renown = 0;
     private int _keeper_level = 1, _smith_level = 1, _master_level = 1;
 
     public event Action<float> OnRenownChanged;

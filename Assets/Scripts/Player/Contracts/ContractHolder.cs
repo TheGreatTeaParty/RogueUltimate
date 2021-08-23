@@ -42,4 +42,14 @@ public class ContractHolder
             _hasMainContract = false;
         contracts.Remove(contract);
     }
+
+    public Contract FindContract(int ID)
+    {
+        foreach (var contract in contracts)
+        {
+            if (contract.ID == ID)
+                return contract;
+        }
+        return null;
+    }
 }

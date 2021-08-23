@@ -18,7 +18,7 @@ public class CritUpEffect : Effect
             _stats.Agility.CritChance.AddModifier(new StatModifier(
                 (5 * _stats.Agility.GetBaseValue()) / 100, StatModifierType.PercentAdd, this));
             _stats.Strength.CritDamage.AddModifier(new StatModifier(
-                (10 * _stats.Strength.GetBaseValue()) / 100, StatModifierType.PercentAdd, this));
+                (10 * _stats.Agility.GetBaseValue()) / 100, StatModifierType.PercentAdd, this));
         }
     }
 
