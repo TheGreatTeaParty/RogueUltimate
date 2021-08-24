@@ -31,12 +31,17 @@ public class Item : ScriptableObject
     public int Price => price;
     public String ItemName
     {
-        get => itemName;
+        get => LocalizationSystem.GetLocalisedValue(itemName.Replace(' ', '_'));
         set => itemName = value;
 
     }
     public Sprite Sprite => sprite;
-    public string Description => description;
+    public string Description
+    {
+        get => LocalizationSystem.GetLocalisedValue(itemName.Replace(' ', '_')+"_desc");
+        set => description = value;
+    }
+
     public int StackMaxSize
     {
         get => stackMaxSize;

@@ -7,12 +7,28 @@ public class Trait : ScriptableObject
 {
     public int ID;
     public Sprite Icon;
-    public string Name;
     public TraitType Type;
+    [SerializeField]
+    private string _name;
     [TextArea]
-    public string Description;
+    [SerializeField]
+    private string _description;
     [TextArea]
-    public string BriefDescription;
+    [SerializeField]
+    private string _briefDescription;
+
+    public string Name
+    {
+        get => LocalizationSystem.GetLocalisedValue(_name.Replace(' ', '_'));
+    }
+    public string Description
+    {
+        get => LocalizationSystem.GetLocalisedValue(_name.Replace(' ', '_')+"_desc");
+    }
+    public string BriefDescription
+    {
+        get => LocalizationSystem.GetLocalisedValue(_name.Replace(' ', '_') + "_brief_desc");
+    }
 
     public enum TraitType
     {

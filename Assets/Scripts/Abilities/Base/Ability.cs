@@ -9,13 +9,19 @@ public class Ability : ScriptableObject
     public int ID;
     public SkillTree.TreeType Type;
 
-    [SerializeField] protected String abilityName;
+    [SerializeField] protected string abilityName;
     [TextArea]
-    [SerializeField] protected String description;
+    [SerializeField] protected string description;
     [SerializeField] protected Sprite sprite;
 
-    public String AbilityName => abilityName;
-    public string Description => description;
+    public string AbilityName
+    {
+        get => LocalizationSystem.GetLocalisedValue(abilityName.Replace(' ', '_'));
+    }
+    public string Description
+    {
+        get => LocalizationSystem.GetLocalisedValue(abilityName.Replace(' ', '_')+"_desc");
+    }
     public Sprite Sprite => sprite;
 
 }
