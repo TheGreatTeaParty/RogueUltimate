@@ -27,7 +27,7 @@ public class InteractionUI : MonoBehaviour
 
     public void SetText(string text)
     {
-        _interactButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        _interactButton.GetComponentInChildren<TextMeshProUGUI>().text = LocalizationSystem.GetLocalisedValue(text.Replace(' ', '_'));
     }
     
     public void SetActive(bool condition)

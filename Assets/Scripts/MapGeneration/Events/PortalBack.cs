@@ -8,7 +8,7 @@ public class PortalBack : MonoBehaviour,IInteractable
 
     public string GetActionName()
     {
-        return "To Tavern";
+        return "to tavern";
     }
 
     public void Interact()

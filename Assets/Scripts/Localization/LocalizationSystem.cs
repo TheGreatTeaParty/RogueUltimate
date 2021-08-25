@@ -15,7 +15,7 @@ public class LocalizationSystem
     private static Dictionary<string, string> localisedEN;
     private static Dictionary<string, string> localizedRU;
 
-    public static bool isInit;
+    protected static bool isInit;
 
     private static CSVloader csvloader;
 
@@ -26,10 +26,13 @@ public class LocalizationSystem
 
         localisedEN = csvloader.GetDictionaryValues("en");
         localizedRU = csvloader.GetDictionaryValues("ru");
-
         isInit = true;
     }
-
+    private static void ReloadData()
+    {
+        localisedEN = csvloader.GetDictionaryValues("en");
+        localizedRU = csvloader.GetDictionaryValues("ru");
+    }
     public static string GetLocalisedValue(string key)
     {
         if (!isInit) { Init(); }
@@ -56,12 +59,14 @@ public class LocalizationSystem
             case Language.English:
                 {
                     if (!localisedEN.TryGetValue(key, out value))
+                    {
                         csvloader.WriteDictionaryValue(data);
+                    }
                     break;
                 }
             case Language.Russian:
                 {
-                    if (!localisedEN.TryGetValue(key, out value))
+                    if (!localizedRU.TryGetValue(key, out value))
                         csvloader.WriteDictionaryValue(data);
                     break;
                 }

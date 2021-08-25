@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3381610869007297813}
   - component: {fileID: 7479638736069009840}
   - component: {fileID: 200967942700361494}
+  - component: {fileID: 7616827084567830668}
   m_Layer: 5
   m_Name: Enemy Killed
   m_TagString: Untagged
@@ -66,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enemy killed
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5e385b28bd65423b891c14827e25fe6, type: 2}
-  m_sharedMaterial: {fileID: 7679734979389022255, guid: e5e385b28bd65423b891c14827e25fe6,
+  m_fontAsset: {fileID: 11400000, guid: 838b730846fd04f058c2e974358ab328, type: 2}
+  m_sharedMaterial: {fileID: 5014609533421756713, guid: 838b730846fd04f058c2e974358ab328,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -157,6 +158,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7616827084567830668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383987393282744910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: enemy_killed
 --- !u!1 &599106680024685146
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +414,7 @@ GameObject:
   - component: {fileID: 3154525767404264362}
   - component: {fileID: 2326457571327975522}
   - component: {fileID: 2502376241975324609}
+  - component: {fileID: 6777260122311348199}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -455,8 +470,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: To Tavern
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5e385b28bd65423b891c14827e25fe6, type: 2}
-  m_sharedMaterial: {fileID: 7679734979389022255, guid: e5e385b28bd65423b891c14827e25fe6,
+  m_fontAsset: {fileID: 11400000, guid: 838b730846fd04f058c2e974358ab328, type: 2}
+  m_sharedMaterial: {fileID: 5014609533421756713, guid: 838b730846fd04f058c2e974358ab328,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -482,13 +497,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -546,6 +561,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6777260122311348199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3902192276339188818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: to_tavern
 --- !u!1 &3909776422067859696
 GameObject:
   m_ObjectHideFlags: 0
