@@ -48,7 +48,7 @@ public class JoystickAttack : MonoBehaviour
             if (!_isSlowed)
             {
                 _playerMovement.SetRangeJoystick(this);
-                _playerMovement.SlowDown(0.5f);
+                _playerMovement.DecreaseMovementSpeed(0.5f);
                 _playerMovement.SetRangeMoving(true);
                 _isSlowed = true;
             }
@@ -62,7 +62,7 @@ public class JoystickAttack : MonoBehaviour
         {
             DisableAimArrow();
             _playerAttack.StopAttack();
-            _playerMovement.SlowDown(2f);
+            _playerMovement.IncreaseMovementSpeed(0.5f);
             _playerMovement.SetRangeMoving(false);
             _isSlowed = false;
 

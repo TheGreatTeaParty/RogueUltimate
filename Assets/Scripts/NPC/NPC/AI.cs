@@ -16,6 +16,7 @@ public class AI : MonoBehaviour
 {
     [SerializeField] protected float nextWayPointDistance = 1f;
     [SerializeField] public float movementSpeed = 4f;
+    private float BASE_SPEED;
     [SerializeField] protected float detectionRange = 7f;
     [SerializeField] protected float followRange = 10f;
     [SerializeField] protected float waitTime = 2f;
@@ -50,6 +51,7 @@ public class AI : MonoBehaviour
     
     protected virtual void Start()
     {
+        BASE_SPEED = movementSpeed;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
@@ -149,9 +151,13 @@ public class AI : MonoBehaviour
         isStopped = false;
     }
 
-    public void ModifyMovementSpeed(float percent)
+    public void DecreaseMovementSpeed(float percent)
     {
-        movementSpeed *= percent;
+        movementSpeed *= (1 - percent);
+    }
+    public void IncreaseMovementSpeed(float percent)
+    {
+        movementSpeed += BASE_SPEED * percent;
     }
 
     protected virtual void Die()

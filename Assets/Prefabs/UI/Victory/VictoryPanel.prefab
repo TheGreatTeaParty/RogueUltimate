@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 3631579156609455966}
   - component: {fileID: 8882524422285155323}
   - component: {fileID: 2180279248521633117}
+  - component: {fileID: 53343019473854721}
   m_Layer: 5
   m_Name: Enemy Killed
   m_TagString: Untagged
@@ -382,8 +383,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Contracts Complited
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5e385b28bd65423b891c14827e25fe6, type: 2}
-  m_sharedMaterial: {fileID: 7679734979389022255, guid: e5e385b28bd65423b891c14827e25fe6,
+  m_fontAsset: {fileID: 11400000, guid: c4953e7199ca14e38b0ad39ab05a3a10, type: 2}
+  m_sharedMaterial: {fileID: 3287248406764636868, guid: c4953e7199ca14e38b0ad39ab05a3a10,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -415,7 +416,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -473,6 +474,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &53343019473854721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863400992003086341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: contracts_complited
 --- !u!1 &2594275764456239512
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +537,7 @@ GameObject:
   - component: {fileID: 3985460628639605217}
   - component: {fileID: 4377833082639178281}
   - component: {fileID: 4481691603206673802}
+  - component: {fileID: 604023358833535808}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -578,8 +593,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: To Tavern
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5e385b28bd65423b891c14827e25fe6, type: 2}
-  m_sharedMaterial: {fileID: 7679734979389022255, guid: e5e385b28bd65423b891c14827e25fe6,
+  m_fontAsset: {fileID: 11400000, guid: c4953e7199ca14e38b0ad39ab05a3a10, type: 2}
+  m_sharedMaterial: {fileID: 3287248406764636868, guid: c4953e7199ca14e38b0ad39ab05a3a10,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -605,13 +620,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -669,6 +684,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &604023358833535808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3075760740386512409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: to_tavern
 --- !u!1 &3083351504109800123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1399,7 @@ GameObject:
   - component: {fileID: 7346124292320584865}
   - component: {fileID: 8823592050552068212}
   - component: {fileID: 609982928171065982}
+  - component: {fileID: 9025028084470405630}
   m_Layer: 5
   m_Name: Collected Treasure
   m_TagString: Untagged
@@ -1426,8 +1455,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Collected Treasure
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5e385b28bd65423b891c14827e25fe6, type: 2}
-  m_sharedMaterial: {fileID: 7679734979389022255, guid: e5e385b28bd65423b891c14827e25fe6,
+  m_fontAsset: {fileID: 11400000, guid: c4953e7199ca14e38b0ad39ab05a3a10, type: 2}
+  m_sharedMaterial: {fileID: 3287248406764636868, guid: c4953e7199ca14e38b0ad39ab05a3a10,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1459,7 +1488,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1517,6 +1546,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9025028084470405630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863002379871076763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: collected_treasure
 --- !u!1 &8049002979166069847
 GameObject:
   m_ObjectHideFlags: 0

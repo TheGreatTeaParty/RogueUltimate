@@ -6,10 +6,10 @@ public class HealthBar : Bar
 {
     public TextMeshProUGUI Value;
 
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(0.0001f);
+    private void Start()
+    { 
         CharacterManager.Instance.Stats.OnHealthChanged += ChangeSliderValue;
+        ChangeSliderValue(CharacterManager.Instance.Stats.CurrentHealth);
     }
 
     private void Update()

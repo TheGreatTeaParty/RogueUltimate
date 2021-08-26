@@ -324,12 +324,6 @@ public class CharacterManager : MonoBehaviour
         _stats.SkillPoints = data.abilityPoints;
         inventory.Gold = data.gold;
 
-        //TRAITS:
-        TraitsDatabase traitsDB = TraitsDatabase.Instance;
-        _stats.PlayerTraits = new TraitHolder();
-        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[0]));
-        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[1]));
-        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[2]));
 
         ItemsDatabase itemsDB = ItemsDatabase.Instance;
         //CONTRACTS:
@@ -349,6 +343,11 @@ public class CharacterManager : MonoBehaviour
     IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
     {
         yield return new WaitForSeconds(0.1f);
+        //TRAITS:
+        TraitsDatabase traitsDB = TraitsDatabase.Instance;
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[0]));
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[1]));
+        _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[2]));
 
         //SKIN
         Skin.SetSkin(itemsDB.GetSkinAnimation(data.avatarSkinID), data.avatarSkinID);

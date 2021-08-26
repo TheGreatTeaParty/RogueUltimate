@@ -414,9 +414,13 @@ public class PlayerStat : CharacterStat, IDamaged
         {
             playerMovement.StopMoving();
         }
+        else if (intensity < 0)
+        {
+            playerMovement.IncreaseMovementSpeed(-intensity);
+        }
         else
         {
-            playerMovement.SlowDown(intensity);
+            playerMovement.DecreaseMovementSpeed(intensity);
         }
     }
     public override void Die()
@@ -487,4 +491,5 @@ public class PlayerStat : CharacterStat, IDamaged
         else
             return false;
     }
+
 }
