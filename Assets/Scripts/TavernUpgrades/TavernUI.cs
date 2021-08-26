@@ -20,7 +20,7 @@ public class TavernUI : MonoBehaviour
         inventory.OnGoldChanged += UpdateGold;
         animator = GetComponent<Animator>();
         AccountManager.Instance.OnRenownChanged += UpdateRenown;
-        UpdateOnStart();
+        Invoke("UpdateOnStart", 0.1f);
     }
 
     private void UpdateGold(float gold)
