@@ -156,6 +156,7 @@ public class AbilityManager : MonoBehaviour
         _playerStat.SkillPoints -= 1;
         _unlockedAbilities.Add(abilitySlot.Ability);
         OnSkillTreeUpdated?.Invoke();
+        UpdatePoints();
     }
     private void UnlcokSavedAbility()
     {

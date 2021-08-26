@@ -33,7 +33,7 @@ public class CharacterAudio : MonoBehaviour
     public void StepSound()
     {
         var sound = step_sounds[Random.Range(0, step_sounds.Length)];
-        if(sound)
+        if(sound && source[0])
             source[0].PlayOneShot(sound);
     }
     public void DamageSound()

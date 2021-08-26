@@ -29,7 +29,7 @@ public class PlayerStat : CharacterStat, IDamaged
     private float _currentMana;
     private float _currentStamina;
     public int Kills = 0;
-    private int _skillPoints = 2;
+    private int _skillPoints = 0;
     private int _statPoints = 0;
     private InterfaceManager _interfaceManager;
  
