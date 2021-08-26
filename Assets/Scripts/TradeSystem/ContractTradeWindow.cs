@@ -83,7 +83,6 @@ public class ContractTradeWindow : MonoBehaviour
         var UI = InterfaceManager.Instance;
         EraseTooltip();
 
-
         UI.ShowFaceElements();
 
         currentSlot = null;

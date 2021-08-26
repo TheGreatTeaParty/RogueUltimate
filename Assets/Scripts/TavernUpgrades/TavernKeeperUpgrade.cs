@@ -14,13 +14,15 @@ public class TavernKeeperUpgrade : MonoBehaviour
         Instance = this;
     }
 
-    public float Level2Price;
-    public float Level3Price;
+    public float Level2Price = 500;
+    public float Level3Price = 1000;
+    public float Level4Price = 1500;
+    public float Level5Price = 2000;
 
     [Space]
     public int KeeperMaxLVL = 3;
     public int SmithMaxLVL = 3;
-    public int MasterMaxLVL = 3;
+    private int MasterMaxLVL = 5;
 
     public GameObject TLVL1;
     public GameObject TLVL2;
@@ -212,7 +214,8 @@ public class TavernKeeperUpgrade : MonoBehaviour
                     //Change the Tavern Keeper Inventory:
                     break;
                 }
-
+            default:
+                break;
         }
     }
     public float GetReqiredPrice(TradeManager.tradeType type)
@@ -241,6 +244,10 @@ public class TavernKeeperUpgrade : MonoBehaviour
             return Level2Price;
         else if (level == 2)
             return Level3Price;
+        else if (level == 3)
+            return Level4Price;
+        else if (level == 4)
+            return Level5Price;
         return 0;
     }
 

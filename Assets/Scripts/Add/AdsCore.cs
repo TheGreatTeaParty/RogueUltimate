@@ -35,7 +35,7 @@ public class AdsCore : MonoBehaviour, IUnityAdsListener
     void ShowRewardedVideo()
     {
         Advertisement.Show(mySurfacingId);
-        AccountManager.Instance.Renown += 200;
+        AccountManager.Instance.Renown += 150;
     }
 
     public static void ShowInterstitialAd()
