@@ -32,6 +32,7 @@ public class PlayerPanelManager : MonoBehaviour
 
     public NavigatorButton stats;
     public NavigatorButton skills;
+    private AbilityManager abilityManager;
 
     private void Start()
     {
@@ -65,39 +66,42 @@ public class PlayerPanelManager : MonoBehaviour
         switch (window)
         {
             case WindowType.Inventory:
-            {
-                SwitchWindow(inventoryPanel);
-                HighlightNavButton(navigatorButton);
-                break;
-            }
+                {
+                    SwitchWindow(inventoryPanel);
+                    HighlightNavButton(navigatorButton);
+                    break;
+                }
 
             case WindowType.Stats:
-            {
-                SwitchWindow(statsPanel);
-                HighlightNavButton(navigatorButton);
-                break;
-            }
-            
+                {
+                    SwitchWindow(statsPanel);
+                    HighlightNavButton(navigatorButton);
+                    break;
+                }
+
             case WindowType.SkillTree:
-            {
-                SwitchWindow(skillsPanel);
-                HighlightNavButton(navigatorButton);
-                break;
-            }
-            
+                {
+                    SwitchWindow(skillsPanel);
+                    HighlightNavButton(navigatorButton);
+                    if (!abilityManager)
+                        abilityManager = skillsPanel.GetComponentInChildren<AbilityManager>();
+                    abilityManager.UpdatePoints();
+                    break;
+                }
+
             case WindowType.QuestBook:
-            {
-                SwitchWindow(questPanel);
-                HighlightNavButton(navigatorButton);
-                break;
-            }
-            
+                {
+                    SwitchWindow(questPanel);
+                    HighlightNavButton(navigatorButton);
+                    break;
+                }
+
             case WindowType.ReturnOption:
-            {
-                HighlightNavButton(null);
-                ClosePanel?.Invoke();
-                break;
-            }
+                {
+                    HighlightNavButton(null);
+                    ClosePanel?.Invoke();
+                    break;
+                }
         }
         
     }

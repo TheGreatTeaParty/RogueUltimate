@@ -60,7 +60,7 @@ public class StrengthAttribute
     private void RecalculateStats()
     {
         //Set Stats base values accordingly
-        MaxHealth.SETBASE(8 + baseValue.Value + 6 * baseValue.Value);
+        MaxHealth.SETBASE(8 + 6 * baseValue.Value);
         DazeResistance.SETBASE(baseValue.Value * 0.02f);
         PoisonResistance.SETBASE(baseValue.Value * 0.02f);
         BleedResistance.SETBASE(baseValue.Value * 0.02f);

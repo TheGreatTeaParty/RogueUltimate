@@ -7,6 +7,10 @@ public class Runner : Trait
 {
     public override void ApplyTrait()
     {
-        CharacterManager.Instance.Stats.playerMovement.BASE_MOVEMENT_SPEED *= 2;
+        CharacterManager.Instance.Stats.playerMovement.IncreaseMovementSpeed(1.5f);
+    }
+    public override void DeleteTrait()
+    {
+        CharacterManager.Instance.Stats.playerMovement.DecreaseMovementSpeed(1.5f);
     }
 }

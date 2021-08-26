@@ -5,12 +5,12 @@ using TMPro;
 public class ManaBar : Bar
 {
     public TextMeshProUGUI Value;
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(0.0001f);
         CharacterManager.Instance.Stats.OnManaChanged += SetManaValue;
+        SetManaValue(CharacterManager.Instance.Stats.CurrentMana);
     }
-
+    
     private void Update()
     {
         damagedHealthShrinkTimer -= Time.deltaTime;

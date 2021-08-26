@@ -46,7 +46,7 @@ public class CSVloader
             for (int f = 0; f < fields.Length; f++)
             {
                 fields[f] = fields[f].TrimStart(' ', surround);
-                fields[f] = fields[f].TrimEnd(surround);
+                fields[f] = fields[f].TrimEnd('\r',surround);
             }
 
             if (fields.Length > attributeIndex)

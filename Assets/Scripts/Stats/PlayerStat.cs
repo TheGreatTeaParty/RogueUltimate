@@ -29,7 +29,7 @@ public class PlayerStat : CharacterStat, IDamaged
     private float _currentMana;
     private float _currentStamina;
     public int Kills = 0;
-    private int _skillPoints = 0;
+    private int _skillPoints = 2;
     private int _statPoints = 0;
     private InterfaceManager _interfaceManager;
  
@@ -414,9 +414,13 @@ public class PlayerStat : CharacterStat, IDamaged
         {
             playerMovement.StopMoving();
         }
+        else if (intensity < 0)
+        {
+            playerMovement.IncreaseMovementSpeed(-intensity);
+        }
         else
         {
-            playerMovement.SlowDown(intensity);
+            playerMovement.DecreaseMovementSpeed(intensity);
         }
     }
     public override void Die()
@@ -487,4 +491,5 @@ public class PlayerStat : CharacterStat, IDamaged
         else
             return false;
     }
+
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
     public float movementSpeed;
-    public float BASE_MOVEMENT_SPEED;
+    private float BASE_MOVEMENT_SPEED = 4;
+    private float BASE_SPEED;
     public float ROLL_TIME = 0.4f;
     public Collider2D PlayerCollider;
     public TrailRenderer trailRenderer;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Start()
     {
+        BASE_SPEED = BASE_MOVEMENT_SPEED;
         characterAudio = GetComponent<CharacterAudio>();
         PlayerCollider = GetComponent<Collider2D>();
         //trailRenderer = GetComponent<TrailRenderer>();
@@ -138,9 +140,17 @@ public class PlayerMovement : MonoBehaviour
         return _direction;
     }
 
-    public void SlowDown(float percent)
+    public void DecreaseMovementSpeed(float percent)
     {
-        BASE_MOVEMENT_SPEED *= percent;
+        BASE_MOVEMENT_SPEED *= (1 - percent);
+    }
+    public void IncreaseMovementSpeed(float percent)
+    {
+        BASE_MOVEMENT_SPEED += BASE_SPEED * percent;
+    }
+    public float GetCurentMovementSpeed()
+    {
+        return BASE_MOVEMENT_SPEED;
     }
 
     public void StopMoving()

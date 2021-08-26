@@ -104,7 +104,7 @@ public class TradeUI : MonoBehaviour
         relation.SetText(tradeManager.npcInventory.GetRelation().ToString());
         
         if (tradeWindow.currentSlot == null) return;
-        action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? "Buy" : "Sell");
+        action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? LocalizationSystem.GetLocalisedValue("trade_buy") : LocalizationSystem.GetLocalisedValue("trade_sell"));
         price.SetText(tradeWindow.currentSlot.Item.Price.ToString());
     }
 

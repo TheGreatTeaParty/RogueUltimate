@@ -46,7 +46,6 @@ public class AbilityManager : MonoBehaviour
         if(_unlockedAbilities == null)
             _unlockedAbilities = new List<Ability>();
         _playerStat = CharacterManager.Instance.Stats;
-        _playerStat.OnSkillPointGained += UpdatePoints;
 
         for (int i = 0; i < abilitySlots.Length; i++)
         {
@@ -168,7 +167,7 @@ public class AbilityManager : MonoBehaviour
             }
         }
     }
-    private void UpdatePoints()
+    public void UpdatePoints()
     {
         _pointsValue.text = (_playerStat.SkillPoints).ToString();
     }

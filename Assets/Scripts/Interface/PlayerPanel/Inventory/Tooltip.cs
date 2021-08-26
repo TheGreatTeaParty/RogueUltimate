@@ -58,7 +58,7 @@ public class Tooltip : MonoBehaviour, IDragHandler
             //Show the Equip Button:
             optionalButton.gameObject.SetActive(true);
             var name = optionalButton.GetComponentInChildren<TextMeshProUGUI>();
-            name.SetText("Equip");
+            name.SetText(LocalizationSystem.GetLocalisedValue("inventory_equip_btn"));
         }
 
     }

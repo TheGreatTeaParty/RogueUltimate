@@ -53,7 +53,7 @@ public class IntelligenceAttribute
     }
     private void RecalculateStats()
     {
-        MaxMana.SETBASE(10 + baseValue.Value + baseValue.Value * 5);
+        MaxMana.SETBASE(10 + baseValue.Value * 4);
         ManaRegeniration.SETBASE(1 + baseValue.Value * 0.6f);
         FireResistance.SETBASE(baseValue.Value * 0.02f);
         FreezeResistance.SETBASE(baseValue.Value * 0.02f);

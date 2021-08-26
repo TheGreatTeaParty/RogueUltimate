@@ -43,7 +43,7 @@ public class StatUI : MonoBehaviour
         //Stats:
         AttackSpeed.SetText(_playerStat.AttackSpeed.Value.ToString());
         CastSpeed.SetText(_playerStat.CastSpeed.Value.ToString());
-        MovementSpeed.SetText(_playerStat.playerMovement.BASE_MOVEMENT_SPEED.ToString());
+        MovementSpeed.SetText(_playerStat.playerMovement.GetCurentMovementSpeed().ToString());
 
         //Points:
         Level.SetText(_playerStat.Level.ToString(CultureInfo.CurrentUICulture));

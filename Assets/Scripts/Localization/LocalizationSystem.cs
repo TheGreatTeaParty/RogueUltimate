@@ -27,11 +27,16 @@ public class LocalizationSystem
         localisedEN = csvloader.GetDictionaryValues("en");
         localizedRU = csvloader.GetDictionaryValues("ru");
         isInit = true;
-    }
-    private static void ReloadData()
-    {
-        localisedEN = csvloader.GetDictionaryValues("en");
-        localizedRU = csvloader.GetDictionaryValues("ru");
+
+        if (Application.systemLanguage == SystemLanguage.Russian)
+        {
+            language = Language.Russian;
+        }
+        //Otherwise, if the system is English, output the message in the console
+        else
+        {
+            language = Language.English;
+        }
     }
     public static string GetLocalisedValue(string key)
     {

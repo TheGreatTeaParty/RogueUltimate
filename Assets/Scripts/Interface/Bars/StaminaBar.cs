@@ -5,10 +5,10 @@ public class StaminaBar : Bar
 {
     public TextMeshProUGUI Value;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(0.0001f);
         CharacterManager.Instance.Stats.OnStaminaChanged += SetStaminaValue;
+        SetStaminaValue(CharacterManager.Instance.Stats.CurrentStamina);
     }
 
     private void Update()

@@ -109,7 +109,7 @@ public class ContractTradeIUI : MonoBehaviour
         }
        
         if (tradeWindow.currentSlot == null) return;
-        action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? "Take" : "Drop");
+        action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? LocalizationSystem.GetLocalisedValue("trade_take") : LocalizationSystem.GetLocalisedValue("trade_drop"));
         price.SetText(tradeWindow.currentSlot.Item.Price.ToString());
     }
 

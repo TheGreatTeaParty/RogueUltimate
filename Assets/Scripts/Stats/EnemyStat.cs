@@ -148,9 +148,13 @@ public class EnemyStat : CharacterStat, IDamaged
             _enemyAi.StartMoving();
         }
 
+        else if(intensity < 0)
+        {
+            _enemyAi.IncreaseMovementSpeed(-intensity);
+        }
         else
         {
-            _enemyAi.ModifyMovementSpeed(intensity);
+            _enemyAi.DecreaseMovementSpeed(intensity);
         }
     }
 
