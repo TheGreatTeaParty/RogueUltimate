@@ -19,6 +19,7 @@ public class HealthBox : MonoBehaviour, IInteractable
         var player = CharacterManager.Instance.Stats;
         player.CurrentHealth = player.Strength.MaxHealth.Value;
         spriteRenderer.sprite = empty;
+        AudioManager.Instance.Play("Drink");
         Destroy(this);
     }
 

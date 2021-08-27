@@ -13,6 +13,7 @@ public class Chill : MonoBehaviour,IInteractable
     {
         var player = CharacterManager.Instance.Stats;
         player.Agility.MaxStamina.AddModifier(new StatModifier(.5f, StatModifierType.PercentAdd));
+        AudioManager.Instance.Play("Rest");
         Destroy(this);
     }
 }

@@ -12,6 +12,7 @@ public class MagicalCtone : MonoBehaviour,IInteractable
     public void Interact()
     {
         var player = CharacterManager.Instance.Stats;
+        AudioManager.Instance.Play("MagicalStone");
         player.Intelligence.MaxMana.AddModifier(new StatModifier(.5f, StatModifierType.PercentAdd));
         Destroy(this);
     }
