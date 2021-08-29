@@ -23,7 +23,7 @@ public class SettingsManager : MonoBehaviour
         else if (instance == this)
         {
             Debug.LogError("Error while creating \"SettingsManager\" object. It's already exists!");
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         InitializeManager();

@@ -273,11 +273,11 @@ public class PointsManager : MonoBehaviour
         {
             for(int i = 0; i < generator.OutcomeTraits.Count; ++i)
             {
-                if (generator.OutcomeTraits[i].Name == "Dystrophic")
+                if (generator.OutcomeTraits[i].Name ==LocalizationSystem.GetLocalisedValue("Dystrophic"))
                     _disableStrength = true;
-                else if (generator.OutcomeTraits[i].Name == "Idiot")
+                else if (generator.OutcomeTraits[i].Name == LocalizationSystem.GetLocalisedValue("Idiot"))
                     _disableInt = true;
-                else if (generator.OutcomeTraits[i].Name == "Retarded")
+                else if (generator.OutcomeTraits[i].Name == LocalizationSystem.GetLocalisedValue("Retarded"))
                     _disableAgility = true;
             }
             CheckChain();
@@ -291,17 +291,17 @@ public class PointsManager : MonoBehaviour
 
             for (int i = 0; i < temp.Count; ++i)
             {
-                if (temp[i].Name == "Dystrophic")
+                if (temp[i].Name == LocalizationSystem.GetLocalisedValue("Dystrophic"))
                 {
                     _disableStrength = true;
                     _strengthFounded = true;
                 }
-                else if (temp[i].Name == "Idiot")
+                else if (temp[i].Name == LocalizationSystem.GetLocalisedValue("Idiot"))
                 {
                     _disableInt = true;
                     _intFounded = true;
                 }
-                else if (temp[i].Name == "Retarded")
+                else if (temp[i].Name == LocalizationSystem.GetLocalisedValue("Retarded"))
                 {
                     _disableAgility = true;
                     _agilityFounded = true;
