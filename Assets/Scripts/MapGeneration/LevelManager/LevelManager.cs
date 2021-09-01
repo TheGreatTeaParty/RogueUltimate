@@ -23,6 +23,8 @@ public class LevelManager : MonoBehaviour
     private int _levelLoaded = 0;
 
     private AsyncOperation asyncOperation;
+    [SerializeField]
+    private MobAdsSimple mobAds;
 
     void Awake()
     {
@@ -44,11 +46,6 @@ public class LevelManager : MonoBehaviour
         else if(scenes == Scenes.Tavern || scenes == Scenes.StartTavern)
         {
             _levelLoaded++;
-            if(_levelLoaded >= LoadsToAds)
-            {
-                _levelLoaded = 0;
-                AdsCore.ShowInterstitialAd();
-            }
         }
         asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
         StartCoroutine(GetSceneLoadProgress(scenes));
@@ -76,11 +73,6 @@ public class LevelManager : MonoBehaviour
         else if (scenes == "Tavern" || scenes == "StartTavern")
         {
             _levelLoaded++;
-            if (_levelLoaded >= LoadsToAds)
-            {
-                _levelLoaded = 0;
-                AdsCore.ShowInterstitialAd();
-            }
         }
 
         asyncOperation = SceneManager.LoadSceneAsync(scenes);
@@ -157,6 +149,11 @@ public class LevelManager : MonoBehaviour
         else
         {
             InterfaceManager.Instance.HideTavernUI();
+        }
+        if (_levelLoaded >= LoadsToAds)
+        {
+            _levelLoaded = 0;
+            mobAds.ShowAd();
         }
     }
 

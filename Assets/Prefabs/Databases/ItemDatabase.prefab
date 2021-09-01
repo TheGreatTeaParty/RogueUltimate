@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5042260004549109991}
   - component: {fileID: 5042260004549109988}
+  - component: {fileID: 5244646919881509584}
   - component: {fileID: 669156337159999696}
   m_Layer: 0
   m_Name: ItemDatabase
@@ -50,10 +51,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd92c8daad0d04dd1a7a77464b583530, type: 2}
   - {fileID: 11400000, guid: ae755bcb481c8dc469402b444836e86a, type: 2}
   - {fileID: 11400000, guid: 6f7fa3cd2fc08c84b845e95ce3291a24, type: 2}
-  - {fileID: 11400000, guid: e3ad15b1a91d58141b151a626fda5932, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 023007ccc615f75409889559bcad1538, type: 2}
   - {fileID: 11400000, guid: 923873d51ccfa724c8c3fead4915af29, type: 2}
-  - {fileID: 11400000, guid: fdba63ebbd640034b8499698f8084742, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 3619b466d7bd31a4299e786d5bf6d09d, type: 2}
   - {fileID: 11400000, guid: 6e323477dffd2884cb2fae23825bc6c9, type: 2}
   - {fileID: 11400000, guid: f96bb45bf6c05484e8f87c6300cf4d3a, type: 2}
@@ -78,6 +79,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4450ca7b9280445e7be1f3910d32f132, type: 2}
   - {fileID: 11400000, guid: 6efcc0069302a4706bff1f75bce88e7d, type: 2}
   - {fileID: 11400000, guid: f4f3e3434c07c4bedb5bf4be6b20b03f, type: 2}
+  abilities: []
+  skins: []
+  purchaseManager: {fileID: 5244646919881509584}
+--- !u!114 &5244646919881509584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042260004549109989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c292197af6948f0bd779d76507f737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &669156337159999696
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SettingsManager : MonoBehaviour
 {
-    public static SettingsManager instance = null;
+    public static SettingsManager instance;
 
     private Dictionary<SettingsKeys, string> stringSettings;
 

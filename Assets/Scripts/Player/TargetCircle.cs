@@ -10,7 +10,7 @@ public class TargetCircle : MonoBehaviour
     {
         if (Instance)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         Instance = this;
