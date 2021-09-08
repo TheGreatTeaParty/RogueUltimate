@@ -9,5 +9,7 @@ public class OgreStat : EnemyStat
         base.SetLevel(level);
         maxHealth = 20 + 7 * level;
         PhysicalDamage.SETBASE(3 + level);
+        PhysicalProtection.SETBASE(level);
+        MagicProtection.SETBASE(2+level);
     }
 }

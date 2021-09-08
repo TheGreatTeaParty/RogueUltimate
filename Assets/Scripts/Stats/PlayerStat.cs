@@ -125,7 +125,6 @@ public class PlayerStat : CharacterStat, IDamaged
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
         _interfaceManager = InterfaceManager.Instance;
-        level = 1;
     }
     public void SetUpPlayerInfo()
     {
@@ -364,15 +363,6 @@ public class PlayerStat : CharacterStat, IDamaged
         //Trigger Evade:
 
         return false;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        ModifyHealth(-damage);
-        //TRUE 
-        OnHealthChanged?.Invoke(currentHealth);
-        animator.SetTrigger("Taking Dmg");
-        ScreenShakeController.Instance.StartShake(0.17f, 1f);
     }
 
     //***                                   -----------  Effects: ----------

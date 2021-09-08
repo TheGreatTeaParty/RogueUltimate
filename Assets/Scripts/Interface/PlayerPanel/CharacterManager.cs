@@ -309,7 +309,6 @@ public class CharacterManager : MonoBehaviour
     public void LoadPlayerData(PlayerData data)
     {
         PlayerOnScene.Instance.SetStats();
-        _stats.Level = data.level;
 
         //Load STATS
         _stats.AddAttributePoint(StatType.Physique, data.statsData[0]);

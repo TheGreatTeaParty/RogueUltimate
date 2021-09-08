@@ -185,6 +185,7 @@ public class VictoryPanel : MonoBehaviour
     public void CloseResults()
     {
         AccountManager.Instance.Renown += treasureTotal;
+        AccountManager.Instance.Renown += contractTotal;
         LevelManager.Instance.LoadScene("Tavern");
     }
 }

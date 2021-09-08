@@ -15,7 +15,7 @@ public class FloatingNumber : MonoBehaviour
         var position = transform.position;
         
         Transform text = Instantiate(textPb, new Vector3(Random.Range(position.x +0.25f,position.x - 0.25f), position.y + 0.5f, position.z), Quaternion.identity);
-        TextMeshPro temp = text.GetComponent<TextMeshPro>();
+        TextMeshProUGUI temp = text.GetComponentInChildren<TextMeshProUGUI>();
         temp.text = ((int)damage).ToString();
        
 

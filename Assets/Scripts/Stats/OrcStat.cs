@@ -9,5 +9,6 @@ public class OrcStat : EnemyStat
         base.SetLevel(level);
         maxHealth = 5 + 5 * level;
         PhysicalDamage.SETBASE(1 + level * 2);
+        PhysicalProtection.SETBASE(level);
     }
 }

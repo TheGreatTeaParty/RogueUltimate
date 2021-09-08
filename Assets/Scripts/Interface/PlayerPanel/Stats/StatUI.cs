@@ -35,10 +35,10 @@ public class StatUI : MonoBehaviour
     private void UpdateUI()
     {
         // Protection & damage
-        physicalDamagePoints.SetText(_playerStat.PhysicalDamage.Value.ToString(CultureInfo.CurrentUICulture));
-        physicalProtectionPoints.SetText(_playerStat.PhysicalProtection.Value.ToString(CultureInfo.CurrentUICulture));
-        magicDamagePoints.SetText(_playerStat.MagicDamage.Value.ToString(CultureInfo.CurrentUICulture));
-        magicProtectionPoints.SetText(_playerStat.MagicProtection.Value.ToString(CultureInfo.CurrentUICulture));
+        physicalDamagePoints.SetText(_playerStat.PhysicalDamage.Value.ToString());
+        physicalProtectionPoints.SetText(_playerStat.PhysicalProtection.Value.ToString());
+        magicDamagePoints.SetText(_playerStat.MagicDamage.Value.ToString());
+        magicProtectionPoints.SetText(_playerStat.MagicProtection.Value.ToString());
 
         //Stats:
         AttackSpeed.SetText(_playerStat.AttackSpeed.Value.ToString());
@@ -46,7 +46,7 @@ public class StatUI : MonoBehaviour
         MovementSpeed.SetText(_playerStat.playerMovement.GetCurentMovementSpeed().ToString());
 
         //Points:
-        Level.SetText(_playerStat.Level.ToString(CultureInfo.CurrentUICulture));
+        Level.SetText(_playerStat.Level.ToString());
         Name.SetText(_playerStat.CharacterName);
     }
    

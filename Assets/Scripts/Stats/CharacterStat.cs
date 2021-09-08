@@ -7,7 +7,7 @@ public class CharacterStat : MonoBehaviour
 {
     [FormerlySerializedAs("Name")] 
     [SerializeField] protected string characterName;
-    protected int level;
+    protected int level = 1;
     [Space] 
     [SerializeField] protected Stat physicalDamage;
     [SerializeField] protected Stat physicalProtection;
@@ -107,11 +107,18 @@ public class CharacterStat : MonoBehaviour
 
     public virtual bool TakeDamage(float _phyDamage, float _magDamage)
     {
+        float phyDamage;
+        float magDamage;
         //Calculate the incoming damage:
-        float phyDamage = _phyDamage - physicalProtection.Value;
-        float magDamage = _magDamage - magicProtection.Value;
+        if (_phyDamage != 0)
+            phyDamage = _phyDamage * (_phyDamage / (_phyDamage + physicalProtection.Value));
+        else
+            phyDamage = 0;
+        if (_magDamage != 0)
+            magDamage = _magDamage * (_magDamage / (_magDamage + magicProtection.Value));
+        else
+            magDamage = 0;
         damageReceived = (phyDamage + magDamage);
-
         //Trigger the Stager Timer:
         _stager_time_left = STAGER_TIME;
         StagerLogic(damageReceived);
