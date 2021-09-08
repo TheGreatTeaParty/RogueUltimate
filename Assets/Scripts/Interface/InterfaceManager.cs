@@ -145,6 +145,7 @@ public class InterfaceManager : MonoBehaviour
 
     public void HideTavernUI()
     {
+        fixedJoystick.ResetInput();
         QuickSlots.SetActive(true);
         Bars.SetActive(true);
         TavernUI.SetActive(false);

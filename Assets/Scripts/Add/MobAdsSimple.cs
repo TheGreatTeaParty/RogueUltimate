@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine;
+using Firebase.Analytics;
 
 public class MobAdsSimple : MonoBehaviour
 {
     private InterstitialAd interstitialAd;
 
-    private const string interstitialAdId = "ca-app-pub-3940256099942544/8691691433";
+    private const string interstitialAdId = "ca-app-pub-6344077212730305/2371279481";
 
     private void OnEnable()
     {
@@ -23,6 +24,9 @@ public class MobAdsSimple : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         if (interstitialAd.IsLoaded())
+        {
             interstitialAd.Show();
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventScreenView, new Parameter(FirebaseAnalytics.ParameterScreenName, "simple_ad"));
+        }
     }
 }

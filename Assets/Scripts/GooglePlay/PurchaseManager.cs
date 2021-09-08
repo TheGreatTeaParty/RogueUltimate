@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Purchasing;
+using Firebase.Analytics;
 
 public class PurchaseManager : MonoBehaviour,IStoreListener
 {
@@ -51,7 +52,7 @@ public class PurchaseManager : MonoBehaviour,IStoreListener
 
         itemsDatabase.UnlockSkinByID(int.Parse(product.definition.id.Replace(baseId,"")));
         itemsDatabase.OnSkinUnlocked?.Invoke();
-
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventPurchase,new Parameter(FirebaseAnalytics.ParameterTransactionId, product.definition.id.Replace(baseId, "")));
         return PurchaseProcessingResult.Complete;
     }
 

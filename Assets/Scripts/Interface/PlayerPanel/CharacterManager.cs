@@ -69,27 +69,30 @@ public class CharacterManager : MonoBehaviour
     
     private void Equip(EquipmentItem item)
     {
-        if (inventory.RemoveItem(item))
+        if (Stats.CheckRequirenments(item))
         {
-            EquipmentItem previousItem;
-            if (equipment.AddItem(item, out previousItem))
+            if (inventory.RemoveItem(item))
             {
-                if (previousItem != null)
+                EquipmentItem previousItem;
+                if (equipment.AddItem(item, out previousItem))
                 {
-                    inventory.AddItem(previousItem);
-                    previousItem.Unequip(_stats);
-                    _stats.onChangeCallback.Invoke();
-                    onEquipmentChanged?.Invoke(item, previousItem);
-                }
+                    if (previousItem != null)
+                    {
+                        inventory.AddItem(previousItem);
+                        previousItem.Unequip(_stats);
+                        _stats.onChangeCallback.Invoke();
+                        onEquipmentChanged?.Invoke(item, previousItem);
+                    }
 
-                AudioManager.Instance.Play("Equip");
-                item.Equip(_stats);
-                _stats.onChangeCallback.Invoke();
-                onEquipmentChanged?.Invoke(item, null);
-            }
-            else
-            {
-                inventory.AddItem(item);
+                    AudioManager.Instance.Play("Equip");
+                    item.Equip(_stats);
+                    _stats.onChangeCallback.Invoke();
+                    onEquipmentChanged?.Invoke(item, null);
+                }
+                else
+                {
+                    inventory.AddItem(item);
+                }
             }
         }
     }

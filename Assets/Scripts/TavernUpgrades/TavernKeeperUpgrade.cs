@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase.Analytics;
 
 public class TavernKeeperUpgrade : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class TavernKeeperUpgrade : MonoBehaviour
         Instance = this;
     }
 
-    public float Level2Price = 500;
+    public float Level2Price = 300;
     public float Level3Price = 1000;
     public float Level4Price = 1500;
     public float Level5Price = 2000;
@@ -85,6 +86,8 @@ public class TavernKeeperUpgrade : MonoBehaviour
             _currentKeeperLevel++;
             account.IncreaseKeeperLevel();
             SetTavernLevel();
+            FirebaseAnalytics.LogEvent("tavern_upgrades",
+                new Parameter("type", "keeper"));
         }
     }
 
@@ -94,6 +97,8 @@ public class TavernKeeperUpgrade : MonoBehaviour
         {
             account.Renown -= GetReqiredPrice(TradeManager.tradeType.smith);
             _currentSmithLevel++;
+            FirebaseAnalytics.LogEvent("tavern_upgrades",
+               new Parameter("type", "smith"));
             account.IncreaseSmithLevel();
             SetSmithLevel();
         }
@@ -105,6 +110,8 @@ public class TavernKeeperUpgrade : MonoBehaviour
         {
             account.Renown -= GetReqiredPrice(TradeManager.tradeType.master);
             _currentMasterLevel++;
+            FirebaseAnalytics.LogEvent("tavern_upgrades",
+               new Parameter("type", "master"));
             account.IncreaseMasterLevel();
             SetMasterLevel();
         }

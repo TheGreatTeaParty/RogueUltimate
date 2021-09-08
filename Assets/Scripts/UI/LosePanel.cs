@@ -14,6 +14,8 @@ public class LosePanel : MonoBehaviour
     private Animator animator;
     private CharacterManager characterManager;
     private AudioManager audioManager;
+    [SerializeField]
+    private GameObject Hint;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,10 @@ public class LosePanel : MonoBehaviour
         KillValue.text = (characterManager.Stats.Kills * 10).ToString();
         button.interactable = true;
     }
+    public void DisplayHint()
+    {
+        Hint.SetActive(true);
+    }
     public void Close()
     {
         SaveManager.DeletePlayer();
@@ -47,5 +53,16 @@ public class LosePanel : MonoBehaviour
         Destroy(CharacterManager.Instance.Stats.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);
         LevelManager.Instance.LoadScene("StartTavern");
+    }
+    public void ClosePanel()
+    {
+        AccountManager accountManager = AccountManager.Instance;
+        if (accountManager.KeeperLevel == 1 && accountManager.MasterLevel == 1 &&
+            accountManager.SwithLevel == 1)
+            DisplayHint();
+        else
+        {
+            Close();
+        }
     }
 }
