@@ -43,7 +43,7 @@ public class TavernUI : MonoBehaviour
     }
     private void UpdateOnStart()
     {
-        CoinsValue.text = inventory.Gold.ToString();
-        RenownValue.text = AccountManager.Instance.Renown.ToString();
+        UpdateGold(inventory.Gold);
+        UpdateRenown(AccountManager.Instance.Renown);
     }
 }

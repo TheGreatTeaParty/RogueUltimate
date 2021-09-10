@@ -1,4 +1,4 @@
-﻿using UnityEngine.Events;
+using UnityEngine.Events;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 using Firebase.Analytics;
 
-public class MobAdsReward : MonoBehaviour
+public class MobAdsRewardGold : MonoBehaviour
 {
     private RewardedAd rewardedAd;
-    private const string rewardUnitId = "ca-app-pub-6344077212730305/6036365785";
+    private const string rewardUnitId = "ca-app-pub-6344077212730305/6578682451";
 
     public void Start()
     {
@@ -43,7 +43,7 @@ public class MobAdsReward : MonoBehaviour
 
     public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-       
+
     }
 
     public void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -94,6 +94,7 @@ public class MobAdsReward : MonoBehaviour
 
     public void HandleUserEearnReward(object sender, Reward reward)
     {
-            AccountManager.Instance.Renown += 200;  
+        CharacterManager.Instance.Inventory.Gold += 150;
+        CharacterManager.Instance.Inventory.UpdateGold();
     }
 }

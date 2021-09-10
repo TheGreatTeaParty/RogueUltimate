@@ -52,6 +52,7 @@ public class LosePanel : MonoBehaviour
         Destroy(InterfaceManager.Instance.gameObject);
         Destroy(CharacterManager.Instance.Stats.gameObject);
         Destroy(PlayerCamera.Instance.gameObject);
+        Destroy(TargetCircle.Instance.gameObject);
         LevelManager.Instance.LoadScene("StartTavern");
     }
     public void ClosePanel()

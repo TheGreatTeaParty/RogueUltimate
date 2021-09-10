@@ -7,6 +7,8 @@ public class Loan : Trait
 {
     public override void ApplyTrait()
     {
-        CharacterManager.Instance.Inventory.Gold += 500;
+        var character = CharacterManager.Instance;
+        character.Inventory.Gold += 100;
+        character.Inventory.UpdateGold();
     }
 }

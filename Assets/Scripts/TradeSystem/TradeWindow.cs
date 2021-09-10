@@ -57,14 +57,16 @@ public class TradeWindow : MonoBehaviour
 
     public void Buy()
     {
-        if (!playerInventory.IsFull() && playerInventory.Gold >= currentSlot.Item.Price)
+        if (playerInventory.Gold >= currentSlot.Item.Price)
         {
-            playerInventory.Gold -= currentSlot.Item.Price;
-            playerInventory.AddItem(currentSlot.Item);
-            AudioManager.Instance.Play("Buy");
+            if (playerInventory.AddItem(currentSlot.Item))
+            {
+                playerInventory.Gold -= currentSlot.Item.Price;
+                AudioManager.Instance.Play("Buy");
+                tradeManager.onChangeCallback?.Invoke();
+            }
         }
 
-        tradeManager.onChangeCallback?.Invoke();
     }
 
     public void Sell()

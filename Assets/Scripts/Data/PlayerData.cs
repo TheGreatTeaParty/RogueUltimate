@@ -10,7 +10,7 @@ public class PlayerData
 
     public int xp, level, statPoints, gold;
 
-    public float[] position;
+    //public float[] position;
     public string gameObjectName;
     public string avatarName;
     public int avatarSkinID;
@@ -108,12 +108,12 @@ public class PlayerData
                 equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
           
 
-        
+        /*
         var transformPosition = CharacterManager.Instance.Stats.transform.position;
         position = new float[3];
         position[0] = transformPosition.x;
         position[1] = transformPosition.y;
-        position[2] = transformPosition.z;
+        position[2] = transformPosition.z;*/
     }
 
 }

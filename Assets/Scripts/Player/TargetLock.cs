@@ -25,7 +25,7 @@ public class TargetLock : MonoBehaviour
         playerMovement = PlayerOnScene.Instance.playerMovement;
         _playerColider = GetComponent<Collider2D>();
 
-        _basePos = new Vector3(1000, 1000, 0);
+        _basePos = new Vector3(10000, 10000, 0);
         _offset = new Vector3(0, -0.45f, 0);
         current_circle = Instantiate(TargetCircle, _basePos, Quaternion.identity).gameObject;
     }
@@ -54,7 +54,7 @@ public class TargetLock : MonoBehaviour
     }
     private void Update()
     {
-        if(_currentTime > 0)
+        if(_currentTime >= 0)
             _currentTime -= Time.deltaTime;
     }
 

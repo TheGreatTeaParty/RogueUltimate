@@ -63,7 +63,7 @@ public class MainMenu : MonoBehaviour {
                 Debug.Log(pref.name + "(Clone)");
                 if (sb.ToString() == pl_data.gameObjectName)
                 {
-                    Instantiate(pref, new Vector3(pl_data.position[0], pl_data.position[1], pl_data.position[2]), Quaternion.identity);
+                    Instantiate(pref, Vector3.zero, Quaternion.identity);
                     var Interaface = Instantiate(playerInterface);
 
                     Interaface.GetComponentInChildren<CharacterManager>().LoadPlayerData(pl_data);

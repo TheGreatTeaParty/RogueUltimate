@@ -76,10 +76,10 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        if (IsFull())
-            return false;
         for (int i = 0; i < itemSlots.Length; i++)
         {
+            if (!itemSlots[i].gameObject.activeSelf)
+                return false;
             if (itemSlots[i] && itemSlots[i].gameObject.activeSelf && itemSlots[i].Item == null ||
                 (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.StackMaxSize))
             {
