@@ -58,7 +58,10 @@ public class Tooltip : MonoBehaviour, IDragHandler
             //Show the Equip Button:
             optionalButton.gameObject.SetActive(true);
             var name = optionalButton.GetComponentInChildren<TextMeshProUGUI>();
-            name.SetText(LocalizationSystem.GetLocalisedValue("inventory_equip_btn"));
+            if(_itemSlot as EquipmentSlot)
+                name.SetText(LocalizationSystem.GetLocalisedValue("inventory_unequip_btn"));
+            else
+                name.SetText(LocalizationSystem.GetLocalisedValue("inventory_equip_btn"));
         }
 
     }
@@ -67,9 +70,10 @@ public class Tooltip : MonoBehaviour, IDragHandler
     {
         if(_itemSlot.Item as EquipmentItem)
         {
-            //Must be equip logic HERE!
-            //
-            CharacterManager.Instance.Equip(_itemSlot);
+            if(_itemSlot as EquipmentSlot)
+                CharacterManager.Instance.Unequip(_itemSlot);
+            else
+                CharacterManager.Instance.Equip(_itemSlot);
             CloseSelf();
         }
         else

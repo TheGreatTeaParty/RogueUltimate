@@ -32,11 +32,11 @@ public class Smith : AI, IInteractable
     {
         base.Start();
         state = NPCstate.IDLE;
-        TradeManager.Instance.OnTradeUpgraded += Upgrade;
         npcInventory = GetComponent<NPCInventory>();
         keeperUpgrade = TavernKeeperUpgrade.Instance;
+        keeperUpgrade.OnUpgraded += Upgrade;
 
-        SetInvenotyOnStart();
+        Invoke("SetInvenotyOnStart", 0.1f);
     }
 
     public void Upgrade(TradeManager.tradeType type)
@@ -50,7 +50,7 @@ public class Smith : AI, IInteractable
                     npcInventory.AddItem(item);
                 }
             }
-            else
+            else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.smith) == 3)
             {
 
                 foreach (var item in List3)

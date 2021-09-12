@@ -32,9 +32,9 @@ public class Master : AI, IInteractable
     {
         base.Start();
         state = NPCstate.IDLE;
-        TradeManager.Instance.OnTradeUpgraded += Upgrade;
         npcInventory = GetComponent<NPCInventory>();
         keeperUpgrade = TavernKeeperUpgrade.Instance;
+        keeperUpgrade.OnUpgraded += Upgrade;
 
         SetInvenotyOnStart();
     }

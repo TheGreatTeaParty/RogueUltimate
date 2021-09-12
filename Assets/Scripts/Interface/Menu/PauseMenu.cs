@@ -26,8 +26,11 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitButton()
     {
-        SaveManager.SavePlayer();
-        SaveManager.SaveAccount();
+        if (SceneManager.GetActiveScene().name == "StartTavern" || SceneManager.GetActiveScene().name == "Tavern")
+        {
+            SaveManager.SavePlayer();
+            SaveManager.SaveAccount();
+        }
         Time.timeScale = 1f;
 
         Destroy(PlayerOnScene.Instance.gameObject);

@@ -217,4 +217,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    public void ModifyBaseSpeed(float value)
+    {
+        BASE_MOVEMENT_SPEED += value;
+    }
 }

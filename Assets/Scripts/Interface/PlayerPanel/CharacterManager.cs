@@ -36,12 +36,13 @@ public class CharacterManager : MonoBehaviour
     public PlayerStat Stats => _stats;
     public PlayerSkin Skin;
 
-    public event Action<EquipmentItem, EquipmentItem> onEquipmentChanged; 
-    
+    public event Action<EquipmentItem, EquipmentItem> onEquipmentChanged;
+
+    private Rect rect;
     
     public void Start()
     {
-        
+        rect = gameObject.GetComponent<RectTransform>().rect;
         onEquipmentChanged += UpdateStatsOnEquipmentChanged;
         
         inventory.OnClickEvent += AddTooltip;
@@ -79,14 +80,9 @@ public class CharacterManager : MonoBehaviour
                     if (previousItem != null)
                     {
                         inventory.AddItem(previousItem);
-                        previousItem.Unequip(_stats);
-                        _stats.onChangeCallback.Invoke();
                         onEquipmentChanged?.Invoke(item, previousItem);
                     }
-
                     AudioManager.Instance.Play("Equip");
-                    item.Equip(_stats);
-                    _stats.onChangeCallback.Invoke();
                     onEquipmentChanged?.Invoke(item, null);
                 }
                 else
@@ -102,8 +98,6 @@ public class CharacterManager : MonoBehaviour
         EquipmentItem previousItem;
         if (equipment.AddItem(item, out previousItem))
         {
-            item.Equip(_stats);
-            _stats.onChangeCallback.Invoke();
             onEquipmentChanged?.Invoke(item, null);
         }
     }
@@ -113,22 +107,24 @@ public class CharacterManager : MonoBehaviour
         EquipmentItem equipmentItem = itemSlot.Item as EquipmentItem;
         if (equipmentItem != null)
         {
-            Unequip(equipmentItem);
-            itemSlot.Item = null;
-            itemSlot.Amount = 0;
+            if (Unequip(equipmentItem))
+            {
+                itemSlot.Item = null;
+                itemSlot.Amount = 0;
+            }
         }
     }
     
-    private void Unequip(EquipmentItem item)
+    private bool Unequip(EquipmentItem item)
     {
         if (!inventory.IsFull() && equipment.RemoveItem(item))
         {
-            item.Unequip(_stats);
             inventory.AddItem(item);
             AudioManager.Instance.Play("Unequip");
-            _stats.onChangeCallback.Invoke();
             onEquipmentChanged?.Invoke(null, item);
+            return true;
         }
+        return false;
     }
 
     public void DropFromInventory(ItemSlot itemSlot)
@@ -154,7 +150,7 @@ public class CharacterManager : MonoBehaviour
         if (itemSlot.TooltipIsOpened) return;
         
         Tooltip tooltip = 
-            Instantiate(tooltipPrefab, itemSlot.transform.position, Quaternion.identity, transform).GetComponent<Tooltip>();
+            Instantiate(tooltipPrefab, new Vector3(itemSlot.transform.position.x,rect.height/2+95,0), Quaternion.identity, transform).GetComponent<Tooltip>();
         tooltip.Init(itemSlot);
         _openedTooltips.Add(tooltip);
     }
@@ -309,6 +305,13 @@ public class CharacterManager : MonoBehaviour
     public void LoadPlayerData(PlayerData data)
     {
         PlayerOnScene.Instance.SetStats();
+        ItemsDatabase itemsDB = ItemsDatabase.Instance;
+        StartCoroutine(WaitAndLoadEquipment(data, itemsDB));
+    }
+
+    IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
+    {
+        yield return new WaitForSeconds(0.1f);
 
         //Load STATS
         _stats.AddAttributePoint(StatType.Physique, data.statsData[0]);
@@ -326,8 +329,6 @@ public class CharacterManager : MonoBehaviour
         _stats.SkillPoints = data.abilityPoints;
         inventory.Gold = data.gold;
 
-
-        ItemsDatabase itemsDB = ItemsDatabase.Instance;
         //CONTRACTS:
         _stats.PlayerContracts = new ContractHolder();
         for (int i = 0; i < data.contractsData.GetLength(0); ++i)
@@ -338,13 +339,6 @@ public class CharacterManager : MonoBehaviour
                 _stats.PlayerContracts.contracts[i]._currentScore = data.contractsData[i, 1];
             }
         }
-
-        StartCoroutine(WaitAndLoadEquipment(data, itemsDB));
-    }
-
-    IEnumerator WaitAndLoadEquipment(PlayerData data, ItemsDatabase itemsDB)
-    {
-        yield return new WaitForSeconds(0.1f);
         //TRAITS:
         TraitsDatabase traitsDB = TraitsDatabase.Instance;
         _stats.PlayerTraits.AddTrait(traitsDB.GetTraitByID(data.traitsData[0]));

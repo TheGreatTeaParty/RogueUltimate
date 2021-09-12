@@ -118,7 +118,7 @@ public class PhysicalRoom : MonoBehaviour
 
     public bool CheckOverlapping()
     {
-        Collider2D[] room = Physics2D.OverlapBoxAll(transform.position + (Vector3)(boxCollider.offset * transform.localScale), boxCollider.size* transform.localScale, 0, layerMask);
+        Collider2D[] room = Physics2D.OverlapBoxAll(transform.position + (Vector3)(boxCollider.offset * transform.localScale), boxCollider.size* transform.localScale*1.1f, 0, layerMask);
 
         if (room.Length > 1)
         {

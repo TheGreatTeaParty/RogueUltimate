@@ -47,11 +47,10 @@ public class TavernKeeper : AI, IInteractable
         base.Start();
         if(barPosition)
             target = barPosition;
-        TradeManager.Instance.OnTradeUpgraded += Upgrade;
         npcInventory = GetComponent<NPCInventory>();
         keeperUpgrade = TavernKeeperUpgrade.Instance;
-
-        SetInvenotyOnStart();
+        keeperUpgrade.OnUpgraded += Upgrade;
+        Invoke("SetInvenotyOnStart", 0.1f);
     }
 
     public void FixedUpdate()

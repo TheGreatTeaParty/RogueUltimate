@@ -13,6 +13,7 @@ public class JoystickAttack : MonoBehaviour
     private PlayerAttack _playerAttack;
     private AimDisplay _aimDisplay;
     private EquipmentAnimationHandler equipmentAnimation;
+    private TargetLock _targetLock;
     
     
     public void Start()
@@ -22,6 +23,7 @@ public class JoystickAttack : MonoBehaviour
         
         // Cache
         _playerMovement = PlayerOnScene.Instance.playerMovement;
+        _targetLock = _playerMovement.GetComponentInChildren<TargetLock>();
         _playerAttack = PlayerOnScene.Instance.playerAttack;
         _aimDisplay = _playerAttack.GetComponentInChildren<AimDisplay>();
         equipmentAnimation = PlayerOnScene.Instance.equipmentAnimationHandler;
@@ -33,6 +35,9 @@ public class JoystickAttack : MonoBehaviour
         _movement = joystick.Direction;
         if (_movement != Vector2.zero)
         {
+            if (Vector3.Angle(_targetLock.GetDir(), _movement) < 25.0f)
+                _movement = _targetLock.GetDir().normalized;
+
             equipmentAnimation.RotateRangeWeapon(_movement.normalized);
 
             if (_aimDisplay.GetIconState())

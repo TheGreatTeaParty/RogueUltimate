@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Analytics;
+using System;
 
 public class TavernKeeperUpgrade : MonoBehaviour
 {
@@ -14,16 +15,20 @@ public class TavernKeeperUpgrade : MonoBehaviour
         }
         Instance = this;
     }
-
-    public float Level2Price = 300;
-    public float Level3Price = 1000;
-    public float Level4Price = 1500;
-    public float Level5Price = 2000;
+    private float Level2Price = 350;
+    private float Level3Price = 1000;
+    private float Level4Price = 1500;
+    private float Level5Price = 2000;
 
     [Space]
+    [HideInInspector]
     public int KeeperMaxLVL = 3;
+    [HideInInspector]
     public int SmithMaxLVL = 3;
+    [HideInInspector]
     private int MasterMaxLVL = 5;
+
+    public event Action<TradeManager.tradeType> OnUpgraded;
 
     public GameObject TLVL1;
     public GameObject TLVL2;
@@ -86,6 +91,7 @@ public class TavernKeeperUpgrade : MonoBehaviour
             _currentKeeperLevel++;
             account.IncreaseKeeperLevel();
             SetTavernLevel();
+            OnUpgraded?.Invoke(TradeManager.tradeType.tavernKeeper);
             FirebaseAnalytics.LogEvent("tavern_upgrades",
                 new Parameter("type", "keeper"));
         }
@@ -93,14 +99,15 @@ public class TavernKeeperUpgrade : MonoBehaviour
 
     private void UpgradeSmith()
     {
-        if (_currentSmithLevel < KeeperMaxLVL)
+        if (_currentSmithLevel < SmithMaxLVL)
         {
             account.Renown -= GetReqiredPrice(TradeManager.tradeType.smith);
             _currentSmithLevel++;
-            FirebaseAnalytics.LogEvent("tavern_upgrades",
-               new Parameter("type", "smith"));
             account.IncreaseSmithLevel();
             SetSmithLevel();
+            OnUpgraded?.Invoke(TradeManager.tradeType.smith);
+            FirebaseAnalytics.LogEvent("tavern_upgrades",
+               new Parameter("type", "smith"));
         }
     }
 
@@ -110,10 +117,11 @@ public class TavernKeeperUpgrade : MonoBehaviour
         {
             account.Renown -= GetReqiredPrice(TradeManager.tradeType.master);
             _currentMasterLevel++;
-            FirebaseAnalytics.LogEvent("tavern_upgrades",
-               new Parameter("type", "master"));
             account.IncreaseMasterLevel();
             SetMasterLevel();
+            OnUpgraded?.Invoke(TradeManager.tradeType.master);
+            FirebaseAnalytics.LogEvent("tavern_upgrades",
+               new Parameter("type", "master"));
         }
     }
 

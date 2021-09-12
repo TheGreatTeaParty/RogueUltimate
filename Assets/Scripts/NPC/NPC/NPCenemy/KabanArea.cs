@@ -25,7 +25,6 @@ public class KabanArea : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage);
-            collision.GetComponent<Rigidbody2D>().AddForce(_kaban.GetDirection() * _kaban.knockBackForce*10000);
             _parentAnimator.SetTrigger("Crash");
             _parentAnimator.SetBool("HitPlayer",true);
             _kaban.SetHit(true);

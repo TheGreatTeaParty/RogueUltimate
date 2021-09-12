@@ -19,7 +19,7 @@ public class WeaponDisplayIcon : MonoBehaviour
     {
         //Make delegate function from CharacterManager be equal to UpdateUI fun
         CharacterManager.Instance.onEquipmentChanged += UpdateIcon;
-        //UpdateIconOnStart();
+        Invoke("UpdateIconOnStart",0.1f);
     }
 
     // Update is called once per frame
