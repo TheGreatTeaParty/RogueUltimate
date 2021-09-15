@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 3
+  m_CurrentQuality: 5
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -155,9 +155,11 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 4f43ef3e92b9c46d1b672a9338c95310,
+    customRenderPipeline: {fileID: 11400000, guid: 25945a21a20444b37946da5a7e0d0a70,
       type: 2}
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Standalone
+    - Android
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -230,19 +232,18 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
-    excludedTargetPlatforms:
-    - Android
-    - Standalone
+    customRenderPipeline: {fileID: 11400000, guid: 25945a21a20444b37946da5a7e0d0a70,
+      type: 2}
+    excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 3
+    Android: 5
     Nintendo 3DS: 5
     Nintendo Switch: 5
     PS4: 5
     PSM: 5
     PSP2: 2
     Stadia: 5
-    Standalone: 3
+    Standalone: 5
     Tizen: 2
     WebGL: 3
     WiiU: 5
