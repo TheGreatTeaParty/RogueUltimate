@@ -9,6 +9,15 @@ public enum EquipmentType
     Rune = 4,
     Attribute = 5,
 }
+public enum EAttackAnimationType
+{
+    none = 0,
+    Range,
+    MeleOneHand,
+    MeleTwoHand,
+    MeleDagger,
+
+}
 
 
 [CreateAssetMenu(menuName = "Items/EquipmentItem")]
@@ -16,9 +25,8 @@ public class EquipmentItem : Item
 {
     public ArmorType EqipmnetArmorType = ArmorType.None;
     [SerializeField] protected EquipmentType equipmentType;
-    [SerializeField] protected RuntimeAnimatorController equipmentAnimations;
+    public EAttackAnimationType AttackAnimationType;
     [SerializeField] protected Sprite[] IdleAnimation;
-    [SerializeField] public Sprite[] AttackAnimation;
     [Space] 
     [SerializeField] protected int physicalDamageBonus;
     [SerializeField] protected int physicalProtectionBonus;
@@ -46,8 +54,6 @@ public class EquipmentItem : Item
         set => equipmentType = value;
     }
     public Sprite[] Animation => IdleAnimation;
-    public RuntimeAnimatorController EquipmentAnimations => equipmentAnimations;
-
 
     public override void Use()
     {

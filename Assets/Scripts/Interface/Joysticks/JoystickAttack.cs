@@ -38,7 +38,7 @@ public class JoystickAttack : MonoBehaviour
             if (Vector3.Angle(_targetLock.GetDir(), _movement) < 25.0f)
                 _movement = _targetLock.GetDir().normalized;
 
-            equipmentAnimation.RotateRangeWeapon(_movement.normalized);
+            equipmentAnimation.RotateWeapon(_movement.normalized);
 
             if (_aimDisplay.GetIconState())
                 RotateAimArrow(_movement);
@@ -71,7 +71,7 @@ public class JoystickAttack : MonoBehaviour
             _playerMovement.SetRangeMoving(false);
             _isSlowed = false;
 
-            equipmentAnimation.RotateRangeWeapon(new Vector3(0f,0f,0f));
+            equipmentAnimation.RotateWeapon(new Vector3(0f,0f,0f));
 
             if (_aimDisplay.GetIconState())
                 RotateAimArrow(new Vector3(0f, 0f, 0f));

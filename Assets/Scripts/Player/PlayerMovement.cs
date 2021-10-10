@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
     public float movementSpeed;
-    private float BASE_MOVEMENT_SPEED = 4;
+    private float BASE_MOVEMENT_SPEED = 3.5f;
     private float BASE_SPEED;
     public float ROLL_TIME = 0.4f;
     public Collider2D PlayerCollider;
@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _LockMovement = false;
 
-
     private PlayerStat _playerStat;
+    private EquipmentAnimationHandler equipmentAnimation;
 
     private float _rollCurrentCD = 0;
     private float _rollCD = 1f;
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         BASE_SPEED = BASE_MOVEMENT_SPEED;
         characterAudio = GetComponent<CharacterAudio>();
         PlayerCollider = GetComponent<Collider2D>();
-        //trailRenderer = GetComponent<TrailRenderer>();
+        equipmentAnimation = GetComponentInChildren<EquipmentAnimationHandler>();
         joystick = InterfaceManager.Instance.fixedJoystick;
         _playerStat = GetComponent<PlayerStat>();
 
@@ -68,29 +68,25 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate() 
     {
         //Save the direction of player movement
-        if (!_rangeMoving && (_movementDirection.x != 0 || _movementDirection.y != 0) && !_stopped)
+        if (!_rangeMoving && (_movementDirection.x != 0 || _movementDirection.y != 0) && !_stopped && !_LockMovement)
         {
-            animator.SetFloat("Horizontal", _movementDirection.x);
-            animator.SetFloat("Vertical", _movementDirection.y);
             _direction = _movementDirection;
         }
         else if(_rangeMoving && !_stopped && _rangeJoystick.GetDirection().x!= 0 && _rangeJoystick.GetDirection().y != 0)
         {
-            animator.SetFloat("Horizontal", _rangeJoystick.GetDirection().x);
-            animator.SetFloat("Vertical", _rangeJoystick.GetDirection().y);
             if(_rangeJoystick.GetDirection()!= Vector2.zero)
                 _direction = _rangeJoystick.GetDirection();
         }
 
         else if(_LockMovement)
         {
-            animator.SetFloat("Horizontal", _targetLock.GetDir().x);
-            animator.SetFloat("Vertical", _targetLock.GetDir().y);
             _direction = _targetLock.GetDir();
         }
 
         animator.SetFloat("Speed", movementSpeed);
         MoveCharacter();
+        equipmentAnimation.RotateWeapon(_direction);
+        RotateCharacter();
     }
     
     void ProcessInputs()
@@ -114,9 +110,14 @@ public class PlayerMovement : MonoBehaviour
             else
                 movementSpeed = 0f;
         }
-
     }
-    
+    void RotateCharacter()
+    {
+        if (_direction.x < 0)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        else if (_direction.x > 0)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
     /*This is the main function which calculates Character's movement*/
     void MoveCharacter()
     {

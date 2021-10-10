@@ -3,73 +3,44 @@
 public class WeaponRenderer : MonoBehaviour
 {
     private SpriteRenderer _playerSprite;
+    [SerializeField]
     private SpriteRenderer _weaponSprite;
     private Animator _weaponAnimator;
-    private Sprite[] WeaponAttackAnim;
     private int _prevIndex;
+    private int _currentWeaponLayer;
     private PlayerStat _playerStat;
-    private bool _isAttack = false;
-
+    private Vector3 position;
     public int PrevIndex => _prevIndex;
     private void Start()
     {
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         _weaponAnimator = GetComponent<Animator>();
         _playerSprite = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
-        _weaponSprite = GetComponent<SpriteRenderer>();
 
         _playerStat = PlayerOnScene.Instance.GetComponent<PlayerStat>();
         PlayerOnScene.Instance.playerAttack.onAttacked += OnAttacked;
         PlayerOnScene.Instance.playerAttack.EndAttack += EndAttack;
-        _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 2;
-
+        _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 3;
+        position = transform.localPosition;
     }
     
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
         if (_new && _new.EquipmentType == EquipmentType.Weapon)
         {
-            if (_new.AttackAnimation.Length != 0)
-            {
-                WeaponAttackAnim = _new.AttackAnimation;
-            }
-            else
-            {
-                WeaponAttackAnim = null;
-            }
+            if(_old)
+                _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
+            _weaponAnimator.SetLayerWeight((int)_new.AttackAnimationType, 1);
         }
-    }
-
-    private void LateUpdate()
-    {
-        if (_isAttack && WeaponAttackAnim != null)
+        else if(!_new && _old.EquipmentType == EquipmentType.Weapon)
         {
-            string index = "";
-            if (_weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 2] != '_')
-            {
-                if (_weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 3] != '_')
-                    index += _weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 3];
-                index += _weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 2];
-            }
-            index += _weaponSprite.sprite.name[_weaponSprite.sprite.name.Length - 1];
-
-            if (int.TryParse(index, out int j))
-            {
-                if (j >= WeaponAttackAnim.Length)
-                {
-                    Debug.Log($"Sprite with Index: {j} does not exist in Animation Sprites!");
-                    _weaponSprite.sprite = null;
-                }
-                else
-                {   //Need to be added;
-                    _weaponSprite.sprite = WeaponAttackAnim[j];
-
-                }
-            }
-
+            _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
         }
     }
-
+    private void Update()
+    {
+        _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 3;
+    }
     private void OnAttacked(AttackType attackType)
     {
         if(attackType == AttackType.None)
@@ -84,7 +55,6 @@ public class WeaponRenderer : MonoBehaviour
         ChangeAnimationSpeed(attackType);
 
         _weaponAnimator.SetBool("Attack",true);
-        _isAttack = true;
     }
 
     private void EndAttack(AttackType attackType)
@@ -92,7 +62,7 @@ public class WeaponRenderer : MonoBehaviour
         if (attackType != AttackType.None)
         {
             _weaponAnimator.SetBool("Attack", false);
-            _isAttack = false;
+            transform.localPosition = position;
         }
     }
 

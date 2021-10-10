@@ -5,14 +5,9 @@ public class EquipmentAnimationHandler : MonoBehaviour
     public Animator weaponAnimator;
 
     private Sprite[] _armorAnimationSprites;
-    private Sprite[] _weaponAnimationSprites;
     private SpriteRenderer _armorRenderer;
     private SpriteRenderer _weaponRenderer;
 
-
-    private RuntimeAnimatorController _weaponController;
-    private Vector2 _direction;
-    private PlayerMovement _playerMovement;
     private bool _armorEquiped = false;
     private bool _weaponEquiped = false;
     private SpriteRenderer _playerRenderer;
@@ -27,19 +22,9 @@ public class EquipmentAnimationHandler : MonoBehaviour
         _armorRenderer = array[1];
 
         _playerRenderer = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
-        _playerMovement = PlayerOnScene.Instance.GetComponent<PlayerMovement>();
         
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         CharacterManager.Instance.onEquipmentChanged += OnEquipmentChanged;
-    }
-
-    private void Update()
-    {
-        if (_weaponController is null) return;
-
-        _direction = _playerMovement.GetDirection();
-
-        weaponAnimator.SetFloat("Horizontal", _direction.x);
     }
 
     // Take last digits in player sprite and put armor sprites with the same index
@@ -79,39 +64,6 @@ public class EquipmentAnimationHandler : MonoBehaviour
             }
             
         }
-
-        if (_weaponEquiped && !weaponAnimator.GetBool("Attack"))
-        {
-            string index = "";
-            if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2] != '_')
-            {
-                if (_playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3] != '_')
-                    index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 3];
-                index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 2];
-            }
-            index += _playerRenderer.sprite.name[_playerRenderer.sprite.name.Length - 1];
-
-            if (_weaponAnimationSprites.Length == 0)
-                return;
-
-            else
-            {
-                if (int.TryParse(index, out int j))
-                {
-                    if (j >= _weaponAnimationSprites.Length)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        _weaponRenderer.sprite = _weaponAnimationSprites[j];
-                        _weaponRenderer.sortingOrder = _playerRenderer.sortingOrder + 2;
-
-                    }
-                }
-            }
-        }
-
     }
 
     //When the equipment changed, change the Animation controller
@@ -119,24 +71,17 @@ public class EquipmentAnimationHandler : MonoBehaviour
     {
         if (_new)
         {
-            if (_new.EquipmentType == EquipmentType.Weapon && _new.Animation.Length > 0)
+            if (_new.EquipmentType == EquipmentType.Weapon)
             {
-                _weaponController = _new.EquipmentAnimations;
-                weaponAnimator.runtimeAnimatorController = _weaponController as RuntimeAnimatorController;
-
                 _weaponEquiped = true;
-                _weaponAnimationSprites = _new.Animation;
+                _weaponRenderer.sprite = _new.Sprite;
             }
         }
         //If we drop the weapon, clear the animation controller
         else if(_old.EquipmentType == EquipmentType.Weapon && _new == null)
         {
             weaponAnimator.gameObject.transform.rotation = Quaternion.identity;
-            weaponAnimator.runtimeAnimatorController = null as RuntimeAnimatorController;
-            _weaponController = null;
-
             _weaponEquiped = false;
-            _weaponAnimationSprites = null;
             _weaponRenderer.sprite = null;
         }
     }
@@ -160,8 +105,23 @@ public class EquipmentAnimationHandler : MonoBehaviour
         }
     }
 
-    public void RotateRangeWeapon(Vector3 dir)
+    public void RotateWeapon(Vector3 dir)
     {
-        weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+        if (_weaponEquiped)
+        {
+            if (dir.x < 0)
+            {
+                weaponAnimator.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+                weaponAnimator.gameObject.transform.Rotate(0, 0, -90);
+            }
+            else
+            {
+                weaponAnimator.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                weaponAnimator.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+            }
+            weaponAnimator.gameObject.transform.Rotate(0,0,-35);
+           
+        }
     }
 }

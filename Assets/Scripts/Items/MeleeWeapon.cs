@@ -9,10 +9,7 @@ public enum AttackType
     Magic = 2, 
     None = 3,
     
-    Windblow = 4,
 }
-
-
 [CreateAssetMenu(menuName = "Items/MeleeWeapon")]
 public class MeleeWeapon : EquipmentItem
 {

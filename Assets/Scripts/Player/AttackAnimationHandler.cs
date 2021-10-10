@@ -14,6 +14,7 @@ public class AttackAnimationHandler : MonoBehaviour
 
     private void AttackAnimation(AttackType type)
     {
+        
         switch (type)
         {
             case AttackType.None:  { animator.SetBool("Attack", true); break; }

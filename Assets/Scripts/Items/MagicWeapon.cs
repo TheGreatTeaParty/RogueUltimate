@@ -60,14 +60,12 @@ public class MagicWeapon : EquipmentItem
 
     public override void Attack(float physicalDamage, float magicDamage)
     {
-        JoystickAttack _directionJoystick = InterfaceManager.Instance.joystickAttack;
-        Vector3 direction = new Vector3(
-            _directionJoystick.GetDirection().x,
-            _directionJoystick.GetDirection().y);
+        PlayerStat playerStat = CharacterManager.Instance.Stats;
+
+        Vector3 direction = playerStat.playerMovement.GetDirection();
 
         if (direction.magnitude == 0) { return; }
 
-        PlayerStat playerStat = CharacterManager.Instance.Stats;
         if (!playerStat.ModifyMana(requiredMana) ||
           !playerStat.ModifyHealth(requiredHealth) ||
           !playerStat.ModifyStamina(requiredStamina))
