@@ -56,8 +56,7 @@ public class FlyingObject : MonoBehaviour
 
         _audioSource.PlayOneShot(_hitAudio);
         //Create Explode FX
-        Transform EXEffect = Instantiate(ExplodeEffect, transform.position, Quaternion.identity);
-        EXEffect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        Instantiate(ExplodeEffect, transform.position, Quaternion.identity);
 
         if (collision.GetComponent<IDamaged>() != null)
         {

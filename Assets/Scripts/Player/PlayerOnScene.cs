@@ -35,7 +35,8 @@ public class PlayerOnScene : MonoBehaviour
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AudioSource dialogueAudioSource;
-    [HideInInspector] public InteractDetaction interactDetaction; 
+    [HideInInspector] public InteractDetaction interactDetaction;
+    public SurroundPositions surroundPositions;
     
     public Sprite PlayerSprite => spriteRenderer.sprite;
 

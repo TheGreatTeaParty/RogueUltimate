@@ -10,10 +10,29 @@ public class EnemyAI : AI
 
     protected Vector3 followPosition;
     protected bool _isTriggered = false;
+    protected SurroundPositions playerPositions;
+
+    protected NPCstate State
+    {
+        set
+        {
+            if( value == NPCstate.Chasing)
+            {
+                //Find the available postion arounf the player
+                GameObject Target = playerPositions.GetClosestPosition(transform.position, this);
+                if (Target)
+                {
+                    target = Target;
+                }
+                state = value;
+            }
+        }
+    }
 
     protected override void Start()
     {
         base.Start();
+        playerPositions = PlayerOnScene.Instance.surroundPositions;
 
         stats = GetComponent<EnemyStat>();
         stats.onDie += Die;
@@ -96,7 +115,7 @@ public class EnemyAI : AI
         else
         {
             StartMoving();
-            state = NPCstate.Chasing;
+            State = NPCstate.Chasing;
         }
     }
     protected void EnemyTrigger()
@@ -105,7 +124,7 @@ public class EnemyAI : AI
         {
             if (Vector2.Distance(transform.position, target.transform.position) < detectionRange)
             {
-                state = NPCstate.Chasing;
+                State = NPCstate.Chasing;
                 _isTriggered = true;
                 StartMoving();
             }
@@ -118,7 +137,7 @@ public class EnemyAI : AI
         {
             base.StateChasing();
 
-            if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+            if (Vector2.Distance(transform.position, target.transform.position) <= (attackRange *0.9))
                 state = NPCstate.Attacking;
         }
     }
@@ -141,7 +160,7 @@ public class EnemyAI : AI
         yield return new WaitForSeconds(attackCoolDown);
         OnAttacked?.Invoke();
         yield return new WaitForSeconds(attackDuration);
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
         Attack();
         StartMoving();
     }
@@ -168,14 +187,14 @@ public class EnemyAI : AI
     }
     public void EnableControll()
     {
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
     }
 
     public void StopEnemyAttack()
     {
         StopAllCoroutines();
         isAttack = false;
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
         StartMoving();
     }
 
