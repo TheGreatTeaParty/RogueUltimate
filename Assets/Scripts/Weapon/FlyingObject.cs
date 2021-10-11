@@ -6,6 +6,7 @@ public class FlyingObject : MonoBehaviour
     public float speed;
     [Space]
     public Transform HitEffect;
+    public Transform ExplodeEffect;
     public AudioClip FlyingAudio;
     [SerializeField]
     private AudioClip _hitAudio;
@@ -46,7 +47,7 @@ public class FlyingObject : MonoBehaviour
         _effect = effect;
         _damageEnemy = damageEnemy;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _rb.Sleep();
@@ -54,12 +55,16 @@ public class FlyingObject : MonoBehaviour
         _spriteRenderer.sprite = null;
 
         _audioSource.PlayOneShot(_hitAudio);
+        //Create Explode FX
+        Transform EXEffect = Instantiate(ExplodeEffect, transform.position, Quaternion.identity);
+        EXEffect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
         if (collision.GetComponent<IDamaged>() != null)
         {
             if (!_damageEnemy)
                 if (collision.CompareTag("Enemy"))
                     return;
+
             collision.GetComponent<IDamaged>().TakeDamage(_physicalDamage, _magicDamage, _crit);
             //Check if enemy takes damage
             if (HitEffect)
@@ -79,10 +84,10 @@ public class FlyingObject : MonoBehaviour
                 Effect.GetComponent<SpriteRenderer>().sortingOrder = collision.GetComponent<SpriteRenderer>().sortingOrder + 1;
             }
             Rigidbody2D rigidbody = collision.GetComponent<Rigidbody2D>();
-            if(rigidbody)
+            if (rigidbody)
                 rigidbody.AddForce(_direction * 100 * _knockBack);
         }
-        Destroy(gameObject,0.5f);
+        Destroy(gameObject, 0.5f);
     }
     
 }

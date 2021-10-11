@@ -47,7 +47,8 @@ public class EquipmentItem : Item
     [SerializeField] protected int requiredAgility;
     [Space]
     [SerializeField] public Effect _effect;
-
+    [Space]
+    public Transform AttackEffect;
     public EquipmentType EquipmentType
     {
         get => equipmentType;

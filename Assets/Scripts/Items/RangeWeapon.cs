@@ -63,7 +63,7 @@ public class RangeWeapon : EquipmentItem
     {
         PlayerStat playerStat = CharacterManager.Instance.Stats;
 
-        Vector3 direction = playerStat.playerMovement.GetDirection();
+        Vector3 direction = playerStat.playerMovement.GetDirection().normalized;
 
         if (direction.magnitude == 0) { return; }
 

@@ -2,44 +2,40 @@
 
 public class WeaponRenderer : MonoBehaviour
 {
-    private SpriteRenderer _playerSprite;
-    [SerializeField]
-    private SpriteRenderer _weaponSprite;
     private Animator _weaponAnimator;
     private int _prevIndex;
-    private int _currentWeaponLayer;
     private PlayerStat _playerStat;
     private Vector3 position;
+    private EquipmentItem _currentWeapon;
+    private PlayerMovement _playerMovement;
+
     public int PrevIndex => _prevIndex;
+
+
     private void Start()
     {
         CharacterManager.Instance.onEquipmentChanged += OnWeaponChanged;
         _weaponAnimator = GetComponent<Animator>();
-        _playerSprite = PlayerOnScene.Instance.GetComponent<SpriteRenderer>();
-
         _playerStat = PlayerOnScene.Instance.GetComponent<PlayerStat>();
         PlayerOnScene.Instance.playerAttack.onAttacked += OnAttacked;
         PlayerOnScene.Instance.playerAttack.EndAttack += EndAttack;
-        _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 3;
         position = transform.localPosition;
+        _playerMovement = PlayerOnScene.Instance.stats.playerMovement;
     }
-    
+
     private void OnWeaponChanged(EquipmentItem _new, EquipmentItem _old)
     {
+        _currentWeapon = _new;
         if (_new && _new.EquipmentType == EquipmentType.Weapon)
         {
-            if(_old)
+            if (_old)
                 _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
             _weaponAnimator.SetLayerWeight((int)_new.AttackAnimationType, 1);
         }
-        else if(!_new && _old.EquipmentType == EquipmentType.Weapon)
+        else if (!_new && _old.EquipmentType == EquipmentType.Weapon)
         {
             _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
         }
-    }
-    private void Update()
-    {
-        _weaponSprite.sortingOrder = _playerSprite.sortingOrder + 3;
     }
     private void OnAttacked(AttackType attackType)
     {
@@ -83,10 +79,29 @@ public class WeaponRenderer : MonoBehaviour
     private void ChangeAnimationSpeed(AttackType attackType)
     {
         if (attackType == AttackType.Magic)
-            _weaponAnimator.speed = (0.8f / _playerStat.CastSpeed.Value);       //0.5 base attack animation duration in seconds
+            _weaponAnimator.speed = (0.66f / _playerStat.CastSpeed.Value);       //0.5 base attack animation duration in seconds
         else
         {
-            _weaponAnimator.speed = (0.8f / _playerStat.AttackSpeed.Value);
+            _weaponAnimator.speed = (0.66f / _playerStat.AttackSpeed.Value);
         }
+    }
+    public void GenerateAttackFX()
+    {
+        if (_currentWeapon)
+            if (_currentWeapon.AttackEffect)
+            {
+                 Transform effect = Instantiate(_currentWeapon.AttackEffect, transform.position + _playerMovement.GetDirection().normalized/2
+                     + new Vector3(0,0.5f,0), Quaternion.identity);
+                if (_playerMovement.GetDirection().x < 0)
+                {
+                    effect.localScale = new Vector3(1, -1, 1);
+                    effect.transform.rotation = Quaternion.FromToRotation(Vector3.right, _playerMovement.GetDirection().normalized);
+                }
+                else
+                {
+                    effect.localScale = new Vector3(1, 1, 1);
+                    effect.rotation = Quaternion.FromToRotation(Vector3.right, _playerMovement.GetDirection().normalized);
+                }
+            }
     }
 }

@@ -85,7 +85,6 @@ public class MeleeWeapon : EquipmentItem
         else { direction = player.playerMovement.GetDirection(); }
         _attackPosition = player.playerMovement.PlayerCollider.bounds.center + direction.normalized / 1.5f;
 
-
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition, CharacterManager.Instance.Stats.AttackRange.Value, _whatIsEnemy);
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
