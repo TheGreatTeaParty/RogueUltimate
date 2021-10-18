@@ -85,17 +85,11 @@ public class PlayerAttack : MonoBehaviour
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
             enemiesToDamage[i].GetComponent<IDamaged>().TakeDamage(_playerStat.PhysicalDamage.Value, _playerStat.MagicDamage.Value);
-        if(enemiesToDamage.Length > 0)
+        if (enemiesToDamage.Length > 0)
             ScreenShakeController.Instance.StartShake(0.05f, 0.03f);
         _playerMovement.PushToDirection(FistPushForce);
         PlayerStop(_currentAttackCD);
         EndAttack?.Invoke(AttackType.None);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(PlayerOnScene.Instance.playerMovement.PlayerCollider.bounds.center + _direction.normalized/1.5f, _playerStat.AttackRange.Value);
     }
 
     private IEnumerator AttackAnimationWait(EquipmentItem weapon)

@@ -9,6 +9,8 @@ public class WeaponRenderer : MonoBehaviour
     private EquipmentItem _currentWeapon;
     private PlayerMovement _playerMovement;
 
+    private int _currentAnimLayer;
+
     public int PrevIndex => _prevIndex;
 
 
@@ -31,10 +33,12 @@ public class WeaponRenderer : MonoBehaviour
             if (_old)
                 _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
             _weaponAnimator.SetLayerWeight((int)_new.AttackAnimationType, 1);
+            _currentAnimLayer = (int)_new.AttackAnimationType;
         }
         else if (!_new && _old.EquipmentType == EquipmentType.Weapon)
         {
             _weaponAnimator.SetLayerWeight((int)_old.AttackAnimationType, 0);
+            _currentAnimLayer = 0;
         }
     }
     private void OnAttacked(AttackType attackType)
@@ -46,7 +50,11 @@ public class WeaponRenderer : MonoBehaviour
 
         else if(attackType == AttackType.Melee)
         {
-            _weaponAnimator.SetInteger("Set", GenerateAttackSet());
+            //_weaponAnimator.SetInteger("Set", GenerateAttackSet());
+        }
+        if (_currentAnimLayer != 0 && _weaponAnimator.GetLayerWeight(_currentAnimLayer) == 0)
+        {
+            _weaponAnimator.SetLayerWeight(_currentAnimLayer, 1);
         }
         ChangeAnimationSpeed(attackType);
 
