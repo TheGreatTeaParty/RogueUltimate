@@ -158,13 +158,14 @@ public class SpawnLogic : MonoBehaviour
         {
             PhysicalRoom currentRoom = newRoom.gameObject.GetComponent<PhysicalRoom>();
             //Move the spawned object to match doors if it is not the first room
-            if (position!= Vector3.zero)
-                if(!currentRoom.MatchTheDoor(direction))
+            if (position != Vector3.zero)
+            {
+                if (!currentRoom.MatchTheDoor(direction))
                 {
                     currentRoom.DestroyRoom();
                     return null;
                 }
-
+            }
             //Check does it overlap with something:
             if(currentRoom.CheckOverlapping())
                 return currentRoom;

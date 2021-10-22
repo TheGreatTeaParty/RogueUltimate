@@ -81,6 +81,7 @@ public class TavernKeeperUpgrade : MonoBehaviour
                     break;
                 }
         }
+        SaveManager.AccountAutoSave();
     }
 
     private void UpgradeTavern()

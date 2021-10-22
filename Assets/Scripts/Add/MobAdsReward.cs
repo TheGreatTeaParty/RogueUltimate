@@ -10,7 +10,7 @@ using Firebase.Analytics;
 public class MobAdsReward : MonoBehaviour
 {
     private RewardedAd rewardedAd;
-    private const string rewardUnitId = "ca-app-pub-6344077212730305/6036365785";
+    private const string rewardUnitId = "ca-app-pub-3581850693025727/8529161551";
 
     public void Start()
     {

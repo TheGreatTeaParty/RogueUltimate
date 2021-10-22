@@ -118,8 +118,9 @@ public class PhysicalRoom : MonoBehaviour
 
     public bool CheckOverlapping()
     {
-        Collider2D[] room = Physics2D.OverlapBoxAll(transform.position + (Vector3)(boxCollider.offset * transform.localScale), boxCollider.size* transform.localScale*1.1f, 0, layerMask);
-
+        Collider2D[] room = Physics2D.OverlapBoxAll(transform.position + (Vector3)(boxCollider.offset * transform.localScale),
+            boxCollider.size* transform.localScale*1.3f, 0, layerMask);
+        Debug.Log($"{this.name}, {room.Length}");
         if (room.Length > 1)
         {
             return false;
@@ -140,5 +141,13 @@ public class PhysicalRoom : MonoBehaviour
     public void DestroyRoom()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw a semitransparent blue cube at the transforms position
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube(transform.position + (Vector3)(boxCollider.offset * transform.localScale),
+            boxCollider.size * transform.localScale * 1.1f);
     }
 }

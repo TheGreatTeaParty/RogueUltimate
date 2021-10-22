@@ -14,11 +14,6 @@ public class PurchaseManager : MonoBehaviour,IStoreListener
    
     void Start()
     {
-        GPGSManger.Initialize();
-        GPGSManger.Auth((success) =>
-        {
-        });
-
         itemsDatabase = GetComponent<ItemsDatabase>();
         InitializePurchasing();
 

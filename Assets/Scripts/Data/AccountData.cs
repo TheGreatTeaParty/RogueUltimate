@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class AccountData
 {
-    public string scene;
 
     public float renown; //global money
 
@@ -16,11 +15,6 @@ public class AccountData
 
     public AccountData()
     {
-        if(!PlayerOnScene.Instance)
-            scene = SceneManager.GetActiveScene().name;
-        else
-            scene = "Tavern";
-
         AccountManager accountManager = AccountManager.Instance;
         renown = accountManager.Renown;
 

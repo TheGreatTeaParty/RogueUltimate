@@ -8,7 +8,7 @@ public class MobAdsSimple : MonoBehaviour
 {
     private InterstitialAd interstitialAd;
 
-    private const string interstitialAdId = "ca-app-pub-6344077212730305/2371279481";
+    private const string interstitialAdId = "ca-app-pub-3581850693025727/4172125900";
 
     private void OnEnable()
     {

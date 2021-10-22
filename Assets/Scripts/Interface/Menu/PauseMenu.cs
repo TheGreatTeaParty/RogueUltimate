@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "StartTavern" || SceneManager.GetActiveScene().name == "Tavern")
         {
             SaveManager.SavePlayer();
+            SaveManager.SaveAccountToCloud();
             SaveManager.SaveAccount();
         }
         Time.timeScale = 1f;

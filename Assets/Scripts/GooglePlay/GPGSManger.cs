@@ -8,10 +8,12 @@ using GooglePlayGames.BasicApi.SavedGame;
 
 public static class GPGSManger
 {
-    public const string DEFAULT_SAVE_NAME = "com.thegreatteaparty.roguestales.skin";
+    public const string DEFAULT_SAVE_NAME = "com.thegreatteaparty.roguestales.save";
 
     private static ISavedGameClient savedGameClient;
     private static ISavedGameMetadata currentMetaData;
+    private static DateTime startDateTime;
+
 
     public static bool IsAuthenticated
     {
@@ -31,13 +33,16 @@ public static class GPGSManger
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
 
+        startDateTime = DateTime.Now;
     }
 
     public static void Auth(Action<bool> onAuth)
     {
+
         Social.localUser.Authenticate((success) =>
         {
             if (success) savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            onAuth(success);
         });
     }
 
@@ -48,7 +53,10 @@ public static class GPGSManger
             onDataOpen(SavedGameRequestStatus.AuthenticationError, null);
             return;
         }
-        savedGameClient.OpenWithAutomaticConflictResolution(fileName, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseMostRecentlySaved, onDataOpen);
+        savedGameClient.OpenWithAutomaticConflictResolution(fileName,
+            DataSource.ReadCacheOrNetwork,
+            ConflictResolutionStrategy.UseMostRecentlySaved,
+            onDataOpen);
     }
 
     public static void ReadSaveData(string fileName, Action<SavedGameRequestStatus,byte[]> onDataRead)
@@ -72,14 +80,24 @@ public static class GPGSManger
     {
         if (!IsAuthenticated || data == null || data.Length == 0)
             return;
+
+        TimeSpan currentSpan = DateTime.Now - startDateTime;
+
         Action onDataWrite = () =>
         {
+            TimeSpan totalPlayTime = currentMetaData.TotalTimePlayed + currentSpan;
+            SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder()
+            .WithUpdatedDescription("Saved game at " + DateTime.Now)
+            .WithUpdatedPlayedTime(totalPlayTime);
+
             SavedGameMetadataUpdate updatedMetaData = new SavedGameMetadataUpdate.Builder().Build();
             savedGameClient.CommitUpdate(currentMetaData,
                 updatedMetaData,
                 data,
                 (status, metadata) => currentMetaData = metadata);
+            startDateTime = DateTime.Now;
         };
+
         if(currentMetaData == null)
         {
             OpenSaveData(DEFAULT_SAVE_NAME, (status, metadata) =>

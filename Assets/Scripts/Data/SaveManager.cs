@@ -29,6 +29,19 @@ public static class SaveManager
         stream.Close(); //For missing weird errors
     }
 
+    public static void SaveAccountToCloud()
+    {
+        GPGSManger.WriteSaveData(SerializeToByteArray(new AccountData()));
+    }
+
+    public static void AccountAutoSave()
+    {
+        SaveAccount();
+        SaveAccountToCloud();
+        if (CharacterManager.Instance)
+            SavePlayer();
+    }
+
     public static PlayerData LoadPlayer()
     {
         string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
@@ -65,6 +78,34 @@ public static class SaveManager
         else
         {
             return null;
+        }
+    }
+
+    public static AccountData LoadCloudData(byte[] data)
+    {
+        if(data == null) { return null; }
+
+        using (var memStream = new MemoryStream())
+        {
+            var binForm = new BinaryFormatter();
+            memStream.Write(data, 0, data.Length);
+            memStream.Seek(0, SeekOrigin.Begin);
+            var obj = (AccountData)binForm.Deserialize(memStream);
+
+            return obj;
+        }
+    }
+    private static byte[] SerializeToByteArray(AccountData accountData)
+    {
+        if (accountData == null)
+        {
+            return null;
+        }
+        var bf = new BinaryFormatter();
+        using (var ms = new MemoryStream())
+        {
+            bf.Serialize(ms, accountData);
+            return ms.ToArray();
         }
     }
 

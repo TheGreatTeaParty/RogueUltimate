@@ -24,16 +24,16 @@ public class PlayerData
     public int abilityPoints;
     public int[] abillities;
     public int[] quickSlotAbilities = new int[3];
-    
+
     public PlayerData()
     {
         gameObjectName = CharacterManager.Instance.Stats.gameObject.name;
-     
-        
+
+
         var stats = CharacterManager.Instance.Stats;
 
         currentHP = stats.CurrentHealth;
-        currentMP = stats.CurrentMana;       
+        currentMP = stats.CurrentMana;
         currentSP = stats.CurrentStamina;
 
         statsData[0] = stats.Strength.GetBaseValue();
@@ -72,7 +72,7 @@ public class PlayerData
                 quickSlotsData[i, 1] = inventory.Inventory.QuickSlots[i].Amount;
             }
         contractsData = new int[stats.PlayerContracts.contracts.Count, 2];
-        for(int i = 0; i < stats.PlayerContracts.contracts.Count; ++i)
+        for (int i = 0; i < stats.PlayerContracts.contracts.Count; ++i)
         {
             contractsData[i, 0] = stats.PlayerContracts.contracts[i].ID;
             contractsData[i, 1] = stats.PlayerContracts.contracts[i]._currentScore;
@@ -106,7 +106,7 @@ public class PlayerData
             // Null check because of currentEquipment structure: array, not list
             if (equipment.equipmentSlots[i].Item != null)
                 equipmentData[i] = equipment.equipmentSlots[i].Item.ID;
-          
+
 
         /*
         var transformPosition = CharacterManager.Instance.Stats.transform.position;
@@ -115,5 +115,4 @@ public class PlayerData
         position[1] = transformPosition.y;
         position[2] = transformPosition.z;*/
     }
-
 }
