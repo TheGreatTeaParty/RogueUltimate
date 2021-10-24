@@ -7,33 +7,38 @@ public enum CitizenState
     Standing,
 }
 
-public class Citizen : AI, IInteractable
+public class Citizen : AI, IInteractable,ITalkable
 {
-    private DialogSystem _dialogSystem;
     [SerializeField]
-    private Dialog dialog;
-
+    protected Transform DialogueUI;
+    [Space]
     public GameObject[] hangingPoints;
 
-    [SerializeField] private float pointStandingTime = 3f;
+    [SerializeField] protected float pointStandingTime = 3f;
 
     private int _currentHangingIndex = 0;
     private bool _coroutineHasStarted = false;
     private CitizenState _state;
-    
+    protected Sprite _sprite;
+
+    [Space]
+    [SerializeField]
+    protected DialogSystem.ECharacterNames characterName;
+    [SerializeField]
+    protected int PhrasesInSpeech = 1;
 
     protected override void Start()
     {
+        _sprite = GetComponent<SpriteRenderer>().sprite;
         base.Start();
         if (hangingPoints.Length > 0)
         {
             _currentHangingIndex = Random.Range(0, hangingPoints.Length);
             target = hangingPoints[_currentHangingIndex];
         }
-        _dialogSystem = GetComponentInChildren<DialogSystem>();
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         switch (_state)
         {
@@ -62,7 +67,7 @@ public class Citizen : AI, IInteractable
         
     }
 
-    public void Talk(bool option)
+    public virtual void Talk(bool option)
     {
         //If we talk, change to the standing
         if (option)
@@ -101,15 +106,17 @@ public class Citizen : AI, IInteractable
 
     void IInteractable.Interact()
     {
-        InterfaceManager.Instance.gameObject.SetActive(false);
-        _dialogSystem.dialogWindow.SetActive(true);
-        _dialogSystem.buttonContinue.SetActive(true);
-        _dialogSystem.StartDialog(dialog);
         Talk(true);
     }
 
     string IInteractable.GetActionName() 
     {
         return "Talk";
+    }
+
+    public void Talk()
+    {
+        var UI = Instantiate(DialogueUI);
+        UI.GetComponent<DialogueUI>().Init(_sprite, characterName, PhrasesInSpeech);
     }
 }   

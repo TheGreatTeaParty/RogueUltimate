@@ -1392,36 +1392,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 400.18604
-      objectReference: {fileID: 0}
-    - target: {fileID: 572866384506335528, guid: 0557eadfef5504236a24aad841ce388b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -128.163
-      objectReference: {fileID: 0}
     - target: {fileID: 599161737809344978, guid: 0557eadfef5504236a24aad841ce388b,
         type: 3}
       propertyPath: m_Name
@@ -1908,6 +1878,11 @@ PrefabInstance:
       objectReference: {fileID: 1200393477}
     - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
         type: 3}
+      propertyPath: PhraseCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
+        type: 3}
       propertyPath: barPosition
       value: 
       objectReference: {fileID: 1200393477}
@@ -2385,6 +2360,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
+      propertyPath: PhraseCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
       propertyPath: List3.Array.size
       value: 10
@@ -4477,7 +4456,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4967
-  m_Sprite: {fileID: 47623576955987322, guid: d1ec9d761b057461f8c725c91a008d5d, type: 3}
+  m_Sprite: {fileID: -5676741272876029023, guid: 5f17dd8a5d4b2410cb47a9d2daf41392,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4628,6 +4608,11 @@ MonoBehaviour:
   attackCoolDown: 1.2
   attackDuration: 0.5
   colliderDetactionRadius: 0.3
+  DialogueUI: {fileID: 0}
+  hangingPoints: []
+  pointStandingTime: 3
+  characterName: 0
+  PhrasesInSpeech: 1
   List2: []
   List3: []
 --- !u!95 &1669149823788451759

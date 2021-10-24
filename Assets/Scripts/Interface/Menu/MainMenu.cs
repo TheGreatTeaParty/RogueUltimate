@@ -71,10 +71,11 @@ public class MainMenu : MonoBehaviour {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
+            /*
             if(!_firstTime)
                 LevelManager.Instance.LoadScene("StartTavern");
-            else
-                LevelManager.Instance.LoadScene("StartTavern"); //TODO tutorial scene here:
+            else*/
+                LevelManager.Instance.LoadScene("TutorialTavern"); //TODO tutorial scene here:
         }
         else
         {
@@ -87,6 +88,8 @@ public class MainMenu : MonoBehaviour {
     {
         PlayerData pl_data = SaveManager.LoadPlayer();
         AccountData acc_data = SaveManager.LoadAccount();
+        DialogSystem.LoadDialogIndex(acc_data);
+
         AccountManager.Instance.LoadData(acc_data);
 
         if (pl_data != null)

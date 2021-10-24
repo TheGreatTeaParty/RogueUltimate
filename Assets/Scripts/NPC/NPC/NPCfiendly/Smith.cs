@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Smith : AI, IInteractable
+public class Smith : Citizen, IInteractable, ITalkable
 {
     [Space]
     public List<Item> List2;

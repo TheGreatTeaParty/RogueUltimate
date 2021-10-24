@@ -14,7 +14,7 @@ public class CutsceneManager : MonoBehaviour
 
     private void Start()
     {
-        IntroDialogueManager.DialogueEnded += ChangeTimelineHandler;
+        //IntroDialogueManager.DialogueEnded += ChangeTimelineHandler;
         ChangeTimeline += ChangeTimelineHandler;
     }
 

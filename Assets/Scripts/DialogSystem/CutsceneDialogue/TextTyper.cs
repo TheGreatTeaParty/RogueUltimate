@@ -7,22 +7,41 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class TextTyper : MonoBehaviour
 {
-    public static event Action TyperStop; 
     public bool IsActive { get; set; } = false;
-    public IEnumerator Type(float speed)
+
+    private TextMeshProUGUI text;
+
+    private void Start()
     {
+        text = gameObject.GetComponent<TextMeshProUGUI>();
+        text.text = "";
+    }
+
+    public IEnumerator Type(float speed, string Newtext)
+    {
+        text.text = Newtext;
         IsActive = true;
-        TextMeshProUGUI text = gameObject.GetComponent<TextMeshProUGUI>();
         text.maxVisibleCharacters = 0;
         int _totalVisibleCharacters = text.text.Length;
 
         for(int i = 0; i < _totalVisibleCharacters; i++)
         {
             text.maxVisibleCharacters = i;
+            if(i%5==0)
+                PlaySound();
             yield return new WaitForSeconds(speed);
         }
-
-        TyperStop?.Invoke();
         IsActive = false;
+    }
+
+    public void StopTyping()
+    {
+        IsActive = false;
+        text.maxVisibleCharacters = text.text.Length;
+    }
+
+    private void PlaySound()
+    {
+        AudioManager.Instance.Play("Talk");
     }
 }

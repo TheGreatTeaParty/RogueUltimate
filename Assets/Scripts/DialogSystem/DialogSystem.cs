@@ -6,80 +6,82 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
-public class DialogSystem : MonoBehaviour
+public class DialogSystem
 {
-    [SerializeField]
-    private TextMeshProUGUI nameText;
-    [SerializeField]
-    private TextMeshProUGUI dialogText;
-    public GameObject dialogWindow;
-    public GameObject buttonContinue;
-    [FormerlySerializedAs("SoundGapTime")] [SerializeField]
-    private float soundGapTime = 0.1f;
-    private bool _coroutineHasStarted = false;
-    private Queue<string> _sentences;
-
-
-    void Start()
+    /*TO ADD CHARACTER :
+         * 1) Add enum
+         * 2) Increase the ammount of count
+    */
+    public enum ECharacterNames
     {
-        _sentences = new Queue<string>();
+        DUDE = 0,
+        TavernKeeper,
+        Smith,
+        Master,
+        Dwarf
+    };
+    private static int _enumCount = 5;
+
+
+    private static bool _isInit = false;
+    private static Dictionary<ECharacterNames, int> _currentDialogIndex;
+
+    public static string GetDialogText(ECharacterNames characterName)
+    {
+        if (!_isInit)
+            Init();
+
+        int currentIndex = _currentDialogIndex[characterName];
+        _currentDialogIndex[characterName]++;
+        Debug.LogWarning("dialog_" + characterName.ToString() + "_" + currentIndex);
+        return LocalizationSystem.GetLocalisedValue("dialog_" + characterName.ToString() + "_" + currentIndex);
+
+    }
+    public static string GetDialogTextPlaceHolder(ECharacterNames characterName)
+    {
+        if (!_isInit)
+            Init();
+        return LocalizationSystem.GetLocalisedValue("dialog_" + characterName.ToString() + "_" + "temp");
     }
 
-    public void StartDialog(Dialog dialog)
+    private static void Init()
     {
-        //Return Joystick to 0 position;
-        InterfaceManager.Instance.GetComponentInChildren<DynamicJoystick>().ResetInput();
-        nameText.text = dialog.name;
-
-        _sentences.Clear();
-
-        foreach (string sentence in dialog.sentences)
+        _isInit = true;
+        _currentDialogIndex = new Dictionary<ECharacterNames, int>(_enumCount);
+        for(int  i =0; i < _enumCount; i++)
         {
-            _sentences.Enqueue(sentence);
-        }
-
-        DisplayNextSentence();
-    }
-
-    public void DisplayNextSentence()
-    {
-        if (_sentences.Count == 0) 
-        {
-            EndDialog();
-            return;
-        }
-        string sentence = _sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(WriteSentence(sentence));
-    }
-
-    public void EndDialog()
-    {
-        //This is needed to give information to AI that he can move
-        GetComponentInParent<Citizen>().Talk(false);
-        dialogWindow.gameObject.SetActive(false);
-        InterfaceManager.Instance.gameObject.SetActive(true);
-        buttonContinue.gameObject.SetActive(false);
-    }
-
-    IEnumerator WriteSentence (string sentence)
-    {
-        dialogText.text = "";
-        foreach (char letter in sentence.ToCharArray())
-        {
-            dialogText.text += letter;
-            if(!_coroutineHasStarted)
-                StartCoroutine(CallSound());
-            yield return null;
+            _currentDialogIndex.Add((ECharacterNames)i, 0);
         }
     }
+
+    public static int[] GetDialogIndexArray()
+    {
+        if (!_isInit)
+            Init();
+
+        int[] arr = new int[_enumCount];
+        int currentIndex = 0;
+        for (int i = 0; i < _enumCount; i++)
+        {
+            if (_currentDialogIndex.TryGetValue((ECharacterNames)i, out currentIndex))
+                arr[i] = currentIndex;
+            else
+                arr[i] = 0;
+        }
+        return arr;
+    }
+
+    public static void LoadDialogIndex(AccountData data)
+    {
+        if (!_isInit)
+            Init();
+
+        for (int i = 0; i < _enumCount; i++)
+        {
+            if(data.dialogIndexes!= null)
+                _currentDialogIndex[(ECharacterNames)i] = data.dialogIndexes[i];
+        }
+    }
+
     
-    IEnumerator CallSound()
-    {
-        _coroutineHasStarted = true;
-        yield return new WaitForSeconds(soundGapTime);
-        AudioManager.Instance.Play("Talk");
-        _coroutineHasStarted = false;
-    }
-
 }

@@ -3,3 +3,7 @@
     void Interact();
     string GetActionName();
 }
+public interface ITalkable
+{
+    void Talk();
+}

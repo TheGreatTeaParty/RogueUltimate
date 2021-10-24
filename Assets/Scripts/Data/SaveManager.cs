@@ -7,14 +7,17 @@ public static class SaveManager
 {
     public static void SavePlayer ()
     {
-        BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
-        string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
-        FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
+        if (CharacterManager.Instance)
+        {
+            BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
+            string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
+            FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
 
-        PlayerData data = new PlayerData(); //Unity data -> general data for better saving
-        
-        formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
-        stream.Close(); //For missing weird errors
+            PlayerData data = new PlayerData(); //Unity data -> general data for better saving
+
+            formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
+            stream.Close(); //For missing weird errors
+        }
     }
 
     public static void SaveAccount()

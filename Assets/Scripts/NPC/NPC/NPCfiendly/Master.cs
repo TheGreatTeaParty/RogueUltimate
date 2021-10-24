@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Master : AI, IInteractable
+public class Master : Citizen, IInteractable
 {
     [Space]
     public List<Item> List2;
@@ -13,18 +13,19 @@ public class Master : AI, IInteractable
 
     public string GetActionName()
     {
-        return "Quests";
+            return "Quests";
     }
 
     public void Interact()
     {
-        // Bind the info for TradeManager
-        var playerContracts = CharacterManager.Instance.Stats.PlayerContracts;
-        var npcInventory = GetComponent<NPCInventory>();
-        var tradeManager = TradeManager.Instance;
 
-        tradeManager.Bind(playerContracts, npcInventory);
-        tradeManager.Open(TradeManager.tradeType.master);
+            // Bind the info for TradeManager
+            var playerContracts = CharacterManager.Instance.Stats.PlayerContracts;
+            var npcInventory = GetComponent<NPCInventory>();
+            var tradeManager = TradeManager.Instance;
+
+            tradeManager.Bind(playerContracts, npcInventory);
+            tradeManager.Open(TradeManager.tradeType.master);
     }
 
     // Start is called before the first frame update

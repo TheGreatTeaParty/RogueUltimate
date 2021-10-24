@@ -11,6 +11,7 @@ public class AccountData
 
     public int keeper_lvl, smith_lvl, master_lvl; //current proggress
 
+    public int[] dialogIndexes;
 
 
     public AccountData()
@@ -21,5 +22,7 @@ public class AccountData
         keeper_lvl = accountManager.KeeperLevel;
         smith_lvl = accountManager.SwithLevel;
         master_lvl = accountManager.MasterLevel;
+
+        dialogIndexes = DialogSystem.GetDialogIndexArray();
     }
 }

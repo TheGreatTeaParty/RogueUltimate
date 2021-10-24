@@ -7,7 +7,7 @@ public class GhostTalkTrigger : MonoBehaviour
 {
     private bool _isActive = false;
     [SerializeField] private TutorialGuy _tutorialGuy;
-    [SerializeField] private Dialogue dialogue;
+   // [SerializeField] private Dialogue dialogue;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +15,7 @@ public class GhostTalkTrigger : MonoBehaviour
         {
             _isActive = true;
             StartCoroutine(_tutorialGuy.SlowDissolve(true));
-            TutorialManager.Instance.StartDialogue(dialogue);
+           // TutorialManager.Instance.StartDialogue(dialogue);
         }
     }
 }

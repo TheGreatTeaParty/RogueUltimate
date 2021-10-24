@@ -152,7 +152,8 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            InterfaceManager.Instance.HideTavernUI();
+            if(InterfaceManager.Instance)
+                InterfaceManager.Instance.HideTavernUI();
         }
         if (_levelLoaded >= LoadsToAds)
         {

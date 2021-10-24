@@ -12,7 +12,7 @@ public enum TaverKeeperState
 }
 
 
-public class TavernKeeper : AI, IInteractable
+public class TavernKeeper : Citizen, IInteractable
 {
     #region Singleton
     public static TavernKeeper Instance;
@@ -30,9 +30,7 @@ public class TavernKeeper : AI, IInteractable
     private bool _courantineHasStarted = false;
     private TaverKeeperState _state;
     
-    public float pointStandingTime = 2f;
     [Space]
-    public GameObject[] hangingPoints;
     public GameObject barPosition;
     [Space]
     public List<Item> List2;
@@ -53,7 +51,7 @@ public class TavernKeeper : AI, IInteractable
         Invoke("SetInvenotyOnStart", 0.1f);
     }
 
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
         switch (_state)
         {
@@ -129,7 +127,7 @@ public class TavernKeeper : AI, IInteractable
         _courantineHasStarted = false;
     }
 
-    public void Talk(bool option)
+    public override void Talk(bool option)
     {
         //If we talk, change to the standing
         if (option)
@@ -147,18 +145,17 @@ public class TavernKeeper : AI, IInteractable
 
     public void Interact()
     {
-        // Bind the info for TradeManager
-        var playerInventory = CharacterManager.Instance.Inventory;
-        var tradeManager = TradeManager.Instance;
+            // Bind the info for TradeManager
+            var playerInventory = CharacterManager.Instance.Inventory;
+            var tradeManager = TradeManager.Instance;
 
-        tradeManager.Bind(playerInventory, npcInventory);
-        tradeManager.Open(TradeManager.tradeType.tavernKeeper);
-        Talk(true);
+            tradeManager.Bind(playerInventory, npcInventory);
+            tradeManager.Open(TradeManager.tradeType.tavernKeeper);
     }
 
     public string GetActionName()
     {
-        return "Trade";
+            return "Trade";
     }
 
     public void Upgrade(TradeManager.tradeType type)

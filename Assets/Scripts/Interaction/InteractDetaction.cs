@@ -4,6 +4,7 @@ public class InteractDetaction : MonoBehaviour
 {
     private InteractionUI interactionUI;
     private IInteractable interactable;
+    private ITalkable talkable;
     private MaterialPropertyBlock _collideMaterial;
     private SpriteRenderer _colliderInfo;
 
@@ -16,7 +17,7 @@ public class InteractDetaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<IInteractable>() != null)
+        if (collision.GetComponent<IInteractable>() != null)
         {
             _colliderInfo = collision.GetComponent<SpriteRenderer>();
 
@@ -28,17 +29,34 @@ public class InteractDetaction : MonoBehaviour
             //Save collission information to use it later in Call
             interactable = collision.GetComponent<IInteractable>();
 
-           
+
             //Enable
-            interactionUI.SetActive(true);
+            interactionUI.SetInteractActive(true);
 
             //Get Action ItemName and set it up 
-            interactionUI.SetText(interactable.GetActionName());
+            interactionUI.SetActionText(interactable.GetActionName());
+            interactionUI.SetInteractDetaction(this);
+        }
 
+        if (collision.GetComponent<ITalkable>() != null)
+        {
+            _colliderInfo = collision.GetComponent<SpriteRenderer>();
+
+            //Save colide material
+            _colliderInfo.GetPropertyBlock(_collideMaterial);
+
+            TurnOnOutline();
+
+            //Save collission information to use it later in Call
+            talkable = collision.GetComponent<ITalkable>();
+
+
+            //Enable
+            interactionUI.SetTalkActive(true);
             interactionUI.SetInteractDetaction(this);
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<IInteractable>() != null)
@@ -49,15 +67,22 @@ public class InteractDetaction : MonoBehaviour
     {
         TurnOFFOutline();
         if (interactionUI)
-            interactionUI.SetActive(false);
+        {
+            interactionUI.SetInteractActive(false);
+            interactionUI.SetTalkActive(false);
+        }
         interactable = null;
+        talkable = null;
     }
 
     public void CallInteraction()
     {
         interactable.Interact();
     }
-
+    public void CallTalkAction()
+    {
+        talkable.Talk();
+    }
     private void TurnOnOutline()
     {
         _collideMaterial.SetFloat("_Thickness", 0.007f);
