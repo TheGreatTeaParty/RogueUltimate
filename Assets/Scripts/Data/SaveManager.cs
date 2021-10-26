@@ -5,31 +5,43 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveManager
 {
+    public static bool _isSaving = false;
+    public static bool _isSavingAccount = false;
+
     public static void SavePlayer ()
     {
         if (CharacterManager.Instance)
         {
-            BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
-            string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
-            FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
+            if (!_isSaving)
+            {
+                _isSaving = true;
+                BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
+                string path = Application.persistentDataPath + "/player.dat"; //Make an adress of a our file
+                FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
+                PlayerData data = new PlayerData(); //Unity data -> general data for better saving
 
-            PlayerData data = new PlayerData(); //Unity data -> general data for better saving
-
-            formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
-            stream.Close(); //For missing weird errors
+                formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
+                stream.Close(); 
+                _isSaving = false;
+            }
         }
     }
 
     public static void SaveAccount()
     {
-        BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
-        string path = Application.persistentDataPath + "/account.dat"; //Make an adress of a our file
-        FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
+        if (!_isSavingAccount)
+        {
+            _isSavingAccount = true;
+            BinaryFormatter formatter = new BinaryFormatter(); //Create a copy of BinaryFormatter
+            string path = Application.persistentDataPath + "/account.dat"; //Make an adress of a our file
+            FileStream stream = new FileStream(path, FileMode.Create); //Create our file with adress "path"
 
-        AccountData data = new AccountData(); //Unity data -> general data for better saving
+            AccountData data = new AccountData(); //Unity data -> general data for better saving
 
-        formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
-        stream.Close(); //For missing weird errors
+            formatter.Serialize(stream, data); //Transit data to a binary format, to the file "stream"
+            stream.Close(); //For missing weird errors
+            _isSavingAccount = false;
+        }
     }
 
     public static void SaveAccountToCloud()

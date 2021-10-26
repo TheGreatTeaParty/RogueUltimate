@@ -129,8 +129,11 @@ public class AI : MonoBehaviour
 
     protected virtual void UpdatePath()
     {
-        if (seeker.IsDone() && target)
-            seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+        if (seeker)
+        {
+            if (seeker.IsDone() && target)
+                seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+        }
     }
 
     protected virtual void StateChasing()

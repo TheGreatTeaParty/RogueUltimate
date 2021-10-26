@@ -41,7 +41,6 @@ public class LevelManager : MonoBehaviour
         LoadScreen.gameObject.SetActive(true);
         if(scenes != Scenes.Tavern && scenes != Scenes.StartTavern)
         {
-            SaveManager.SavePlayer();
             SaveManager.AccountAutoSave();
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart,
                 new Parameter(FirebaseAnalytics.ParameterLevelName, "dungeon1"));
@@ -68,10 +67,8 @@ public class LevelManager : MonoBehaviour
     public void LoadScene(String scenes, Vector3 position = new Vector3())
     {
         LoadScreen.gameObject.SetActive(true);
-        if(scenes != "Tavern" && scenes != "StartTavern")
+        if (scenes != "Tavern" && scenes != "StartTavern")
         {
-            
-            SaveManager.SavePlayer();
             SaveManager.AccountAutoSave();
         }
         else if (scenes == "Tavern" || scenes == "StartTavern")
@@ -145,7 +142,6 @@ public class LevelManager : MonoBehaviour
 
         else if (scene == "Tavern")
         {
-            SaveManager.SavePlayer();
             SaveManager.AccountAutoSave();
             InterfaceManager.Instance.ShowTavernUI();
         }

@@ -238,8 +238,8 @@ public class GolemBoss : EnemyAI
         _dir = (target.transform.position - transform.position).normalized;
         state = NPCstate.IDLE;
 
-        rb.AddForce(new Vector2(0, 50f));
-        rb.gravityScale = 2;
+        //rb.AddForce(new Vector2(0, 50f));
+        //rb.gravityScale = 2;
     }
 
     private void Land()
