@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System;
 
 public class DialogueUI : MonoBehaviour
 {
+    public Action onDialogEnded;
     [SerializeField]
     private Image _characterImage;
     [SerializeField]
@@ -24,7 +25,7 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
-        Invoke("ClickHandle", 1.1f);
+        Invoke("ClickHandle", 1f);
         AudioManager.Instance.Play("Dialog");
     }
 
@@ -42,14 +43,14 @@ public class DialogueUI : MonoBehaviour
             //We have some dialogs to move one:
             if (text != null)
             {
-                _coroutine = StartTyper(0.04f, text);
+                _coroutine = StartTyper(0.03f, text);
             }
             //We do not have any dialogs left, repeat:
             else
             {
                 text = DialogSystem.GetDialogTextPlaceHolder(_characterEName);    //Currently return placeholder
                 if (text != null)
-                    _coroutine = StartTyper(0.04f, text);
+                    _coroutine = StartTyper(0.03f, text);
                 else
                 {
                     EndDialogue();
@@ -78,6 +79,7 @@ public class DialogueUI : MonoBehaviour
     }
     public void DestroyUI()
     {
+        onDialogEnded?.Invoke();
         Destroy(gameObject);
     }
 

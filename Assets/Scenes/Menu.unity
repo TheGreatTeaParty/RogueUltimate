@@ -1127,6 +1127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8297732361817351778, guid: f285b7c1060284dababb019525d92cb7,
         type: 3}
+      propertyPath: sounds.Array.data[13].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 61f7e6c569a209649b82dd21edc87d20, type: 3}
+    - target: {fileID: 8297732361817351778, guid: f285b7c1060284dababb019525d92cb7,
+        type: 3}
       propertyPath: sounds.Array.data[36].clip
       value: 
       objectReference: {fileID: 8300000, guid: 64da4b026fa974c89aa95744de4b4c92, type: 3}
@@ -1148,7 +1153,7 @@ PrefabInstance:
     - target: {fileID: 8297732361817351778, guid: f285b7c1060284dababb019525d92cb7,
         type: 3}
       propertyPath: sounds.Array.data[13].volume
-      value: 0.05
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 8297732361817351778, guid: f285b7c1060284dababb019525d92cb7,
         type: 3}
@@ -7152,8 +7157,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -8642888269263227235, guid: 9e4cd265d6fe1454b8fb754df7155d82,
+    type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8560,6 +8566,7 @@ GameObject:
   - component: {fileID: 2106805051}
   - component: {fileID: 2106805053}
   - component: {fileID: 2106805052}
+  - component: {fileID: 2106805054}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -8684,6 +8691,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106805050}
   m_CullTransparentMesh: 1
+--- !u!114 &2106805054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106805050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: menu_instagram_info
 --- !u!1 &2134445099
 GameObject:
   m_ObjectHideFlags: 0
@@ -8695,6 +8715,7 @@ GameObject:
   - component: {fileID: 2134445100}
   - component: {fileID: 2134445102}
   - component: {fileID: 2134445101}
+  - component: {fileID: 2134445103}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -8819,6 +8840,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134445099}
   m_CullTransparentMesh: 1
+--- !u!114 &2134445103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134445099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: menu_discord_info
 --- !u!1 &2135836953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,8 +8967,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 9143443635318920489, guid: 9e4cd265d6fe1454b8fb754df7155d82,
+    type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

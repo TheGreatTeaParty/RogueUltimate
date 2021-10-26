@@ -7,7 +7,7 @@ public enum CitizenState
     Standing,
 }
 
-public class Citizen : AI, IInteractable,ITalkable
+public class Citizen : AI,ITalkable
 {
     [SerializeField]
     protected Transform DialogueUI;
@@ -102,16 +102,6 @@ public class Citizen : AI, IInteractable,ITalkable
         }
         target = hangingPoints[_currentHangingIndex];
         _coroutineHasStarted = false;
-    }
-
-    void IInteractable.Interact()
-    {
-        Talk(true);
-    }
-
-    string IInteractable.GetActionName() 
-    {
-        return "Talk";
     }
 
     public void Talk()

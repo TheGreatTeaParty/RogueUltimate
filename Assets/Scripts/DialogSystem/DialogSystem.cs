@@ -14,7 +14,7 @@ public class DialogSystem
     */
     public enum ECharacterNames
     {
-        DUDE = 0,
+        Mentor = 0,
         TavernKeeper,
         Smith,
         Master,

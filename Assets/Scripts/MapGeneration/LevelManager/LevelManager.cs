@@ -119,7 +119,6 @@ public class LevelManager : MonoBehaviour
 
         else if (scene == Scenes.Tavern)
         {
-            SaveManager.SavePlayer();
             SaveManager.AccountAutoSave();
             InterfaceManager.Instance.ShowTavernUI();
         }

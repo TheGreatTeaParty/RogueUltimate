@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitButton()
     {
-        if (SceneManager.GetActiveScene().name == "StartTavern" || SceneManager.GetActiveScene().name == "Tavern")
+        if (SceneManager.GetActiveScene().name == "StartTavern" || SceneManager.GetActiveScene().name == "Tavern" || SceneManager.GetActiveScene().name == "TutorialTavern")
         {
             SaveManager.SavePlayer();
             SaveManager.SaveAccountToCloud();

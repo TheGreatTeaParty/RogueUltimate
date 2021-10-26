@@ -87,6 +87,7 @@ public class TraitsGenerator : MonoBehaviour
         player.SetUpPlayerInfo();
         yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
+        SaveManager.AccountAutoSave();
     }
 
     public void GenerateTrait()

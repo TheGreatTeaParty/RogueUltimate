@@ -61,6 +61,8 @@ public class InteractDetaction : MonoBehaviour
     {
         if (collision.GetComponent<IInteractable>() != null)
             DeleteInteractionData();
+        if (collision.GetComponent<ITalkable>() != null)
+            DeleteInteractionData();
     }
 
     public void DeleteInteractionData()

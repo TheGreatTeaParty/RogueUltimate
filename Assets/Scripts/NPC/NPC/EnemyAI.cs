@@ -164,7 +164,15 @@ public class EnemyAI : AI
         Attack();
         StartMoving();
     }
-
+    public void TriggerEnemy()
+    {
+        if (target)
+        {
+            State = NPCstate.Chasing;
+            _isTriggered = true;
+            StartMoving();
+        }
+    }
     protected void GenerateFollowPosition(Vector2 position)
     {
         if (AstarPath.active.data.gridGraph.GetNearest(position).node.Walkable)
