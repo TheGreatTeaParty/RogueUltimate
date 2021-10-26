@@ -1948,6 +1948,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
         type: 3}
+      propertyPath: DialogueUI
+      value: 
+      objectReference: {fileID: 279107747992934385, guid: d7ef964473e85435f9f3048971388543,
+        type: 3}
+    - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
+        type: 3}
       propertyPath: BarPosition
       value: 
       objectReference: {fileID: 1200393477}
@@ -2264,6 +2270,7 @@ MonoBehaviour:
   pointStandingTime: 3
   characterName: 0
   PhrasesInSpeech: 1
+  AmmountOfSpeeches: 1
 --- !u!212 &1103087940
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2704,6 +2711,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
+      propertyPath: DialogueUI
+      value: 
+      objectReference: {fileID: 279107747992934385, guid: d7ef964473e85435f9f3048971388543,
+        type: 3}
     - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
       propertyPath: PhraseCount
       value: 0
@@ -4951,11 +4963,13 @@ MonoBehaviour:
   attackCoolDown: 1.2
   attackDuration: 0.5
   colliderDetactionRadius: 0.3
-  DialogueUI: {fileID: 0}
+  DialogueUI: {fileID: 279107747992934385, guid: d7ef964473e85435f9f3048971388543,
+    type: 3}
   hangingPoints: []
   pointStandingTime: 3
   characterName: 0
   PhrasesInSpeech: 1
+  AmmountOfSpeeches: 1
   List2: []
   List3: []
 --- !u!95 &1669149823788451759

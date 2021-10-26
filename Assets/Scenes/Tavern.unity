@@ -830,6 +830,7 @@ MonoBehaviour:
   pointStandingTime: 3
   characterName: 0
   PhrasesInSpeech: 1
+  AmmountOfSpeeches: 1
 --- !u!212 &922907553
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -982,8 +983,9 @@ MonoBehaviour:
     type: 3}
   hangingPoints: []
   pointStandingTime: 3
-  characterName: 0
+  characterName: 3
   PhrasesInSpeech: 1
+  AmmountOfSpeeches: 1
   List2: []
   List3: []
 --- !u!95 &1055430874
@@ -1266,6 +1268,11 @@ PrefabInstance:
       propertyPath: barPosition
       value: 
       objectReference: {fileID: 762536870}
+    - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
+        type: 3}
+      propertyPath: characterName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9096455669997638433, guid: 9acb90418526e446b8181f3e848e23e7,
         type: 3}
       propertyPath: List2.Array.size
@@ -2342,6 +2349,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 279107747992934385, guid: d7ef964473e85435f9f3048971388543,
         type: 3}
+    - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
+      propertyPath: characterName
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1188127311, guid: 1030403e3245ad24bb0d25e138b231d3, type: 3}
       propertyPath: List3.Array.size
       value: 10

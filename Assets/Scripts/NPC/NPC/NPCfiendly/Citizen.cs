@@ -26,6 +26,8 @@ public class Citizen : AI,ITalkable
     protected DialogSystem.ECharacterNames characterName;
     [SerializeField]
     protected int PhrasesInSpeech = 1;
+    [SerializeField]
+    protected int AmmountOfSpeeches = 1;
 
     protected override void Start()
     {
@@ -36,9 +38,10 @@ public class Citizen : AI,ITalkable
             _currentHangingIndex = Random.Range(0, hangingPoints.Length);
             target = hangingPoints[_currentHangingIndex];
         }
-    }
+        AmmountOfSpeeches = 1;
+}
 
-    public virtual void FixedUpdate()
+public virtual void FixedUpdate()
     {
         switch (_state)
         {
@@ -107,6 +110,12 @@ public class Citizen : AI,ITalkable
     public void Talk()
     {
         var UI = Instantiate(DialogueUI);
-        UI.GetComponent<DialogueUI>().Init(_sprite, characterName, PhrasesInSpeech);
+        if(AmmountOfSpeeches == 0)
+            UI.GetComponent<DialogueUI>().Init(_sprite, characterName, 0);
+        else
+        {
+            UI.GetComponent<DialogueUI>().Init(_sprite, characterName, PhrasesInSpeech);
+            AmmountOfSpeeches--;
+        }
     }
 }   

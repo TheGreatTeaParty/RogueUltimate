@@ -57,6 +57,16 @@ public class DialogueUI : MonoBehaviour
                 }
             }
         }
+        else if(_phraseCount == 0 && _currentCount == _phraseCount)
+        {
+            string text = DialogSystem.GetDialogTextPlaceHolder(_characterEName);    //Currently return placeholder
+            if (text != null)
+                _coroutine = StartTyper(0.03f, text);
+            else
+            {
+                EndDialogue();
+            }
+        }
         else
         {
             EndDialogue();
