@@ -18,7 +18,8 @@ public class DialogSystem
         TavernKeeper,
         Smith,
         Master,
-        Dwarf
+        Dwarf,
+        Adventurer
     };
     private static int _enumCount = 5;
 

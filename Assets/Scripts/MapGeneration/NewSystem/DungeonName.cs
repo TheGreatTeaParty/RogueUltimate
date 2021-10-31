@@ -18,7 +18,6 @@ public class DungeonName : MonoBehaviour
     public void DisplayName()
     {
         DisplayTab.SetActive(true);
-        label.text = name;
         StartCoroutine(Wait());
     }
 

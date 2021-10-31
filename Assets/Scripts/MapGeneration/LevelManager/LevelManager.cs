@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
     private AsyncOperation asyncOperation;
     [SerializeField]
     private MobAdsSimple mobAds;
+    private Vector3 _playerPos;
 
     void Awake()
     {
@@ -52,10 +53,7 @@ public class LevelManager : MonoBehaviour
         asyncOperation = SceneManager.LoadSceneAsync(scenes.ToString());
         StartCoroutine(GetSceneLoadProgress(scenes));
 
-        //Tries to find player and move him to the 0 position
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
-            player.transform.position = position;
+        _playerPos = position;
 
         if (PlayerOnScene.Instance)
             PlayerOnScene.Instance.ShowPlayer();
@@ -79,10 +77,7 @@ public class LevelManager : MonoBehaviour
         asyncOperation = SceneManager.LoadSceneAsync(scenes);
         StartCoroutine(GetSceneLoadProgress(scenes));
 
-        //Tries to find player and move him to the 0 position
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
-            player.transform.position = position;
+        _playerPos = position;
 
         if (PlayerOnScene.Instance)
             PlayerOnScene.Instance.ShowPlayer();
@@ -131,6 +126,10 @@ public class LevelManager : MonoBehaviour
         {
             yield return null;
         }
+        //Tries to find player and move him to the 0 position
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+            player.transform.position = _playerPos;
 
         LoadScreen.gameObject.SetActive(false);
 

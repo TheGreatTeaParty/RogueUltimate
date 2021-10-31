@@ -4,6 +4,8 @@ using System.Collections;
 
 public class EnemyStat : CharacterStat, IDamaged
 {
+    public float HealthBonus = 0;
+    public float DamageBonus = 0;
     [Space]
     [SerializeField] Transform coin;
     [SerializeField] Transform XPOrb;

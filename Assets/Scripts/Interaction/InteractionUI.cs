@@ -32,6 +32,7 @@ public class InteractionUI : MonoBehaviour
     {
         _interactDetaction.CallTalkAction();
         _interactDetaction.DeleteInteractionData();
+
         SetInteractActive(false);
         SetTalkActive(false);
     }

@@ -41,7 +41,7 @@ public class TraitsGenerator : MonoBehaviour
     private NamesGenerator namesGenerator;
     private string _playerName;
     [SerializeField]
-    private TextMeshProUGUI _currentName;
+    private TMP_InputField _currentName;
     [SerializeField]
     private CharacterSkinCreator skinCreator;
 
@@ -76,7 +76,7 @@ public class TraitsGenerator : MonoBehaviour
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(0.1f);
-        characterStat.SetName(_playerName);
+        characterStat.SetName(_currentName.text);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[0]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[1]);
         characterStat.PlayerTraits.AddTrait(OutcomeTraits[2]);

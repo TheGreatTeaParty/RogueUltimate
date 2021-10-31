@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 237171699953542525}
   - component: {fileID: 2911620744672155574}
+  - component: {fileID: 789280193}
+  - component: {fileID: 789280192}
   m_Layer: 0
   m_Name: DugeonSound
   m_TagString: Untagged
@@ -25,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7314196069745072308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.828752, y: 0.05075814, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7400259767157858961}
@@ -50,6 +52,102 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 237
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 1
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &789280193
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314196069745072308}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b9c873be358337c4989f79534403389d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 183
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -127,6 +225,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &789280192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314196069745072308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25f1293607b448d68f6ad2ec5adca98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ambient: {fileID: 2911620744672155574}
+  Combat: {fileID: 789280193}
+  BattleClips:
+  - {fileID: 8300000, guid: b9c873be358337c4989f79534403389d, type: 3}
 --- !u!1 &7392238413876637606
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +287,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -235,15 +350,15 @@ RectTransform:
   m_GameObject: {fileID: 7400259766052360234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 7400259767603527237}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: 107}
+  m_SizeDelta: {x: -1960, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7400259766052360239
 CanvasRenderer:
@@ -268,6 +383,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -293,6 +409,7 @@ GameObject:
   - component: {fileID: 7400259766413719299}
   - component: {fileID: 7400259766413719298}
   - component: {fileID: 7400259766413719297}
+  - component: {fileID: 4455108877083916306}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -312,12 +429,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7400259767603527237}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 220, y: 60}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 67.62158, y: 134.719}
+  m_SizeDelta: {x: -1669.8998, y: 90.562}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7400259766413719298
 CanvasRenderer:
@@ -342,14 +459,15 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NAME
+  m_text: Inpolis Dungeon
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a8dfaaec65e5ae046848b1a55177942b, type: 2}
-  m_sharedMaterial: {fileID: -4872559302711231179, guid: a8dfaaec65e5ae046848b1a55177942b,
+  m_fontAsset: {fileID: 11400000, guid: c4953e7199ca14e38b0ad39ab05a3a10, type: 2}
+  m_sharedMaterial: {fileID: 3287248406764636868, guid: c4953e7199ca14e38b0ad39ab05a3a10,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -359,30 +477,31 @@ MonoBehaviour:
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 1
-  m_colorMode: 0
+  m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0.7924528, g: 0.5025112, b: 0.17568529, a: 1}
-    topRight: {r: 0.7924528, g: 0.5025112, b: 0.17568529, a: 1}
-    bottomLeft: {r: 0.7924528, g: 0.5025112, b: 0.17568529, a: 1}
-    bottomRight: {r: 0.7924528, g: 0.5025112, b: 0.17568529, a: 1}
+    topLeft: {r: 0.7075472, g: 0.5687964, b: 0.2236116, a: 1}
+    topRight: {r: 0.7075472, g: 0.5687964, b: 0.2236116, a: 1}
+    bottomLeft: {r: 0.4245283, g: 0.34931582, b: 0.16220185, a: 1}
+    bottomRight: {r: 0.4245283, g: 0.34931582, b: 0.16220185, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_outlineColor:
-    serializedVersion: 2
-    rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 54
+  m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 15
+  m_fontSizeMax: 54
   m_fontStyle: 1
-  m_textAlignment: 514
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -392,10 +511,8 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
-  m_isLinkedTextComponent: 0
-  m_isTextTruncated: 0
+  parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
@@ -403,42 +520,33 @@ MonoBehaviour:
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
-  m_ignoreRectMaskCulling: 0
-  m_ignoreCulling: 1
   m_horizontalMapping: 0
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 1
-  m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_textInfo:
-    textComponent: {fileID: 7400259766413719297}
-    characterCount: 4
-    spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
-    linkCount: 0
-    lineCount: 1
-    pageCount: 1
-    materialCount: 1
+  m_margin: {x: -130.15723, y: 0, z: -23.60608, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_spriteAnimator: {fileID: 0}
   m_hasFontAssetChanged: 0
-  m_subTextObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4455108877083916306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400259766413719356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd8412ebf8b4ede98e69db04cb0262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: DB1_name
 --- !u!1 &7400259766902441445
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,23 +610,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PossibleStartRooms:
   - {fileID: 7944816509076670818, guid: e8fdb60e3fefe4354bee5ebf4a7bcde3, type: 3}
+  - {fileID: 5664161905804915171, guid: 0d5b50ea6d16c4317ad626e2027d1b81, type: 3}
   PossibleNormalRooms:
   - {fileID: 1348299941413784412, guid: e0952793d1272414a8db9964df1c410b, type: 3}
   - {fileID: 9029649308137372516, guid: e73c20d092624432381cb47cecec0372, type: 3}
   - {fileID: 8461587429605898651, guid: cb9e94cca5c3d46f3b76363fb81afd83, type: 3}
   - {fileID: 4246164538600360389, guid: 8f38ea105e63d4d57bf8f35471b56948, type: 3}
   - {fileID: 5701149507971506440, guid: de8e562437d484cb8ab97fa8af434e15, type: 3}
+  - {fileID: 8252591577777418965, guid: df61a60b326b04fb0844825e39b45a69, type: 3}
+  - {fileID: 4935681066786600746, guid: 927d95ec6d2c54051b22082c192944c7, type: 3}
+  - {fileID: 2725073636270288109, guid: 2b537b9d7858b42b68680543e707e2c2, type: 3}
+  - {fileID: 4026639576249870091, guid: 0cfb179ad01854102b89e1c364e6b252, type: 3}
+  - {fileID: 8689800637359702798, guid: 38524119e7c454cfe867b7942f1437b3, type: 3}
+  - {fileID: 2176199058708853012, guid: 757e795dc6ddd433e83309dbe55d72f2, type: 3}
+  - {fileID: 7975772956652857345, guid: 1e73e547dc37e4dfabe5ec469795eccc, type: 3}
   PossibleHubRooms:
   - {fileID: 4812930667553742023, guid: 89f89d800101a410f903ea19d168a38a, type: 3}
   - {fileID: 7678646389224484438, guid: 32440817d22694545a82e178d56d2e12, type: 3}
   - {fileID: 7561047112162905766, guid: 6ffe0e7ca65bb48579673482050c4009, type: 3}
   - {fileID: 7078314621220951546, guid: 9896c0005b5c040608054d52aa5107d3, type: 3}
+  - {fileID: 1624644647124020338, guid: 58ee3458d16cd40d9b17b2dd47001910, type: 3}
+  - {fileID: 4112862291750786348, guid: 223f052c3025b41a09b70c92285ed860, type: 3}
   PossibleRewardRooms:
   - {fileID: 5096701011077229191, guid: 6c73bf3df520841cebef81a506facb8a, type: 3}
   PossibleShopRooms:
   - {fileID: 5980778864927504799, guid: 1828831da57ab4b4089e80a3a72e1905, type: 3}
   PossibleEventRooms:
-  - {fileID: 820748521538246939, guid: 152160c1430394957a68b9ca47d25751, type: 3}
+  - {fileID: 1720971856484408960, guid: afd67cdcec1c448d392c09aaad770a4f, type: 3}
+  - {fileID: 1962509594655703755, guid: b67a9a07316fc41f5a5e2a3f2c631905, type: 3}
+  - {fileID: 5050055928025057946, guid: ce005845520d94691a0e366568a00c34, type: 3}
+  - {fileID: 7997317955772208671, guid: 53485fc12a4b847d08ca234026fbb231, type: 3}
+  - {fileID: 4047548059119719648, guid: 70a898cc266404e569ba8bb88080313c, type: 3}
   PossibleBossRooms:
   - {fileID: 5829011140814437170, guid: 233456b57801b4f95afd7d108793b2b4, type: 3}
   dungeonName: {fileID: 7400259767200923502}
@@ -536,7 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAYIeyhL8avRwIAAO8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1v2zAM/SuBzsuQxF277LY5bbpDmqLZ0IsvskTbQmTJ0EeTtMh/HyXbtZuhJ9PkI/keSfuNCGUbYE6btRF8ozmQHxMSbPJlMgTv4UhLrXbiFXrMs+CuCiAaMU/UCY3+eUizugZnBPupShnAM3R6JQpt6lteQqqts+guqLSAIaNdyFboepuQIz6my5ByQmtxE6xXtJazyRlNBsqBGaA9sIe1KK+YpHUDPFAewEmPTlqYQjEdIhBnWkphOybEnZqo9Imegk4uKKqKrQO2AlFWLjAcJ26LwoLr6Bh6WgmDw2krkl+6nVhN7b7l9EKlj82/XyWLyKgtu/kPMZ3HcGF0fd93ns9CF1cJtkeOjFo3GurYvfpI3asDlXuaS3iuQD3otdFecQw640Oqt7BYDa/v4tIK2H7wt1QvnL75fDVBwznqP6ZS1HkIfb1qHTup47Tj4sHgXn4j4XgWtiuB3sDir4U/tBzfTxe4E8Y6DHUqVaCXa28ClNyhEWbPvEu1UWDGBRpQVLrTI5Zxl0u8iH2edUfDl9I172L9B3CREt0Dfja7CD3qw/uybKUPG7DV1jspFAyTDoEHnFOqlWpvbCypT9t5U1A2Siu94B9PiyyXN/Prb5AU18urHHg+hRwSdr1Y5os8PBISb08o1EnlY0u0Gw9uTQ3FFd5Z/wOZrA1t4r1zQw9r8VprOyCFKvSOGQC1/VDBgsEe+EnyWy5wPjtwTqi4bvKWEanZHnj2js+i0NujMzQb1GekES/aBU9G0vjDyMiZnP8BUEsDBBQAAAgIAAAYIezLpw2VawAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSpaW5oZlpqnGamaVJUmpKkm5qUqpxspmRZZJREogyVooFqi+pLEj1S8xNhegJSCzJSMvMS8nMS9dzL8pMcQcZrRRbCwBQSwECLQAUAAAICAAAGCHsoS/Gr0cCAADvBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAGCHsy6cNlWsAAAB4AAAACQAkAAAAAAAAAAAAAACUAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAEoDAAAAAA==
+    dataString: UEsDBBQAAAgIAACAn+uhL8avRwIAAO8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1v2zAM/SuBzsuQxF277LY5bbpDmqLZ0IsvskTbQmTJ0EeTtMh/HyXbtZuhJ9PkI/keSfuNCGUbYE6btRF8ozmQHxMSbPJlMgTv4UhLrXbiFXrMs+CuCiAaMU/UCY3+eUizugZnBPupShnAM3R6JQpt6lteQqqts+guqLSAIaNdyFboepuQIz6my5ByQmtxE6xXtJazyRlNBsqBGaA9sIe1KK+YpHUDPFAewEmPTlqYQjEdIhBnWkphOybEnZqo9Imegk4uKKqKrQO2AlFWLjAcJ26LwoLr6Bh6WgmDw2krkl+6nVhN7b7l9EKlj82/XyWLyKgtu/kPMZ3HcGF0fd93ns9CF1cJtkeOjFo3GurYvfpI3asDlXuaS3iuQD3otdFecQw640Oqt7BYDa/v4tIK2H7wt1QvnL75fDVBwznqP6ZS1HkIfb1qHTup47Tj4sHgXn4j4XgWtiuB3sDir4U/tBzfTxe4E8Y6DHUqVaCXa28ClNyhEWbPvEu1UWDGBRpQVLrTI5Zxl0u8iH2edUfDl9I172L9B3CREt0Dfja7CD3qw/uybKUPG7DV1jspFAyTDoEHnFOqlWpvbCypT9t5U1A2Siu94B9PiyyXN/Prb5AU18urHHg+hRwSdr1Y5os8PBISb08o1EnlY0u0Gw9uTQ3FFd5Z/wOZrA1t4r1zQw9r8VprOyCFKvSOGQC1/VDBgsEe+EnyWy5wPjtwTqi4bvKWEanZHnj2js+i0NujMzQb1GekES/aBU9G0vjDyMiZnP8BUEsDBBQAAAgIAACAn+vLpw2VawAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSpaW5oZlpqnGamaVJUmpKkm5qUqpxspmRZZJREogyVooFqi+pLEj1S8xNhegJSCzJSMvMS8nMS9dzL8pMcQcZrRRbCwBQSwECLQAUAAAICAAAgJ/roS/Gr0cCAADvBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAgJ/ry6cNlWsAAAB4AAAACQAkAAAAAAAAAAAAAACUAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAEoDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -687,7 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db32b2653a5df402da4f58c843ad9d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Ghost Dungeon
+  Name: Insitute Dungeon
   DisplayTime: 4
   label: {fileID: 7400259766413719297}
   DisplayTab: {fileID: 7400259767603527233}
@@ -703,13 +825,14 @@ GameObject:
   - component: {fileID: 7400259767603527238}
   - component: {fileID: 7400259767603527239}
   - component: {fileID: 7400259767603527232}
+  - component: {fileID: 1411184079514880131}
   m_Layer: 5
   m_Name: LabelCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7400259767603527237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -721,8 +844,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 7400259766413719299}
   - {fileID: 7400259766052360233}
+  - {fileID: 7400259766413719299}
   m_Father: {fileID: 7400259767200923501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -774,6 +897,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7400259767603527232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,3 +915,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &1411184079514880131
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400259767603527233}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e4696a64d45e0422bb155090408ae248, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

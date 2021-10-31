@@ -11,8 +11,8 @@ public class GoblinStat : EnemyStat
     public override void SetLevel(int level)
     {
         base.SetLevel(level);
-        maxHealth = 6 + 3 * level;
-        PhysicalDamage.SETBASE(2 + level * 3);
+        maxHealth = HealthBonus + 6 + 3 * level;
+        PhysicalDamage.SETBASE(DamageBonus + 2 + level * 3);
         PoisonChance = 0.2f + 0.05f * level;
     }
 }

@@ -142,12 +142,4 @@ public class PhysicalRoom : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Draw a semitransparent blue cube at the transforms position
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube(transform.position + (Vector3)(boxCollider.offset * transform.localScale),
-            boxCollider.size * transform.localScale * 1.1f);
-    }
 }
