@@ -21,7 +21,7 @@ public class DialogSystem
         Dwarf,
         Adventurer
     };
-    private static int _enumCount = 5;
+    private static int _enumCount = 6;
 
 
     private static bool _isInit = false;
@@ -79,7 +79,7 @@ public class DialogSystem
 
         for (int i = 0; i < _enumCount; i++)
         {
-            if(data.dialogIndexes!= null)
+            if(data.dialogIndexes!= null && i < data.dialogIndexes.Length)
                 _currentDialogIndex[(ECharacterNames)i] = data.dialogIndexes[i];
         }
     }

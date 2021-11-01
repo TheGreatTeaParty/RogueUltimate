@@ -157,13 +157,24 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public void GainXP(int gainedXP)
     {
-        if (level >= 20) return; // max level
+        if (level >= 25) return; // max level
         
         _xp += gainedXP;
-        if (_xp > _xpToNextLevel[level - 1])
+        if(level >= _xpToNextLevel.Length)
         {
-            _xp -= _xpToNextLevel[level - 1];
-            LevelUp();
+            if (_xp > _xpToNextLevel[_xpToNextLevel.Length - 1])
+            {
+                _xp -= _xpToNextLevel[_xpToNextLevel.Length - 1];
+                LevelUp();
+            }
+        }
+        else
+        {
+            if (_xp > _xpToNextLevel[level - 1])
+            {
+                _xp -= _xpToNextLevel[level - 1];
+                LevelUp();
+            }
         }
         
         onChangeCallback?.Invoke();

@@ -71,11 +71,11 @@ public class MainMenu : MonoBehaviour {
         if (_canStartNewGame)
         {
             SaveManager.DeletePlayer();
-            /*
+            
             if(!_firstTime)
                 LevelManager.Instance.LoadScene("StartTavern");
-            else*/
-                LevelManager.Instance.LoadScene("TutorialTavern"); //TODO tutorial scene here:
+            else
+                LevelManager.Instance.LoadScene("TutorialTavern");
         }
         else
         {
