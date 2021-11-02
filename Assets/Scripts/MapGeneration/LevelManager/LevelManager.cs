@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
         DB2,
         DB3,
         StartTavern,
+        TutorialTavern
     }
 
 
@@ -40,7 +41,7 @@ public class LevelManager : MonoBehaviour
     public void LoadScene(Scenes scenes, Vector3 position = new Vector3())
     {
         LoadScreen.gameObject.SetActive(true);
-        if(scenes != Scenes.Tavern && scenes != Scenes.StartTavern)
+        if(scenes != Scenes.Tavern && scenes != Scenes.StartTavern && scenes != Scenes.TutorialTavern)
         {
             SaveManager.AccountAutoSave();
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart,
@@ -65,7 +66,7 @@ public class LevelManager : MonoBehaviour
     public void LoadScene(String scenes, Vector3 position = new Vector3())
     {
         LoadScreen.gameObject.SetActive(true);
-        if (scenes != "Tavern" && scenes != "StartTavern")
+        if (scenes != "Tavern" && scenes != "StartTavern" && scenes !="TutorialTavern")
         {
             SaveManager.AccountAutoSave();
         }
@@ -105,13 +106,9 @@ public class LevelManager : MonoBehaviour
 
         LoadScreen.gameObject.SetActive(false);
 
-        //Save data every time Tavern is loaded:
-        if (scene == Scenes.StartTavern)
-            SaveManager.AccountAutoSave();
-
-        else if (scene == Scenes.Tavern)
+       
+        if (scene == Scenes.Tavern)
         {
-            SaveManager.AccountAutoSave();
             InterfaceManager.Instance.ShowTavernUI();
         }
         else
@@ -133,15 +130,8 @@ public class LevelManager : MonoBehaviour
 
         LoadScreen.gameObject.SetActive(false);
 
-        //Save data every time Tavern is loaded:
-        if (scene == "StartTavern")
+        if (scene == "Tavern")
         {
-            SaveManager.AccountAutoSave();
-        }
-
-        else if (scene == "Tavern")
-        {
-            //SaveManager.AccountAutoSave();
             InterfaceManager.Instance.ShowTavernUI();
         }
         else
