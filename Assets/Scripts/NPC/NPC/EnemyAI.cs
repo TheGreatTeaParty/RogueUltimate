@@ -11,6 +11,9 @@ public class EnemyAI : AI
     protected Vector3 followPosition;
     protected bool _isTriggered = false;
     protected SurroundPositions playerPositions;
+    protected GameObject followPos;
+    protected Vector2 _attackPosition;
+
 
     protected NPCstate State
     {
@@ -19,11 +22,15 @@ public class EnemyAI : AI
             if( value == NPCstate.Chasing)
             {
                 //Find the available postion arounf the player
-                GameObject Target = playerPositions.GetClosestPosition(transform.position, this);
-                if (Target)
+                //GameObject Target = playerPositions.GetClosestPosition(transform.position, this);
+               /* if (Target)
                 {
-                    target = Target;
+                    followPos = Target;
                 }
+                else
+                {*/
+                    followPos = target;
+                //}
                 state = value;
             }
         }
@@ -41,10 +48,6 @@ public class EnemyAI : AI
     
     protected virtual void FixedUpdate()
     {
-       /* if (Vector2.Distance(transform.position, target.transform.position) > attackRange && !isAttack
-            && Vector2.Distance(transform.position, target.transform.position) <= detectionRange)
-            state = NPCstate.Chasing;*/
-
         switch (state)
         {
             case NPCstate.Chasing:
@@ -86,7 +89,8 @@ public class EnemyAI : AI
                     seeker.StartPath(transform.position, followPosition, OnPathComplete);
                 else
                 {
-                    seeker.StartPath(transform.position, target.transform.position, OnPathComplete);
+                    if(followPos)
+                        seeker.StartPath(transform.position, followPos.transform.position, OnPathComplete);
                 }
             }
         }
@@ -137,8 +141,11 @@ public class EnemyAI : AI
         {
             base.StateChasing();
 
-            if (Vector2.Distance(transform.position, target.transform.position) <= (attackRange *0.9))
-                state = NPCstate.Attacking;
+            if (followPos)
+            {
+                if (Vector2.Distance(transform.position, followPos.transform.position) <= attackRange)
+                    state = NPCstate.Attacking;
+            }
         }
     }
 
@@ -157,6 +164,7 @@ public class EnemyAI : AI
     {
         isAttack = true;
         StopMoving();
+        _attackPosition = transform.position + (target.transform.position - transform.position).normalized * attackRange;
         yield return new WaitForSeconds(attackCoolDown);
         OnAttacked?.Invoke();
         yield return new WaitForSeconds(attackDuration);
@@ -164,22 +172,17 @@ public class EnemyAI : AI
         Attack();
         StartMoving();
     }
+
     public void TriggerEnemy()
     {
-        if (target)
+        if (target && !_isTriggered)
         {
             State = NPCstate.Chasing;
             _isTriggered = true;
             StartMoving();
         }
     }
-    protected void GenerateFollowPosition(Vector2 position)
-    {
-        if (AstarPath.active.data.gridGraph.GetNearest(position).node.Walkable)
-        {
-            followPosition = position;
-        }
-    }
+    
 
     protected bool IsPositionAvailable(Vector2 position)
     {

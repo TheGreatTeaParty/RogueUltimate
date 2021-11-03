@@ -99,7 +99,8 @@ public class EnemyStat : CharacterStat, IDamaged
         onReceivedDamage?.Invoke(damageReceived, _isCrit);
         onDamaged?.Invoke();
 
-        _enemyAi.TriggerEnemy();
+        if(_enemyAi)
+            _enemyAi.TriggerEnemy();
 
         //Make enemy blinding
         StartCoroutine(WaitAndChangeProperty());

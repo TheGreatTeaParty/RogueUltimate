@@ -4,7 +4,6 @@ using Pathfinding;
 public class Warrior : EnemyAI
 {
     protected LayerMask _whatIsEnemy;
-    protected Vector2 _attackPosition;
     protected Vector3 _direction;
 
 
@@ -18,7 +17,6 @@ public class Warrior : EnemyAI
     {
         base.Update();
         _direction = lastDirection;
-        _attackPosition = transform.position + _direction*attackRange;
     }
 
     protected override void Attack()
