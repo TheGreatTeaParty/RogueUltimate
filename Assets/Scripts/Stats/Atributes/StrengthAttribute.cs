@@ -64,7 +64,7 @@ public class StrengthAttribute
         DazeResistance.SETBASE(baseValue.Value * 0.02f);
         PoisonResistance.SETBASE(baseValue.Value * 0.02f);
         BleedResistance.SETBASE(baseValue.Value * 0.02f);
-        CritDamage.SETBASE(0.5f + baseValue.Value * 0.05f);
+        CritDamage.SETBASE(0.6f + baseValue.Value * 0.075f);
     }
 
     public float GetBaseValue()

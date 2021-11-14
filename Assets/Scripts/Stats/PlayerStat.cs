@@ -428,6 +428,10 @@ public class PlayerStat : CharacterStat, IDamaged
     {
         if (!_isDeathStarted)
         {
+            playerMovement.StopMoving();
+            PlayerCamera.Instance.ZoomInToPlayer();
+            Time.timeScale = 0.35f;
+
             FirebaseAnalytics.LogEvent("player_death",
                 new Parameter("level", level),
                 new Parameter("int", Intelligence.GetBaseValue()),
@@ -440,9 +444,13 @@ public class PlayerStat : CharacterStat, IDamaged
             gameObject.layer = 2;
             gameObject.tag = "Untagged";
             AccountManager.Instance.Renown += (Kills * 10);
-            InterfaceManager.Instance.HideFaceElements();
-            InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
         }
+    }
+    public void OpenDiePanel()
+    {
+        Time.timeScale = 1f;
+        InterfaceManager.Instance.HideFaceElements();
+        InterfaceManager.Instance.gameObject.GetComponentInChildren<DiePanel>().PlayerStartDie();
     }
 
     private bool Dodge()

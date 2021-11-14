@@ -18,7 +18,7 @@ public class TavernKeeperUpgrade : MonoBehaviour
     private float Level2Price = 350;
     private float Level3Price = 1000;
     private float Level4Price = 1500;
-    private float Level5Price = 2000;
+    private float Level5Price = 2500;
 
     [Space]
     [HideInInspector]

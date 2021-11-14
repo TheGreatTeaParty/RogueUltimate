@@ -2,10 +2,18 @@
 
 public class BossStats : EnemyStat
 {
+    public override void SetLevel(int level)
+    {
+        base.SetLevel(level);
+        maxHealth = 220 + (float)((3+1.8*level) * level);
+        PhysicalDamage.SETBASE(level*5 - 16);
+        PhysicalProtection.SETBASE(6 + level);
+        MagicProtection.SETBASE(4 + level);
+    }
+
     public override bool TakeDamage(float phyDamage, float magDamage)
     {
         base.TakeDamage(phyDamage, magDamage);
-        BossFightPortal.Instance.SetBossHealth(CurrentHealth);
         return true;
     }
     

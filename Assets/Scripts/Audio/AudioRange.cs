@@ -12,17 +12,25 @@ public class AudioRange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision)
         {
-            source.Play();
+            if (collision.CompareTag("Player"))
+            {
+                if (source)
+                    source.Play();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision)
         {
-            source.Stop();
+            if (collision.CompareTag("Player"))
+            {
+                if (source)
+                    source.Stop();
+            }
         }
     }
 }

@@ -7,8 +7,8 @@ public class OgreStat : EnemyStat
     public override void SetLevel(int level)
     {
         base.SetLevel(level);
-        maxHealth = 20 + 7 * level;
-        PhysicalDamage.SETBASE(3 + level);
+        maxHealth = 20 + 7 * level + HealthBonus* level;
+        PhysicalDamage.SETBASE(3 + level + DamageBonus *level);
         PhysicalProtection.SETBASE(level);
         MagicProtection.SETBASE(2+level);
     }

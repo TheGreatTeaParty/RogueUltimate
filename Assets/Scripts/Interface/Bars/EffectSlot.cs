@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EffectSlot : MonoBehaviour
 {
     public Image Icon;
     public Effect Effect;
+    public TextMeshProUGUI Ticks;
 
     public void SetEffect(Effect _effect)
     {

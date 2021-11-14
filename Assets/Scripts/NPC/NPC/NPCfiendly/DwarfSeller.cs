@@ -2,14 +2,14 @@
 
 public class DwarfSeller : Citizen,IInteractable
 {
+    [SerializeField] NPCInventory _NPCInventory;
     public void Interact()
     {
             // Bind the info for TradeManager
             var playerInventory = CharacterManager.Instance.Inventory;
-            var npcInventory = GetComponent<NPCInventory>();
             var tradeManager = TradeManager.Instance;
 
-            tradeManager.Bind(playerInventory, npcInventory);
+            tradeManager.Bind(playerInventory, _NPCInventory);
             tradeManager.Open(TradeManager.tradeType.dwarf);
     }
 

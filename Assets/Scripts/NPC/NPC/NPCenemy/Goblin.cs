@@ -81,7 +81,7 @@ public class Goblin : Warrior
     {
         animator.SetTrigger("Roll");
         direction = dir;
-        rb.AddForce(dir.normalized * 1000 * RollForce);
+        rb.AddForce(dir.normalized * 750 * RollForce);
         if (!_started)
             StartCoroutine(EnemyWait());
         else

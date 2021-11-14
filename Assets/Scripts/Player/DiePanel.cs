@@ -12,7 +12,6 @@ public class DiePanel : MonoBehaviour
     private GameObject image;
     public Transform results;
 
-
     public void PlayerStartDie()
     {
         var UI = InterfaceManager.Instance;

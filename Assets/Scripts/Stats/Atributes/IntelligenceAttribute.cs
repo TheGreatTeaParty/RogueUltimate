@@ -47,10 +47,12 @@ public class IntelligenceAttribute
     {
         baseValue.SETBASE(0);
     }
+
     public void ClearAttribute()
     {
         baseValue.RemoveAllModifiers();
     }
+
     private void RecalculateStats()
     {
         MaxMana.SETBASE(10 + baseValue.Value * 4);
@@ -58,7 +60,7 @@ public class IntelligenceAttribute
         FireResistance.SETBASE(baseValue.Value * 0.02f);
         FreezeResistance.SETBASE(baseValue.Value * 0.02f);
         CurseResistance.SETBASE(baseValue.Value * 0.02f);
-        MagicalCrit.SETBASE(0.5f + baseValue.Value * .05f);
+        MagicalCrit.SETBASE(0.6f + baseValue.Value * 0.075f);
     }
 
     public float GetBaseValue()

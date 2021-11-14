@@ -199,7 +199,7 @@ public class PointsManager : MonoBehaviour
         StrengthPoint.text = Strength.GetBaseValue().ToString();
         MaxHP.text = Strength.MaxHealth.Value.ToString();
         PhysicalCrit.text = (Strength.CritDamage.Value * 100).ToString() + "%";
-        PhResistance.text = (Strength.BleedResistance.Value).ToString() + "%";
+        PhResistance.text = (Strength.BleedResistance.Value * 100).ToString() + "%";
     }
 
     private void UpdateAgility()

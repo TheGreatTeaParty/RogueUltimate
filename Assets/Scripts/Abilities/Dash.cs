@@ -5,6 +5,7 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Abilities/Dash")] 
 public class Dash : ActiveAbility
 {
+    public Transform DamageArea;
     public float bounce;
     private float _weaponDamage;
 
@@ -22,32 +23,20 @@ public class Dash : ActiveAbility
         var rb2D = player.GetComponent<Rigidbody2D>();
 
 
-        player.rb.AddForce(player.playerMovement.GetDirection() * (rb2D.mass * bounce));
+        player.rb.AddForce(player.playerMovement.GetDirection().normalized * (rb2D.mass * bounce));
         player.playerMovement.StartCoroutine(player.playerMovement.DisablePlayerControll(0.4f));
         var trail = Instantiate(player.playerMovement.trailRenderer, player.GetComponent<Transform>());
-
-        _enemyMask = LayerMask.GetMask("Enemy");
-        Collider2D[] enemiesToDamage = Physics2D.
-            OverlapCircleAll(player.gameObject.transform.position, 1, _enemyMask);
 
         EquipmentItem equipmentWeapon = equipment.equipmentSlots[5].Item as EquipmentItem;
         if (equipmentWeapon == null) _weaponDamage = 0;
         else _weaponDamage = equipmentWeapon.GetDamageBonus();
 
-
-        // Damage near enamies
-        for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            var vector = enemiesToDamage[i].gameObject.transform.position - player.transform.position;
-            enemiesToDamage[i].GetComponent<EnemyStat>().
-                TakeDamage(player.stats.Strength.GetBaseValue() + _weaponDamage, 0f, vector.normalized, 100000);
-        }
-
+        var _damageArea = Instantiate(DamageArea);
+        var _area = _damageArea.GetComponent<DamageArea>();
+        _area.target = player.gameObject;
+        _area.damage = player.stats.Strength.GetBaseValue() + (int)(0.75 *_weaponDamage);
 
         Destroy(trail, 1f);
-
-
-
     }
         
     

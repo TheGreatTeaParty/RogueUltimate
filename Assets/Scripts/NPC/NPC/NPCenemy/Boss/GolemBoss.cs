@@ -11,8 +11,6 @@ public enum BossStage
 
 public class GolemBoss : EnemyAI
 {
-    public GameObject Lamp;
-    [Space]
     public float speed = 4f;
     public float meleRange = 1.4f;
     public float rockRange = 12f;
@@ -54,13 +52,12 @@ public class GolemBoss : EnemyAI
         _stage = BossStage.Second;
 
         target = GameObject.FindGameObjectWithTag("Player");
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
         range_attack_time_left = RangeAttackCoolDown;
 
         // Cache
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _whatIsEnemy = LayerMask.GetMask("Player");
-        BossFightPortal.Instance.HealthBar(true);
     }
 
     protected override void Update()
@@ -125,7 +122,7 @@ public class GolemBoss : EnemyAI
     public void EndTransformation()
     {
         StartMoving();
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
         ScreenShakeController.Instance.StartShake(1f, 0.7f);
     }
 
@@ -148,7 +145,7 @@ public class GolemBoss : EnemyAI
         {
             if (!isAttack)
             {
-                state = NPCstate.Chasing;
+                State = NPCstate.Chasing;
                 StartMoving();
             }
         }
@@ -170,7 +167,7 @@ public class GolemBoss : EnemyAI
         {
             rest_time_left = restTime;
             current_attack_index = 1;
-            state = NPCstate.Chasing;
+            State = NPCstate.Chasing;
         }
         ScreenShakeController.Instance.StartShake(0.8f, 0.5f);
     }
@@ -182,7 +179,7 @@ public class GolemBoss : EnemyAI
         {
             rest_time_left = restTime;
             current_attack_index = 1;
-            state = NPCstate.Chasing;
+            State = NPCstate.Chasing;
         }
         ScreenShakeController.Instance.StartShake(0.8f, 0.5f);
     }
@@ -225,7 +222,7 @@ public class GolemBoss : EnemyAI
 
         isAttack = false;
         IsRange = false;
-        state = NPCstate.Chasing;
+        State = NPCstate.Chasing;
         range_attack_time_left = RangeAttackCoolDown;
     }
 
@@ -236,7 +233,7 @@ public class GolemBoss : EnemyAI
         isAttack = true;
         endPoint = target.transform.position;
         _dir = (target.transform.position - transform.position).normalized;
-        state = NPCstate.IDLE;
+        State = NPCstate.IDLE;
 
         //rb.AddForce(new Vector2(0, 50f));
         //rb.gravityScale = 2;
@@ -262,23 +259,12 @@ public class GolemBoss : EnemyAI
 
     void Fly()
     {
-        if (Vector2.Distance(transform.position, endPoint) < 0.8f)
+        if (Vector2.Distance(transform.position, endPoint) < 1f)
         {
-            state = NPCstate.Attacking;
+            State = NPCstate.Attacking;
             Land();
-            rb.gravityScale = 0;
         }
         else
             rb.MovePosition(transform.position + _dir * 10 * Time.deltaTime);
-    }
-
-    public void TurnONLamp()
-    {
-        Lamp.SetActive(true);
-    }
-
-    public void TurnOFFLamp()
-    {
-        Lamp.SetActive(false);
     }
 }

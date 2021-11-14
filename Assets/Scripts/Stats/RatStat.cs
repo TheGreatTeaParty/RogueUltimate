@@ -7,7 +7,7 @@ public class RatStat : EnemyStat
     public override void SetLevel(int level)
     {
         base.SetLevel(level);
-        maxHealth = 8 + 4 * level;
-        PhysicalDamage.SETBASE(2 + level * 2);
+        maxHealth = 8 + 4 * level + HealthBonus * level;
+        PhysicalDamage.SETBASE(2 + level * 2 + DamageBonus * level);
     }
 }

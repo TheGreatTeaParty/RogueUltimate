@@ -82,8 +82,10 @@ public class CharacterManager : MonoBehaviour
                         inventory.AddItem(previousItem);
                         onEquipmentChanged?.Invoke(item, previousItem);
                     }
+                    else
+                        onEquipmentChanged?.Invoke(item, null);
+
                     AudioManager.Instance.Play("Equip");
-                    onEquipmentChanged?.Invoke(item, null);
                 }
                 else
                 {

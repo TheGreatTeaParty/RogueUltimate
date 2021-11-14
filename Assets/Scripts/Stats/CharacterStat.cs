@@ -111,14 +111,14 @@ public class CharacterStat : MonoBehaviour
         float magDamage;
         //Calculate the incoming damage:
         if (_phyDamage != 0)
-            phyDamage = _phyDamage * (_phyDamage / (_phyDamage + physicalProtection.Value));
+            phyDamage = _phyDamage * (float)(1f - (0.07 * physicalProtection.Value) / (1 + 0.07 * 0.07 * physicalProtection.Value));
         else
             phyDamage = 0;
         if (_magDamage != 0)
-            magDamage = _magDamage * (_magDamage / (_magDamage + magicProtection.Value));
+            magDamage = _magDamage * (float)(1f - (0.07 * magicProtection.Value) / (1 + 0.07 * 0.07 * magicProtection.Value));
         else
             magDamage = 0;
-        damageReceived = (phyDamage + magDamage);
+        damageReceived = (int)(phyDamage + magDamage);
         //Trigger the Stager Timer:
         _stager_time_left = STAGER_TIME;
         StagerLogic(damageReceived);

@@ -26,8 +26,8 @@ public class EvadeVisual : MonoBehaviour
         var position = transform.position;
         StartCoroutine("WaitAndChangeProperty");
         Transform text = Instantiate(textPb, new Vector3(position.x, position.y + 0.5f, position.z), Quaternion.identity);
-        TextMeshProUGUI temp = text.GetComponent<TextMeshProUGUI>();
-        temp.text = LocalizationSystem.GetLocalisedValue("Evade");
+        TextMeshProUGUI temp = text.GetComponentInChildren<TextMeshProUGUI>();
+        temp.text = LocalizationSystem.GetLocalisedValue("evade");
         temp.fontSize = 2;
         temp.color = new Color32(166, 166, 166, 255);
     }

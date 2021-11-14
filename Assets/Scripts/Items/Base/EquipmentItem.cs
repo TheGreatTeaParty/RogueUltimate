@@ -65,8 +65,12 @@ public class EquipmentItem : Item
     {
         if (physicalDamageBonus != 0) 
             stats.PhysicalDamage.AddModifier(new StatModifier(physicalDamageBonus, StatModifierType.Flat, this));
-        if (physicalProtectionBonus != 0) 
+        if (physicalProtectionBonus != 0)
+        {
             stats.PhysicalProtection.AddModifier(new StatModifier(physicalProtectionBonus, StatModifierType.Flat, this));
+            if(physicalProtectionBonus > 6)
+                stats.Agility.dodgeChance.AddModifier(new StatModifier(-(1 - (12 - physicalProtectionBonus) / 10) * stats.Agility.dodgeChance.Value,StatModifierType.Flat,this));
+        }
         if (magicDamageBonus != 0) 
             stats.MagicDamage.AddModifier(new StatModifier(magicDamageBonus, StatModifierType.Flat, this));
         if (magicProtectionBonus != 0) 
@@ -92,6 +96,8 @@ public class EquipmentItem : Item
     public virtual void Unequip(PlayerStat stats)
     {
         stats.PhysicalDamage.RemoveAllModifiersFromSource(this);
+        if (physicalProtectionBonus > 6)
+            stats.Agility.dodgeChance.RemoveAllModifiersFromSource(this);
         stats.PhysicalProtection.RemoveAllModifiersFromSource(this);
         stats.MagicDamage.RemoveAllModifiersFromSource(this);
         stats.MagicProtection.RemoveAllModifiersFromSource(this);

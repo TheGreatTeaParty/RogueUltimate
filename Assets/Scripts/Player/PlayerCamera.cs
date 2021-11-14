@@ -36,9 +36,12 @@ public class PlayerCamera : MonoBehaviour
     // Cache
     private Vector3 _desiredPosition;
     private Vector3 _smoothedPosition;
+    bool _isDead = false;
 
     private void Start()
     {
+        _isDead = false;
+
         if (gameObject.CompareTag("Player") && prefab)
         {
             Instantiate(prefab, transform.position, Quaternion.identity, null);
@@ -58,8 +61,18 @@ public class PlayerCamera : MonoBehaviour
     }
     public void SetOffset(Vector2 vector)
     {
-        offset.x = vector.x;
-        offset.y = vector.y;
+        if (!_isDead)
+        {
+            offset.x = vector.x;
+            offset.y = vector.y;
+        }
+    }
+    public void ZoomInToPlayer()
+    {
+        _isDead = true;
+        offset.x = 0;
+        offset.y = 0;
+        offset.z = -3;
     }
     
 }

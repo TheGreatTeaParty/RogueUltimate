@@ -7,8 +7,6 @@ public class FireShield : MonoBehaviour
     [SerializeField] private Effect _fireEffect;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // var stats = PlayerOnScene.Instance.stats;
-
         if (collision.CompareTag("Enemy"))
         {
             IDamaged damaged = collision.GetComponent<IDamaged>();
@@ -16,8 +14,9 @@ public class FireShield : MonoBehaviour
 
             if (damaged != null)
             {
-                // damaged.TakeDamage(0, 1 * stats.Intelligence.GetBaseValue());
-                character.EffectController.AddEffect(Instantiate(_fireEffect), character);
+                Effect newFireEffect = Instantiate(_fireEffect);
+                newFireEffect.Intensity = CharacterManager.Instance.Stats.Intelligence.GetBaseValue();
+                character.EffectController.AddEffect(newFireEffect, character);
             }
 
         }
