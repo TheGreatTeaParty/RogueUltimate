@@ -7,8 +7,8 @@ public class BossStats : EnemyStat
         base.SetLevel(level);
         maxHealth = 220 + (float)((3+1.8*level) * level);
         PhysicalDamage.SETBASE(level*5 - 16);
-        PhysicalProtection.SETBASE(6 + level);
-        MagicProtection.SETBASE(4 + level);
+        PhysicalProtection.SETBASE(4 + level);
+        MagicProtection.SETBASE(2 + level);
     }
 
     public override bool TakeDamage(float phyDamage, float magDamage)

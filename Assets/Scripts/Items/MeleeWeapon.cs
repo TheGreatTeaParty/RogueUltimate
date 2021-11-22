@@ -26,15 +26,15 @@ public class MeleeWeapon : EquipmentItem
     public float knockBackModifier;
     public float pushForceMofifier;
     [Space]
-    [SerializeField] private int requiredStamina;
-    [SerializeField] private int requiredMana;
-    [SerializeField] private int requiredHealth;
+    [SerializeField] protected int requiredStamina;
+    [SerializeField] protected int requiredMana;
+    [SerializeField] protected int requiredHealth;
     [Space]
     public Transform HitEffect;
 
-    private LayerMask _whatIsEnemy;
-    private Vector2 _attackPosition;
-    private WeaponRenderer _weaponRenderer;
+    protected LayerMask _whatIsEnemy;
+    protected Vector2 _attackPosition;
+    protected WeaponRenderer _weaponRenderer;
 
     public int RequiredMana => requiredMana;
     public int RequiredStamina => requiredStamina;

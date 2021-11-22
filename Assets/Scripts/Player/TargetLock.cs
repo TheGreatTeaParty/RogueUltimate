@@ -132,4 +132,11 @@ public class TargetLock : MonoBehaviour
             return Vector3.zero;
         }
     }
+    public float CheckTheDistance()
+    {
+        if (target)
+            return Vector2.Distance(target.transform.position, transform.position);
+        else
+            return 0;
+    }
 }

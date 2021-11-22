@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using Firebase.Analytics;
+using TMPro;
 
 
 public class PlayerStat : CharacterStat, IDamaged
@@ -112,8 +113,10 @@ public class PlayerStat : CharacterStat, IDamaged
 
     public PlayerMovement playerMovement;
     public PlayerAttack playerAttack;
-    
-    
+
+    public Transform textPb;
+
+
     private void Start()
     {
         if(PlayerTraits == null)
@@ -462,6 +465,25 @@ public class PlayerStat : CharacterStat, IDamaged
         OnEvadeTriggered?.Invoke();
         return true;
     }
+
+    public void CreatePlayerSign(string _text, Color32 color, float _fontSize)
+    {
+        Transform text = Instantiate(textPb, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        TextMeshProUGUI temp = text.GetComponentInChildren<TextMeshProUGUI>();
+        temp.text = LocalizationSystem.GetLocalisedValue(_text);
+        temp.fontSize = _fontSize;
+        temp.color = color;
+    }
+
+    public void CreatePlayerSign(float _number, Color32 color, float _fontSize)
+    {
+        Transform text = Instantiate(textPb, new Vector3(transform.position.x + 0.2f, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        TextMeshProUGUI temp = text.GetComponentInChildren<TextMeshProUGUI>();
+        temp.text = _number.ToString();
+        temp.fontSize = _fontSize;
+        temp.color = color;
+    }
+
 
     public (float, bool) GetPhysicalCritDamage()
     {
