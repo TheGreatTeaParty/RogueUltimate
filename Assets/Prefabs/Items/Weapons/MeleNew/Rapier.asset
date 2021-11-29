@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2a9a7a6c17462fb98ef69a572492d, type: 3}
-  m_Name: Whip
+  m_Script: {fileID: 11500000, guid: e5a2de12238a04293b80dc7cf97de5c6, type: 3}
+  m_Name: Rapier
   m_EditorClassIdentifier: 
   ID: 0
-  tier: 3
+  tier: 4
   price: 0
   itemName: 
   description: 
-  sprite: {fileID: -3485167281599144675, guid: 3d8521bd9b5db204a9f0d45c097e83ce, type: 3}
-  stackMaxSize: 0
+  sprite: {fileID: 7162288541462275150, guid: 3d8521bd9b5db204a9f0d45c097e83ce, type: 3}
+  stackMaxSize: 1
   EqipmnetArmorType: 0
   equipmentType: 0
-  AttackAnimationType: 1
+  AttackAnimationType: 4
   IdleAnimation: []
-  physicalDamageBonus: 6
+  physicalDamageBonus: 10
   physicalProtectionBonus: 0
   magicDamageBonus: 0
   magicProtectionBonus: 0
@@ -39,17 +39,18 @@ MonoBehaviour:
   requiredIntelligence: 0
   requiredAgility: 0
   _effect: {fileID: 0}
-  AttackEffect: {fileID: 1458728290687400293, guid: 3ea9a417afe5442aaa88e1a92ea0a916,
+  AttackEffect: {fileID: 7133480296813114311, guid: 83fa475e08e5445eca08ce00fafa5ddf,
     type: 3}
   WeaponType: 0
-  attackSpeedMofifier: 0.75
-  attackRangeMofifier: 3
+  attackSpeedMofifier: 0.8
+  attackRangeMofifier: 0.65
   knockBackModifier: 0
   pushForceMofifier: 0
-  requiredStamina: 8
+  requiredStamina: 7
   requiredMana: 0
   requiredHealth: 0
   HitEffect: {fileID: 8902990520113595199, guid: 5c9efdccf74034711a42bcc50d109a8d,
     type: 3}
   StartAttackSound: {fileID: 0}
   EndAttackSound: {fileID: 0}
+  splashRadius: 1
