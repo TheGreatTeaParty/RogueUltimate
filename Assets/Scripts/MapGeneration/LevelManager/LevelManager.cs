@@ -70,7 +70,7 @@ public class LevelManager : MonoBehaviour
         {
             SaveManager.AccountAutoSave();
         }
-        else if (scenes == "Tavern" || scenes == "StartTavern")
+        else if (scenes == "Tavern" || scenes == "StartTavern" && scenes == "TutorialTavern")
         {
             _levelLoaded++;
         }

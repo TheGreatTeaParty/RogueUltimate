@@ -51,7 +51,7 @@ public class AgilityAttribute
     {
         MaxStamina.SETBASE(16 + baseValue.Value * 3);
         StaminaRegeniration.SETBASE(4 + baseValue.Value * 0.6f);
-        CritChance.SETBASE((int)(0.03 * baseValue.Value/(1 + 0.03 * baseValue.Value))*100); //5 + baseValue.Value * 1.72f
+        CritChance.SETBASE((int)((0.03 * baseValue.Value/(1 + 0.03 * baseValue.Value)) * 100)); //5 + baseValue.Value * 1.72f
         dodgeChance.SETBASE((int)((0.015 * baseValue.Value) / (1 + 0.015* baseValue.Value) * 100));
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DwarfSeller : Citizen,IInteractable
+public class DwarfSeller : Citizen, IInteractable
 {
     [SerializeField] NPCInventory _NPCInventory;
     public void Interact()

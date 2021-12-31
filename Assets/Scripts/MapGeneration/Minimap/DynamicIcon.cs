@@ -22,12 +22,20 @@ public class DynamicIcon : MonoBehaviour
     private bool _triggeredOn = false;
     private bool _triggeredOff = false;
 
+    private PhysicalRoom currentRoom;
+
+    private void Awake()
+    {
+        currentRoom = GetComponentInParent<PhysicalRoom>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         _lights = LightParent.GetComponentsInChildren<Light2D>();
         _doorIcons = DoorParent.GetComponentsInChildren<SpriteRenderer>();
+
 
         if (TurnOff)
         {
@@ -68,6 +76,7 @@ public class DynamicIcon : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            currentRoom.ActivateRooms();
             if (sprite)
             {
                 if (!sprite.enabled)
@@ -75,7 +84,6 @@ public class DynamicIcon : MonoBehaviour
                 sprite.color = new Color(0.6f, 0.6f, 0.6f);
             }
             SetDoorsIconState(true);
-
             //Discover a new room tirn the light on
             SetLightsState(true);
             if (_roomLight)

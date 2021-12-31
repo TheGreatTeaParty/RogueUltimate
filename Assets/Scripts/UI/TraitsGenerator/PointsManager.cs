@@ -208,7 +208,7 @@ public class PointsManager : MonoBehaviour
         AgilityPoint.text = Agility.GetBaseValue().ToString();
         MaxSP.text = Agility.MaxStamina.Value.ToString();
         SPRegen.text = Agility.StaminaRegeniration.Value.ToString();
-        CritChance.text = Agility.CritChance.Value.ToString() + "%"; ;
+        CritChance.text = Agility.CritChance.Value.ToString() + "%";
         Evade.text = Agility.dodgeChance.Value.ToString() + "%";
     }
 

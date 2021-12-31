@@ -7,6 +7,7 @@ public class PhysicalRoom : MonoBehaviour
     public int id;
     public RoomType roomType = RoomType.Normal;
     public Door[] doors;
+    public List<PhysicalRoom> NextRooms;
 
     public Door.Direction NextDoorDir = Door.Direction.None;
     public Door.Direction PrevDoorDir = Door.Direction.None;
@@ -21,6 +22,18 @@ public class PhysicalRoom : MonoBehaviour
         doors = GetComponentsInChildren<Door>();
         layerMask = LayerMask.GetMask("Door");
         boxCollider = GetComponent<BoxCollider2D>();
+        NextRooms = new List<PhysicalRoom>();
+    }
+    private void Start()
+    {
+        if(roomType == RoomType.Start || prevRoom && prevRoom.roomType == RoomType.Start)
+        {
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public bool GenerateNextDoor()
@@ -120,7 +133,6 @@ public class PhysicalRoom : MonoBehaviour
     {
         Collider2D[] room = Physics2D.OverlapBoxAll(transform.position + (Vector3)(boxCollider.offset * transform.localScale),
             boxCollider.size* transform.localScale*1.3f, 0, layerMask);
-        Debug.Log($"{this.name}, {room.Length}");
         if (room.Length > 1)
         {
             return false;
@@ -137,9 +149,35 @@ public class PhysicalRoom : MonoBehaviour
     {
         prevRoom = room;
     }
+    public void SetNextRoom(PhysicalRoom room)
+    {
+        NextRooms.Add(room);
+    }
 
     public void DestroyRoom()
     {
         Destroy(gameObject);
+    }
+    public void ActivateRooms()
+    {
+        //Prev rooms:
+        if (prevRoom)
+        {
+            foreach (PhysicalRoom room in prevRoom.NextRooms)
+            {
+                if (room != this)
+                {
+                    room.gameObject.SetActive(false);
+                }
+            }
+            if (prevRoom.prevRoom)
+                prevRoom.prevRoom.gameObject.SetActive(false);
+            prevRoom.gameObject.SetActive(true);
+        }
+        //Nextrooms:
+        foreach (PhysicalRoom room in NextRooms)
+        {
+            room.gameObject.SetActive(true);
+        }
     }
 }

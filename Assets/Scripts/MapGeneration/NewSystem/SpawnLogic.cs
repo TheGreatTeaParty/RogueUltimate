@@ -126,6 +126,7 @@ public class SpawnLogic : MonoBehaviour
                     //Assign the door that should be connected to prev room
                     _spawnedRoom.GenerateNextDoor();
                     physicalRoom.ConnectNextDoor();
+                    physicalRoom.SetNextRoom(_spawnedRoom);
                     _spawnedRoom.SetPreviousRoom(physicalRoom);
                     return _spawnedRoom;
                 }

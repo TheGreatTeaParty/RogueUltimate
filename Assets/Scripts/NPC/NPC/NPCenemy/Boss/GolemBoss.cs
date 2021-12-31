@@ -259,7 +259,7 @@ public class GolemBoss : EnemyAI
 
     void Fly()
     {
-        if (Vector2.Distance(transform.position, endPoint) < 1f)
+        if (Vector2.Distance(transform.position, endPoint) < 1.5f)
         {
             State = NPCstate.Attacking;
             Land();
