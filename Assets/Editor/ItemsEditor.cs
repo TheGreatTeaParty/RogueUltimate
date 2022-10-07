@@ -62,7 +62,7 @@ public class ItemsEditor : EditorWindow
         itemList.itemHeight = 16;
         itemList.selectionType = SelectionType.Single;
 
-        itemList.onSelectionChanged += (enumerable) =>
+        itemList.onSelectionChange += (enumerable) =>
          {
              foreach (Object it in enumerable)
              {
@@ -106,7 +106,7 @@ public class ItemsEditor : EditorWindow
                  LoadItemImage(item.Sprite);
              }
          };
-        itemList.Refresh();
+        itemList.Rebuild();
     }
 
     private void FindAllItems(out Item[] items)
@@ -143,7 +143,7 @@ public class ItemsEditor : EditorWindow
         else
             itemList.selectedIndex = index - 1;
         AssetDatabase.SaveAssets();
-        itemList.Refresh();
+        itemList.Rebuild();
         CreateItemsListView();
     }
    

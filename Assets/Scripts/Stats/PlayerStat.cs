@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using Firebase.Analytics;
+//using Firebase.Analytics;
 using TMPro;
 
 
@@ -435,12 +435,12 @@ public class PlayerStat : CharacterStat, IDamaged
             PlayerCamera.Instance.ZoomInToPlayer();
             Time.timeScale = 0.35f;
 
-            FirebaseAnalytics.LogEvent("player_death",
+          /*  FirebaseAnalytics.LogEvent("player_death",
                 new Parameter("level", level),
                 new Parameter("int", Intelligence.GetBaseValue()),
                 new Parameter("agil", Agility.GetBaseValue()),
                 new Parameter("stren", Strength.GetBaseValue()),
-                new Parameter("kills", Kills));
+                new Parameter("kills", Kills));*/
 
             _isDeathStarted = true;
             animator.SetTrigger("Die");

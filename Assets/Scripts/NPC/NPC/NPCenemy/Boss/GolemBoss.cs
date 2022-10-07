@@ -150,6 +150,12 @@ public class GolemBoss : EnemyAI
             }
         }
     }
+    protected override void StateChasing()
+    {
+        if (rest_time_left > 0)
+            return;
+        base.StateChasing();
+    }
 
     private void MeleeAttack()
     {
@@ -211,7 +217,7 @@ public class GolemBoss : EnemyAI
 
     public void CreateStone()
     {
-        var position = transform.position;
+        var position = _collider.bounds.center;
         var targetPosition = target.transform.position;
         
         var rock = 
@@ -223,6 +229,7 @@ public class GolemBoss : EnemyAI
         isAttack = false;
         IsRange = false;
         State = NPCstate.Chasing;
+        StartMoving();
         range_attack_time_left = RangeAttackCoolDown;
     }
 
@@ -235,8 +242,6 @@ public class GolemBoss : EnemyAI
         _dir = (target.transform.position - transform.position).normalized;
         State = NPCstate.IDLE;
 
-        //rb.AddForce(new Vector2(0, 50f));
-        //rb.gravityScale = 2;
     }
 
     private void Land()
@@ -259,6 +264,7 @@ public class GolemBoss : EnemyAI
 
     void Fly()
     {
+        _dir = ((Vector3)endPoint - transform.position).normalized;
         if (Vector2.Distance(transform.position, endPoint) < 1.5f)
         {
             State = NPCstate.Attacking;
@@ -267,4 +273,5 @@ public class GolemBoss : EnemyAI
         else
             rb.MovePosition(transform.position + _dir * 10 * Time.deltaTime);
     }
+
 }

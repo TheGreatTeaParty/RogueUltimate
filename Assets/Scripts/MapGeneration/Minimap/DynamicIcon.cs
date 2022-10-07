@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
+
 
 public class DynamicIcon : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class DynamicIcon : MonoBehaviour
     private SpriteRenderer sprite;
 
     [SerializeField]
-    private Light2D _roomLight;
-    private Light2D[] _lights;
+    private UnityEngine.Rendering.Universal.Light2D _roomLight;
+    private UnityEngine.Rendering.Universal.Light2D[] _lights;
     private SpriteRenderer[] _doorIcons;
 
     private float IntencityOut = 0.7f;
@@ -33,7 +34,7 @@ public class DynamicIcon : MonoBehaviour
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        _lights = LightParent.GetComponentsInChildren<Light2D>();
+        _lights = LightParent.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>();
         _doorIcons = DoorParent.GetComponentsInChildren<SpriteRenderer>();
 
 

@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _LockMovement = false;
 
+    private bool _isLockPlayerControll = false;
+
     private PlayerStat _playerStat;
     private EquipmentAnimationHandler equipmentAnimation;
 
@@ -101,9 +103,14 @@ public class PlayerMovement : MonoBehaviour
         }
 		else
         {
-            if (!_stopped)
+            if (!_stopped && !_isLockPlayerControll)
             {
                 _movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+                movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
+                _movementDirection.Normalize();
+            }
+            else if (_isLockPlayerControll)
+            {
                 movementSpeed = Mathf.Clamp(_movementDirection.magnitude, 0.0f, 1.0f);
                 _movementDirection.Normalize();
             }
@@ -177,6 +184,19 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(time);
         StartMoving();
     }
+    public IEnumerator DisablePlayerCollision(float time)
+    {
+        Physics2D.IgnoreLayerCollision(8, 12, true);
+        yield return new WaitForSeconds(time);
+        Physics2D.IgnoreLayerCollision(8, 12, false);
+    }
+    public IEnumerator DisablePlayerControllWithoutStopping(float time, Vector2 dir)
+    {
+        _isLockPlayerControll = true;
+        _movementDirection = dir;
+        yield return new WaitForSeconds(time);
+        _isLockPlayerControll = false;
+    }
     public void SetRangeMoving(bool state)
     {
         _rangeMoving = state;
@@ -215,6 +235,7 @@ public class PlayerMovement : MonoBehaviour
                 characterAudio.PlayExtra(0);
 
                 StartCoroutine(DisablePlayerControll(ROLL_TIME));
+                StartCoroutine(DisablePlayerCollision(ROLL_TIME));
             }
         }
     }

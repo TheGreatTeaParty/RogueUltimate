@@ -5,7 +5,6 @@ using GoogleMobileAds.Common;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-using Firebase.Analytics;
 
 public class MobAdsReward : MonoBehaviour
 {
@@ -68,10 +67,10 @@ public class MobAdsReward : MonoBehaviour
         if (rewardedAd.IsLoaded())
         {
             rewardedAd.Show();
-            Debug.Log("Displaying");
+            /*Debug.Log("Displaying");
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventEarnVirtualCurrency,
                 new Parameter(FirebaseAnalytics.ParameterVirtualCurrencyName, "renown"),
-                new Parameter(FirebaseAnalytics.ParameterValue, 150));
+                new Parameter(FirebaseAnalytics.ParameterValue, 150));*/
         }
         else
         {

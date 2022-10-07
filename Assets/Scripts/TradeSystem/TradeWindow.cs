@@ -22,6 +22,7 @@ public class TradeWindow : MonoBehaviour
     public void OnSlotClick(TradeSlot tradeSlot)
     {
         currentSlot = tradeSlot;
+        EraseTooltip();
         DrawTooltip();
         AudioManager.Instance.Play("Click");
 
@@ -33,7 +34,17 @@ public class TradeWindow : MonoBehaviour
         tradeTooltip.SetName(currentSlot.Item.ItemName);
         tradeTooltip.SetSprite(currentSlot.Item.Sprite);
         tradeTooltip.SetDescription(currentSlot.Item.Description);
-        tradeTooltip.SetPrice(currentSlot.Item.Price);
+
+        //
+        if (currentSlot.tradeSlotType == TradeSlotType.Player)
+        {
+            tradeTooltip.SetPrice((int)(currentSlot.Item.Price * 0.25));
+        }
+        else
+        {
+            tradeTooltip.SetPrice(currentSlot.Item.Price);
+
+        }
     }
 
     public void EraseTooltip()
@@ -71,7 +82,7 @@ public class TradeWindow : MonoBehaviour
 
     public void Sell()
     {
-        playerInventory.Gold += currentSlot.Item.Price;
+        playerInventory.Gold += (int)(currentSlot.Item.Price * 0.25);
         playerInventory.RemoveItem(currentSlot.Item);
 
         currentSlot.Amount--;

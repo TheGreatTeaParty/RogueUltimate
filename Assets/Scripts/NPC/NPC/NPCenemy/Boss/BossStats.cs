@@ -1,4 +1,4 @@
-﻿using Firebase.Analytics;
+﻿//using Firebase.Analytics;
 
 public class BossStats : EnemyStat
 {
@@ -19,7 +19,7 @@ public class BossStats : EnemyStat
     
     public override void Die()
     {
-        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventUnlockAchievement, new Parameter(FirebaseAnalytics.EventUnlockAchievement, "daddy_killed"));
+       // FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventUnlockAchievement, new Parameter(FirebaseAnalytics.EventUnlockAchievement, "daddy_killed"));
         Contract killBoss = CharacterManager.Instance.Stats.PlayerContracts.FindContract(3);
         if (killBoss)
             killBoss._currentScore++;

@@ -39,6 +39,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.5, y: 7.5, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4607680495287208798}
   - {fileID: 1046423048213248381}
@@ -56,6 +57,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -153,8 +155,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009773382, y: -0.19354935}
-  m_Size: {x: 0.16889758, y: 0.16889758}
+  m_Offset: {x: -0.009773382, y: -0.16581829}
+  m_Size: {x: 0.16889758, y: 0.22436093}
   m_Direction: 0
 --- !u!50 &8116231467878050891
 Rigidbody2D:
@@ -198,12 +200,11 @@ MonoBehaviour:
   attackDuration: 0.5
   colliderDetactionRadius: 0.3
   attackRadius: 1.5
-  attackRange: 5
-  Lamp: {fileID: 0}
+  attackRange: 15
   speed: 3
   meleRange: 2
-  rockRange: 7
-  restTime: 2
+  rockRange: 10
+  restTime: 2.6
   RangeAttackCoolDown: 4
   stageTwoHealth: 0.7
   stageCharacteristicMult: 1.8
@@ -241,7 +242,7 @@ MonoBehaviour:
     value: -1
 --- !u!95 &152449243862510472
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -254,6 +255,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using Firebase.Analytics;
+//using Firebase.Analytics;
 
 public class LevelManager : MonoBehaviour
 {
@@ -44,8 +44,8 @@ public class LevelManager : MonoBehaviour
         if(scenes != Scenes.Tavern && scenes != Scenes.StartTavern && scenes != Scenes.TutorialTavern)
         {
             SaveManager.AccountAutoSave();
-            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart,
-                new Parameter(FirebaseAnalytics.ParameterLevelName, "dungeon1"));
+           // FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart,
+            //    new Parameter(FirebaseAnalytics.ParameterLevelName, "dungeon1"));
         }
         else if(scenes == Scenes.Tavern || scenes == Scenes.StartTavern)
         {

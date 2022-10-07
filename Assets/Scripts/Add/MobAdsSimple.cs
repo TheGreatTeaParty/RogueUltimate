@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine;
-using Firebase.Analytics;
 
 public class MobAdsSimple : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class MobAdsSimple : MonoBehaviour
         if (interstitialAd.IsLoaded())
         {
             interstitialAd.Show();
-            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventScreenView, new Parameter(FirebaseAnalytics.ParameterScreenName, "simple_ad"));
+           // FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventScreenView, new Parameter(FirebaseAnalytics.ParameterScreenName, "simple_ad"));
         }
     }
 }

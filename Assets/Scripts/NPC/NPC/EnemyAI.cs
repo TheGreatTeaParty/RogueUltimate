@@ -74,6 +74,7 @@ public class EnemyAI : AI
                 }
             case NPCstate.IDLE:
                 {
+                    StateIDLE();
                     break;
                 }
         }
@@ -95,7 +96,10 @@ public class EnemyAI : AI
             }
         }
     }
-
+    protected virtual void StateIDLE()
+    {
+        return;
+    }
     protected virtual void StateHanging()
     {
         if (path != null)

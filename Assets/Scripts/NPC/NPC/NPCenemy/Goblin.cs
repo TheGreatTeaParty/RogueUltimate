@@ -27,6 +27,11 @@ public class Goblin : Warrior
             return;
         }
     }
+    protected override void StateIDLE()
+    {
+        base.StateIDLE();
+        animator.SetFloat("Speed", 0);
+    }
 
     protected override void Attack()
     {
@@ -46,34 +51,21 @@ public class Goblin : Warrior
             }
         }
 
-
-        State = NPCstate.Waiting;
         Vector2 direction = Vector2.zero;
         if (target)
             direction = (target.transform.position - transform.position);
         Vector2 runBack = transform.position + (Vector3)(-direction.normalized * RunBack);
-        if (IsPositionAvailable(runBack))
-        { 
-            Roll(-direction);
-        }
-        else
-        {
-            State = NPCstate.Chasing;
-            isAttack = false;
-        }
+        DisableControll();
+        Roll(-direction);
     }
 
 
 
     protected IEnumerator EnemyWait()
     {
-        StopMoving();
         yield return new WaitForSeconds(waitTime);
-        _started = true;
-        State = NPCstate.Chasing;
+        EnableControll();
         direction = nextPointDir;
-        StartMoving();
-        _started = false;
         isAttack = false;
     }
 
@@ -82,10 +74,7 @@ public class Goblin : Warrior
         animator.SetTrigger("Roll");
         direction = dir;
         rb.AddForce(dir.normalized * 750 * RollForce);
-        if (!_started)
-            StartCoroutine(EnemyWait());
-        else
-            isAttack = false;
+        StartCoroutine(EnemyWait());
     }
 
 }

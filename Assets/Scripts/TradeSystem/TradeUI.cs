@@ -105,7 +105,6 @@ public class TradeUI : MonoBehaviour
         
         if (tradeWindow.currentSlot == null) return;
         action.SetText(tradeWindow.currentSlot.tradeSlotType == TradeSlotType.NPC ? LocalizationSystem.GetLocalisedValue("trade_buy") : LocalizationSystem.GetLocalisedValue("trade_sell"));
-        price.SetText(tradeWindow.currentSlot.Item.Price.ToString());
     }
 
     public void SetUpUpgradeData()

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DoorVisual : MonoBehaviour
 {
+    public GameObject RoomEnteringTarget;
+
     public GameObject ClosedDoor;
     public GameObject OpenDoor;
 
@@ -26,6 +29,7 @@ public class DoorVisual : MonoBehaviour
             OpenDoor.SetActive(true);
             _audioSource.Play();
             _isOpen = true;
+            PushPlayerToTheRoom();
         }
     }
 
@@ -33,7 +37,7 @@ public class DoorVisual : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-                Open();
+            Open();
         }
     }
 
@@ -43,6 +47,10 @@ public class DoorVisual : MonoBehaviour
         OpenDoor.SetActive(false);
         _audioSource.Play();
         _isBlocked = true;
+    }
+    public void PushPlayerToTheRoom()
+    {
+        StartCoroutine(PlayerOnScene.Instance.playerMovement.DisablePlayerControllWithoutStopping(1.1f, (RoomEnteringTarget.transform.position - PlayerOnScene.Instance.playerMovement.PlayerCollider.bounds.center).normalized));
     }
 
     public void Restore()
