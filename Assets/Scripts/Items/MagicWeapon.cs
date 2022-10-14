@@ -72,8 +72,8 @@ public class MagicWeapon : EquipmentItem
             return;
         var player = PlayerOnScene.Instance;
        
-        Transform magic = Instantiate(prefab, 
-            player.playerMovement.transform.position + direction, Quaternion.identity);
+        Transform magic = Instantiate(prefab,
+            PlayerOnScene.Instance.playerMovement.GetPlayerColliderCenter() + direction, Quaternion.identity);
         var crit = playerStat.GetMagicalCritDamage();
         if(_effect)
             magic.GetComponent<FlyingObject>().SetData(magicDamage, crit.Item1, direction, crit.Item2, playerStat.KnockBack.Value,Instantiate(_effect));

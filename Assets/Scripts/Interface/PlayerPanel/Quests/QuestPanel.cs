@@ -12,13 +12,13 @@ public class QuestPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerContracts = CharacterManager.Instance.Stats.PlayerContracts;
         playerSlots = GetComponentsInChildren<ContractSlot>();
         NavigatorButton.onWindowChanged += UpdateUI;
     }
   
     void UpdateUI(WindowType windowType, NavigatorButton navigatorButton)
     {
+        playerContracts = CharacterManager.Instance.Stats.PlayerContracts;
         int j = 0;
         for (int i = 0; i < playerContracts.contracts.Capacity; i++)
         {

@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
 
 public class Archer : EnemyAI
 {
@@ -17,21 +20,21 @@ public class Archer : EnemyAI
     protected override void Update()
     {
         base.Update();
-        if(_playerCollider)
+        if (_playerCollider)
             _shootDir = Vector3.Normalize(_playerCollider.bounds.center - _collider.bounds.center);
     }
-    
+
     protected override void Attack()
     {
         Transform arrow = Instantiate(arrowPrefab, _collider.bounds.center + _shootDir, Quaternion.identity);
 
-        arrow.GetComponent<FlyingObject>().SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value,_shootDir,false,0,null,false);
+        arrow.GetComponent<FlyingObject>().SetData(stats.PhysicalDamage.Value, stats.MagicDamage.Value, _shootDir, false, 0, null, false);
         isAttack = false;
         MoveRandomly();
     }
     protected override void StateChasing()
     {
-        if (path == null) return;
+        if (path == null || !target) return;
 
         if (!isStopped)
             rb.MovePosition(transform.position + (Vector3)direction * movementSpeed * Time.deltaTime);
@@ -57,7 +60,13 @@ public class Archer : EnemyAI
             state = NPCstate.Hanging;
             followPosition = destination;
             Debug.DrawRay(_collider.bounds.center, destination, Color.red);
+            StartCoroutine(MoveWait(2));
         }
+    }
+    protected IEnumerator MoveWait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        state = NPCstate.Chasing;
     }
 
 }

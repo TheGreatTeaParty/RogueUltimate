@@ -90,9 +90,13 @@ public class Smith : Citizen, IInteractable, ITalkable
         {
             return List2;
         }
-        else
+        else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.smith) == 2)
         {
             return List3;
+        }
+        else
+        {
+            return null;
         }
     }
 }

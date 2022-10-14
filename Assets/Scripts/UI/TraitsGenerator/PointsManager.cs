@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PointsManager : MonoBehaviour
 {
-    public int PointsAvailable = 6;
+    public int PointsAvailable = 3;
 
     public StrengthAttribute Strength;
     public AgilityAttribute Agility;

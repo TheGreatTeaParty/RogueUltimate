@@ -72,7 +72,7 @@ public class RangeWeapon : EquipmentItem
           !playerStat.ModifyStamina(requiredStamina))
             return;
         Transform arrow = Instantiate(arrowPrefab,
-            PlayerOnScene.Instance.playerMovement.transform.position + direction, Quaternion.identity);
+            PlayerOnScene.Instance.playerMovement.GetPlayerColliderCenter() + direction, Quaternion.identity);
         var crit = playerStat.GetPhysicalCritDamage();
 
         if(_effect)

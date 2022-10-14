@@ -186,9 +186,13 @@ public class TavernKeeper : Citizen, IInteractable
         {
             return List2;
         }
-        else
+        else if(keeperUpgrade.GetCurrentLevel(TradeManager.tradeType.tavernKeeper) == 2)
         {
             return List3;
+        }
+        else
+        {
+            return null;
         }
     }
     public void SetInvenotyOnStart()

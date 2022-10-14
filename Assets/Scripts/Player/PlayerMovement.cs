@@ -243,4 +243,8 @@ public class PlayerMovement : MonoBehaviour
     {
         BASE_MOVEMENT_SPEED += value;
     }
+    public Vector3 GetPlayerColliderCenter()
+    {
+        return PlayerCollider.bounds.center;
+    }
 }

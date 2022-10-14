@@ -17,7 +17,8 @@ public class TradeUI : MonoBehaviour
     [SerializeField] private TradeManager tradeManager;
     [SerializeField] private Transform playerSlotsParent;
     [SerializeField] private Transform npcSlotsParent;
-    public Button UButton;
+    public Button upgradeConfirmButton;
+    public Button upgradeMenuButton;
     public TextMeshProUGUI LevelValue;
     [Space]
     public TextMeshProUGUI levelValue;
@@ -89,14 +90,27 @@ public class TradeUI : MonoBehaviour
             playerSlots[i].gameObject.SetActive(false);
         }
 
-        if (UButton)
+        if (upgradeConfirmButton)
         {
             if (accountManager.Renown >= tavernKeeperUpgrade.GetReqiredPrice(tradeWindow.Type)
                 && !tavernKeeperUpgrade.IsMaxLevel(tradeWindow.Type))
-                UButton.interactable = true;
+            {
+                upgradeConfirmButton.interactable = true;
+                LevelValue.text = tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type).ToString();
+            }
+            else if(accountManager.Renown < tavernKeeperUpgrade.GetReqiredPrice(tradeWindow.Type)
+                && !tavernKeeperUpgrade.IsMaxLevel(tradeWindow.Type))
+            {
+                upgradeConfirmButton.interactable = false;
+                LevelValue.text = tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type).ToString();
+            }
             else
-                UButton.interactable = false;
-            LevelValue.text = tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type).ToString();
+            {
+                upgradeConfirmButton.interactable = false;
+                LevelValue.text = "MAX";
+                if (upgradeMenuButton)
+                    upgradeMenuButton.interactable = false;
+            }
         }
 
         tradeManager.playerInventory.UpdateGold();
@@ -124,6 +138,7 @@ public class TradeUI : MonoBehaviour
             case TradeManager.tradeType.tavernKeeper:
                 {
                     var unlock = tradeManager.npcInventory.gameObject.GetComponent<TavernKeeper>().GetList();
+                    if(unlock == null) return;
                     for(int i = 0; i < unlock.Count; ++i)
                     {
                         var temp = Instantiate(template, parent.transform);
@@ -134,6 +149,7 @@ public class TradeUI : MonoBehaviour
             case TradeManager.tradeType.smith:
                 {
                     var unlock = tradeManager.npcInventory.gameObject.GetComponent<Smith>().GetList();
+                    if (unlock == null) return;
                     for (int i = 0; i < unlock.Count; ++i)
                     {
                         var temp = Instantiate(template, parent.transform);

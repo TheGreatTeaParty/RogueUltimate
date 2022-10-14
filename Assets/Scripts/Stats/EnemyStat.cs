@@ -143,17 +143,18 @@ public class EnemyStat : CharacterStat, IDamaged
     }
     public override void ModifyMovementSpeed(float intensity)
     {
-       if(intensity == 1)
+        if (!_enemyAi) return;
+        if (intensity == 1)
         {
             _enemyAi.StopMoving();
         }
 
-       else if (intensity == 0)
+        else if (intensity == 0)
         {
             _enemyAi.StartMoving();
         }
 
-        else if(intensity < 0)
+        else if (intensity < 0)
         {
             _enemyAi.IncreaseMovementSpeed(-intensity);
         }

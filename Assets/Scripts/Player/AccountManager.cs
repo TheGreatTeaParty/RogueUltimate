@@ -19,7 +19,9 @@ public class AccountManager : MonoBehaviour
 
     #endregion
 
+    [SerializeField]
     private float _renown = 0;
+    [SerializeField]
     private int _keeper_level = 1, _smith_level = 1, _master_level = 1;
 
     public event Action<float> OnRenownChanged;

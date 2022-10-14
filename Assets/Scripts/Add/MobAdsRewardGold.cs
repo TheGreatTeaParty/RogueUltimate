@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class MobAdsRewardGold : MonoBehaviour
 {
     private RewardedAd rewardedAd;
-    private const string rewardUnitId = "ca-app-pub-3581850693025727/5913756446";
+    private const string rewardUnitId = "ca-app-pub-6344077212730305/6578682451";
 
     public void Start()
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[Serializable]
 public class EffectController
 {
     private List<Effect> _effects;
@@ -21,7 +21,7 @@ public class EffectController
         effect._stat = character;
         if (!character.IsEffectApplied(effect._chance, effect._effectType)) { return; }
       
-        Predicate<Effect> temp = cur_effect => cur_effect.EffectType == effect.EffectType;
+        Predicate<Effect> temp = cur_effect => cur_effect.EffectType == effect.EffectType && cur_effect.EffectName == effect.EffectName;
         var existing = _effects.Find(temp);
         if (!existing)
         {

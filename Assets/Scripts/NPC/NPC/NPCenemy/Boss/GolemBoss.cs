@@ -113,6 +113,7 @@ public class GolemBoss : EnemyAI
     private void SwitchStage()
     {
         StopMoving();
+        State = NPCstate.IDLE;
         _stage = BossStage.Second;
         movementSpeed *= stageCharacteristicMult;
         _stageChanged = true;

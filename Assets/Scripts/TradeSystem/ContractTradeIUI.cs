@@ -16,6 +16,7 @@ public class ContractTradeIUI : MonoBehaviour
     [SerializeField] private TradeManager tradeManager;
     [SerializeField] private Transform playerSlotsParent;
     [SerializeField] private Transform npcSlotsParent;
+    public Button upgradeMenuButton;
     public Button UButton;
     public TextMeshProUGUI LevelValue;
     [Space]
@@ -102,10 +103,17 @@ public class ContractTradeIUI : MonoBehaviour
         {
             if (accountManager.Renown >= tavernKeeperUpgrade.GetReqiredPrice(tradeWindow.Type)
                 && !tavernKeeperUpgrade.IsMaxLevel(tradeWindow.Type))
+            {
                 UButton.interactable = true;
+                LevelValue.text = ((TraitsGenerator.RenownLevel)tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type)).ToString();
+            }
             else
+            {
                 UButton.interactable = false;
-            LevelValue.text = ((TraitsGenerator.RenownLevel)tavernKeeperUpgrade.GetCurrentLevel(tradeWindow.Type)).ToString();
+                LevelValue.text = "MAX";
+                if (upgradeMenuButton)
+                    upgradeMenuButton.interactable = false;
+            }
         }
        
         if (tradeWindow.currentSlot == null) return;
